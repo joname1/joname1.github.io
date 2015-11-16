@@ -3,8 +3,6 @@ Name: TencentMobileManagerPro
 Version: 15.4
 Architecture: iphoneos-arm
 Description: Tencent Mobile Manager Pro.
-Homepage: http://www.qq.com
-Depiction: http://www.qq.com
 Maintainer: Tencent
 Author: Tencent
 Sponsor: Tencent
