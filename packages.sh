@@ -1,1 +1,1 @@
-dpkg-deb -bZgzip repo debs
+dpkg-deb -b Packages
