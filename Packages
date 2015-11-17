@@ -1,4 +1,4 @@
-Package: tencentmobilemanager
+Package: com.joname.tencentmobilemanager
 Name: TencentMobileManagerPro
 Version: 15.4
 Architecture: iphoneos-arm
@@ -7,6 +7,19 @@ Maintainer: Tencent
 Author: Tencent
 Sponsor: Tencent
 Section: Tools
-Filename: files/tencentmobilemanager/15.4_jb_iphone_build1343.deb
+Filename: repo/com.joname.tencentmobilemanager_15.4_jb_iphone_build1343.deb
 Size: 15687962
 MD5sum: 4614a96dc66c384f0632a2d63dc96fc3
+
+Package: com.joname.impactor
+Name: Cydia Impactor
+Version: 0.9.17
+Architecture: iphoneos-arm
+Description: Cydia Impactor
+Maintainer: Saurik
+Author: Saurik
+Sponsor: Saurik
+Section: Tools
+Filename: repo/com.joname.impactor_0.9.17_iphoneos-arm.deb
+Size: 251630
+MD5sum: 1878fd56db121b0afa37c0221856e04b
