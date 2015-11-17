@@ -1,12 +1,12 @@
-Package: tencentmobilemanager15.4
-Name: Tencent Mobile Manager Pro
+Package: tencentmobilemanager
+Name: TencentMobileManagerPro
 Version: 15.4
 Architecture: iphoneos-arm
-Description: 腾讯手机管家Pro
+Description: TencentMobileManagerPro
 Maintainer: Tencent
 Author: Tencent
 Sponsor: Tencent
 Section: Tools
-Filename: debs/tencentmobilemanager15.4_jb_iphone_build1343.deb
+Filename: files/tencentmobilemanager/15.4_jb_iphone_build1343.deb
 Size: 15687962
 MD5sum: 4614a96dc66c384f0632a2d63dc96fc3
