@@ -1,8 +1,8 @@
 Package: tencentmobilemanager15.4
-Name: 腾讯手机管家Pro
+Name: Tencent Mobile Manager Pro
 Version: 15.4
 Architecture: iphoneos-arm
-Description: Tencent Mobile Manager Pro.
+Description: 腾讯手机管家Pro
 Maintainer: Tencent
 Author: Tencent
 Sponsor: Tencent
