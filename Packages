@@ -1,0 +1,26 @@
+Package: com.joname.impactor
+
+Version: 0.9.17
+
+Architecture: iphoneos-arm
+
+Maintainer: Saurik
+
+Filename: ./debs/com.joname.impactor_0.9.17_iphoneos-arm.deb
+
+Size: 332806
+
+MD5sum: a30f459f0df64097407e9e893d797781
+
+SHA1: a65aeeb2d4154b950d0753ef6febb198b301782b
+
+SHA256: 947bab87edf9bee14b19a69de3b3e565764d05590e0ea0e356eaba6a3ef17f7e
+
+Section: Tools
+
+Description: Cydia Impactor
+
+Author: Saurik
+
+Name: Cydia Impactor
+
