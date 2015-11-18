@@ -1,0 +1,18 @@
+Package: com.joname.tencentmobilemanager
+Name: TencentMobileManagerPro
+Version: 15.4
+Architecture: iphoneos-arm
+Description: TencentMobileManagerPro
+Maintainer: Tencent
+Author: Tencent
+Sponsor: Tencent
+Section: Tools
+
+Package: com.joname.impactor
+Name: Cydia Impactor
+Architecture: iphoneos-arm
+Description: Cydia Impactor
+Maintainer: Saurik
+Author: Saurik
+Section: Tools
+Version: 0.9.17
