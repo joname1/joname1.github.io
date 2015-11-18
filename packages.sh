@@ -1,1 +1,2 @@
-dpkg-deb -b Packages
+#!/bin/bash
+dpkg-deb -bZgzip projects/ Packages
