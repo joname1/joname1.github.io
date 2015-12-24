@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>无缝播放条</title>
+	<style type="text/css">
+	#container{
+		width: 480px;
+		height: 77px;
+		border: 1px solid #999;
+		padding:0 10px; 
+		margin: 0 auto;
+		position: relative;
+		overflow: hidden;
+	}
+	#container ul {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		width: 480px;
+		height: 78px;
+		position: absolute;
+		top: 0;
+	}
+	#container ul li{
+		width: 100px;
+		margin: 0 10px;
+		float: left;
+	}
+	#container ul li img{
+		width: 100px;
+		height: auto;
+	}
+	</style>
+	<script type="text/javascript">
+	window.onload=function(){
+	var oContainer=document.getElementById("container");
+	var oUl=oContainer.getElementsByTagName("ul")[0];
+	var oLi=oUl.getElementsByTagName("li");
+	oUl.innerHTML+=oUl.innerHTML;
+	oUl.style.width=oLi.length*(oLi[0].offsetWidth+20)+"px";
+	var timer=null;
+	function run(){
+		if(oUl.offsetLeft<-oUl.offsetWidth/2)
+		{
+			oUl.style.left=0;
+		}
+		else if(oUl.offsetLeft>0){
+			oUl.style.left=-oUl.offsetWidth/2+"px";
+		}
+		oUl.style.left=oUl.offsetLeft+2+'px';
+	}
+	timer=setInterval(run,30);
+	oUl.onmouseover=function(){
+		clearInterval(timer);
+	}
+	oUl.onmouseout=function(){
+		timer=setInterval(run,30);
+	}
+	}
+	</script>
+</head>
+<body>
+	<div id="container">
+		<ul>
+			<li><img src="img/1.jpg"></li>
+			<li><img src="img/2.jpg"></li>
+			<li><img src="img/3.jpg"></li>
+			<li><img src="img/4.jpg"></li>
+		</ul>
+	</div>
+</body>
+</html>
