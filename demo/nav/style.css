@@ -1,0 +1,87 @@
+	*{
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		font-family: "Microsoft Yahei";
+	}
+	.nav{
+		width: 100%;
+		height: 200px;
+		background: #27ccc0;
+	}
+	.nav_header{
+		width: 1000px;
+		height: 100%;
+		margin: 0 auto;
+	}
+	.nav_header h1{
+		text-align: center;
+		padding-top: 76px;
+		line-height: 24px;	
+		color: #fff;
+		font-weight: normal;
+	}
+	.nav_second{
+		width: 100%;
+		height: 52px;
+		background-color: #584D4D;
+	}
+	.nav_body{
+		width: 1000px;
+		height: 100%;
+		margin: 0 auto;
+	}
+	.nav_body .nav_frist{
+		width: 100%;
+		height: 100%;
+	}
+	.nav_body .nav_frist>li{
+		width: 100px;
+		height: 52px;
+		float: left;
+		position: relative;
+		margin:0 0.5px; 
+	}
+	.nav_frist ul{
+		position: absolute;
+		width: 100%;
+		height: auto;
+		left: 0;
+		top: 52px;
+		opacity: 0;
+		display: none;
+	}
+	.nav_frist ul li{
+		width: 100px;
+		height: 52px;
+		background-color: #27ccc0;
+	}
+	.nav_body ul li a{
+		display: block;
+		width: 100%;
+		height: 100%;
+		font-size: 16px;
+		line-height: 52px;
+		text-align: center;
+		text-decoration: none;
+		color: #fff;
+	}
+	.nav_body ul li a:hover{
+		background-color: #27ccc0;
+		color: #fff;
+	}
+	.active{
+		background-color: #27ccc0;
+		color: #fff;
+	}
+	.nav_frist ul li a:hover{
+		background-color:  #584D4D;
+	}
+	ul:after {
+		display:block;
+		visibility:hidden;
+		font-size:0;
+		line-height:0;
+		clear:both;
+		content:"";
+	}

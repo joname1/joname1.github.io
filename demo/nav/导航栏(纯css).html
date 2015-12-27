@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>导航栏1</title>
+	<style type="text/css">
+	*{
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		font-family: "Microsoft Yahei";
+	}
+	.nav{
+		width: 100%;
+		height: 200px;
+		background: #27ccc0;
+	}
+	.nav_header{
+		width: 1000px;
+		height: 100%;
+		margin: 0 auto;
+	}
+	.nav_header h1{
+		text-align: center;
+		padding-top: 76px;
+		line-height: 24px;	
+		color: #fff;
+		font-weight: normal;
+	}
+	.nav_second{
+		width: 100%;
+		height: 52px;
+		background-color: #584D4D;
+	}
+	.nav_body{
+		width: 1000px;
+		height: 100%;
+		margin: 0 auto;
+	}
+	.nav_body .nav_frist{
+		width: 100%;
+		height: 100%;
+	}
+	.nav_body .nav_frist>li{
+		width: 100px;
+		height: 52px;
+		float: left;
+		position: relative;
+		margin:0 0.5px; 
+	}
+	.nav_body .nav_frist>li:hover ul{
+		display: block;
+	}
+	.nav_frist ul{
+		position: absolute;
+		width: 100%;
+		left: 0;
+		top: 52px;
+		display: none;
+	}
+	.nav_frist ul li{
+		width: 100px;
+		height: 52px;
+		background-color: #27ccc0;
+	}
+	.nav_body ul li a{
+		display: block;
+		width: 100%;
+		height: 100%;
+		font-size: 16px;
+		line-height: 52px;
+		text-align: center;
+		text-decoration: none;
+		color: #fff;
+	}
+	.nav_body ul li a:hover{
+		background-color: #27ccc0;
+		color: #fff;
+	}
+	.active{
+		background-color: #27ccc0;
+		color: #fff;
+	}
+	.nav_frist ul li a:hover{
+		background-color:  #584D4D;
+	}
+	ul:after {
+		display:block;
+		visibility:hidden;
+		font-size:0;
+		line-height:0;
+		clear:both;
+		content:"";
+	}
+	</style>
+</head>
+<body>
+	<div class="nav">
+		<div class="nav_header"><h1>然而并没什么卵用</h1></div>
+	</div>
+	<div class="nav_second">
+		<div class="nav_body">
+			<ul class="nav_frist">
+				<li class="active"><a href="#">首页</a></li>
+				<li>
+				<a href="#">生活笔记</a>
+				<ul>
+				<li><a href="#">个人日记</a></li>
+				<li><a href="#">个人感想</a></li>
+				</ul>
+				</li>
+				<li>
+				<a href="#">技术杂谈</a>
+				<ul>
+				<li><a href="#">Java</a></li>
+				<li><a href="#">HTML</a></li>
+				<li><a href="#">CSS</a></li>
+				<li><a href="#">JavaScript</a></li>
+				</ul>
+				</li>
+				
+				<li><a href="#">福利专区</a></li>
+			</ul>
+		</div>
+	</div>
+
+</body>
+</html>
