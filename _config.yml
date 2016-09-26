@@ -5,14 +5,14 @@
 # Site
 title: I'm Joname.
 subtitle: Just be nice, always think twice!
-description: 非专业视觉设计师。擅长各项前端技能及翻墙技术，深入研究移动端开发与前端性能。
+description: 博主乃膜蛤狂人, 有严重的强迫症和逼格崇拜症. 擅长各项前端技能及翻墙技术, 深入研究移动端开发与前端性能, 除了前端经验丰富, 喜欢钻研新技术, 就是缺个女朋友了! :)
 author: Joname
 language: en
 timezone: Asia/Shanghai
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: https://moha.gq
+url: http://moha.gq
 root: /
 permalink: :title/
 permalink_defaults:
@@ -39,9 +39,10 @@ relative_link: false
 future: true
 highlight:
   enable: true
-  line_number: true
+  line_number: false
   auto_detect: false
   tab_replace:
+
 
 # Category & Tag
 default_category: uncategorized
@@ -57,7 +58,7 @@ time_format: H:mm:ss
 
 # Pagination
 ## Set per_page to 0 to disable pagination
-per_page: 7
+per_page: 5
 pagination_dir: page
 
 # Extensions

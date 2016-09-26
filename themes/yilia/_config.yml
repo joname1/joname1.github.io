@@ -2,7 +2,7 @@
 menu:
   主页: /
   所有文章: /archives
-  # 随笔: /tags/随笔
+  关于我: /about
 
 # SubNav
 subnav:
@@ -14,10 +14,10 @@ subnav:
   mail: "mailto:joname.liangtan@gmail.com"
   #facebook: "#"
   #google: "#"
-  #twitter: "#"
+  twitter: "https://twitter.com/im_joname"
   #linkedin: "#"
 
-rss: /atom.xml
+#rss: /atom.xml
 
 # 是否需要修改 root 路径
 # 如果您的网站存放在子目录中，例如 http://yoursite.com/blog，
@@ -28,6 +28,7 @@ root:
 excerpt_link: more
 fancybox: true
 mathjax: true
+
 
 # 是否开启动画效果
 animate: true
@@ -40,7 +41,7 @@ google_analytics: ''
 favicon: favicon.ico
 
 #你的头像url
-avatar: https://avatars0.githubusercontent.com/u/15252214?v=3&s=460
+avatar: http://joe-10005639.file.myqcloud.com/head.jpg
 #是否开启分享
 share_jia: false
 share_addthis: false
@@ -64,6 +65,6 @@ friends: false
 
 #是否开启“关于我”。
 #不开启——
-#aboutme: false
+aboutme: false
 #开启——
-aboutme: 擅长各项前端技能及翻墙技术, 深入研究移动端开发与前端性能. PS:作者乃膜蛤狂人, 有严重强迫症, 逼格崇拜症.
+#aboutme: 擅长各项前端技能及翻墙技术, 深入研究移动端开发与前端性能. PS:作者乃膜蛤狂人, 有严重强迫症, 逼格崇拜症.
