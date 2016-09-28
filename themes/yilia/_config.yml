@@ -7,14 +7,14 @@ menu:
 # SubNav
 subnav:
   github: "https://github.com/joname1"
+  zhihu: "http://www.zhihu.com/people/joname-liangtan"
+  twitter: "https://twitter.com/im_joname"
+  mail: "mailto:joname.liangtan@gmail.com"
   #weibo: "#"
   #rss: "#"
-  zhihu: "http://www.zhihu.com/people/joname-liangtan"
   #douban: "#"
-  mail: "mailto:joname.liangtan@gmail.com"
   #facebook: "#"
   #google: "#"
-  twitter: "https://twitter.com/im_joname"
   #linkedin: "#"
 
 #rss: /atom.xml
@@ -26,7 +26,7 @@ root:
 
 # Content
 excerpt_link: more
-fancybox: true
+fancybox: false
 mathjax: true
 
 
