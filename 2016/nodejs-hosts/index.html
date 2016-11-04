@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>使用node.js自动更新本地hosts, 实现科学上网. | 江矿宝宝的博客.</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="现在网上有不少提供google hosts的网址，当我们访问不了google时，就需要复制这个网站提供的hosts到我们本地的hosts，在粘贴前还要在C盘一层一层的找到本地hosts，比较麻烦。于是我就想能不能通过运行一条命令就能把网站里的hosts自动更新到本地，刚开始想的是用php写的，不过在跟同学聊天的过程中，同学建议使用node来实现这个功能，简单方便，而且我对php的正则表达式也不是很">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用node.js自动更新本地hosts, 实现科学上网.">
+<meta property="og:url" content="http://joname1.github.io/2016/nodejs-hosts/index.html">
+<meta property="og:site_name" content="江矿宝宝的博客.">
+<meta property="og:description" content="现在网上有不少提供google hosts的网址，当我们访问不了google时，就需要复制这个网站提供的hosts到我们本地的hosts，在粘贴前还要在C盘一层一层的找到本地hosts，比较麻烦。于是我就想能不能通过运行一条命令就能把网站里的hosts自动更新到本地，刚开始想的是用php写的，不过在跟同学聊天的过程中，同学建议使用node来实现这个功能，简单方便，而且我对php的正则表达式也不是很">
+<meta property="og:image" content="http://7xoatu.com1.z0.glb.clouddn.com/o_1ajj0h2ii5r4uk81u9p27i1i11a.jpg">
+<meta property="og:image" content="http://7xoatu.com1.z0.glb.clouddn.com/o_1ajj1499q125g1lkufv518c31r5ga.png">
+<meta property="og:updated_time" content="2016-09-28T01:10:05.395Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用node.js自动更新本地hosts, 实现科学上网.">
+<meta name="twitter:description" content="现在网上有不少提供google hosts的网址，当我们访问不了google时，就需要复制这个网站提供的hosts到我们本地的hosts，在粘贴前还要在C盘一层一层的找到本地hosts，比较麻烦。于是我就想能不能通过运行一条命令就能把网站里的hosts自动更新到本地，刚开始想的是用php写的，不过在跟同学聊天的过程中，同学建议使用node来实现这个功能，简单方便，而且我对php的正则表达式也不是很">
+<meta name="twitter:image" content="http://7xoatu.com1.z0.glb.clouddn.com/o_1ajj0h2ii5r4uk81u9p27i1i11a.jpg">
+  
+  
+  <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="http://joe-10005639.file.myqcloud.com/jkbb.jpg" class="js-avatar show">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Joname</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">Just be nice, always think twice!</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+						<ul class="tips-inner">
+						    <li>菜单</li>
+						    <li>标签</li>
+						    
+						    
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/about">关于我</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/joname1" title="github">github</a>
+					        
+								<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/joname-liangtan" title="zhihu">zhihu</a>
+					        
+								<a class="twitter" target="_blank" href="https://twitter.com/im_joname" title="twitter">twitter</a>
+					        
+								<a class="mail" target="_blank" href="mailto:joname.liangtan@gmail.com" title="mail">mail</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Bootstrap/" style="font-size: 10px;">Bootstrap</a> <a href="/tags/Shadowsocks/" style="font-size: 14px;">Shadowsocks</a> <a href="/tags/angular-js/" style="font-size: 10px;">angular.js</a> <a href="/tags/angularjs/" style="font-size: 10px;">angularjs</a> <a href="/tags/browser-sync/" style="font-size: 10px;">browser-sync</a> <a href="/tags/commonjs/" style="font-size: 10px;">commonjs</a> <a href="/tags/css/" style="font-size: 12px;">css</a> <a href="/tags/es6/" style="font-size: 12px;">es6</a> <a href="/tags/fuck-gfw/" style="font-size: 16px;">fuck-gfw</a> <a href="/tags/grid/" style="font-size: 10px;">grid</a> <a href="/tags/gulp/" style="font-size: 20px;">gulp</a> <a href="/tags/hiwifi/" style="font-size: 10px;">hiwifi</a> <a href="/tags/hosts/" style="font-size: 10px;">hosts</a> <a href="/tags/javaScript/" style="font-size: 10px;">javaScript</a> <a href="/tags/javascript/" style="font-size: 18px;">javascript</a> <a href="/tags/js/" style="font-size: 14px;">js</a> <a href="/tags/less/" style="font-size: 12px;">less</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/node-js/" style="font-size: 16px;">node.js</a> <a href="/tags/nodejs/" style="font-size: 18px;">nodejs</a> <a href="/tags/requirejs/" style="font-size: 16px;">requirejs</a> <a href="/tags/sass/" style="font-size: 10px;">sass</a> <a href="/tags/sprite/" style="font-size: 10px;">sprite</a> <a href="/tags/ss/" style="font-size: 14px;">ss</a> <a href="/tags/surge/" style="font-size: 10px;">surge</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Joname</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				
+					<img src="http://joe-10005639.file.myqcloud.com/jkbb.jpg" class="js-avatar show">
+				
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Joname</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">Just be nice, always think twice!</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/about">关于我</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/joname1" title="github">github</a>
+			        
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/joname-liangtan" title="zhihu">zhihu</a>
+			        
+						<a class="twitter" target="_blank" href="https://twitter.com/im_joname" title="twitter">twitter</a>
+			        
+						<a class="mail" target="_blank" href="mailto:joname.liangtan@gmail.com" title="mail">mail</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-nodejs-hosts" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/nodejs-hosts/" class="article-date">
+  	<time datetime="2016-09-04T06:52:35.000Z" itemprop="datePublished">Sep 4</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      使用node.js自动更新本地hosts, 实现科学上网.
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/fuck-gfw/">fuck-gfw</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hosts/">hosts</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nodejs/">nodejs</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>现在网上有不少提供google hosts的网址，当我们访问不了google时，就需要复制这个网站提供的hosts到我们本地的hosts，在粘贴前还要在C盘一层一层的找到本地hosts，比较麻烦。<br>于是我就想能不能通过运行一条命令就能把网站里的hosts自动更新到本地，刚开始想的是用php写的，不过在跟同学聊天的过程中，同学建议使用node来实现这个功能，简单方便，而且我对php的正则表达式也不是很熟，那就用node试试吧。<br><a id="more"></a></p>
+<h1 id="1-安装Node"><a href="#1-安装Node" class="headerlink" title="1. 安装Node"></a>1. 安装Node</h1><p>进入<a href="https://nodejs.org/en/download" target="_blank" rel="external">官网</a>，下载我们需要的程序包。下载后，双击进行安装。<br><img src="http://7xoatu.com1.z0.glb.clouddn.com/o_1ajj0h2ii5r4uk81u9p27i1i11a.jpg" alt=""><br>在现在的node版本中，默认是node和npm一起安装的，不用再单独安装npm了。<br>安装成功后，使用win+r打开cmd命令窗口，然后输入<code>node -v</code>查看当前node的版本号<br>输入<code>npm -v</code>查看当前npm的版本号<br>如果两个都能正确显示出版本号，就说明node和npm已经安装成功了。<br>使用.msi类型的文件进行能够自动添加node和npm到PATH的环境变量中。</p>
+<h1 id="2-下载需要的模块包"><a href="#2-下载需要的模块包" class="headerlink" title="2. 下载需要的模块包"></a>2. 下载需要的模块包</h1><p>npm是一个node的包管理和分发工具。有了npm，可以很快的找到你想要使用的包，进行下载、安装以及管理已经安装的包。<br>使用npm进行模块的安装非常的方便：<code>npm install ****</code><br>如果想安装成全局的，所有的项目都能使用，可以添加上-g参数，如：<code>npm install -g ****</code><br>本项目中主要使用到的模块有：</p>
+<ul>
+<li>request : 远程url请求。</li>
+<li>cheerio : 类似于jQuery，能够像jQuery那样选择元素，获取元素的内容。</li>
+<li>fs : 这是npm里自带的，不用下载安装，主要用于文件的读写操作。</li>
+</ul>
+<h1 id="3-编写程序"><a href="#3-编写程序" class="headerlink" title="3. 编写程序"></a>3. 编写程序</h1><p>程序的逻辑很简单：</p>
+<ul>
+<li>获取远程url的网页内容；</li>
+<li>解析出网页内容中hosts部分； </li>
+<li>读取自己设置的一些hosts；  </li>
+<li>将自己的hosts和远程获取到的hosts一起写入到C盘的hosts文件中。<br>这里使用了async中的waterfall来控制整个代码的流程。</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="keyword">async</span>.waterfall([</div><div class="line">    <span class="function"><span class="keyword">function</span>(<span class="params">callback</span>)</span>&#123;</div><div class="line">        self.log(<span class="string">"正在连接 hosts url...."</span>);</div><div class="line"></div><div class="line">        callback(error, data);</div><div class="line">    &#125;,</div><div class="line">    <span class="function"><span class="keyword">function</span>(<span class="params">body, callback</span>)</span>&#123;</div><div class="line">        self.log(<span class="string">"正在解析数据...."</span>);</div><div class="line"></div><div class="line">        callback(<span class="literal">null</span>, text);</div><div class="line">    &#125;,</div><div class="line">    <span class="function"><span class="keyword">function</span>(<span class="params">text, callback</span>)</span>&#123;</div><div class="line">        self.log(<span class="string">'读取本地文件....'</span>);</div><div class="line">        </div><div class="line">        callback(err, data); </div><div class="line">    &#125;,</div><div class="line">    <span class="function"><span class="keyword">function</span>(<span class="params">text, callback</span>)</span>&#123;</div><div class="line">        self.log(<span class="string">'正在写入hosts....'</span>);</div><div class="line">        </div><div class="line">        <span class="keyword">if</span>(err)&#123;</div><div class="line">            self.log(<span class="string">"写入失败...."</span>);</div><div class="line">        &#125;<span class="keyword">else</span>&#123;</div><div class="line">            self.log(<span class="string">"写入成功...."</span>);</div><div class="line">        &#125;</div><div class="line">        calllback(err);</div><div class="line">    &#125;,</div><div class="line">    <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        self.log(<span class="string">'运行完毕!'</span>);</div><div class="line">    &#125;</div><div class="line">], <span class="function"><span class="keyword">function</span>(<span class="params">err, data</span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'err: '</span>+err);</div><div class="line">    <span class="comment">// console.log('data: '+data);</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>async.waterfall提供瀑布式的流控制。每个操作产生的数据可以传递给下一个函数，通过callback这个回调函数。<br>async模块保证回调只会被触发一次。它同时还为我们处理了错误，管理并行的任务。<br>这里还要说明一下：我这儿有一个单独的文件来放置自己的hosts，比如当前目录中的default.txt文件</p>
+<h1 id="4-运行代码"><a href="#4-运行代码" class="headerlink" title="4. 运行代码"></a>4. 运行代码</h1><p>进入到这个项目所在的目录，首先运行<code>npm install</code>，安装程序所需要的集成包。安装完成之后，然后运行<code>index.js:node index.js</code>，如果正常的话，就会出现下面的提示：<br><img src="http://7xoatu.com1.z0.glb.clouddn.com/o_1ajj1499q125g1lkufv518c31r5ga.png" alt=""><br>程序采用的更新hosts的方式是全覆盖写入，因此我们需要把自己配置的一些hosts写到一个文件里（如default.txt）。当程序更新时，会首先读取default.txt里的hosts配置，然后与远程地址里的google hosts一起写入到本地的hosts文件中。<br>代码里还有参数的默认配置：<br><figure class="highlight"><table><tr><td class="code"><pre><div class="line">_option : &#123;  </div><div class="line">	hostsurl : 'http://www.360kb.com/kb/2_122.html',  // 请求地址</div><div class="line">	hostsfile : 'C:/Windows/System32/drivers/etc/hosts',  // 本地hosts地址</div><div class="line">	localfile : './default.txt'  // 默认hosts</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>你可以直接修改这些变量，或者在调用init()方法时传递你需要的参数，程序自然会覆盖掉默认参数：<br><figure class="highlight"><table><tr><td class="code"><pre><div class="line">wzHosts.init(&#123;hostsfile:'/etc/hosts', localfile:'/data/default.txt'&#125;);</div></pre></td></tr></table></figure></p>
+<p>这样，本地里的google hosts就更新到了最新！</p>
+<h1 id="5-总结与更新地址"><a href="#5-总结与更新地址" class="headerlink" title="5. 总结与更新地址"></a>5. 总结与更新地址</h1><p>通过这次的hosts读写，学习到了不少的node知识，欢迎提出你们的意见和建议！<br>Google hosts更新网址:</p>
+<blockquote>
+<p><a href="http://www.360kb.com/kb/2_122.html" target="_blank" rel="external">http://www.360kb.com/kb/2_122.html</a><br><a href="https://laod.cn/black-technology/hosts.html" target="_blank" rel="external">https://laod.cn/black-technology/hosts.html</a></p>
+</blockquote>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/gulp-commonjs-es6/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          使用 gulp 搭建CommonJs &amp; ES6 模块化环境
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/bootstrap-grid/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Bootstrap详解：栅格系统</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="nodejs-hosts" data-title="使用node.js自动更新本地hosts, 实现科学上网." data-url="http://joname1.github.io/2016/nodejs-hosts/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"joname"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-right">
+    		2016 <i class="fa fa-heart"></i> Joname. 我只作案,从不备案!
+    	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+	}
+</script>
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="https://cdn.bootcss.com/mathjax/2.7.0-beta.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script type="text/javascript" src="http://tajs.qq.com/stats?sId=59279948" charset="UTF-8"></script>
+
+  </div>
+</body>
+</html>

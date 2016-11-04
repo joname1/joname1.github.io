@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Node.js(1) 封装,调用,执行,访问路径,http,函数编程,等待函数,事件监听 | 江矿宝宝的博客.</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="1.如何封装一个模块；首先，我们建立一个js文件，例如命名为test.js；然后在里面写一个函数，函数名任意；然后通过exports.变量名，将函数赋值给这个变量；如代码：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Node.js(1) 封装,调用,执行,访问路径,http,函数编程,等待函数,事件监听">
+<meta property="og:url" content="http://joname1.github.io/2016/nodejs-1/index.html">
+<meta property="og:site_name" content="江矿宝宝的博客.">
+<meta property="og:description" content="1.如何封装一个模块；首先，我们建立一个js文件，例如命名为test.js；然后在里面写一个函数，函数名任意；然后通过exports.变量名，将函数赋值给这个变量；如代码：">
+<meta property="og:image" content="http://img.blog.csdn.net/20160602214711294">
+<meta property="og:image" content="http://img.blog.csdn.net/20160602214745169">
+<meta property="og:image" content="http://img.blog.csdn.net/20160602214830419">
+<meta property="og:image" content="http://img.blog.csdn.net/20160602214835576">
+<meta property="og:updated_time" content="2016-10-19T08:23:50.476Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Node.js(1) 封装,调用,执行,访问路径,http,函数编程,等待函数,事件监听">
+<meta name="twitter:description" content="1.如何封装一个模块；首先，我们建立一个js文件，例如命名为test.js；然后在里面写一个函数，函数名任意；然后通过exports.变量名，将函数赋值给这个变量；如代码：">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20160602214711294">
+  
+  
+  <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="http://joe-10005639.file.myqcloud.com/jkbb.jpg" class="js-avatar show">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Joname</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">Just be nice, always think twice!</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+						<ul class="tips-inner">
+						    <li>菜单</li>
+						    <li>标签</li>
+						    
+						    
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/about">关于我</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/joname1" title="github">github</a>
+					        
+								<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/joname-liangtan" title="zhihu">zhihu</a>
+					        
+								<a class="twitter" target="_blank" href="https://twitter.com/im_joname" title="twitter">twitter</a>
+					        
+								<a class="mail" target="_blank" href="mailto:joname.liangtan@gmail.com" title="mail">mail</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Bootstrap/" style="font-size: 10px;">Bootstrap</a> <a href="/tags/Shadowsocks/" style="font-size: 14px;">Shadowsocks</a> <a href="/tags/angular-js/" style="font-size: 10px;">angular.js</a> <a href="/tags/angularjs/" style="font-size: 10px;">angularjs</a> <a href="/tags/browser-sync/" style="font-size: 10px;">browser-sync</a> <a href="/tags/commonjs/" style="font-size: 10px;">commonjs</a> <a href="/tags/css/" style="font-size: 12px;">css</a> <a href="/tags/es6/" style="font-size: 12px;">es6</a> <a href="/tags/fuck-gfw/" style="font-size: 16px;">fuck-gfw</a> <a href="/tags/grid/" style="font-size: 10px;">grid</a> <a href="/tags/gulp/" style="font-size: 20px;">gulp</a> <a href="/tags/hiwifi/" style="font-size: 10px;">hiwifi</a> <a href="/tags/hosts/" style="font-size: 10px;">hosts</a> <a href="/tags/javaScript/" style="font-size: 10px;">javaScript</a> <a href="/tags/javascript/" style="font-size: 18px;">javascript</a> <a href="/tags/js/" style="font-size: 14px;">js</a> <a href="/tags/less/" style="font-size: 12px;">less</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/node-js/" style="font-size: 16px;">node.js</a> <a href="/tags/nodejs/" style="font-size: 18px;">nodejs</a> <a href="/tags/requirejs/" style="font-size: 16px;">requirejs</a> <a href="/tags/sass/" style="font-size: 10px;">sass</a> <a href="/tags/sprite/" style="font-size: 10px;">sprite</a> <a href="/tags/ss/" style="font-size: 14px;">ss</a> <a href="/tags/surge/" style="font-size: 10px;">surge</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Joname</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				
+					<img src="http://joe-10005639.file.myqcloud.com/jkbb.jpg" class="js-avatar show">
+				
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Joname</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">Just be nice, always think twice!</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/about">关于我</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/joname1" title="github">github</a>
+			        
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/joname-liangtan" title="zhihu">zhihu</a>
+			        
+						<a class="twitter" target="_blank" href="https://twitter.com/im_joname" title="twitter">twitter</a>
+			        
+						<a class="mail" target="_blank" href="mailto:joname.liangtan@gmail.com" title="mail">mail</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-nodejs-1" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/nodejs-1/" class="article-date">
+  	<time datetime="2016-10-01T07:53:07.000Z" itemprop="datePublished">Oct 1</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Node.js(1) 封装,调用,执行,访问路径,http,函数编程,等待函数,事件监听
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node-js/">node.js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nodejs/">nodejs</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="1-如何封装一个模块；"><a href="#1-如何封装一个模块；" class="headerlink" title="1.如何封装一个模块；"></a>1.如何封装一个模块；</h1><p>首先，我们建立一个js文件，例如命名为test.js；<br>然后在里面写一个函数，函数名任意；<br>然后通过exports.变量名，将函数赋值给这个变量；<br>如代码：<br><a id="more"></a><br><figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>)</span>&#123;    <span class="comment">//请注意这个函数名</span></div><div class="line">    <span class="built_in">console</span>.log(<span class="string">"1"</span>);</div><div class="line">&#125;</div><div class="line">exports.testBegin= test;   <span class="comment">//等号后面的test，指的是上面的函数名。等号前面的testBegin，是调用时的函数名（注意区别）</span></div></pre></td></tr></table></figure></p>
+<p>这个test.js的文件就写完了，这是一个模块，他的效果是调用该函数后，输出1；<br>另外，不要问我这个exports是什么，我暂时也不知道。</p>
+<h1 id="2-如何调用一个模块"><a href="#2-如何调用一个模块" class="headerlink" title="2.如何调用一个模块"></a>2.如何调用一个模块</h1><p>在封装模块的前提下，我们新建一个文件，例如a.js，来调用之前封装的test.js模块；<br>方法是：<br><figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="keyword">var</span> test = <span class="built_in">require</span>(<span class="string">"./test"</span>);   <span class="comment">//调用该模块</span></div><div class="line">test.testBegin();   <span class="comment">//调用该模块的方法（注意方法名是test.js中exports后面的变量名）；</span></div></pre></td></tr></table></figure></p>
+<p>注意调用时的方法名，并非是test.js中的函数名test；</p>
+<h1 id="3-如何执行一个Node-js的文件"><a href="#3-如何执行一个Node-js的文件" class="headerlink" title="3.如何执行一个Node.js的文件"></a>3.如何执行一个Node.js的文件</h1><p>我们现在需要执行a.js这个调用了封装模块的文件了，执行他的方法，和执行普通的node.js的文件的方法并没有什么不同；<br>在a.js这个文件的目录下，打开命令行。windows是shift＋鼠标右键；<br>像下面这样输入即可：<br>然后将输出1，感觉执行执行Python文件那样</p>
+<h1 id="4-获得访问者想要访问的路径"><a href="#4-获得访问者想要访问的路径" class="headerlink" title="4.获得访问者想要访问的路径"></a>4.获得访问者想要访问的路径</h1><p><img src="http://img.blog.csdn.net/20160602214711294" alt=""><br>首先上图，其中pathname指的是路径；而query指的是请求之类的东西（暂时不关心）；<br>假如我们想要获得pathname（即字符串“start”），我们该怎么办呢？<br>方法：</p>
+<ul>
+<li>①首先，需要获取访问者需要访问的路径，方法是通过http的方法createServer<br>具体来说：<br>我们先require一个http模块：<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">"http"</span>);</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>然后调用其方法，创建一个服务器：<br><figure class="highlight js"><table><tr><td class="code"><pre><div class="line">http.createServer(onRequest).listen(<span class="number">8888</span>);</div></pre></td></tr></table></figure></p>
+<p>注意，这个方法监听的是8888端口，其参数是一个函数；</p>
+<p>然后我们书写这个函数的内容：<br><figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">onRequest</span>(<span class="params">request, response</span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(request.url);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这个函数的第一个参数request是用户访问的一些东西，我们需要的是其url变量；假设我们访问地址是这样的：<br><code>http://127.0.0.1:8888/index/loading?start</code><br>请注意红色部分，那么服务器在console.log输出的是<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">/index/loading?start</div></pre></td></tr></table></figure></p>
+<ul>
+<li><p>②我们下来要对这个url做点什么了；<br>虽然直接对上面那个参数进行操纵也可以，但这太笨了，让我们来require一个新的模块url</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="keyword">var</span> url = <span class="built_in">require</span>(<span class="string">"url"</span>);</div></pre></td></tr></table></figure>
+</li>
+<li><p>③调用这个新模块的方法parse，将第一步获得的url地址，作为其参数，再调用其方法pathname，就可以获得我们想要的东西了；<br>具体而言，需要这么一段代码：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="keyword">var</span> pathname = url.parse(request.url).pathname;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>这个pathname就是我们需要的东西了；</p>
+<p>把所有代码综合起来，是这样的：<br><figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">"http"</span>);</div><div class="line"><span class="keyword">var</span> url = <span class="built_in">require</span>(<span class="string">"url"</span>);</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">onRequest</span>(<span class="params">request, response</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> pathname = url.parse(request.url).pathname;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">"Request for "</span> + pathname + <span class="string">" recived."</span>);</div><div class="line">    response.writeHead(<span class="number">200</span>, &#123;<span class="string">"Content-type"</span>: <span class="string">"text/plain"</span>&#125;);</div><div class="line">    response.write(<span class="string">"Hello word!"</span>);</div><div class="line">    response.end();</div><div class="line">&#125;</div><div class="line">http.createServer(onRequest).listen(<span class="number">8888</span>);</div><div class="line"><span class="built_in">console</span>.log(<span class="string">"Server has started!"</span>);</div></pre></td></tr></table></figure></p>
+<p>然后运行之：</p>
+<p>我们随便访问一个本地的地址：<br><code>http://127.0.0.1:8888/index/loading?start</code></p>
+<p>发现，/index/loding这部分被正常的显示出来了。<br>另外，favicon.ico是该网站的图标，据说很多服务器是会默认读取的；</p>
+<p>假如我们直接访问：<code>http://127.0.0.1:8888</code>，显示是这样的<br><img src="http://img.blog.csdn.net/20160602214745169" alt=""></p>
+<h1 id="5-关于http"><a href="#5-关于http" class="headerlink" title="5.关于http"></a>5.关于http</h1><p>我们之前有了这么一段代码（已delete掉无关部分）：<br><figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">"http"</span>);</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">onRequest</span>(<span class="params">request, response</span>) </span>&#123;</div><div class="line">    response.writeHead(<span class="number">200</span>, &#123;<span class="string">"Content-type"</span>: <span class="string">"text/plain"</span>&#125;);</div><div class="line">    response.write(<span class="string">"Hello word!"</span>);</div><div class="line">    response.end();</div><div class="line">&#125;</div><div class="line">http.createServer(onRequest).listen(<span class="number">8888</span>);</div></pre></td></tr></table></figure></p>
+<p>其中，http调用了NodeJs自带的一个模块“http”，而这个模块是一个服务器模块；<br>而createServer是这个模块的方法，效果是返回一个对象，而这个对象有一个listen的方法；<br>当然，由于你和我，也许都是新手，因此我们尚没有搞清楚这个到底是怎么运作的；但如果有一定经验的话，可以猜到，这个listen是监听，监听的是8888端口；如果去掉这部分会怎么样？经过测试，服务器并没有运行，如图：</p>
+<p>而onRequest函数呢，从名字可以猜到，这个函数的效果是“当请求的时候做些什么”，我们来看其函数：<br><figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">onRequest</span>(<span class="params">request, response</span>) </span>&#123;</div><div class="line">    response.writeHead(<span class="number">200</span>);</div><div class="line">    response.write(<span class="string">"Hello word!"</span>);</div><div class="line">    response.end();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这个函数有两个参数：request和response，顾名思义，请求和响应。<br>request请求指用户访问的时候，相关的信息；<br>response指服务器的响应，会做些什么；这个函数的三个方法，都是response相关的；</p>
+<ul>
+<li><p>第一个：response.writeHead方法，具体来说，就是HTTP响应报文的头行；<br>这个指HTTP通信的响应报文中的头部分，如果没有基础的话，暂时不需要关心，写200即可，这里的200，是约定俗称的请求成功时的返回；<br>具体搜：<br><code>response.writeHead(statusCode,[reasonPhrase], [headers])</code></p>
+</li>
+<li><p>第二个：response.write方法，具体来说，是HTTP响应报文；<br>简单理解，负责发送正文中的一部分，可以同时发送多个不一样的；<br>在上面搜：<br><code>response.write(chunk,encoding=&#39;utf8&#39;)</code></p>
+</li>
+<li><p>第三个：response.end方法，具体来说每一个响应的结束，必须要调用这个方法，然后服务器会认为这条信息已经发送完毕了。</p>
+</li>
+</ul>
+<p>综合效果来说，当我们访问：<code>http://127.0.0.1:8888/</code>时，浏览器会出现：<br><code>Hello world!</code></p>
+<h1 id="6-函数式编程"><a href="#6-函数式编程" class="headerlink" title="6.函数式编程"></a>6.函数式编程</h1><p>所谓函数式编程，简单的理解，就是将函数作为参数传递；<br>目前有四个文件：<br><code>index.js</code><br><figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="keyword">var</span> server = <span class="built_in">require</span>(<span class="string">"./server"</span>);   <span class="comment">//调用该模块</span></div><div class="line"><span class="keyword">var</span> router = <span class="built_in">require</span>(<span class="string">"./router"</span>);</div><div class="line"><span class="keyword">var</span> requestHandlers = <span class="built_in">require</span>(<span class="string">"./requestHandlers"</span>);</div><div class="line"></div><div class="line"><span class="keyword">var</span> handle = &#123;&#125;;</div><div class="line">handle[<span class="string">"/"</span>] = requestHandlers.start;</div><div class="line">handle[<span class="string">"/start"</span>] = requestHandlers.start;</div><div class="line">handle[<span class="string">"/upload"</span>] = requestHandlers.upload;</div><div class="line"></div><div class="line">server.start(router.route, handle);   <span class="comment">//调用该模块的方法（注意方法名是test.js中exports后面的变量名）</span></div></pre></td></tr></table></figure></p>
+<p><code>server.js</code><br><figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">"http"</span>);</div><div class="line"><span class="keyword">var</span> url = <span class="built_in">require</span>(<span class="string">"url"</span>);</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">start</span>(<span class="params">route, handle</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> count = <span class="number">0</span>;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">onRequest</span>(<span class="params">request, response</span>) </span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(count++ + <span class="string">"#:"</span>);</div><div class="line">        <span class="keyword">var</span> pathname = url.parse(request.url).pathname;</div><div class="line">        <span class="built_in">console</span>.log(<span class="string">"Request for "</span> + pathname + <span class="string">" recived."</span>);</div><div class="line"></div><div class="line">        route(handle, pathname);    <span class="comment">//来源于上面的start的参数</span></div><div class="line"></div><div class="line">        response.writeHead(<span class="number">200</span>);</div><div class="line">        response.write(<span class="string">"Hello word!"</span>);</div><div class="line">        response.end();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    http.createServer(onRequest).listen(<span class="number">8888</span>);</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">"Server has started!"</span>);</div><div class="line">&#125;</div><div class="line">exports.start = start;</div></pre></td></tr></table></figure></p>
+<p><code>router.js</code><br><figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">route</span>(<span class="params">handle, pathname</span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">"About to route a request for "</span> + pathname);</div><div class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> handle[pathname] === <span class="string">'function'</span>) &#123;</div><div class="line">        handle[pathname]();</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="string">"No request handler found for "</span> + pathname);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">exports.route = route;</div></pre></td></tr></table></figure></p>
+<p><code>requestHandler.js</code><br><figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">start</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">"Request handler 'start' was called"</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">upload</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">"Request handler 'upload' was called"</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line">exports.start = start;</div><div class="line">exports.upload = upload;</div></pre></td></tr></table></figure></p>
+<p>分析：</p>
+<ul>
+<li>①首先看index.js，他调用了3个模块，然后声明了一个空的对象，然后给这个对象声明了几个不同的变量（准确的说是函数变量），他们分别对应requestHandlers这个模块的不同函数；</li>
+</ul>
+<p>调用server这个模块的start方法，传两个参数，分别是router模块的route方法和对象handle（包含3个函数变量）；</p>
+<ul>
+<li>②由于调用了server模块的start方法，因此我们来看server模块；<br>在server模块中，调用了两个模块，分别是http和url，这两个都是NodeJs自带的，具体里面的内容就不一一分析了（前面已经说明过了）。</li>
+</ul>
+<p>在servre模块的start函数（也是index.js调用的方法），有两个参数，第一个参数是route函数（来源于router模块），第二个参数是一个对象（来源于index.js）。</p>
+<p>而在start函数中，调用了其第一个参数（route函数），由于这个参数是函数，因此运行它，给其两个参数，分别是handle（来源于index.js的对象）和pathname（来源于当前模块，是用户请求的路径）；</p>
+<p>因此接下来我们看router模块的route函数，记得，这个函数传递了一个对象和一个路径；</p>
+<ul>
+<li>③在router模块中，传递了两个参数，并进行了一次判断；<br>判断的逻辑是这样的，第一个参数（是一个对象），其加上下标后的值，如果是类型是函数，那么执行这个函数；如果不是函数，提示没找到该句柄；</li>
+</ul>
+<p>请注意，为什么说这个对象加上下标是函数呢，原因在于index中声明的这个对象，而这个对象的三个带下标的变量都是函数；</p>
+<p>而这三个被执行函数来源于哪呢？来源于index里加载的模块requestHandlers，那么最后让我们来看看这个模块；</p>
+<ul>
+<li>④在这个模块里，只有两个函数，分别是start和upload；<br>这两个函数输出不同的内容（一个关键字是start，另一个关键字是upload）；<br>请回想之前的下标，下标分为三个，分别是空（/），start下标（/start），和upload下标（/upload），因此当用户访问根目录、start目录、和upload目录时，调用对应的方法，而若访问其他目录（包括start目录的子目录等时，提示错误——来源于router模块）；<br><img src="http://img.blog.csdn.net/20160602214830419" alt=""><br>现在回顾这种模式是怎么实现的：<br><img src="http://img.blog.csdn.net/20160602214835576" alt=""></li>
+</ul>
+<h1 id="7-等待函数"><a href="#7-等待函数" class="headerlink" title="7.等待函数"></a>7.等待函数</h1><figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">sleep</span>(<span class="params">milliSeconds</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> startTime = <span class="keyword">new</span> <span class="built_in">Date</span>().getTime();</div><div class="line">    <span class="keyword">while</span> (<span class="keyword">new</span> <span class="built_in">Date</span>() &lt; startTime + milliSeconds);  <span class="comment">//等待参数的时间</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>传的参数是毫秒，在这个时间前，无法执行下一句代码，类似C++的Sleep()函数</p>
+<h1 id="8-返回的两种格式"><a href="#8-返回的两种格式" class="headerlink" title="8.返回的两种格式"></a>8.返回的两种格式</h1><figure class="highlight js"><table><tr><td class="code"><pre><div class="line">response.writeHead(<span class="number">200</span>, &#123;<span class="string">"Content-Type"</span>: <span class="string">"text/html"</span>&#125;);</div><div class="line">response.write(content);</div><div class="line">response.end();</div></pre></td></tr></table></figure>
+<p>其中，writeHead里面的第二个参数，有多种格式，分别是：<br>application/xml 、 text/xml、text/html、text/plain<br>经查：<br>text/html是html格式的正文<br>text/plain是无格式正文<br>text/xml忽略xml头所指定编码格式而默认采用us-ascii编码<br>application/xml会根据xml头指定的编码格式来编码：<br>简单来说，html就是返回一个html，plain就是无格式的，写什么就是什么，xml就是一个xml文件；</p>
+<h1 id="9-关于事件监听"><a href="#9-关于事件监听" class="headerlink" title="9.关于事件监听"></a>9.关于事件监听</h1><p>之前说到有<br><figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">onRequest</span>(<span class="params">request, response</span>)</span></div></pre></td></tr></table></figure></p>
+<p>这样一个回调函数，其中request是请求，response是回应；<br>根据推测，每次request的，都会触发至少一个data，一个end事件，因此应该监听这两个事件。（并且只有接受到data之后，才会接收到end事件）；<br>我们之前是不监听的，只要有请求，就直接执行某个函数，而监听表示只有这些事件触发后，我们才会执行某一段代码。<br>因此我们这么写：<br><figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="keyword">var</span> postData = <span class="string">""</span>;</div><div class="line">request.setEncoding(<span class="string">"utf8"</span>);</div><div class="line">request.addListener(<span class="string">"data"</span>, <span class="function"><span class="keyword">function</span> (<span class="params">postDataChunk</span>) </span>&#123;      <span class="comment">//data事件</span></div><div class="line">    postData += postDataChunk;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">"Received POST data chunk "</span> + postDataChunk + <span class="string">"."</span>);</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">"————————"</span>);</div><div class="line">&#125;)</div><div class="line">request.addListener(<span class="string">"end"</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    route(handle, pathname, response, postData);</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<p>表示监听的编码类型为UTF8，监听data事件，把内容加起来，监听end事件，把加起来的内容发送出去。<br>直到end事件触发时，才会执行之前写的route函数（也就是那个写回复的函数）。</p>
+<p>PS：<br>根据我的测试，如果data事件注释掉，end事件会无法执行，准确的说，是无法访问任何url的。<br>但是，如果不注释掉，只是普通的访问的话，可是又不会触发data监听事件里面的console.log代码，很奇怪；<br>另外，注释掉end事件，留着data事件，也会卡住； </p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/nodejs-2/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Node.js(2) MySQL
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/webpack-started/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Webpack 入门及实践</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="nodejs-1" data-title="Node.js(1) 封装,调用,执行,访问路径,http,函数编程,等待函数,事件监听" data-url="http://joname1.github.io/2016/nodejs-1/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"joname"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-right">
+    		2016 <i class="fa fa-heart"></i> Joname. 我只作案,从不备案!
+    	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+	}
+</script>
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="https://cdn.bootcss.com/mathjax/2.7.0-beta.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script type="text/javascript" src="http://tajs.qq.com/stats?sId=59279948" charset="UTF-8"></script>
+
+  </div>
+</body>
+</html>

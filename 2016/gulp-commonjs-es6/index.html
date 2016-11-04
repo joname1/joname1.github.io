@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>使用 gulp 搭建CommonJs &amp; ES6 模块化环境 | 江矿宝宝的博客.</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="1. Browserify简介
+“Browserify lets you require(‘modules’) in the browser by bundling up all of your dependencies.” - Browserify.org
+
+上面的描述是摘自 browserify 官网；用通俗的话讲就是：browserify 是一个浏览器端代码模块化工具，可以处理模块之间的依赖">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用 gulp 搭建CommonJs & ES6 模块化环境">
+<meta property="og:url" content="http://joname1.github.io/2016/gulp-commonjs-es6/index.html">
+<meta property="og:site_name" content="江矿宝宝的博客.">
+<meta property="og:description" content="1. Browserify简介
+“Browserify lets you require(‘modules’) in the browser by bundling up all of your dependencies.” - Browserify.org
+
+上面的描述是摘自 browserify 官网；用通俗的话讲就是：browserify 是一个浏览器端代码模块化工具，可以处理模块之间的依赖">
+<meta property="og:image" content="https://cloud.githubusercontent.com/assets/3995814/11768221/b22531fe-a200-11e5-8e98-8e36d8471bf8.png">
+<meta property="og:image" content="https://cloud.githubusercontent.com/assets/3995814/11768266/592159dc-a202-11e5-8be3-2d4ddaefe5c3.png">
+<meta property="og:updated_time" content="2016-11-03T09:37:18.149Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用 gulp 搭建CommonJs & ES6 模块化环境">
+<meta name="twitter:description" content="1. Browserify简介
+“Browserify lets you require(‘modules’) in the browser by bundling up all of your dependencies.” - Browserify.org
+
+上面的描述是摘自 browserify 官网；用通俗的话讲就是：browserify 是一个浏览器端代码模块化工具，可以处理模块之间的依赖">
+<meta name="twitter:image" content="https://cloud.githubusercontent.com/assets/3995814/11768221/b22531fe-a200-11e5-8e98-8e36d8471bf8.png">
+  
+  
+  <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="http://joe-10005639.file.myqcloud.com/jkbb.jpg" class="js-avatar show">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Joname</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">Just be nice, always think twice!</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+						<ul class="tips-inner">
+						    <li>菜单</li>
+						    <li>标签</li>
+						    
+						    
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/about">关于我</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/joname1" title="github">github</a>
+					        
+								<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/joname-liangtan" title="zhihu">zhihu</a>
+					        
+								<a class="twitter" target="_blank" href="https://twitter.com/im_joname" title="twitter">twitter</a>
+					        
+								<a class="mail" target="_blank" href="mailto:joname.liangtan@gmail.com" title="mail">mail</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Bootstrap/" style="font-size: 10px;">Bootstrap</a> <a href="/tags/Shadowsocks/" style="font-size: 14px;">Shadowsocks</a> <a href="/tags/angular-js/" style="font-size: 10px;">angular.js</a> <a href="/tags/angularjs/" style="font-size: 10px;">angularjs</a> <a href="/tags/browser-sync/" style="font-size: 10px;">browser-sync</a> <a href="/tags/commonjs/" style="font-size: 10px;">commonjs</a> <a href="/tags/css/" style="font-size: 12px;">css</a> <a href="/tags/es6/" style="font-size: 12px;">es6</a> <a href="/tags/fuck-gfw/" style="font-size: 16px;">fuck-gfw</a> <a href="/tags/grid/" style="font-size: 10px;">grid</a> <a href="/tags/gulp/" style="font-size: 20px;">gulp</a> <a href="/tags/hiwifi/" style="font-size: 10px;">hiwifi</a> <a href="/tags/hosts/" style="font-size: 10px;">hosts</a> <a href="/tags/javaScript/" style="font-size: 10px;">javaScript</a> <a href="/tags/javascript/" style="font-size: 18px;">javascript</a> <a href="/tags/js/" style="font-size: 14px;">js</a> <a href="/tags/less/" style="font-size: 12px;">less</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/node-js/" style="font-size: 16px;">node.js</a> <a href="/tags/nodejs/" style="font-size: 18px;">nodejs</a> <a href="/tags/requirejs/" style="font-size: 16px;">requirejs</a> <a href="/tags/sass/" style="font-size: 10px;">sass</a> <a href="/tags/sprite/" style="font-size: 10px;">sprite</a> <a href="/tags/ss/" style="font-size: 14px;">ss</a> <a href="/tags/surge/" style="font-size: 10px;">surge</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Joname</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				
+					<img src="http://joe-10005639.file.myqcloud.com/jkbb.jpg" class="js-avatar show">
+				
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Joname</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">Just be nice, always think twice!</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/about">关于我</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/joname1" title="github">github</a>
+			        
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/joname-liangtan" title="zhihu">zhihu</a>
+			        
+						<a class="twitter" target="_blank" href="https://twitter.com/im_joname" title="twitter">twitter</a>
+			        
+						<a class="mail" target="_blank" href="mailto:joname.liangtan@gmail.com" title="mail">mail</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-gulp-commonjs-es6" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/gulp-commonjs-es6/" class="article-date">
+  	<time datetime="2016-09-05T08:55:48.000Z" itemprop="datePublished">Sep 5</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      使用 gulp 搭建CommonJs &amp; ES6 模块化环境
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/commonjs/">commonjs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/es6/">es6</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/gulp/">gulp</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="1-Browserify简介"><a href="#1-Browserify简介" class="headerlink" title="1. Browserify简介"></a>1. Browserify简介</h1><blockquote>
+<p>“Browserify lets you require(‘modules’) in the browser by bundling up all of your dependencies.” - Browserify.org</p>
+</blockquote>
+<p>上面的描述是摘自 browserify 官网；用通俗的话讲就是：browserify 是一个浏览器端代码模块化工具，可以处理模块之间的依赖关系，让服务器端的 CommonJS 格式的模块可以运行在浏览器端。<br><a id="more"></a></p>
+<p><img src="https://cloud.githubusercontent.com/assets/3995814/11768221/b22531fe-a200-11e5-8e98-8e36d8471bf8.png" alt=""></p>
+<p>browserify的原理：</p>
+<ul>
+<li>处理代码依赖，将模块打包到一起</li>
+</ul>
+<p>打包为单个文件存在的问题：</p>
+<ul>
+<li><p>暂时用不到的代码也会被打包，体积大，首次加载速度慢</p>
+</li>
+<li><p>只要一个模块更新，整个文件缓存失效</p>
+</li>
+</ul>
+<p>注：暂时用不到的代码指不同的页面有不同的 JS 文件，不需要在当前页面引用其他页面的代码即为暂时用不到的代码</p>
+<p>Browserify的解决方案：</p>
+<ul>
+<li>entry point：入口点技术，每个入口点打包一个文件，两个入口点的相同依赖模块单独打包为common.js</li>
+</ul>
+<h3 id="安装与配置"><a href="#安装与配置" class="headerlink" title="安装与配置"></a>安装与配置</h3><p>安装 browserify</p>
+<p><code>npm install -g browserify</code></p>
+<p>引入 browserify</p>
+<p><code>import  browserify from &#39;browserify&#39;</code></p>
+<p>基本配置<br><figure class="highlight js"><table><tr><td class="code"><pre><div class="line">glup.taks(<span class="string">'browserify'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  browserify(&#123;</div><div class="line">     <span class="comment">//先处理依赖，入口文件</span></div><div class="line">     entries: [<span class="string">'./foo.js'</span>,<span class="string">'./main.js'</span>],</div><div class="line">     <span class="comment">//进行转化</span></div><div class="line">     transform: []</div><div class="line">  &#125;)</div><div class="line">   .bundle() <span class="comment">// 多个文件打包成一个文件</span></div><div class="line">   .pipe(source()) <span class="comment">// browserify的输出不能直接用做gulp输入，所以需要source进行处理 </span></div><div class="line">   .pipe(gulp.dest(<span class="string">'./'</span>));  </div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<h3 id="安装一些依赖插件"><a href="#安装一些依赖插件" class="headerlink" title="安装一些依赖插件"></a>安装一些依赖插件</h3><figure class="highlight bash"><table><tr><td class="code"><pre><div class="line">npm install --save-dev vinyl-source-stream vinyl-buffer gulp-sourcemaps</div></pre></td></tr></table></figure>
+<p><code>vinyl-source-stream</code>: browserify的输出不能直接用着gulp的输入，vinly-source-stream 主要是做一个转化</p>
+<p><code>vinyl-buffer</code>: 用于将vinyl流转化为buffered vinyl文件（gulp-sourcemaps及大部分Gulp插件都需要这种格式）</p>
+<p><code>gulp-sourcemaps</code>: Source map就是一个信息文件，里面储存着位置信息。也就是说，转换后的代码的每一个位置，所对应的转换前的位置，便于调试</p>
+<p><code>Watchify</code>: 加速 browserify 编译</p>
+<h1 id="2-编写-CommonJS-模块"><a href="#2-编写-CommonJS-模块" class="headerlink" title="2. 编写 CommonJS 模块"></a>2. 编写 CommonJS 模块</h1><h3 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h3><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">|-- dist/</div><div class="line">   |-----bundle.js</div><div class="line">|-- src/</div><div class="line">   |-----foo.js</div><div class="line">   |-----main.js</div><div class="line">|--gulpfile.babel.js</div><div class="line">|--package.json</div></pre></td></tr></table></figure>
+<h3 id="新建两个模块文件-foo-js-main-js"><a href="#新建两个模块文件-foo-js-main-js" class="headerlink" title="新建两个模块文件 foo.js, main.js"></a>新建两个模块文件 foo.js, main.js</h3><p><code>$ touch foo.js main.js</code></p>
+<h3 id="让我使用-CommonJs-规范来写一些代码"><a href="#让我使用-CommonJs-规范来写一些代码" class="headerlink" title="让我使用 CommonJs 规范来写一些代码"></a>让我使用 CommonJs 规范来写一些代码</h3><blockquote>
+<p>CommonJS 规范是为了解决 JavaScript的作用域问题而定义的模块形式，可以使每个模块在它自身的命名空间中执行。<br>该规范的主要内容是，模块必须通过module.exports 导出对外的变量或接口，通过 require() 来导入其他模块的输出到当前模块作用域中。</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="comment">// foo.js</span></div><div class="line"><span class="comment">// 定义foo.js模块，通过 module.exports 导出对外的变量或接口</span></div><div class="line"><span class="keyword">let</span> variable = <span class="number">8</span>;</div><div class="line"><span class="keyword">let</span> sum = <span class="function">(<span class="params">a, b = <span class="number">6</span></span>) =&gt;</span> (a + b);</div><div class="line"><span class="keyword">let</span> square = <span class="function">(<span class="params">b</span>) =&gt;</span> &#123;</div><div class="line">    <span class="keyword">return</span> b * b;</div><div class="line">&#125;;</div><div class="line"><span class="built_in">module</span>.exports.variable = variable;</div><div class="line"><span class="built_in">module</span>.exports.sum = sum;</div><div class="line"><span class="built_in">module</span>.exports.square = square;</div><div class="line"></div><div class="line"><span class="comment">// mian.js</span></div><div class="line"><span class="comment">// 通过 require() 来导入 foo.js 模块</span></div><div class="line"><span class="keyword">var</span> bar = <span class="built_in">require</span>(<span class="string">'./foo'</span>)</div><div class="line"><span class="built_in">console</span>.log(bar);  <span class="comment">// Object</span></div><div class="line"><span class="built_in">console</span>.log(bar.variable); <span class="comment">// 8</span></div><div class="line"><span class="built_in">console</span>.log(bar.sum(<span class="number">1</span>)); <span class="comment">// 7</span></div><div class="line"><span class="built_in">console</span>.log(bar.square(<span class="number">5</span>)); <span class="comment">// 25</span></div></pre></td></tr></table></figure>
+<blockquote>
+<p>上面我们使用 ES6 的语法写了两个模块，分别是 foo.js 和 main.js; 在 foo.js 中通过 module.exports 导出对外的变量或接口;在 main.js 中通过 require() 来导入 foo.js 模块，那我们就可以在 mian.js 模块中使用 foo.js 中的变量和接口了。这就是一个最基本的 CommonJs 示例了</p>
+</blockquote>
+<h3 id="配置-browserify"><a href="#配置-browserify" class="headerlink" title="配置 browserify"></a>配置 browserify</h3><p>通过第一小节的学习，我们知道要在浏览器中运行 CommonJs 风格的模块代码，就需要借助 browserify 来作为转换工具，下面我们在 gulp.babel.js 中来配置 browserify：<br><figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="comment">// set browserify task</span></div><div class="line">gulp.task(<span class="string">'browserify'</span>,()=&gt; &#123;</div><div class="line">    browserify(&#123;</div><div class="line">        <span class="attr">entries</span>: [<span class="string">'src/js/main.js'</span>,<span class="string">'src/js/foo.js'</span>],</div><div class="line">        <span class="attr">debug</span>: <span class="literal">true</span>, <span class="comment">// 告知Browserify在运行同时生成内联sourcemap用于调试</span></div><div class="line">    &#125;)</div><div class="line">        .transform(<span class="string">"babelify"</span>, &#123;<span class="attr">presets</span>: [<span class="string">"es2015"</span>]&#125;)</div><div class="line">        .bundle()</div><div class="line">        .pipe(source(<span class="string">'bundle.js'</span>))</div><div class="line">        .pipe(buffer()) <span class="comment">// 缓存文件内容</span></div><div class="line">        .pipe(sourcemaps.init(&#123;<span class="attr">loadMaps</span>: <span class="literal">true</span>&#125;)) <span class="comment">// 从 browserify 文件载入 map</span></div><div class="line">        .pipe(sourcemaps.write(<span class="string">'.'</span>)) <span class="comment">// 写入 .map 文件</span></div><div class="line">        .pipe(gulp.dest(<span class="string">'dist/js'</span>))</div><div class="line">        .pipe(notify(&#123; <span class="attr">message</span>: <span class="string">'browserify task complete'</span> &#125;));</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<p>运行<br><code>gulp-browserify</code></p>
+<p><img src="https://cloud.githubusercontent.com/assets/3995814/11768266/592159dc-a202-11e5-8be3-2d4ddaefe5c3.png" alt=""></p>
+<h3 id="打开浏览器，查看运行结果-见上面main-js文件的注释"><a href="#打开浏览器，查看运行结果-见上面main-js文件的注释" class="headerlink" title="打开浏览器，查看运行结果(见上面main.js文件的注释)"></a>打开浏览器，查看运行结果(见上面main.js文件的注释)</h3><h1 id="编写-ES6-Module-模块"><a href="#编写-ES6-Module-模块" class="headerlink" title="编写 ES6 Module 模块"></a>编写 ES6 Module 模块</h1><p>上面的代码主要是 CommonJs 模块化的写法，我们再来看看最近火热的 ES6 提供的 Module；让我们使用 ES6 Module 来改写上面的代码：<br><figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="comment">// foo.js</span></div><div class="line"><span class="comment">// 定义foo.js模块，通过 exports 导出对外的变量或接口</span></div><div class="line"><span class="keyword">let</span> variable = <span class="number">8</span>;</div><div class="line"><span class="keyword">let</span> sum = <span class="function">(<span class="params">a, b = <span class="number">6</span></span>) =&gt;</span> (a + b);</div><div class="line"><span class="keyword">let</span> square = <span class="function">(<span class="params">b</span>) =&gt;</span> &#123;</div><div class="line">    <span class="keyword">return</span> b * b;</div><div class="line">&#125;;</div><div class="line"><span class="keyword">export</span> &#123; variable, sum, square &#125;;</div><div class="line"></div><div class="line"><span class="comment">// main.js</span></div><div class="line"><span class="comment">// 测试一：</span></div><div class="line"><span class="comment">// 通过 import 来导入 foo.js 模块</span></div><div class="line"><span class="keyword">import</span> &#123;variable, sum, square&#125; <span class="keyword">from</span> <span class="string">'./foo'</span>;</div><div class="line"><span class="built_in">console</span>.log(variable); <span class="comment">// 8</span></div><div class="line"><span class="built_in">console</span>.log(sum(<span class="number">1</span>)); <span class="comment">// 7</span></div><div class="line"><span class="built_in">console</span>.log(square(<span class="number">5</span>)); <span class="comment">// 25</span></div><div class="line"></div><div class="line"><span class="comment">// 测试二：</span></div><div class="line"><span class="comment">// 直接引用整个 foo 模块</span></div><div class="line"><span class="keyword">import</span> bar <span class="keyword">from</span> <span class="string">'./foo'</span>;</div><div class="line"><span class="built_in">console</span>.log(bar); <span class="comment">// 输出值是undefined，后面做解释</span></div><div class="line"></div><div class="line"><span class="comment">// 测试三：</span></div><div class="line"><span class="comment">// 通过 ES6 的语法加载整个 foo模块</span></div><div class="line"><span class="keyword">import</span> * <span class="keyword">as</span> bar <span class="keyword">from</span> <span class="string">'./foo'</span></div><div class="line"><span class="built_in">console</span>.log(bar); <span class="comment">// Object</span></div></pre></td></tr></table></figure></p>
+<h2 id="总结-CommonJs-和-ES6-Module"><a href="#总结-CommonJs-和-ES6-Module" class="headerlink" title="总结 CommonJs 和 ES6 Module"></a>总结 CommonJs 和 ES6 Module</h2><h3 id="CommonJs"><a href="#CommonJs" class="headerlink" title="CommonJs"></a>CommonJs</h3><ul>
+<li>根据 CommonJS 规范，一个单独的文件就是一个模块。每一个模块都是一个单独的作用域，也就是说，在一个文件定义的变量（包括函数和类），都是私有的，对其他文件是不可见的</li>
+<li>通过 module.exports 对象，定义对外接口，其他文件加载该模块，实际上就是读取 module.exports 变量</li>
+<li>通过 require 命令加载模块文件，然后返回该模块的exports对象<h3 id="ES6-Module"><a href="#ES6-Module" class="headerlink" title="ES6 Module"></a>ES6 Module</h3></li>
+<li>通过 export 命令用于规定模块的对外接口</li>
+<li>通过 import 命令用于加载其他模块提供的功能<h3 id="ES6-Module-与-CommonJs-的区别"><a href="#ES6-Module-与-CommonJs-的区别" class="headerlink" title="ES6 Module 与 CommonJs 的区别"></a>ES6 Module 与 CommonJs 的区别</h3></li>
+<li>在ES6中使用 import 取代 require</li>
+<li>在ES6中使用 export 取代 module.exports</li>
+<li>ES6 在编译时就能确定模块的依赖关系，以及输入和输出的变量，而 CommonJs 只能在运行时确定模块的依赖关系以及输入和输出的变量。</li>
+</ul>
+<ul>
+<li>运行时加载: CommonJS 模块就是对象；即在输入时是先加载整个模块，生成一个对象，然后再从这个对象上面读取方法，这种加载称为“运行时加载”</li>
+<li>编译时加载: ES6 模块不是对象，而是通过 export 命令显式指定输出的代码，输入时采用静态命令的形式。即在输入时可以指定加载某个输出值，而不是加载整个模块，这种加载称为“编译时加载”<br>注：上面提到 ES6 加载模块时是采用指定加载某个输出值的形式，如果你要想加载整个模块，你可以这么做：<br><code>import * as customName from &#39;./moduleFileName&#39;;</code></li>
+</ul>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/gulp-img/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          使用 gulp 压缩图片
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/nodejs-hosts/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">使用node.js自动更新本地hosts, 实现科学上网.</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="gulp-commonjs-es6" data-title="使用 gulp 搭建CommonJs &amp; ES6 模块化环境" data-url="http://joname1.github.io/2016/gulp-commonjs-es6/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"joname"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-right">
+    		2016 <i class="fa fa-heart"></i> Joname. 我只作案,从不备案!
+    	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+	}
+</script>
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="https://cdn.bootcss.com/mathjax/2.7.0-beta.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script type="text/javascript" src="http://tajs.qq.com/stats?sId=59279948" charset="UTF-8"></script>
+
+  </div>
+</body>
+</html>

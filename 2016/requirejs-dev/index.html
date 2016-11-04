@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>使用RequireJS进行模块化开发 | 江矿宝宝的博客.</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="在之前的项目中一直用的是seajs，感觉seajs是挺好用的，但是有个问题就是把现有的js框架打包成seajs模块略麻烦，官方文档里面也没有对这一块作详细的介绍，虽然有spm build，但还是觉得不太方便。因此便在新的项目中用了requirejs。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用RequireJS进行模块化开发">
+<meta property="og:url" content="http://joname1.github.io/2016/requirejs-dev/index.html">
+<meta property="og:site_name" content="江矿宝宝的博客.">
+<meta property="og:description" content="在之前的项目中一直用的是seajs，感觉seajs是挺好用的，但是有个问题就是把现有的js框架打包成seajs模块略麻烦，官方文档里面也没有对这一块作详细的介绍，虽然有spm build，但还是觉得不太方便。因此便在新的项目中用了requirejs。">
+<meta property="og:image" content="http://blog.u.qiniudn.com/uploads%2Frequirejs.png">
+<meta property="og:updated_time" content="2016-11-04T08:19:01.006Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用RequireJS进行模块化开发">
+<meta name="twitter:description" content="在之前的项目中一直用的是seajs，感觉seajs是挺好用的，但是有个问题就是把现有的js框架打包成seajs模块略麻烦，官方文档里面也没有对这一块作详细的介绍，虽然有spm build，但还是觉得不太方便。因此便在新的项目中用了requirejs。">
+<meta name="twitter:image" content="http://blog.u.qiniudn.com/uploads%2Frequirejs.png">
+  
+  
+  <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="http://joe-10005639.file.myqcloud.com/jkbb.jpg" class="js-avatar show">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Joname</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">Just be nice, always think twice!</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+						<ul class="tips-inner">
+						    <li>菜单</li>
+						    <li>标签</li>
+						    
+						    
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/about">关于我</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/joname1" title="github">github</a>
+					        
+								<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/joname-liangtan" title="zhihu">zhihu</a>
+					        
+								<a class="twitter" target="_blank" href="https://twitter.com/im_joname" title="twitter">twitter</a>
+					        
+								<a class="mail" target="_blank" href="mailto:joname.liangtan@gmail.com" title="mail">mail</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Bootstrap/" style="font-size: 10px;">Bootstrap</a> <a href="/tags/Shadowsocks/" style="font-size: 14px;">Shadowsocks</a> <a href="/tags/angular-js/" style="font-size: 10px;">angular.js</a> <a href="/tags/angularjs/" style="font-size: 10px;">angularjs</a> <a href="/tags/browser-sync/" style="font-size: 10px;">browser-sync</a> <a href="/tags/commonjs/" style="font-size: 10px;">commonjs</a> <a href="/tags/css/" style="font-size: 12px;">css</a> <a href="/tags/es6/" style="font-size: 12px;">es6</a> <a href="/tags/fuck-gfw/" style="font-size: 16px;">fuck-gfw</a> <a href="/tags/grid/" style="font-size: 10px;">grid</a> <a href="/tags/gulp/" style="font-size: 20px;">gulp</a> <a href="/tags/hiwifi/" style="font-size: 10px;">hiwifi</a> <a href="/tags/hosts/" style="font-size: 10px;">hosts</a> <a href="/tags/javaScript/" style="font-size: 10px;">javaScript</a> <a href="/tags/javascript/" style="font-size: 18px;">javascript</a> <a href="/tags/js/" style="font-size: 14px;">js</a> <a href="/tags/less/" style="font-size: 12px;">less</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/node-js/" style="font-size: 16px;">node.js</a> <a href="/tags/nodejs/" style="font-size: 18px;">nodejs</a> <a href="/tags/requirejs/" style="font-size: 16px;">requirejs</a> <a href="/tags/sass/" style="font-size: 10px;">sass</a> <a href="/tags/sprite/" style="font-size: 10px;">sprite</a> <a href="/tags/ss/" style="font-size: 14px;">ss</a> <a href="/tags/surge/" style="font-size: 10px;">surge</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Joname</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				
+					<img src="http://joe-10005639.file.myqcloud.com/jkbb.jpg" class="js-avatar show">
+				
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Joname</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">Just be nice, always think twice!</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/about">关于我</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/joname1" title="github">github</a>
+			        
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/joname-liangtan" title="zhihu">zhihu</a>
+			        
+						<a class="twitter" target="_blank" href="https://twitter.com/im_joname" title="twitter">twitter</a>
+			        
+						<a class="mail" target="_blank" href="mailto:joname.liangtan@gmail.com" title="mail">mail</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-requirejs-dev" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/requirejs-dev/" class="article-date">
+  	<time datetime="2016-10-10T07:54:05.000Z" itemprop="datePublished">Oct 10</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      使用RequireJS进行模块化开发
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/requirejs/">requirejs</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在之前的项目中一直用的是seajs，感觉seajs是挺好用的，但是有个问题就是把现有的js框架打包成seajs模块略麻烦，官方文档里面也没有对这一块作详细的介绍，虽然有spm build，但还是觉得不太方便。因此便在新的项目中用了requirejs。</p>
+<a id="more"></a>
+<p><img src="http://blog.u.qiniudn.com/uploads%2Frequirejs.png" alt="requirejs"></p>
+<p>用requirejs其实还有另一个原因就是项目中用到了百度的图表库<a href="http://echarts.baidu.com/" title="echarts" target="_blank" rel="external">echarts</a>，根据其官方文档的描述是不建议使用基于CMD规范的seajs来加载的，因为echarts是基于AMD模块化的，虽然网上有人改了可以用seajs加载，但是我最后还是选择用requirejs来加载，同时也是想尝试一下requirejs。</p>
+<p><strong>自定义构建echarts</strong></p>
+<p><code>echarts</code>的构建是用的<code>r.js</code>，因此我在这里先讲一下。</p>
+<p>自定义构建<code>echarts</code>还必须下载<code>zrender</code>，下载完成之后，把<code>echarts</code>的目录和<code>zrender</code>目录放在同级目录下，然后进入<code>echarts</code>的<code>build</code>目录进行自定义<code>build</code>（需要node.js环境），下面是我的build命令：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><div class="line">node build.js optimize=<span class="literal">true</span> exclude=force,scatter,k,radar,chord,gauge,funnel,map  output=echarts1.js</div></pre></td></tr></table></figure>
+<p>上面命令的意思是排除<code>exclude</code>的之后的那些模块，因为我只用到了<code>echarts</code>的折线图、柱状图和饼状图。</p>
+<p>执行完成之后就可以在build目录看到刚才合并的<code>echarts1.js</code></p>
+<p><strong>requirejs模块加载配置</strong></p>
+<p><code>requirejs</code>引入主模块的方法是通过在script标签里面添加<code>data-main</code>属性，如我的引入代码：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">data-main</span>=<span class="string">"js/main"</span> <span class="attr">src</span>=<span class="string">"js/lib/requirejs/require.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+<p><code>main.js</code>是程序的入口js文件，然后我们在<code>main.js</code>里面进行模块的加载配置：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line">requirejs.config(&#123;</div><div class="line">	<span class="comment">//开发专用，阻止浏览器缓存</span></div><div class="line">	urlArgs: <span class="string">"v="</span> + <span class="built_in">Date</span>.now(),</div><div class="line">	<span class="comment">//js文件的目录，相对于引入main.js的那个文件的目录</span></div><div class="line">	baseUrl: <span class="string">'js'</span>,</div><div class="line">	<span class="comment">//对于默认不兼容AMD规范的模块通过shim来配置</span></div><div class="line">	<span class="comment">//deps数组，表明该模块的依赖性，</span></div><div class="line">	<span class="comment">//exports值，表明这个模块外部调用时的名称</span></div><div class="line">	<span class="comment">//下面代码里面包含了如何加载库和插件</span></div><div class="line">	shim: &#123;</div><div class="line">    	<span class="string">'backbone'</span>: &#123;</div><div class="line">       	 	<span class="attr">deps</span>: [<span class="string">'underscore'</span>, <span class="string">'jquery'</span>],</div><div class="line">        	<span class="attr">exports</span>: <span class="string">'Backbone'</span></div><div class="line">    	&#125;,</div><div class="line">    	<span class="string">'underscore'</span>: &#123;</div><div class="line">        	<span class="attr">exports</span>: <span class="string">'_'</span></div><div class="line">    	&#125;,</div><div class="line">    	<span class="string">'backbone.localStorage'</span>: &#123;</div><div class="line">  			<span class="attr">deps</span>: [<span class="string">'backbone'</span>],</div><div class="line">  			<span class="attr">exports</span>: <span class="string">'Backbone'</span></div><div class="line">		&#125;,</div><div class="line">		<span class="string">'bootstrap.modal'</span>: &#123;</div><div class="line">        	<span class="attr">deps</span>: [<span class="string">'jquery'</span>],</div><div class="line">        	<span class="attr">exports</span>: <span class="string">'jQuery.fn.modal'</span></div><div class="line">    	&#125;</div><div class="line">	&#125;,</div><div class="line">	<span class="comment">//模块的加载路径（不要加.js后缀，因为默认就是加载js，加了会报错）</span></div><div class="line">	<span class="comment">//路径是相对于上面的baseUrl</span></div><div class="line">	paths: &#123;</div><div class="line">		<span class="attr">jquery</span>: <span class="string">'lib/jquery/jquery-1.11.1.min'</span>,</div><div class="line">		<span class="attr">underscore</span>: <span class="string">'lib/underscore/underscore-min'</span>,</div><div class="line">		...</div><div class="line">		text: <span class="string">'lib/requirejs/plugins/text'</span>,</div><div class="line">		<span class="attr">echarts</span>:<span class="string">'lib/echarts/echarts'</span>,</div><div class="line">    	<span class="string">'echarts/chart/bar'</span> : <span class="string">'lib/echarts/echarts'</span>,</div><div class="line">		<span class="attr">config</span>: <span class="string">'modules/common/config'</span></div><div class="line">	&#125;	</div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="comment">//下面开始加载执行</span></div><div class="line"><span class="built_in">require</span>([<span class="string">'backbone'</span>, <span class="string">'modules/app'</span>], <span class="function"><span class="keyword">function</span> (<span class="params">Backbone, AppRouter</span>) </span>&#123;</div><div class="line">	<span class="keyword">new</span> AppRouter();</div><div class="line">	Backbone.history.start();</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p><strong>requirejs模块定义与加载</strong></p>
+<p><code>requirejs</code>定义一个模块相当简单，下面是一个简单的例子:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line">define([<span class="string">'backbone'</span>], <span class="function"><span class="keyword">function</span>(<span class="params">Backbone</span>)</span>&#123;</div><div class="line">	<span class="keyword">var</span> AppRouter = Backbone.Router.extend(&#123;</div><div class="line">		...</div><div class="line">	&#125;);</div><div class="line"></div><div class="line">	<span class="comment">//导出对象</span></div><div class="line">	<span class="keyword">return</span> AppRouter;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>我们也可以动态加载模块：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line">define([<span class="string">'backbone'</span>], <span class="function"><span class="keyword">function</span>(<span class="params">Backbone</span>)</span>&#123;</div><div class="line">	<span class="keyword">var</span> AppRouter = Backbone.Router.extend(&#123;</div><div class="line">		...</div><div class="line">		index： <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">			<span class="built_in">require</span>([<span class="string">'echarts'</span>, <span class="string">'echarts/chart/bar'</span>], <span class="function"><span class="keyword">function</span>(<span class="params">ec</span>)</span>&#123;</div><div class="line">				...</div><div class="line">			&#125;);</div><div class="line">		&#125;</div><div class="line">	&#125;);</div><div class="line"></div><div class="line">	<span class="comment">//导出对象</span></div><div class="line">	<span class="keyword">return</span> AppRouter;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>如果你已经用习惯了<code>seajs</code>的模块加载方法的话，你也可以像<code>seajs</code>里面那样去加载模块：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line">define(<span class="function"><span class="keyword">function</span> (<span class="params">require</span>) </span>&#123;</div><div class="line">	<span class="keyword">var</span> $ = <span class="built_in">require</span>(<span class="string">'jquery'</span>);</div><div class="line"></div><div class="line">	<span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">	    ...</div><div class="line">	&#125;;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>或者<code>CommonJS</code>的方式也ok:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line">define(<span class="function"><span class="keyword">function</span>(<span class="params">require, exports, module</span>) </span>&#123;</div><div class="line">	...</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p><code>requirejs</code>提供一个加载文本的插件<code>text.js</code>，细心的话你可能已经看到我在<code>requirejs.config</code>里面已经配置了，使用也很简单：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="comment">// 注意这里自定义模块的加载路径</span></div><div class="line"><span class="comment">// 可以写相对路径，那就是相对于当前js文件的路径</span></div><div class="line"><span class="comment">// 也可以写绝对路径，就是相对于baseUrl的路径</span></div><div class="line">define([<span class="string">'backbone'</span>,<span class="string">'text!../tmpl/index.html'</span>], <span class="function"><span class="keyword">function</span>(<span class="params">Backbone, html</span>)</span>&#123;</div><div class="line">	</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p><strong>requirejs构建工具r.js</strong></p>
+<p>当项目上线的时候，我们可能需要对模块代码进行压缩合并的操作，这时我们就会用到<code>requirejs</code>的构建工具<code>r.js</code>。首先我们在项目根目录创建一个<code>build</code>的文件夹和<code>dist</code>的文件夹，分别用来存放模块合并相关配置和合并后的代码的文件目录，在<code>build</code>目录里面存放<code>r.js</code>，并新建一个压缩合并的配置文件<code>config.js</code>,下面是<code>config.js</code>的配置示例：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="comment">//config.js</span></div><div class="line">&#123;</div><div class="line">	<span class="comment">//requirejs.cofig文件的路径,它会自动读取main.js里面的配置信息</span></div><div class="line">	mainConfigFile : <span class="string">"../js/main.js"</span>,</div><div class="line">	<span class="attr">baseUrl</span>: <span class="string">'../js'</span>,</div><div class="line">	<span class="attr">name</span>: <span class="string">"main"</span>,</div><div class="line">	<span class="comment">//输出文件的路径和名称</span></div><div class="line">	out: <span class="string">"../dist/js/main.js"</span>,</div><div class="line">	<span class="comment">//默认情况写r.js会把相关的依赖文件拷贝到输出目录里面去</span></div><div class="line">	<span class="comment">//设置为true之后r.js就不会进行这一操作</span></div><div class="line">	removeCombined: <span class="literal">true</span>,</div><div class="line">	<span class="comment">//findNestedDependencies设置为true表示将所有相关的依赖模块也合并进来，默认为false只会对main.js进行压缩合并的操作</span></div><div class="line">	findNestedDependencies: <span class="literal">true</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>然后在命令行执行：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><div class="line">node r.js -o config.js</div></pre></td></tr></table></figure>
+<p>执行完成之后便会在<code>dist/js/</code>目录下面生成一个合并后的<code>main.js</code></p>
+<p>你会发现这个<code>main.js</code>可能会非常大，而在实际项目中，像通用的一些jquery、backbone等有时候我们可能没有必要把它压缩进来，我们只需要压缩自己写的一些代码，于是我们再次开始配置我们的<code>config.js</code>：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line">&#123;</div><div class="line">	<span class="attr">mainConfigFile</span> : <span class="string">"../js/main.js"</span>,</div><div class="line">	<span class="attr">baseUrl</span>: <span class="string">"../js"</span>,</div><div class="line">	<span class="attr">removeCombined</span>: <span class="literal">true</span>,</div><div class="line">	<span class="attr">findNestedDependencies</span>: <span class="literal">true</span>,</div><div class="line">	<span class="attr">dir</span>: <span class="string">"../dist/js"</span>,</div><div class="line">	<span class="attr">modules</span>: [&#123;</div><div class="line">		<span class="attr">name</span>: <span class="string">"main"</span>,</div><div class="line">        <span class="attr">exclude</span>: [</div><div class="line">            <span class="string">"backbone"</span>,</div><div class="line">			<span class="string">"underscore"</span>,</div><div class="line">            <span class="string">"jquery"</span>,</div><div class="line">            <span class="string">"text"</span>,</div><div class="line">			...</div><div class="line">        ]</div><div class="line">    &#125;]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>再次运行压缩合并命令将会发现在<code>exclude</code>数组里面的项不会被合并。</p>
+<p>然而我觉得更好的做法是把通用的一些库，如jquery,bacnbone等合并到一个文件里面，我们自己的代码合并到了一个文件，因此，我们重新进行配置。</p>
+<p>首先我们新建一个js文件，这个js文件啥也不用做，就是为了引用所有通用的库，这样方便我们进行排除，如下：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="comment">//libs.js</span></div><div class="line">	</div><div class="line">define([</div><div class="line">	<span class="string">"jquery"</span>,</div><div class="line">	<span class="string">"underscore"</span>,</div><div class="line">	<span class="string">"backbone"</span>,</div><div class="line">	...</div><div class="line">	<span class="string">"text"</span></div><div class="line">], <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125;);</div></pre></td></tr></table></figure>
+<p>然后我们的<code>config.js</code>变成了这样：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line">&#123;</div><div class="line">	<span class="attr">mainConfigFile</span> : <span class="string">"../js/main.js"</span>,</div><div class="line">	<span class="attr">baseUrl</span>: <span class="string">"../js"</span>,</div><div class="line">	<span class="attr">removeCombined</span>: <span class="literal">true</span>,</div><div class="line">	<span class="attr">findNestedDependencies</span>: <span class="literal">true</span>,</div><div class="line">	<span class="attr">dir</span>: <span class="string">"../dist/js"</span>,</div><div class="line">	<span class="attr">modules</span>: [</div><div class="line">    	&#123;</div><div class="line">       	 <span class="attr">name</span>: <span class="string">"main"</span>,</div><div class="line">        	<span class="attr">exclude</span>: [</div><div class="line">            	<span class="string">"libs"</span></div><div class="line">        	]</div><div class="line">    	&#125;,</div><div class="line">   		&#123;</div><div class="line">       		<span class="attr">name</span>: <span class="string">"libs"</span></div><div class="line">   	 	&#125;</div><div class="line">	]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>现在，我们的<code>build</code>操作终于完美了。</p>
+<p>但是，如果我们的js直接通过cdn引用的呢？如果我们直接运行上面的压缩配置，<code>r.js</code>将会报错。因此，对于从cdn引入的js，我们作如下配置：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line">requirejs.config(&#123;</div><div class="line">	<span class="attr">paths</span>: &#123;</div><div class="line">		<span class="comment">//如果cdn挂点，通过本地加载jquery</span></div><div class="line">    	jquery: [<span class="string">'http://cdn.staticfile.org/jquery/1.11.1/jquery.min.js'</span>, <span class="string">'lib/jquery/jquery-1.11.1.min'</span>],</div><div class="line">    	<span class="attr">underscore</span>: <span class="string">'lib/underscore/underscore-min'</span>,</div><div class="line">    	...</div><div class="line">    	text: <span class="string">'lib/requirejs/plugins/text'</span>,</div><div class="line">    	<span class="attr">echarts</span>:<span class="string">'lib/echarts/echarts'</span>,</div><div class="line">    	<span class="string">'echarts/chart/bar'</span> : <span class="string">'lib/echarts/echarts'</span>,</div><div class="line">    	<span class="attr">config</span>: <span class="string">'modules/common/config'</span></div><div class="line">	&#125;  </div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="comment">//修改config.js</span></div><div class="line">&#123;</div><div class="line">	<span class="attr">mainConfigFile</span> : <span class="string">"../js/main.js"</span>,</div><div class="line">	<span class="attr">baseUrl</span>: <span class="string">"../js"</span>,</div><div class="line">	<span class="attr">removeCombined</span>: <span class="literal">true</span>,</div><div class="line">	<span class="attr">findNestedDependencies</span>: <span class="literal">true</span>,</div><div class="line">	<span class="attr">dir</span>: <span class="string">"../dist/js"</span>,</div><div class="line">	<span class="attr">modules</span>: [</div><div class="line">    	&#123;</div><div class="line">       	 <span class="attr">name</span>: <span class="string">"main"</span>,</div><div class="line">        	<span class="attr">exclude</span>: [</div><div class="line">            	<span class="string">"libs"</span></div><div class="line">        	]</div><div class="line">    	&#125;,</div><div class="line">   		&#123;</div><div class="line">       		<span class="attr">name</span>: <span class="string">"libs"</span></div><div class="line">   	 	&#125;</div><div class="line">	],</div><div class="line">	<span class="attr">paths</span>: &#123;</div><div class="line">    	<span class="attr">jquery</span>: <span class="string">"empty:"</span></div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>我们再次运行合并的操作<code>node r.js -o config.js</code>会发现此时<code>r.js</code>没有把<code>jquery</code>合并进来，因为它是通过cdn加载的。</p>
+<p><strong>css的压缩合并配置</strong></p>
+<p>虽然我的项目中没有用到，但在这里还是说一下吧。</p>
+<p>项目中可能引用了多个css文件，如：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">type</span>=<span class="string">"text/css"</span> <span class="attr">href</span>=<span class="string">"css/bootstrap.css"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">type</span>=<span class="string">"text/css"</span> <span class="attr">href</span>=<span class="string">"css/style.css"</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>如果我们只想引用一个css文件，我们可以这样：</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><div class="line">@<span class="keyword">import</span> url(<span class="string">'/css/bootstrap.css'</span>);</div><div class="line"><span class="comment">/* style.css content here…. */</span></div></pre></td></tr></table></figure>
+<p>然后在压缩合并的时候进行配置：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="comment">//config.js</span></div><div class="line">&#123;</div><div class="line">	<span class="attr">mainConfigFile</span> : <span class="string">"../js/main.js"</span>,</div><div class="line">	<span class="attr">appDir</span>: <span class="string">"../"</span>,</div><div class="line">	<span class="attr">baseUrl</span>: <span class="string">"js"</span>,</div><div class="line">	<span class="attr">removeCombined</span>: <span class="literal">true</span>,</div><div class="line">	<span class="attr">findNestedDependencies</span>: <span class="literal">true</span>,</div><div class="line">	<span class="attr">dir</span>: <span class="string">"../dist"</span>,</div><div class="line">	<span class="attr">optimizeCss</span>: <span class="string">"standard"</span>,</div><div class="line">	<span class="attr">modules</span>: [</div><div class="line">    	&#123;</div><div class="line">       	 <span class="attr">name</span>: <span class="string">"main"</span>,</div><div class="line">        	<span class="attr">exclude</span>: [</div><div class="line">            	<span class="string">"libs"</span></div><div class="line">        	]</div><div class="line">    	&#125;,</div><div class="line">   		&#123;</div><div class="line">       		<span class="attr">name</span>: <span class="string">"libs"</span></div><div class="line">   	 	&#125;</div><div class="line">	],</div><div class="line">	<span class="attr">paths</span>: &#123;</div><div class="line">    	<span class="attr">jquery</span>: <span class="string">"empty:"</span></div><div class="line">	&#125;，</div><div class="line">	<span class="comment">//匹配到的文件或者目录不会被拷贝到dist目录</span></div><div class="line">	fileExclusionRegExp: <span class="regexp">/(^\.|build|dist|sass|config.rb)/</span>,</div><div class="line">	<span class="attr">generateSourceMaps</span>: <span class="literal">true</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p><code>appDir</code>：项目根目录</p>
+<p><code>optimizeCss</code> ：css压缩规则，有四种，分别是：<code>none</code> 、<code>standard</code> 、<code>standard.keeplines</code>、<code>standard.keepComments</code>、<code>standard.keepComments.keeplines</code>。具体意思我就不一一解释了。</p>
+<p><code>generateSourceMaps</code>：生成map文件，把压缩过的js与未压缩的作映射</p>
+</blockquote>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/js-es6-core/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          JavaScript ES6核心特性概述
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/ng-dynamic-controller/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">AngularJS动态加载Controller</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="requirejs-dev" data-title="使用RequireJS进行模块化开发" data-url="http://joname1.github.io/2016/requirejs-dev/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"joname"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-right">
+    		2016 <i class="fa fa-heart"></i> Joname. 我只作案,从不备案!
+    	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+
+<script>
+	var yiliaConfig = {
+		fancybox: false,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+	}
+</script>
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="https://cdn.bootcss.com/mathjax/2.7.0-beta.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script type="text/javascript" src="http://tajs.qq.com/stats?sId=59279948" charset="UTF-8"></script>
+
+  </div>
+</body>
+</html>
