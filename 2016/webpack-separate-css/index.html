@@ -4,17 +4,21 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>Tag: surge | 江矿宝宝的博客.</title>
+  <title>Webpack分离css单独打包 | 江矿宝宝的博客.</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="江矿宝宝,joname,joname.liangtan,前端,js,jquery,javascript,html5,开发者,攻城狮,码农,挖煤,挖矿,极客,编程,代码,开源,IT网站,Developer,Programmer,Coder,Geek,html,css,css3,Front-end,Front-end Developer">
-<meta property="og:type" content="website">
-<meta property="og:title" content="江矿宝宝的博客.">
-<meta property="og:url" content="http://joname1.github.io/tags/surge/index.html">
+  <meta name="description" content="这个操作很简单的，只需要一个插件就好了，就是extract-text-webpack-plugin
+1、安装extract-text-webpack-plugincnpm install extract-text-webpack-plugin --save-dev">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Webpack分离css单独打包">
+<meta property="og:url" content="http://joname1.github.io/2016/webpack-separate-css/index.html">
 <meta property="og:site_name" content="江矿宝宝的博客.">
-<meta property="og:description" content="江矿宝宝,joname,joname.liangtan,前端,js,jquery,javascript,html5,开发者,攻城狮,码农,挖煤,挖矿,极客,编程,代码,开源,IT网站,Developer,Programmer,Coder,Geek,html,css,css3,Front-end,Front-end Developer">
+<meta property="og:description" content="这个操作很简单的，只需要一个插件就好了，就是extract-text-webpack-plugin
+1、安装extract-text-webpack-plugincnpm install extract-text-webpack-plugin --save-dev">
+<meta property="og:updated_time" content="2016-12-07T09:22:35.110Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="江矿宝宝的博客.">
-<meta name="twitter:description" content="江矿宝宝,joname,joname.liangtan,前端,js,jquery,javascript,html5,开发者,攻城狮,码农,挖煤,挖矿,极客,编程,代码,开源,IT网站,Developer,Programmer,Coder,Geek,html,css,css3,Front-end,Front-end Developer">
+<meta name="twitter:title" content="Webpack分离css单独打包">
+<meta name="twitter:description" content="这个操作很简单的，只需要一个插件就好了，就是extract-text-webpack-plugin
+1、安装extract-text-webpack-plugincnpm install extract-text-webpack-plugin --save-dev">
   
   
   <link rel="icon" href="/favicon.png">
@@ -165,53 +169,96 @@
 	</div>
 </nav>
 
-      <div class="body-wrap">
+      <div class="body-wrap"><article id="post-webpack-separate-css" class="article article-type-post" itemscope itemprop="blogPost">
   
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2016" class="archive-year">2016</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2016/surge-ss/" class="archive-article-date">
-  	<time datetime="2016-09-02T07:14:59.000Z" itemprop="datePublished">Sep 2</time>
+    <div class="article-meta">
+      <a href="/2016/webpack-separate-css/" class="article-date">
+  	<time datetime="2016-12-07T09:19:28.000Z" itemprop="datePublished">Dec 7</time>
 </a>
-        </div>
-    	 
+    </div>
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/surge-ss/">Surge搭配Shadowsocks科学上网教程</a>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Webpack分离css单独打包
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+      </header>
+      
+      <div class="article-info article-info-post">
+        
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shadowsocks/">Shadowsocks</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/fuck-gfw/">fuck-gfw</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ss/">ss</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/surge/">surge</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webpack/">webpack</a></li></ul>
 	</div>
 
-          
+        
 
-        </div>
         <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
+      </div>
+      
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>这个操作很简单的，只需要一个插件就好了，就是extract-text-webpack-plugin</p>
+<h2 id="1、安装extract-text-webpack-plugin"><a href="#1、安装extract-text-webpack-plugin" class="headerlink" title="1、安装extract-text-webpack-plugin"></a>1、安装extract-text-webpack-plugin</h2><figure class="highlight js"><table><tr><td class="code"><pre><div class="line">cnpm install extract-text-webpack-plugin --save-dev</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<h2 id="2、配置文件添加对应配置"><a href="#2、配置文件添加对应配置" class="headerlink" title="2、配置文件添加对应配置"></a>2、配置文件添加对应配置</h2><p>首先require一下<br><figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="keyword">var</span> ExtractTextPlugin = <span class="built_in">require</span>(<span class="string">"extract-text-webpack-plugin"</span>);</div></pre></td></tr></table></figure></p>
+<p>plugins里面添加<br><figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="keyword">new</span> ExtractTextPlugin(<span class="string">"styles.css"</span>),</div></pre></td></tr></table></figure></p>
+<p>我这里如下：<br><figure class="highlight"><table><tr><td class="code"><pre><div class="line">plugins: [</div><div class="line">  new webpack.optimize.CommonsChunkPlugin('common.js'),</div><div class="line">  new ExtractTextPlugin("styles.css"),</div><div class="line">],</div></pre></td></tr></table></figure></p>
+<p>modules里面对css的处理修改为<br><figure class="highlight js"><table><tr><td class="code"><pre><div class="line">&#123;<span class="attr">test</span>:<span class="regexp">/\.css$/</span>, <span class="attr">loader</span>: ExtractTextPlugin.extract(<span class="string">"style-loader"</span>, <span class="string">"css-loader"</span>)&#125;,</div></pre></td></tr></table></figure></p>
+<p>千万不要重复了，不然会不起作用的</p>
+<p>我这里如下：<br><figure class="highlight"><table><tr><td class="code"><pre><div class="line">module: &#123;</div><div class="line">  loaders: [</div><div class="line">    &#123;test:/\.css$/, loader: ExtractTextPlugin.extract("style-loader", "css-loader")&#125;,</div><div class="line">    &#123;test: /\.scss$/, loader: "style!css!sass"&#125;,</div><div class="line">    &#123;test: /\.less$/, loader: "style!css!less"&#125;,</div><div class="line">  ]</div><div class="line">&#125;,</div></pre></td></tr></table></figure></p>
+<h2 id="3、在引入文件里面添加需要的css"><a href="#3、在引入文件里面添加需要的css" class="headerlink" title="3、在引入文件里面添加需要的css"></a>3、在引入文件里面添加需要的css</h2><figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="built_in">require</span>(<span class="string">'../less/app.less'</span>);</div><div class="line"><span class="built_in">require</span>(<span class="string">'./bower_components/bootstrap-select/dist/css/bootstrap-select.min.css'</span>);</div><div class="line"><span class="built_in">require</span>(<span class="string">'./bower_components/fancybox/source/jquery.fancybox.css'</span>);</div></pre></td></tr></table></figure>
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/webpack-gulp-qn/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">webpack+gulp 静态文件打包并自动上传到七牛云存储</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="webpack-separate-css" data-title="Webpack分离css单独打包" data-url="http://joname1.github.io/2016/webpack-separate-css/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"joname"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
 
 </div>
       <footer id="footer">
@@ -232,9 +279,9 @@
 		mathjax: true,
 		animate: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 	}

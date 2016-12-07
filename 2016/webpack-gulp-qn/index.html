@@ -4,21 +4,24 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>RequireJS入门(一) | 江矿宝宝的博客.</title>
+  <title>webpack+gulp 静态文件打包并自动上传到七牛云存储 | 江矿宝宝的博客.</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="RequireJS会让你以不同于往常的方式去写JavaScript。你将不再使用script标签在HTML中引入JS文件，以及不用通过script标签顺序去管理依赖关系。当然也不会有阻塞（blocking）的情况发生。好，以一个简单示例开始。">
+  <meta name="description" content="经过几天的瞎折腾实现了webpack可以与gulp完美结合的进行打包静态文件，并将静态文件上传到七牛云存储，当然也可以传到你想传的云存储了，这里只分享一个七牛的云存储方案。
+关于如何使用webpack打包静态代码，这个可以参考我之前的一些文章和方案。
+这里只分享一下gulp这边的操作，然后给一个例子实现如何一条命令打包静态文件并更新CDN文件的方法。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="RequireJS入门(一)">
-<meta property="og:url" content="http://joname1.github.io/2016/requirejs-1/index.html">
+<meta property="og:title" content="webpack+gulp 静态文件打包并自动上传到七牛云存储">
+<meta property="og:url" content="http://joname1.github.io/2016/webpack-gulp-qn/index.html">
 <meta property="og:site_name" content="江矿宝宝的博客.">
-<meta property="og:description" content="RequireJS会让你以不同于往常的方式去写JavaScript。你将不再使用script标签在HTML中引入JS文件，以及不用通过script标签顺序去管理依赖关系。当然也不会有阻塞（blocking）的情况发生。好，以一个简单示例开始。">
-<meta property="og:image" content="http://pic002.cnblogs.com/images/2012/114013/2012052217445846.png">
-<meta property="og:image" content="http://pic002.cnblogs.com/images/2012/114013/2012052217462496.png">
-<meta property="og:updated_time" content="2016-11-04T08:08:29.721Z">
+<meta property="og:description" content="经过几天的瞎折腾实现了webpack可以与gulp完美结合的进行打包静态文件，并将静态文件上传到七牛云存储，当然也可以传到你想传的云存储了，这里只分享一个七牛的云存储方案。
+关于如何使用webpack打包静态代码，这个可以参考我之前的一些文章和方案。
+这里只分享一下gulp这边的操作，然后给一个例子实现如何一条命令打包静态文件并更新CDN文件的方法。">
+<meta property="og:updated_time" content="2016-12-07T07:40:32.075Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="RequireJS入门(一)">
-<meta name="twitter:description" content="RequireJS会让你以不同于往常的方式去写JavaScript。你将不再使用script标签在HTML中引入JS文件，以及不用通过script标签顺序去管理依赖关系。当然也不会有阻塞（blocking）的情况发生。好，以一个简单示例开始。">
-<meta name="twitter:image" content="http://pic002.cnblogs.com/images/2012/114013/2012052217445846.png">
+<meta name="twitter:title" content="webpack+gulp 静态文件打包并自动上传到七牛云存储">
+<meta name="twitter:description" content="经过几天的瞎折腾实现了webpack可以与gulp完美结合的进行打包静态文件，并将静态文件上传到七牛云存储，当然也可以传到你想传的云存储了，这里只分享一个七牛的云存储方案。
+关于如何使用webpack打包静态代码，这个可以参考我之前的一些文章和方案。
+这里只分享一下gulp这边的操作，然后给一个例子实现如何一条命令打包静态文件并更新CDN文件的方法。">
   
   
   <link rel="icon" href="/favicon.png">
@@ -169,11 +172,11 @@
 	</div>
 </nav>
 
-      <div class="body-wrap"><article id="post-requirejs-1" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-webpack-gulp-qn" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/requirejs-1/" class="article-date">
-  	<time datetime="2016-10-03T07:54:29.000Z" itemprop="datePublished">Oct 3</time>
+      <a href="/2016/webpack-gulp-qn/" class="article-date">
+  	<time datetime="2016-11-25T18:17:24.000Z" itemprop="datePublished">Nov 26</time>
 </a>
     </div>
   
@@ -184,7 +187,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      RequireJS入门(一)
+      webpack+gulp 静态文件打包并自动上传到七牛云存储
     </h1>
   
 
@@ -193,7 +196,7 @@
       <div class="article-info article-info-post">
         
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/requirejs/">requirejs</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/gulp/">gulp</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/qiniu/">qiniu</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webpack/">webpack</a></li></ul>
 	</div>
 
         
@@ -204,24 +207,15 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>RequireJS会让你以不同于往常的方式去写JavaScript。你将不再使用script标签在HTML中引入JS文件，以及不用通过script标签顺序去管理依赖关系。<br>当然也不会有阻塞（blocking）的情况发生。好，以一个简单示例开始。<br><a id="more"></a><br>新建一个目录，结构如下<br><img src="http://pic002.cnblogs.com/images/2012/114013/2012052217445846.png" alt=""></p>
-<p>目录r1下有index.html、jquery-1.7.2.js、main.js、require.js。require.js和jquery-1.7.2.js去各自官网下载即可。</p>
-<h2 id="index-html如下"><a href="#index-html如下" class="headerlink" title="index.html如下"></a>index.html如下</h2><figure class="highlight html"><table><tr><td class="code"><pre><div class="line"><span class="meta">&lt;!doctype html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">title</span>&gt;</span>requirejs入门（一）<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">script</span> <span class="attr">data-main</span>=<span class="string">"main"</span> <span class="attr">src</span>=<span class="string">"require.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">     </div><div class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure>
-<p>使用requirejs很简单，只需要在head中通过script标签引入它（实际上除了require.js，其它文件模块都不再使用script标签引入）。<br>细心的同学会发现script标签上了多了一个自定义属性：data-main=”main”，等号右边的main指的main.js。当然可以使用任意的名称。这个main指主模块或入口模块，好比c或java的主函数main。</p>
-<h2 id="main-js如下"><a href="#main-js如下" class="headerlink" title="main.js如下"></a>main.js如下</h2><figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="built_in">require</span>.config(&#123;</div><div class="line">    <span class="attr">paths</span>: &#123;</div><div class="line">        <span class="attr">jquery</span>: <span class="string">'jquery-1.7.2'</span></div><div class="line">    &#125;</div><div class="line">&#125;);</div><div class="line"> </div><div class="line"><span class="built_in">require</span>([<span class="string">'jquery'</span>], <span class="function"><span class="keyword">function</span>(<span class="params">$</span>) </span>&#123;</div><div class="line">    alert($().jquery);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<p>main.js中就两个函数调用require.config和require。</p>
-<p>require.config用来配置一些参数，它将影响到requirejs库的一些行为。</p>
-<p>require.config的参数是一个JS对象，常用的配置有baseUrl，paths等。</p>
-<p>这里配置了paths参数，使用模块名“jquery”，其实际文件路径jquery-1.7.2.js（后缀.js可以省略）。</p>
-<p>我们知道jQuery从1.7后开始支持AMD规范，即如果jQuery作为一个AMD模块运行时，它的模块名是“jquery”。注意“jquery”是固定的，不能写“jQuery”或其它。</p>
-<p>注：如果文件名“jquery-1.7.2.js”改为“jquery.js”就不必配置paths参数了。</p>
-<h2 id="jQuery中的支持AMD代码如下"><a href="#jQuery中的支持AMD代码如下" class="headerlink" title="jQuery中的支持AMD代码如下"></a>jQuery中的支持AMD代码如下</h2><figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="keyword">if</span> ( <span class="keyword">typeof</span> define === <span class="string">"function"</span> &amp;&amp; define.amd &amp;&amp; define.amd.jQuery ) &#123;</div><div class="line">    define( <span class="string">"jquery"</span>, [], <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123; <span class="keyword">return</span> jQuery; &#125; );</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>我们知道jQuery最终向外暴露的是全局的jQuery和 $。如下<br><figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="comment">// Expose jQuery to the global object</span></div><div class="line"><span class="built_in">window</span>.jQuery = <span class="built_in">window</span>.$ = jQuery;</div></pre></td></tr></table></figure></p>
-<p>如果将jQuery应用在模块化开发时，其实可以不使用全局的，即可以不暴露出来。需要用到jQuery时使用require函数即可，</p>
-<p>这里require函数的第一个参数是数组，数组中存放的是模块名（字符串类型），数组中的模块与回调函数的参数一一对应。这里的例子则只有一个模块“jquery”。</p>
-<p>把目录r1放到apache或其它web服务器上，访问index.html。</p>
-<h2 id="网络请求如下"><a href="#网络请求如下" class="headerlink" title="网络请求如下"></a>网络请求如下</h2><p><img src="http://pic002.cnblogs.com/images/2012/114013/2012052217462496.png" alt=""></p>
-<p>我们看到除了require.js外main.js和jquery-1.7.2.js也请求下来了。而它们正是通过requirejs请求的。</p>
+        <p>经过几天的瞎折腾实现了webpack可以与gulp完美结合的进行打包静态文件，并将静态文件上传到七牛云存储，当然也可以传到你想传的云存储了，这里只分享一个七牛的云存储方案。</p>
+<p>关于如何使用webpack打包静态代码，这个可以参考我之前的一些文章和方案。</p>
+<p>这里只分享一下gulp这边的操作，然后给一个例子实现如何一条命令打包静态文件并更新CDN文件的方法。</p>
+<a id="more"></a>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="keyword">const</span> gulp = <span class="built_in">require</span>(<span class="string">'gulp'</span>);</div><div class="line"><span class="keyword">const</span> uglify = <span class="built_in">require</span>(<span class="string">'gulp-uglify'</span>);</div><div class="line"><span class="keyword">const</span> concat = <span class="built_in">require</span>(<span class="string">'gulp-concat'</span>);</div><div class="line"><span class="keyword">const</span> shrink = <span class="built_in">require</span>(<span class="string">'gulp-cssshrink'</span>);</div><div class="line"><span class="keyword">const</span> webpack = <span class="built_in">require</span>(<span class="string">'gulp-webpack'</span>);</div><div class="line"><span class="keyword">const</span> qn = <span class="built_in">require</span>(<span class="string">'gulp-qn'</span>);</div><div class="line"></div><div class="line"><span class="keyword">const</span> rev = <span class="built_in">require</span>(<span class="string">'gulp-rev-qn'</span>);</div><div class="line"><span class="keyword">const</span> revCollector = <span class="built_in">require</span>(<span class="string">'gulp-rev-collector'</span>);</div><div class="line"><span class="keyword">const</span> runSequence = <span class="built_in">require</span>(<span class="string">'run-sequence'</span>);</div><div class="line"><span class="keyword">const</span> config = <span class="built_in">require</span>(<span class="string">'./webpack.config'</span>);</div><div class="line"><span class="keyword">const</span> qiniu_options = &#123;</div><div class="line">  <span class="attr">accessKey</span>: <span class="string">'xxxxxxxxxx'</span>,</div><div class="line">  <span class="attr">secretKey</span>: <span class="string">'xxxxxxxxxx'</span>,</div><div class="line">  <span class="attr">bucket</span>: <span class="string">'xxxxxxxxxxxxx'</span>,</div><div class="line">  <span class="attr">domain</span>: <span class="string">'http://xxxxx.com'</span></div><div class="line">&#125;;</div><div class="line">gulp.task(<span class="string">'publish-js'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> gulp.src([<span class="string">'./build/js/*.js'</span>])</div><div class="line">    .pipe(uglify())</div><div class="line">    .pipe(rev())</div><div class="line">    .pipe(gulp.dest(<span class="string">'./build/js'</span>))</div><div class="line">    .pipe(qn(&#123;</div><div class="line">      <span class="attr">qiniu</span>: qiniu_options,</div><div class="line">      <span class="attr">prefix</span>: <span class="string">'js'</span></div><div class="line">    &#125;))</div><div class="line">    .pipe(rev.manifest())</div><div class="line">    .pipe(gulp.dest(<span class="string">'./build/rev/js'</span>));</div><div class="line">&#125;);</div><div class="line">gulp.task(<span class="string">'publish-font'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> gulp.src([<span class="string">'./build/js/*.woff2'</span>,<span class="string">'./build/js/*.ttf'</span>,<span class="string">'./build/js/*.eot'</span>,<span class="string">'./build/js/*.woff'</span>])</div><div class="line">    .pipe(qn(&#123;</div><div class="line">      <span class="attr">qiniu</span>: qiniu_options,</div><div class="line">      <span class="attr">prefix</span>: <span class="string">'js'</span></div><div class="line">    &#125;));</div><div class="line">&#125;);</div><div class="line">gulp.task(<span class="string">'publish-css'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> gulp.src([<span class="string">'./build/js/*.css'</span>])</div><div class="line">    .pipe(rev())</div><div class="line">    .pipe(gulp.dest(<span class="string">'./build/js'</span>))</div><div class="line">    .pipe(qn(&#123;</div><div class="line">      <span class="attr">qiniu</span>: qiniu_options,</div><div class="line">      <span class="attr">prefix</span>: <span class="string">'css'</span></div><div class="line">    &#125;))</div><div class="line">    .pipe(rev.manifest())</div><div class="line">    .pipe(gulp.dest(<span class="string">'./build/rev/css'</span>));</div><div class="line">&#125;);</div><div class="line">gulp.task(<span class="string">'publish-html'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> gulp.src([<span class="string">'./build/rev/**/*.json'</span>, <span class="string">'./build/views/*.html'</span>])</div><div class="line">    .pipe(revCollector(&#123;</div><div class="line">      <span class="attr">dirReplacements</span>: &#123;</div><div class="line">        <span class="string">'/js/'</span>: <span class="string">''</span></div><div class="line">      &#125;</div><div class="line">    &#125;))</div><div class="line">    .pipe(gulp.dest(<span class="string">'./build/views'</span>));</div><div class="line">&#125;);</div><div class="line">gulp.task(<span class="string">'default'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">callback</span>)</span>&#123;</div><div class="line">  runSequence(</div><div class="line">    [<span class="string">'publish-css'</span>,<span class="string">'publish-js'</span>,<span class="string">'publish-font'</span>],</div><div class="line">    <span class="string">'publish-html'</span>,</div><div class="line">    callback);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h2 id="PS"><a href="#PS" class="headerlink" title="PS:"></a>PS:</h2><p>publish-js：将js文件进行版本更新并上传到七牛。</p>
+<p>publish-css：将css文件进行版本更新并上传到七牛。</p>
+<p>publish-font：将字体文件上传到七牛。</p>
+<p>publish-html：将html文件中对应的js路径进行替换。</p>
 
       
     </div>
@@ -231,18 +225,18 @@
     
 <nav id="article-nav">
   
-    <a href="/2016/nodejs-3/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2016/webpack-separate-css/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption"><</strong>
       <div class="article-nav-title">
         
-          Node.js(3) 模块
+          Webpack分离css单独打包
         
       </div>
     </a>
   
   
-    <a href="/2016/nodejs-2/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Node.js(2) MySQL</div>
+    <a href="/2016/yarnpkg/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">初探全新的 Node.js 包管理器 Yarn</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -258,7 +252,7 @@
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="requirejs-1" data-title="RequireJS入门(一)" data-url="http://joname1.github.io/2016/requirejs-1/"></div>
+	<div class="ds-thread" data-thread-key="webpack-gulp-qn" data-title="webpack+gulp 静态文件打包并自动上传到七牛云存储" data-url="http://joname1.github.io/2016/webpack-gulp-qn/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
