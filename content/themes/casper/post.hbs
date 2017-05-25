@@ -1,0 +1,84 @@
+{{!< default}}
+{{! The comment above "< default" means - insert everything in this file into
+    the {body} of the default.hbs template, which contains our header/footer. }}
+{{! Everything inside the #post tags pulls data from the post }}
+{{#post}}
+<header class="main-header post-head {{#if image}}" style="background-image: url({{image}}){{else}}no-cover{{/if}}">
+    <nav class="main-nav {{#if image}}overlay{{/if}} clearfix">
+        <a class="home-button" href="/">Home</a>
+        {{#if @blog.logo}}<a class="blog-logo" href="{{@blog.url}}"><img src="{{@blog.logo}}" alt="{{@blog.title}}" /></a>{{/if}}
+        {{#if @blog.navigation}}
+            <a class="menu-button" href="#"><i class="fa fa-bars" aria-hidden="true"></i> <span class="word">Menu</span></a>
+        {{/if}}
+    </nav>
+</header>
+<main class="content" role="main">
+    <article class="{{post_class}}">
+        <header class="post-header">
+            <h1 class="post-title">{{title}}</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="{{date format='YYYY-MM-DD'}}">{{date format="DD MMMM YYYY"}}</time>
+                <!-- {{tags prefix=" on "}} -->
+            </section>
+        </header>
+        <section class="post-content">
+            {{content}}
+        </section>
+        <footer class="post-footer">
+        {{! Everything inside the #author tags pulls data from the author }}
+        {{#author}}
+            {{#if image}}
+            <figure class="author-image">
+                <a class="img" style="background-image: url({{image}})"><span class="hidden">{{name}}'s Picture</span></a>
+            </figure>
+                            <h4 style="text-align:center;"><span>{{name}}</span></h4>
+            {{/if}}
+            <section class="author">
+                {{#if bio}}
+                    <p>{{bio}}</p>
+                {{else}}
+                    <p>Read <a href="{{url}}">more posts</a> by this author.</p>
+                {{/if}}
+                <div class="author-meta">
+                    {{#if location}}<span class="author-location"><i class="fa fa-map-marker" aria-hidden="true"></i> {{location}}</span>{{/if}}
+                    {{#if website}}<span class="author-link"><i class="fa fa-link" aria-hidden="true"></i> <a href="{{website}}">{{website}}</a></span>{{/if}}
+                </div>
+            </section>
+        {{/author}}
+            <section class="share">
+                <h4>get in touch!</h4>
+                    <a href="https://github.com/joname1" target="_blank">
+                        <i class="iconfont i-github"></i>
+                    </a>
+
+                    <a href="https://twitter.com/im_joname" target="_blank">
+                        <i class="iconfont i-twitter"></i>
+                    </a>
+
+                    <a href="https://www.zhihu.com/people/joname-liangtan" target="_blank">
+                        <i class="iconfont i-zhihu"></i>
+                    </a>
+
+                    <a href="mailto:joname.liangtan@gmail.com" target="_blank">
+                        <i class="iconfont i-email"></i>
+                    </a>
+            </section>
+
+            <div id="totop" style="position:fixed;bottom:50px;right:30px;cursor: pointer;">
+                <a title="我要飞到最高"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACYAAAAmCAYAAACoPemuAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyBpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBXaW5kb3dzIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjBBQjM1RjI2RkE5MzExRTBCNDZDODlFRTY3MTBGM0E0IiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjBBQjM1RjI3RkE5MzExRTBCNDZDODlFRTY3MTBGM0E0Ij4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MEFCMzVGMjRGQTkzMTFFMEI0NkM4OUVFNjcxMEYzQTQiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MEFCMzVGMjVGQTkzMTFFMEI0NkM4OUVFNjcxMEYzQTQiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz7olMqSAAAG0klEQVR42oxYTWiURxie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"/>
+                </a>
+            </div>
+            <div id="disqus_thread"></div>
+            <script>
+            (function() {
+            var d = document, s = d.createElement('script');
+            s.src = 'https://jonames-blog.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+            })();
+            </script>
+        </footer>
+    </article>
+</main>
+
+{{/post}}
