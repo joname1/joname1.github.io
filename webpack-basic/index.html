@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <title>Webpack 入门及实践</title>
+    <meta name="description" content=",江矿宝宝,joname,joname.liangtan,前端,js,jquery,javascript,html5,开发者,攻城狮,码农,挖煤,挖矿,极客,编程,代码,开源,IT网站,Developer,Programmer,Coder,Geek,html,css,css3,Front-end,Front-end Developer" />
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" href="../assets/favicon.png?v=fd4cefc62c">
+
+    <link href="../assets/css/screen.css?v=fd4cefc62c" rel="stylesheet">
+    <link href="https://fonts.css.network/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
+    <link href="http://joe-10005639.cossh.myqcloud.com/prism.css" rel="stylesheet">
+
+    <link rel="canonical" href="http://joname1.github.io/webpack-basic/" />
+    <meta name="referrer" content="origin" />
+    
+    <meta property="og:site_name" content="江矿宝宝的博客." />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Webpack 入门及实践" />
+    <meta property="og:description" content="React自发布以来吸引了越来越多的开发者，React开发和模块管理的主流工具webpack也被大家所熟知。那么webpack有哪些优势，可以成为最主流的React开发工具呢？本文和大家一起探讨一下。 webpack是什么？ web开发中常用到的静态资源主要有JavaScript、CSS、图片、Jade等文件，webpack中将静态资源文件称之为模块。webpack是一个模块打包工具，其可以兼容多种js书写规范，且可以处理模块间的依赖关系，具有更强大的js模块化的功能。 官方网站中用下图清晰的描述了webpack采用不同的loader加载不同的资源文件，打包生成多个js文件，也可以根据设置生成独立的图片、css文件等。 why webpack？ 在以往的开发过程中，经常会遇到以下三种情况： 项目中资源多样性和依赖性 - js、css、png、less、jade等 为了方便开发，我们经常会使用不同的语法来编写文档，用less、sass、jade等会提高开发效率，但同时我们需要借助gulp或grunt来编写任务编译文件或对图片进行压缩等。 js模块规范复杂化 - AMD、CommonJS、..." />
+    <meta property="og:url" content="http://joname1.github.io/webpack-basic/" />
+    <meta property="article:published_time" content="2016-09-13T09:46:00.000Z" />
+    <meta property="article:modified_time" content="2017-05-25T08:47:19.699Z" />
+    
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Webpack 入门及实践" />
+    <meta name="twitter:description" content="React自发布以来吸引了越来越多的开发者，React开发和模块管理的主流工具webpack也被大家所熟知。那么webpack有哪些优势，可以成为最主流的React开发工具呢？本文和大家一起探讨一下。 webpack是什么？ web开发中常用到的静态资源主要有JavaScript、CSS、图片、Jade等文件，webpack中将静态资源文件称之为模块。webpack是一个模块打包工具，其可以兼容多种js书写规范，且可以处理模块间的依赖关系，具有更强大的js模块化的功能。 官方网站中用下图清晰的描述了webpack采用不同的loader加载不同的资源文件，打包生成多个js文件，也可以根据设置生成独立的图片、css文件等。 why webpack？ 在以往的开发过程中，经常会遇到以下三种情况： 项目中资源多样性和依赖性 - js、css、png、less、jade等 为了方便开发，我们经常会使用不同的语法来编写文档，用less、sass、jade等会提高开发效率，但同时我们需要借助gulp或grunt来编写任务编译文件或对图片进行压缩等。 js模块规范复杂化 - AMD、CommonJS、..." />
+    <meta name="twitter:url" content="http://joname1.github.io/webpack-basic/" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "江矿宝宝的博客.",
+    "author": {
+        "@type": "Person",
+        "name": "江矿宝宝.",
+        "image": "http://joe-10005639.cossh.myqcloud.com/jkbb.jpg",
+        "url": "http://joname1.github.io/author/jkbb",
+        "sameAs": "https://joname1.github.io",
+        "description": "伪前端攻城狮, 喜欢钻研新技术."
+    },
+    "headline": "Webpack 入门及实践",
+    "url": "http://joname1.github.io/webpack-basic/",
+    "datePublished": "2016-09-13T09:46:00.000Z",
+    "dateModified": "2017-05-25T08:47:19.699Z",
+    "description": "React自发布以来吸引了越来越多的开发者，React开发和模块管理的主流工具webpack也被大家所熟知。那么webpack有哪些优势，可以成为最主流的React开发工具呢？本文和大家一起探讨一下。 webpack是什么？ web开发中常用到的静态资源主要有JavaScript、CSS、图片、Jade等文件，webpack中将静态资源文件称之为模块。webpack是一个模块打包工具，其可以兼容多种js书写规范，且可以处理模块间的依赖关系，具有更强大的js模块化的功能。 官方网站中用下图清晰的描述了webpack采用不同的loader加载不同的资源文件，打包生成多个js文件，也可以根据设置生成独立的图片、css文件等。 why webpack？ 在以往的开发过程中，经常会遇到以下三种情况： 项目中资源多样性和依赖性 - js、css、png、less、jade等 为了方便开发，我们经常会使用不同的语法来编写文档，用less、sass、jade等会提高开发效率，但同时我们需要借助gulp或grunt来编写任务编译文件或对图片进行压缩等。 js模块规范复杂化 - AMD、CommonJS、..."
+}
+    </script>
+
+    <script type="text/javascript" src="../shared/ghost-url.js?v=fd4cefc62c"></script>
+<script type="text/javascript">
+ghost.init({
+	clientId: "ghost-frontend",
+	clientSecret: "71d7e111692b"
+});
+</script>
+    <meta name="generator" content="Ghost 0.7" />
+    <link rel="alternate" type="application/rss+xml" title="江矿宝宝的博客." href="http://joname1.github.io/rss/" />
+</head>
+<body class="post-template nav-closed">
+
+    
+
+    <div class="site-wrapper">
+
+        
+
+
+<header class="main-header post-head no-cover">
+    <nav class="main-nav  clearfix">
+        <a class="home-button" href="../index.html"><span class="fa fa-home"> Home</span></a>
+        
+    </nav>
+</header>
+
+<main class="content" role="main">
+    <article class="post">
+
+        <header class="post-header">
+            <h1 class="post-title">Webpack 入门及实践</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="2016-09-13">13 September 2016</time>
+                <!--  -->
+            </section>
+        </header>
+
+        <section class="post-content">
+            <p>React自发布以来吸引了越来越多的开发者，React开发和模块管理的主流工具webpack也被大家所熟知。那么webpack有哪些优势，可以成为最主流的React开发工具呢？本文和大家一起探讨一下。</p>
+
+<h1 id="webpack">webpack是什么？</h1>
+
+<p>web开发中常用到的静态资源主要有JavaScript、CSS、图片、Jade等文件，webpack中将静态资源文件称之为模块。webpack是一个模块打包工具，其可以兼容多种js书写规范，且可以处理模块间的依赖关系，具有更强大的js模块化的功能。 官方网站中用下图清晰的描述了webpack采用不同的loader加载不同的资源文件，打包生成多个js文件，也可以根据设置生成独立的图片、css文件等。</p>
+
+<h1 id="whywebpack">why webpack？</h1>
+
+<p>在以往的开发过程中，经常会遇到以下三种情况：</p>
+
+<ul>
+<li>项目中资源多样性和依赖性 - js、css、png、less、jade等 为了方便开发，我们经常会使用不同的语法来编写文档，用less、sass、jade等会提高开发效率，但同时我们需要借助gulp或grunt来编写任务编译文件或对图片进行压缩等。</li>
+<li>js模块规范复杂化 - AMD、CommonJS、UMD、ES6等 requireJS主要用来处理AMD规范的js文件，若使用CommonJS规范的js库文件，需进行AMD规范的封装，才能正常使用。而browserify主要处理CommonJS规范的文件，其他规范也需要进行转化。近期ES6的兴起，前面两种打包工具已经不能满足我们的需求了。</li>
+<li>开发与线上文件不一致性（打包压缩造成影响）</li>
+</ul>
+
+<p>webpack可以很好地解决上面的问题，它具有Grunt、Gulp对于静态资源自动化构建的能力，是一个出色的前端自动化构建工具、模块化工具、资源管理工具。</p>
+
+<h1 id="webpack">webpack 特性</h1>
+
+<p>webpack具有requireJs和browserify的功能，但仍有很多自己的新特性：</p>
+
+<ol>
+<li>对 CommonJS 、 AMD 、ES6的语法做了兼容  </li>
+<li>对js、css、图片等资源文件都支持打包  </li>
+<li>串联式模块加载器以及插件机制，让其具有更好的灵活性和扩展性，例如提供对CoffeeScript、ES6的支持  </li>
+<li>有独立的配置文件webpack.config.js  </li>
+<li>可以将代码切割成不同的chunk，实现按需加载，降低了初始化时间  </li>
+<li>支持 SourceUrls 和 SourceMaps，易于调试  </li>
+<li>具有强大的Plugin接口，大多是内部插件，使用起来比较灵活  </li>
+<li>webpack 使用异步 IO 并具有多级缓存。这使得 webpack 很快且在增量编译上更加快</li>
+</ol>
+
+<h1 id="webpack">webpack 安装及使用</h1>
+
+<p>webpack 可以作为全局的npm模块安装，也可以在当前项目中安装。</p>
+
+<pre><code class="language-js">npm install -g webpack  
+</code></pre>
+
+<pre><code class="language-js">npm install --save-dev webpack  
+</code></pre>
+
+<p>webpack的使用通常有三种方式：</p>
+
+<ul>
+<li>命令行使用：webpack <entry.js> <result.js> 其中entry.js是入口文件，result.js是打包后的输出文件</li>
+<li>node.js API使用：</li>
+</ul>
+
+<pre><code class="language-js">var webpack = require('webpack');  
+webpack({  
+//configuration
+}, function(err, stats){});
+</code></pre>
+
+<p>默认使用当前目录的webpack.config.js作为配置文件。如果要指定另外的配置文件，可以执行：webpack --config webpack.custom.config.js</p>
+
+<h1 id="webpack">webpack 常用命令</h1>
+
+<p>webpack的使用和browserify有些类似，下面列举几个常用命令：</p>
+
+<ul>
+<li><code>webpack</code> 最基本的启动webpack命令</li>
+<li><code>webpack -w</code> 提供watch方法，实时进行打包更新</li>
+<li><code>webpack -p</code> 对打包后的文件进行压缩</li>
+<li><code>webpack -d</code> 提供SourceMaps，方便调试</li>
+<li><code>webpack --colors</code> 输出结果带彩色，比如：会用红色显示耗时较长的步骤</li>
+<li><code>webpack --profile</code> 输出性能数据，可以看到每一步的耗时</li>
+<li><code>webpack --display-modules</code> 默认情况下 node_modules 下的模块会被隐藏，加上这个参数可以显示这些被隐藏的模块
+前面的四个命令比较基础，使用频率会比较大，后面的命令主要是用来定位打包时间较长的原因，方便改进配置文件，提高打包效率。</li>
+</ul>
+
+<h1 id="webpack">webpack 配置文件</h1>
+
+<p>项目中静态资源文件较多，使用配置文件进行打包会方便很多。最简单的Webpack配置文件webpack.config.js如下所示：</p>
+
+<pre><code class="language-js">module.exports = {  
+  entry:[
+    './entry.js',
+    ...
+  ],
+  output: {
+    path: __dirname + '/output/',
+    publicPath: "/output/",
+    filename: 'result.js'
+  }
+};
+</code></pre>
+
+<ul>
+<li>其中entry参数定义了打包后的入口文件，数组中的所有文件会打包生成一个filename文件</li>
+<li>output参数定义了输出文件的位置及名字，其中参数path是指文件的绝对路径，publicPath是指访问路径，filename是指输出的文件名。</li>
+</ul>
+
+<p>开发中需要将多个页面的公用模块独立打包，从而可以利用浏览器缓存机制来提高页面加载效率，减少页面初次加载时间，只有当某功能被用到时，才去动态的加载。这就需要使用webpack中的CommonsChunkPlugin插件。具体配置如下：</p>
+
+<pre><code class="language-js">var CommonsChunkPlugin = require("webpack/lib/optimize/CommonsChunkPlugin");  
+module.exports = {  
+  entry: { a: "./a", b: "./b" },
+  output: { filename: "[name].js" },
+  plugins: [ new CommonsChunkPlugin("common.js") ]
+}
+</code></pre>
+
+<p>在文件中根据下面的方式引用即可。</p>
+
+<pre><code class="language-html">&lt;script src="common.js"&gt;&lt;/script&gt;  
+&lt;script src="a.js"&gt;&lt;/script&gt;  
+&lt;script src="b.js"&gt;&lt;/script&gt;  
+</code></pre>
+
+<h1 id="webpack">webpack 模块加载器</h1>
+
+<p>在webpack中JavaScript，CSS，LESS，TypeScript，JSX，CoffeeScript，图片等静态文件都是模块，不同模块的加载是通过模块加载器（webpack-loader）来统一管理的。loaders之间是可以串联的，一个加载器的输出可以作为下一个加载器的输入，最终返回到JavaScript上。loader的配置可以写在配置文件中，通过正则表达式的方式对文件进行匹配，具体可参见下面的示例：</p>
+
+<pre><code class="language-js">module: {  
+    loaders: [{
+        test: /\.less/,
+        loader:  'style-loader!css-loader!less-loader'
+    }, {
+      test: /\.(png|jpg)$/,
+      loader: 'url-loader?limit=10000&amp;name=build/[name].[ext]'
+    }]
+}
+</code></pre>
+
+<p>loader也支持在js文件中通过require的方式进行加载，只需要在require资源path的前面指定loader，用！来串联不同的loader和资源即可。</p>
+
+<pre><code class="language-js">require("style!css!less!./mystyles.less");  
+</code></pre>
+
+<h1 id="css">css文件独立打包</h1>
+
+<p>在webpack中编写js文件时，可以通过require的方式引入其他的静态资源，可通过loader对文件自动解析并打包文件。通常会将js文件打包合并，css文件会在页面的header中嵌入style的方式载入页面。但开发过程中我们并不想将样式打在脚本中，最好可以独立生成css文件，以外链的形式加载。这时extract-text-webpack-plugin插件可以帮我们达到想要的效果。需要使用npm的方式加载插件，然后参见下面的配置，就可以将js中的css文件提取，并以指定的文件名来进行加载。</p>
+
+<pre><code class="language-js">npm install extract-text-webpack-plugin –save-dev  
+</code></pre>
+
+<pre><code class="language-js">plugins: [  
+    new ExtractTextPlugin('styles.css')
+]
+</code></pre>
+
+<h1 id="">图片打包</h1>
+
+<p>webpack中对于图片的处理，可以通过url-loader来实现图片的压缩。  </p>
+
+<pre><code class="language-js">div.img{  
+    background: url(../image/xxx.jpg)
+}
+
+//或者
+var img = document.createElement("img");  
+img.src = require("../image/xxx.jpg");  
+document.body.appendChild(img);  
+</code></pre>
+
+<p>针对上面的两种使用方式，loader可以自动识别并处理。根据loader中的设置，webpack会将小于指点大小的文件转化成 base64 格式的 dataUrl，其他图片会做适当的压缩并存放在指定目录中。</p>
+
+<pre><code class="language-js">module: {  
+    {
+      test: /\.(png|jpg)$/,
+      loader: 'url-loader?limit=10000&amp;name=build/[name].[ext]'
+    }]
+}
+</code></pre>
+
+<p>对于上面的配置，如果图片资源小于10kb就会转化成 base64 格式的 dataUrl，其他的图片会存放在build/文件夹下。</p>
+
+<h1 id="webpackdevserver">webpack-dev-server</h1>
+
+<p>webpack除了可以对模块进行打包，还提供了一个开发服务器。它的特点是：</p>
+
+<ul>
+<li>基于Node.js Express框架的轻量开发服务器</li>
+<li>静态资源Web服务器</li>
+<li>开发中会监听文件的变化在内存中实时打包</li>
+</ul>
+
+<p>webpack-dev-server需要单独安装，命令如下：</p>
+
+<pre><code class="language-js">npm install -g webpack-dev-server  
+</code></pre>
+
+<p>可以使用webpack-dev-server直接启动，也可以增加参数来获取更多的功能，具体配置可以参见<a href="http://webpack.github.io/docs/webpack-dev-server.html">官方文档</a>。默认启动端口8080，通过localhost:8080/webpack-dev-server/可以访问页面，文件修改后保存时会在页面头部看到sever的状态变化，并且会进行热替换，实现页面的自动刷新。</p>
+
+<h1 id="">双服务器模式</h1>
+
+<p>项目开发中，仅有一台静态服务器是不能满足需求的，我们需要另启一台web服务器，且将静态服务器集成到web服务器中，就可以使用webpack的打包和加载功能。我们只需要修改一下配置文件就可以实现服务器的集成。</p>
+
+<pre><code class="language-js"> entry: [
+    './src/page/main.js',
+    'webpack/hot/dev-server',
+    'webpack-dev-server/client?http://127.0.0.1:8080'
+  ]
+  output: {
+    path: __dirname,
+    filename: '[name].js',
+    publicPath: "http://127.0.0.1:8080/assets/"
+  }
+  plugins: [
+    new webpack.HotModuleReplacementPlugin()
+  ]
+</code></pre>
+
+<p>如果在开发中启动两个服务器并不是一个很好地选择，webpack提供了一个中间件webpack-dev-middleware，但其只能在生产环境中使用，可以实现在内存中实时打包生成虚拟文件，供浏览器访问以及调试。使用方式如下：</p>
+
+<pre><code class="language-js">var webpackDevMiddleware = require("webpack-dev-middleware");  
+var webpack = require("webpack");
+
+var compiler = webpack({  
+    // configuration
+    output: { path: '/' }
+});
+
+app.use(webpackDevMiddleware(compiler, {  
+    // options
+}));
+</code></pre>
+
+<h1 id="ps">PS</h1>
+
+<p>通过上面的介绍，基本涵盖了webpack的各个特性及简单的使用方法。最近出了个<code>hjs-webpack</code>，可以简化webpack中复杂的配置项，只需要安装开发中所需的loader，无需再module中配置，即可正确使用。有兴趣的同学可以尝试一下。</p>
+        </section>
+
+        <footer class="post-footer">
+
+
+            <figure class="author-image">
+                <a class="img" style="background-image: url(http://joe-10005639.cossh.myqcloud.com/jkbb.jpg)"><span class="hidden">江矿宝宝.'s Picture</span></a>
+            </figure>
+                            <h4 style="text-align:center;"><span>江矿宝宝.</span></h4>
+
+
+            <section class="author">
+                    <p>伪前端攻城狮, 喜欢钻研新技术.</p>
+                <div class="author-meta">
+                    <span class="author-location"><i class="fa fa-map-marker" aria-hidden="true"></i> Nanning, GX</span>
+                    <span class="author-link"><i class="fa fa-link" aria-hidden="true"></i> <a href="https://joname1.github.io">https://joname1.github.io</a></span>
+                </div>
+            </section>
+
+
+            <section class="share">
+                <h4>get in touch!</h4>
+                    <a href="https://github.com/joname1" target="_blank">
+                        <i class="iconfont i-github"></i>
+                    </a>
+
+                    <a href="https://twitter.com/im_joname" target="_blank">
+                        <i class="iconfont i-twitter"></i>
+                    </a>
+
+                    <a href="https://www.zhihu.com/people/joname-liangtan" target="_blank">
+                        <i class="iconfont i-zhihu"></i>
+                    </a>
+
+                    <a href="mailto:joname.liangtan@gmail.com" target="_blank">
+                        <i class="iconfont i-email"></i>
+                    </a>
+            </section>
+
+            <div id="totop" style="position:fixed;bottom:50px;right:30px;cursor: pointer;">
+                <a title="我要飞到最高"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACYAAAAmCAYAAACoPemuAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyBpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBXaW5kb3dzIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjBBQjM1RjI2RkE5MzExRTBCNDZDODlFRTY3MTBGM0E0IiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjBBQjM1RjI3RkE5MzExRTBCNDZDODlFRTY3MTBGM0E0Ij4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MEFCMzVGMjRGQTkzMTFFMEI0NkM4OUVFNjcxMEYzQTQiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MEFCMzVGMjVGQTkzMTFFMEI0NkM4OUVFNjcxMEYzQTQiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz7olMqSAAAG0klEQVR42oxYTWiURxie7CYbSeKlaCnmh5iAKZ7UgCL0UCgFSU6FgrS9VASxadaNiTlLjxU86NrEasBeGhAKPQklpiEpUSEXPUkLTRCJl4LiIYpu3Njn+fyez2fHTdqBb2d2ft555v2faXj9+nVg2b17d2hoaAgqlUolFAqFpM1+zmP98uXLpK+5uZl9fZjXhnn7MJZPx6r47mF8Df//Eg3REw22q9VqyOfzYWNjIzx48CB4aVSDC7g43TBZKGICz4L/n6L/CPo+x98u9q2vr4empqZkLtucn655iO8XfL/hu8kOHZAfQbEmwLjk4g6B4AKdEEAKqIfRvYpvBv2jBEXgLATFNj+2jfMEPor/XLOK8WG0CwKueX7wTYGJ7WR3KsLD6LqL/2V87eQIP7KfwAU+5WYmds7x/6DZjv9ltO9CKh9JpA5wU2DSB9VY+DUIzqO5V/0SbS6Xy8Qv0adrsjniqING316M/U7a6iOXNwXmqKnIPB1Odu0NzUJobGzMQLAtTkgXBVIc5xyXADlI0NRh0sT8a+gnB/P1pJYBk7WlYjyP5rDEKUWVopNbzg3piTjAzTmftTgorkgXU72i3p7fEpix/Di+kiumPt/AN3Ju6ZBmmdkcrZdKsEBXSxg/vimwdOJhTJpwZXY/9OrVq3eMRDoikTrnXLckEXJcUkgAgPuYM9Hb23t4Mx0jgimZs4tWG9ASY50UV2SFDtDnqeYhxFHTT+451dPTU6inYydSi6nx+mZNdf2dCjcUN+RodTDOddHrIB5VaPkYO5EdnJ0dHR20whUMdOkUMVdSa8qUWd7ew00cdkQjBuV7uCqh7yHqnpWVlWou7RyklxaXCEK+yPVH5u7ciLkbH0ScdFB+aP+PNiPFYCZKdB6NTZnESJx6pVDjVirAb91JrsaNiLMCF0cJd6oWHfj3aBbEQeRIpnS5N2pHB8nJtMT4lDqEAj77Jycnk/5i8VTGWemhDhpHGE8ATB0SLA3t7e19IPKnvDU5xGgv58g+Oks52zjcbNu2LVy+PBkOHjyY/F9aWgqnTpXCixcvarKWmEtxiaz8wxwA9HFT6YJCiU5LDqrtKRCBb9++vQYUC9sXL17IOCba9UDpgNJf+9+Xw58uR02OxXHPQUmR+Z8ABGpxcTHcvn27Bhw57Q46dszunGVgaRzuyuGnLXaEziEXh5JAcoobHzp0KBknoFKpFE6fHk0AsnCM3JRBuKEIhAB6/sfDYI+2nDywLE1K7f6JOqdTEVS5fLEG1OjoGOZsJOIYHi6GW7fecu7q1SvJGomOcygV7SsJSBrqpwmuuYV4pqAwpBjJU5XL5RrxDQ19myi6uMpvZGQkE2t/f3+YmPghOawOSno6vIc0c8Rr+dbW1g/A7i/iU3iaw9LS0pJsIFALCwthbOxMTfzkGl0uZmZuhr6+PaG7uzvs2rUrHDiwP8zOzmYXEB2UbeqV3FQac3/M79ixgxOGOaAFXCzr1GYjI6UwMDCQgvojnDkzHp4/f15zAIFim1yZn18Ie/a8BUeRzs3N1YCTwrPm2pRr3zUwTqLxDzrekzh0oVC8YyHRqamr4fHjJ2F8fDw8e/YsU2JPCGV9chekde7c92Hnzp3h5MlvwtraWj1vn4ka5Qm+95Mg3tnZ+TPqL90jewyULkDsCTcEyu+InpvF0cGjiHv6epEA/dOrq6tf5VKPfF3sjK9uKiT69OnTLLWRBTkQp6FYK2vjegfOMXcdVq5nQRwDN6BjfytzEIsVhjyIi3s6tTvc+MpGXRInRddpxDcpFGK4kQED63gVPqvw4RzzFMZzLg/KGvfE0NLmmvxfEtGlxdej7+zy8nI1voxM883Bb0wC6aHIFVe+jvMF2HMzcTSOjQIZ3UHvAdT0O6l1uukQNq1IR+Qw610yVHuu7zmdOOJPBnLU7jPTfStoD211E7+DRcXY+yujFRddx6K3ioxbni3EVz/pnllkEen0nbqvPWbyV6Abe2FhpVhnnGPuJvyVJzYCL+qPMtcLaF7Z8sIr8wbXxlBfcj0TYQKKfZenz3IJ8ROCJ4rSO9C5hLGx/7yJW55eTUV6DEQqnoHQV7mCxyYfK7jE7cbzprtyDIwopg99/++1h5xLH9N+AtGPcfr7EgMVWAoeK77TcWt0MZMW2p+Q9mZPUFu+jyl24bsDgvtBpAgijyQuz2jdGv0u6Wk4vkdUcvTtx/iiX5Tr3gG0uLe39x0n6LkSRYg6nz51DqL+DEPt9eZbfvUI9a+o6c1vol31tzTPLuI32AwYsoy6t2QRicShSwafFNog3n3MkNKxKsaSx2H03Y8z03o3eBa4ixpg/wowAK8y/9yOY/I+AAAAAElFTkSuQmCC"/>
+                </a>
+            </div>
+
+            <div id="disqus_thread"></div>
+
+            <script>
+            (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://jonames-blog.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+            })();
+            </script>
+        </footer>
+
+    </article>
+</main>
+
+
+
+        <footer class="site-footer clearfix">
+            <section class="poweredby">2017 &copy; make with <i class="fa fa-heart"></i> by <a href="http://joname1.github.io">Joname.</a></section>
+        </footer>
+
+    </div>
+
+    <script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://joe-10005639.cossh.myqcloud.com/prism.js"></script>
+    
+
+    <script type="text/javascript" src="https://cdn.bootcss.com/fitvids/1.1.0/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="../assets/js/index.js?v=fd4cefc62c"></script>
+    <script type="text/javascript" src="../assets/js/totop.js?v=fd4cefc62c"></script>
+
+</body>
+</html>

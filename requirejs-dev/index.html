@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <title>使用RequireJS进行模块化开发</title>
+    <meta name="description" content=",江矿宝宝,joname,joname.liangtan,前端,js,jquery,javascript,html5,开发者,攻城狮,码农,挖煤,挖矿,极客,编程,代码,开源,IT网站,Developer,Programmer,Coder,Geek,html,css,css3,Front-end,Front-end Developer" />
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" href="../assets/favicon.png?v=fd4cefc62c">
+
+    <link href="../assets/css/screen.css?v=fd4cefc62c" rel="stylesheet">
+    <link href="https://fonts.css.network/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
+    <link href="http://joe-10005639.cossh.myqcloud.com/prism.css" rel="stylesheet">
+
+    <link rel="canonical" href="http://joname1.github.io/requirejs-dev/" />
+    <meta name="referrer" content="origin" />
+    
+    <meta property="og:site_name" content="江矿宝宝的博客." />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="使用RequireJS进行模块化开发" />
+    <meta property="og:description" content="在之前的项目中一直用的是seajs，感觉seajs是挺好用的，但是有个问题就是把现有的js框架打包成seajs模块略麻烦，官方文档里面也没有对这一块作详细的介绍，虽然有spm build，但还是觉得不太方便。因此便在新的项目中用了requirejs。 用requirejs其实还有另一个原因就是项目中用到了百度的图表库echarts，根据其官方文档的描述是不建议使用基于CMD规范的seajs来加载的，因为echarts是基于AMD模块化的，虽然网上有人改了可以用seajs加载，但是我最后还是选择用requirejs来加载，同时也是想尝试一下requirejs。 自定义构建echarts echarts的构建是用的r.js，因此我在这里先讲一下。 自定义构建echarts还必须下载zrender，下载完成之后，把echarts的目录和zrender目录放在同级目录下，然后进入echarts的build目录进行自定义build（需要node.js环境），下面是我的build命令： node build.js optimize=true exclude=force,scatter,k,radar,chord,gauge,funnel,map  output=..." />
+    <meta property="og:url" content="http://joname1.github.io/requirejs-dev/" />
+    <meta property="article:published_time" content="2016-10-10T07:54:00.000Z" />
+    <meta property="article:modified_time" content="2017-05-25T08:41:51.847Z" />
+    
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="使用RequireJS进行模块化开发" />
+    <meta name="twitter:description" content="在之前的项目中一直用的是seajs，感觉seajs是挺好用的，但是有个问题就是把现有的js框架打包成seajs模块略麻烦，官方文档里面也没有对这一块作详细的介绍，虽然有spm build，但还是觉得不太方便。因此便在新的项目中用了requirejs。 用requirejs其实还有另一个原因就是项目中用到了百度的图表库echarts，根据其官方文档的描述是不建议使用基于CMD规范的seajs来加载的，因为echarts是基于AMD模块化的，虽然网上有人改了可以用seajs加载，但是我最后还是选择用requirejs来加载，同时也是想尝试一下requirejs。 自定义构建echarts echarts的构建是用的r.js，因此我在这里先讲一下。 自定义构建echarts还必须下载zrender，下载完成之后，把echarts的目录和zrender目录放在同级目录下，然后进入echarts的build目录进行自定义build（需要node.js环境），下面是我的build命令： node build.js optimize=true exclude=force,scatter,k,radar,chord,gauge,funnel,map  output=..." />
+    <meta name="twitter:url" content="http://joname1.github.io/requirejs-dev/" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "江矿宝宝的博客.",
+    "author": {
+        "@type": "Person",
+        "name": "江矿宝宝.",
+        "image": "http://joe-10005639.cossh.myqcloud.com/jkbb.jpg",
+        "url": "http://joname1.github.io/author/jkbb",
+        "sameAs": "https://joname1.github.io",
+        "description": "伪前端攻城狮, 喜欢钻研新技术."
+    },
+    "headline": "使用RequireJS进行模块化开发",
+    "url": "http://joname1.github.io/requirejs-dev/",
+    "datePublished": "2016-10-10T07:54:00.000Z",
+    "dateModified": "2017-05-25T08:41:51.847Z",
+    "description": "在之前的项目中一直用的是seajs，感觉seajs是挺好用的，但是有个问题就是把现有的js框架打包成seajs模块略麻烦，官方文档里面也没有对这一块作详细的介绍，虽然有spm build，但还是觉得不太方便。因此便在新的项目中用了requirejs。 用requirejs其实还有另一个原因就是项目中用到了百度的图表库echarts，根据其官方文档的描述是不建议使用基于CMD规范的seajs来加载的，因为echarts是基于AMD模块化的，虽然网上有人改了可以用seajs加载，但是我最后还是选择用requirejs来加载，同时也是想尝试一下requirejs。 自定义构建echarts echarts的构建是用的r.js，因此我在这里先讲一下。 自定义构建echarts还必须下载zrender，下载完成之后，把echarts的目录和zrender目录放在同级目录下，然后进入echarts的build目录进行自定义build（需要node.js环境），下面是我的build命令： node build.js optimize=true exclude=force,scatter,k,radar,chord,gauge,funnel,map  output=..."
+}
+    </script>
+
+    <script type="text/javascript" src="../shared/ghost-url.js?v=fd4cefc62c"></script>
+<script type="text/javascript">
+ghost.init({
+	clientId: "ghost-frontend",
+	clientSecret: "71d7e111692b"
+});
+</script>
+    <meta name="generator" content="Ghost 0.7" />
+    <link rel="alternate" type="application/rss+xml" title="江矿宝宝的博客." href="http://joname1.github.io/rss/" />
+</head>
+<body class="post-template nav-closed">
+
+    
+
+    <div class="site-wrapper">
+
+        
+
+
+<header class="main-header post-head no-cover">
+    <nav class="main-nav  clearfix">
+        <a class="home-button" href="../index.html"><span class="fa fa-home"> Home</span></a>
+        
+    </nav>
+</header>
+
+<main class="content" role="main">
+    <article class="post">
+
+        <header class="post-header">
+            <h1 class="post-title">使用RequireJS进行模块化开发</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="2016-10-10">10 October 2016</time>
+                <!--  -->
+            </section>
+        </header>
+
+        <section class="post-content">
+            <p>在之前的项目中一直用的是seajs，感觉seajs是挺好用的，但是有个问题就是把现有的js框架打包成seajs模块略麻烦，官方文档里面也没有对这一块作详细的介绍，虽然有spm build，但还是觉得不太方便。因此便在新的项目中用了requirejs。</p>
+
+<p><img src="http://blog.u.qiniudn.com/uploads%2Frequirejs.png" alt="requirejs" /></p>
+
+<p>用requirejs其实还有另一个原因就是项目中用到了百度的图表库<a href="http://echarts.baidu.com/" title="echarts">echarts</a>，根据其官方文档的描述是不建议使用基于CMD规范的seajs来加载的，因为echarts是基于AMD模块化的，虽然网上有人改了可以用seajs加载，但是我最后还是选择用requirejs来加载，同时也是想尝试一下requirejs。</p>
+
+<p><strong>自定义构建echarts</strong></p>
+
+<p><code>echarts</code>的构建是用的<code>r.js</code>，因此我在这里先讲一下。</p>
+
+<p>自定义构建<code>echarts</code>还必须下载<code>zrender</code>，下载完成之后，把<code>echarts</code>的目录和<code>zrender</code>目录放在同级目录下，然后进入<code>echarts</code>的<code>build</code>目录进行自定义<code>build</code>（需要node.js环境），下面是我的build命令：</p>
+
+<pre><code class="language-bash">node build.js optimize=true exclude=force,scatter,k,radar,chord,gauge,funnel,map  output=echarts1.js  
+</code></pre>
+
+<p>上面命令的意思是排除<code>exclude</code>的之后的那些模块，因为我只用到了<code>echarts</code>的折线图、柱状图和饼状图。</p>
+
+<p>执行完成之后就可以在build目录看到刚才合并的<code>echarts1.js</code></p>
+
+<p><strong>requirejs模块加载配置</strong></p>
+
+<p><code>requirejs</code>引入主模块的方法是通过在script标签里面添加<code>data-main</code>属性，如我的引入代码：</p>
+
+<pre><code class="language-html">&lt;script data-main="js/main" src="js/lib/requirejs/require.js"&gt;&lt;/script&gt;  
+</code></pre>
+
+<p><code>main.js</code>是程序的入口js文件，然后我们在<code>main.js</code>里面进行模块的加载配置：</p>
+
+<pre><code class="language-javascript">requirejs.config({  
+    //开发专用，阻止浏览器缓存
+    urlArgs: "v=" + Date.now(),
+    //js文件的目录，相对于引入main.js的那个文件的目录
+    baseUrl: 'js',
+    //对于默认不兼容AMD规范的模块通过shim来配置
+    //deps数组，表明该模块的依赖性，
+    //exports值，表明这个模块外部调用时的名称
+    //下面代码里面包含了如何加载库和插件
+    shim: {
+        'backbone': {
+               deps: ['underscore', 'jquery'],
+            exports: 'Backbone'
+        },
+        'underscore': {
+            exports: '_'
+        },
+        'backbone.localStorage': {
+              deps: ['backbone'],
+              exports: 'Backbone'
+        },
+        'bootstrap.modal': {
+            deps: ['jquery'],
+            exports: 'jQuery.fn.modal'
+        }
+    },
+    //模块的加载路径（不要加.js后缀，因为默认就是加载js，加了会报错）
+    //路径是相对于上面的baseUrl
+    paths: {
+        jquery: 'lib/jquery/jquery-1.11.1.min',
+        underscore: 'lib/underscore/underscore-min',
+        ...
+        text: 'lib/requirejs/plugins/text',
+        echarts:'lib/echarts/echarts',
+        'echarts/chart/bar' : 'lib/echarts/echarts',
+        config: 'modules/common/config'
+    }   
+});
+
+//下面开始加载执行
+require(['backbone', 'modules/app'], function (Backbone, AppRouter) {  
+    new AppRouter();
+    Backbone.history.start();
+});
+</code></pre>
+
+<p><strong>requirejs模块定义与加载</strong></p>
+
+<p><code>requirejs</code>定义一个模块相当简单，下面是一个简单的例子:</p>
+
+<pre><code class="language-javascript">define(['backbone'], function(Backbone){  
+    var AppRouter = Backbone.Router.extend({
+        ...
+    });
+
+    //导出对象
+    return AppRouter;
+});
+</code></pre>
+
+<p>我们也可以动态加载模块：</p>
+
+<pre><code class="language-javascript">define(['backbone'], function(Backbone){  
+    var AppRouter = Backbone.Router.extend({
+        ...
+        index： function(){
+            require(['echarts', 'echarts/chart/bar'], function(ec){
+                ...
+            });
+        }
+    });
+
+    //导出对象
+    return AppRouter;
+});
+</code></pre>
+
+<p>如果你已经用习惯了<code>seajs</code>的模块加载方法的话，你也可以像<code>seajs</code>里面那样去加载模块：</p>
+
+<pre><code class="language-javascript">define(function (require) {  
+    var $ = require('jquery');
+
+    return function () {
+        ...
+    };
+});
+</code></pre>
+
+<p>或者<code>CommonJS</code>的方式也ok:</p>
+
+<pre><code class="language-javascript">define(function(require, exports, module) {  
+    ...
+});
+</code></pre>
+
+<p><code>requirejs</code>提供一个加载文本的插件<code>text.js</code>，细心的话你可能已经看到我在<code>requirejs.config</code>里面已经配置了，使用也很简单：</p>
+
+<pre><code class="language-javascript">// 注意这里自定义模块的加载路径
+// 可以写相对路径，那就是相对于当前js文件的路径
+// 也可以写绝对路径，就是相对于baseUrl的路径
+define(['backbone','text!../tmpl/index.html'], function(Backbone, html){
+
+});
+</code></pre>
+
+<p><strong>requirejs构建工具r.js</strong></p>
+
+<p>当项目上线的时候，我们可能需要对模块代码进行压缩合并的操作，这时我们就会用到<code>requirejs</code>的构建工具<code>r.js</code>。首先我们在项目根目录创建一个<code>build</code>的文件夹和<code>dist</code>的文件夹，分别用来存放模块合并相关配置和合并后的代码的文件目录，在<code>build</code>目录里面存放<code>r.js</code>，并新建一个压缩合并的配置文件<code>config.js</code>,下面是<code>config.js</code>的配置示例：</p>
+
+<pre><code class="language-javascript">//config.js
+{
+    //requirejs.cofig文件的路径,它会自动读取main.js里面的配置信息
+    mainConfigFile : "../js/main.js",
+    baseUrl: '../js',
+    name: "main",
+    //输出文件的路径和名称
+    out: "../dist/js/main.js",
+    //默认情况写r.js会把相关的依赖文件拷贝到输出目录里面去
+    //设置为true之后r.js就不会进行这一操作
+    removeCombined: true,
+    //findNestedDependencies设置为true表示将所有相关的依赖模块也合并进来，默认为false只会对main.js进行压缩合并的操作
+    findNestedDependencies: true
+}
+</code></pre>
+
+<p>然后在命令行执行：</p>
+
+<pre><code class="language-bash">node r.js -o config.js  
+</code></pre>
+
+<p>执行完成之后便会在<code>dist/js/</code>目录下面生成一个合并后的<code>main.js</code></p>
+
+<p>你会发现这个<code>main.js</code>可能会非常大，而在实际项目中，像通用的一些jquery、backbone等有时候我们可能没有必要把它压缩进来，我们只需要压缩自己写的一些代码，于是我们再次开始配置我们的<code>config.js</code>：</p>
+
+<pre><code class="language-javascript">{
+    mainConfigFile : "../js/main.js",
+    baseUrl: "../js",
+    removeCombined: true,
+    findNestedDependencies: true,
+    dir: "../dist/js",
+    modules: [{
+        name: "main",
+        exclude: [
+            "backbone",
+            "underscore",
+            "jquery",
+            "text",
+            ...
+        ]
+    }]
+}
+</code></pre>
+
+<p>再次运行压缩合并命令将会发现在<code>exclude</code>数组里面的项不会被合并。</p>
+
+<p>然而我觉得更好的做法是把通用的一些库，如jquery,bacnbone等合并到一个文件里面，我们自己的代码合并到了一个文件，因此，我们重新进行配置。</p>
+
+<p>首先我们新建一个js文件，这个js文件啥也不用做，就是为了引用所有通用的库，这样方便我们进行排除，如下：</p>
+
+<pre><code class="language-javascript">//libs.js
+
+define([  
+    "jquery",
+    "underscore",
+    "backbone",
+    ...
+    "text"
+], function() {});
+</code></pre>
+
+<p>然后我们的<code>config.js</code>变成了这样：</p>
+
+<pre><code class="language-javascript">{
+    mainConfigFile : "../js/main.js",
+    baseUrl: "../js",
+    removeCombined: true,
+    findNestedDependencies: true,
+    dir: "../dist/js",
+    modules: [
+        {
+            name: "main",
+            exclude: [
+                "libs"
+            ]
+        },
+           {
+               name: "libs"
+           }
+    ]
+}
+</code></pre>
+
+<p>现在，我们的<code>build</code>操作终于完美了。</p>
+
+<p>但是，如果我们的js直接通过cdn引用的呢？如果我们直接运行上面的压缩配置，<code>r.js</code>将会报错。因此，对于从cdn引入的js，我们作如下配置：</p>
+
+<pre><code class="language-javascript">requirejs.config({  
+    paths: {
+        //如果cdn挂点，通过本地加载jquery
+        jquery: ['http://cdn.staticfile.org/jquery/1.11.1/jquery.min.js', 'lib/jquery/jquery-1.11.1.min'],
+        underscore: 'lib/underscore/underscore-min',
+        ...
+        text: 'lib/requirejs/plugins/text',
+        echarts:'lib/echarts/echarts',
+        'echarts/chart/bar' : 'lib/echarts/echarts',
+        config: 'modules/common/config'
+    }  
+});
+
+//修改config.js
+{
+    mainConfigFile : "../js/main.js",
+    baseUrl: "../js",
+    removeCombined: true,
+    findNestedDependencies: true,
+    dir: "../dist/js",
+    modules: [
+        {
+            name: "main",
+            exclude: [
+                "libs"
+            ]
+        },
+           {
+               name: "libs"
+           }
+    ],
+    paths: {
+        jquery: "empty:"
+    }
+}
+</code></pre>
+
+<p>我们再次运行合并的操作<code>node r.js -o config.js</code>会发现此时<code>r.js</code>没有把<code>jquery</code>合并进来，因为它是通过cdn加载的。</p>
+
+<p><strong>css的压缩合并配置</strong></p>
+
+<p>虽然我的项目中没有用到，但在这里还是说一下吧。</p>
+
+<p>项目中可能引用了多个css文件，如：</p>
+
+<pre><code class="language-html">&lt;link rel="stylesheet" type="text/css" href="css/bootstrap.css"&gt;  
+&lt;link rel="stylesheet" type="text/css" href="css/style.css"&gt;  
+</code></pre>
+
+<p>如果我们只想引用一个css文件，我们可以这样：</p>
+
+<pre><code class="language-css">@import url('/css/bootstrap.css');
+/* style.css content here…. */
+</code></pre>
+
+<p>然后在压缩合并的时候进行配置：</p>
+
+<pre><code class="language-javascript">//config.js
+{
+    mainConfigFile : "../js/main.js",
+    appDir: "../",
+    baseUrl: "js",
+    removeCombined: true,
+    findNestedDependencies: true,
+    dir: "../dist",
+    optimizeCss: "standard",
+    modules: [
+        {
+            name: "main",
+            exclude: [
+                "libs"
+            ]
+        },
+           {
+               name: "libs"
+           }
+    ],
+    paths: {
+        jquery: "empty:"
+    }，
+    //匹配到的文件或者目录不会被拷贝到dist目录
+    fileExclusionRegExp: /(^\.|build|dist|sass|config.rb)/,
+    generateSourceMaps: true
+}
+</code></pre>
+
+<blockquote>
+  <p><code>appDir</code>：项目根目录</p>
+  
+  <p><code>optimizeCss</code> ：css压缩规则，有四种，分别是：<code>none</code> 、<code>standard</code> 、<code>standard.keeplines</code>、<code>standard.keepComments</code>、<code>standard.keepComments.keeplines</code>。具体意思我就不一一解释了。</p>
+  
+  <p><code>generateSourceMaps</code>：生成map文件，把压缩过的js与未压缩的作映射</p>
+</blockquote>
+        </section>
+
+        <footer class="post-footer">
+
+
+            <figure class="author-image">
+                <a class="img" style="background-image: url(http://joe-10005639.cossh.myqcloud.com/jkbb.jpg)"><span class="hidden">江矿宝宝.'s Picture</span></a>
+            </figure>
+                            <h4 style="text-align:center;"><span>江矿宝宝.</span></h4>
+
+
+            <section class="author">
+                    <p>伪前端攻城狮, 喜欢钻研新技术.</p>
+                <div class="author-meta">
+                    <span class="author-location"><i class="fa fa-map-marker" aria-hidden="true"></i> Nanning, GX</span>
+                    <span class="author-link"><i class="fa fa-link" aria-hidden="true"></i> <a href="https://joname1.github.io">https://joname1.github.io</a></span>
+                </div>
+            </section>
+
+
+            <section class="share">
+                <h4>get in touch!</h4>
+                    <a href="https://github.com/joname1" target="_blank">
+                        <i class="iconfont i-github"></i>
+                    </a>
+
+                    <a href="https://twitter.com/im_joname" target="_blank">
+                        <i class="iconfont i-twitter"></i>
+                    </a>
+
+                    <a href="https://www.zhihu.com/people/joname-liangtan" target="_blank">
+                        <i class="iconfont i-zhihu"></i>
+                    </a>
+
+                    <a href="mailto:joname.liangtan@gmail.com" target="_blank">
+                        <i class="iconfont i-email"></i>
+                    </a>
+            </section>
+
+            <div id="totop" style="position:fixed;bottom:50px;right:30px;cursor: pointer;">
+                <a title="我要飞到最高"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACYAAAAmCAYAAACoPemuAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyBpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBXaW5kb3dzIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjBBQjM1RjI2RkE5MzExRTBCNDZDODlFRTY3MTBGM0E0IiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjBBQjM1RjI3RkE5MzExRTBCNDZDODlFRTY3MTBGM0E0Ij4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MEFCMzVGMjRGQTkzMTFFMEI0NkM4OUVFNjcxMEYzQTQiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MEFCMzVGMjVGQTkzMTFFMEI0NkM4OUVFNjcxMEYzQTQiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz7olMqSAAAG0klEQVR42oxYTWiURxie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"/>
+                </a>
+            </div>
+
+            <div id="disqus_thread"></div>
+
+            <script>
+            (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://jonames-blog.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+            })();
+            </script>
+        </footer>
+
+    </article>
+</main>
+
+
+
+        <footer class="site-footer clearfix">
+            <section class="poweredby">2017 &copy; make with <i class="fa fa-heart"></i> by <a href="http://joname1.github.io">Joname.</a></section>
+        </footer>
+
+    </div>
+
+    <script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://joe-10005639.cossh.myqcloud.com/prism.js"></script>
+    
+
+    <script type="text/javascript" src="https://cdn.bootcss.com/fitvids/1.1.0/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="../assets/js/index.js?v=fd4cefc62c"></script>
+    <script type="text/javascript" src="../assets/js/totop.js?v=fd4cefc62c"></script>
+
+</body>
+</html>

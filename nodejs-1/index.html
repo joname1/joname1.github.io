@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <title>Node.js(1) 封装,调用,执行,访问路径,http,函数编程,等待函数,事件监听</title>
+    <meta name="description" content=",江矿宝宝,joname,joname.liangtan,前端,js,jquery,javascript,html5,开发者,攻城狮,码农,挖煤,挖矿,极客,编程,代码,开源,IT网站,Developer,Programmer,Coder,Geek,html,css,css3,Front-end,Front-end Developer" />
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" href="../assets/favicon.png?v=fd4cefc62c">
+
+    <link href="../assets/css/screen.css?v=fd4cefc62c" rel="stylesheet">
+    <link href="https://fonts.css.network/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
+    <link href="http://joe-10005639.cossh.myqcloud.com/prism.css" rel="stylesheet">
+
+    <link rel="canonical" href="http://joname1.github.io/nodejs-1/" />
+    <meta name="referrer" content="origin" />
+    
+    <meta property="og:site_name" content="江矿宝宝的博客." />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Node.js(1) 封装,调用,执行,访问路径,http,函数编程,等待函数,事件监听" />
+    <meta property="og:description" content="1.如何封装一个模块； 首先，我们建立一个js文件，例如命名为test.js； 然后在里面写一个函数，函数名任意； 然后通过exports.变量名，将函数赋值给这个变量； 如代码：    function test(){    //请注意这个函数名       console.log(&quot;1&quot;); } exports.testBegin= test;   //等号后面的test，指的是上面的函数名。等号前面的testBegin，是调用时的函数名（注意区别）   这个test.js的文件就写完了，这是一个模块，他的效果是调用该函数后，输出1； 另外，不要问我这个exports是什么，我暂时也不知道。 2.如何调用一个模块 在封装模块的前提下，我们新建一个文件，例如a.js，..." />
+    <meta property="og:url" content="http://joname1.github.io/nodejs-1/" />
+    <meta property="article:published_time" content="2016-10-01T07:53:00.000Z" />
+    <meta property="article:modified_time" content="2017-05-25T08:27:21.924Z" />
+    
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Node.js(1) 封装,调用,执行,访问路径,http,函数编程,等待函数,事件监听" />
+    <meta name="twitter:description" content="1.如何封装一个模块； 首先，我们建立一个js文件，例如命名为test.js； 然后在里面写一个函数，函数名任意； 然后通过exports.变量名，将函数赋值给这个变量； 如代码：    function test(){    //请注意这个函数名       console.log(&quot;1&quot;); } exports.testBegin= test;   //等号后面的test，指的是上面的函数名。等号前面的testBegin，是调用时的函数名（注意区别）   这个test.js的文件就写完了，这是一个模块，他的效果是调用该函数后，输出1； 另外，不要问我这个exports是什么，我暂时也不知道。 2.如何调用一个模块 在封装模块的前提下，我们新建一个文件，例如a.js，..." />
+    <meta name="twitter:url" content="http://joname1.github.io/nodejs-1/" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "江矿宝宝的博客.",
+    "author": {
+        "@type": "Person",
+        "name": "江矿宝宝.",
+        "image": "http://joe-10005639.cossh.myqcloud.com/jkbb.jpg",
+        "url": "http://joname1.github.io/author/jkbb",
+        "sameAs": "https://joname1.github.io",
+        "description": "伪前端攻城狮, 喜欢钻研新技术."
+    },
+    "headline": "Node.js(1) 封装,调用,执行,访问路径,http,函数编程,等待函数,事件监听",
+    "url": "http://joname1.github.io/nodejs-1/",
+    "datePublished": "2016-10-01T07:53:00.000Z",
+    "dateModified": "2017-05-25T08:27:21.924Z",
+    "description": "1.如何封装一个模块； 首先，我们建立一个js文件，例如命名为test.js； 然后在里面写一个函数，函数名任意； 然后通过exports.变量名，将函数赋值给这个变量； 如代码：    function test(){    //请注意这个函数名       console.log(&quot;1&quot;); } exports.testBegin= test;   //等号后面的test，指的是上面的函数名。等号前面的testBegin，是调用时的函数名（注意区别）   这个test.js的文件就写完了，这是一个模块，他的效果是调用该函数后，输出1； 另外，不要问我这个exports是什么，我暂时也不知道。 2.如何调用一个模块 在封装模块的前提下，我们新建一个文件，例如a.js，..."
+}
+    </script>
+
+    <script type="text/javascript" src="../shared/ghost-url.js?v=fd4cefc62c"></script>
+<script type="text/javascript">
+ghost.init({
+	clientId: "ghost-frontend",
+	clientSecret: "71d7e111692b"
+});
+</script>
+    <meta name="generator" content="Ghost 0.7" />
+    <link rel="alternate" type="application/rss+xml" title="江矿宝宝的博客." href="http://joname1.github.io/rss/" />
+</head>
+<body class="post-template nav-closed">
+
+    
+
+    <div class="site-wrapper">
+
+        
+
+
+<header class="main-header post-head no-cover">
+    <nav class="main-nav  clearfix">
+        <a class="home-button" href="../index.html"><span class="fa fa-home"> Home</span></a>
+        
+    </nav>
+</header>
+
+<main class="content" role="main">
+    <article class="post">
+
+        <header class="post-header">
+            <h1 class="post-title">Node.js(1) 封装,调用,执行,访问路径,http,函数编程,等待函数,事件监听</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="2016-10-01">01 October 2016</time>
+                <!--  -->
+            </section>
+        </header>
+
+        <section class="post-content">
+            <h3 id="1">1.如何封装一个模块；</h3>
+
+首先，我们建立一个js文件，例如命名为test.js；
+然后在里面写一个函数，函数名任意；
+然后通过exports.变量名，将函数赋值给这个变量；
+如代码：
+<!-- more -->  
+
+<pre><code class="language-js">function test(){    //请注意这个函数名  
+    console.log("1");
+}
+exports.testBegin= test;   //等号后面的test，指的是上面的函数名。等号前面的testBegin，是调用时的函数名（注意区别）  
+</code></pre>
+
+<p>这个test.js的文件就写完了，这是一个模块，他的效果是调用该函数后，输出1；
+另外，不要问我这个exports是什么，我暂时也不知道。</p>
+
+<h2 id="2">2.如何调用一个模块</h2>
+
+<p>在封装模块的前提下，我们新建一个文件，例如a.js，来调用之前封装的test.js模块；
+方法是：</p>
+
+<pre><code class="language-js">var test = require("./test");   //调用该模块  
+test.testBegin();   //调用该模块的方法（注意方法名是test.js中exports后面的变量名）；  
+</code></pre>
+
+<p>注意调用时的方法名，并非是test.js中的函数名test；</p>
+
+<h3 id="3nodejs">3.如何执行一个Node.js的文件</h3>
+
+<p>我们现在需要执行a.js这个调用了封装模块的文件了，执行他的方法，和执行普通的node.js的文件的方法并没有什么不同；
+在a.js这个文件的目录下，打开命令行。windows是shift＋鼠标右键；
+像下面这样输入即可：
+然后将输出1，感觉执行执行Python文件那样</p>
+
+<h3 id="4">4.获得访问者想要访问的路径</h3>
+
+<p><img src="http://img.blog.csdn.net/20160602214711294" alt="" />
+首先上图，其中pathname指的是路径；而query指的是请求之类的东西（暂时不关心）；
+假如我们想要获得pathname（即字符串“start”），我们该怎么办呢？
+方法：
+* ①首先，需要获取访问者需要访问的路径，方法是通过http的方法createServer
+具体来说：
+我们先require一个http模块：</p>
+
+<pre><code class="language-js">var http = require("http");  
+</code></pre>
+
+<p>然后调用其方法，创建一个服务器：</p>
+
+<pre><code class="language-js">http.createServer(onRequest).listen(8888);  
+</code></pre>
+
+<p>注意，这个方法监听的是8888端口，其参数是一个函数；</p>
+
+<p>然后我们书写这个函数的内容：</p>
+
+<pre><code class="language-js">function onRequest(request, response) {  
+    console.log(request.url);
+}
+</code></pre>
+
+<p>这个函数的第一个参数request是用户访问的一些东西，我们需要的是其url变量；假设我们访问地址是这样的：
+<code>http://127.0.0.1:8888/index/loading?start</code>
+请注意红色部分，那么服务器在console.log输出的是</p>
+
+<pre><code>/index/loading?start
+</code></pre>
+
+<ul>
+<li>②我们下来要对这个url做点什么了；
+虽然直接对上面那个参数进行操纵也可以，但这太笨了，让我们来require一个新的模块url</li>
+</ul>
+
+<pre><code class="language-js">var url = require("url");  
+</code></pre>
+
+<ul>
+<li>③调用这个新模块的方法parse，将第一步获得的url地址，作为其参数，再调用其方法pathname，就可以获得我们想要的东西了；
+具体而言，需要这么一段代码：</li>
+</ul>
+
+<pre><code class="language-js">var pathname = url.parse(request.url).pathname;  
+</code></pre>
+
+<p>这个pathname就是我们需要的东西了；</p>
+
+<p>把所有代码综合起来，是这样的：</p>
+
+<pre><code class="language-js">var http = require("http");  
+var url = require("url");  
+function onRequest(request, response) {  
+    var pathname = url.parse(request.url).pathname;
+    console.log("Request for " + pathname + " recived.");
+    response.writeHead(200, {"Content-type": "text/plain"});
+    response.write("Hello word!");
+    response.end();
+}
+http.createServer(onRequest).listen(8888);  
+console.log("Server has started!");  
+</code></pre>
+
+<p>然后运行之：</p>
+
+<p>我们随便访问一个本地的地址：
+<code>http://127.0.0.1:8888/index/loading?start</code></p>
+
+<p>发现，/index/loding这部分被正常的显示出来了。
+另外，favicon.ico是该网站的图标，据说很多服务器是会默认读取的；</p>
+
+<p>假如我们直接访问：<code>http://127.0.0.1:8888</code>，显示是这样的
+<img src="http://img.blog.csdn.net/20160602214745169" alt="" /></p>
+
+<h3 id="5http">5.关于http</h3>
+
+<p>我们之前有了这么一段代码（已delete掉无关部分）：</p>
+
+<pre><code class="language-js">var http = require("http");  
+function onRequest(request, response) {  
+    response.writeHead(200, {"Content-type": "text/plain"});
+    response.write("Hello word!");
+    response.end();
+}
+http.createServer(onRequest).listen(8888);  
+</code></pre>
+
+<p>其中，http调用了NodeJs自带的一个模块“http”，而这个模块是一个服务器模块；
+而createServer是这个模块的方法，效果是返回一个对象，而这个对象有一个listen的方法；
+当然，由于你和我，也许都是新手，因此我们尚没有搞清楚这个到底是怎么运作的；但如果有一定经验的话，可以猜到，这个listen是监听，监听的是8888端口；如果去掉这部分会怎么样？经过测试，服务器并没有运行，如图：</p>
+
+<p>而onRequest函数呢，从名字可以猜到，这个函数的效果是“当请求的时候做些什么”，我们来看其函数：</p>
+
+<pre><code class="language-js">function onRequest(request, response) {  
+    response.writeHead(200);
+    response.write("Hello word!");
+    response.end();
+}
+</code></pre>
+
+<p>这个函数有两个参数：request和response，顾名思义，请求和响应。
+request请求指用户访问的时候，相关的信息； <br />
+response指服务器的响应，会做些什么；这个函数的三个方法，都是response相关的；</p>
+
+<ul>
+<li><p>第一个：response.writeHead方法，具体来说，就是HTTP响应报文的头行；
+这个指HTTP通信的响应报文中的头部分，如果没有基础的话，暂时不需要关心，写200即可，这里的200，是约定俗称的请求成功时的返回；
+具体搜：
+<code>response.writeHead(statusCode,[reasonPhrase], [headers])</code></p></li>
+<li><p>第二个：response.write方法，具体来说，是HTTP响应报文；
+简单理解，负责发送正文中的一部分，可以同时发送多个不一样的；
+在上面搜：
+<code>response.write(chunk,encoding='utf8')</code></p></li>
+<li><p>第三个：response.end方法，具体来说每一个响应的结束，必须要调用这个方法，然后服务器会认为这条信息已经发送完毕了。</p></li>
+</ul>
+
+<p>综合效果来说，当我们访问：<code>http://127.0.0.1:8888/</code>时，浏览器会出现：
+<code>Hello world!</code></p>
+
+<h3 id="6">6.函数式编程</h3>
+
+<p>所谓函数式编程，简单的理解，就是将函数作为参数传递；
+目前有四个文件：
+<code>index.js</code></p>
+
+<pre><code class="language-js">var server = require("./server");   //调用该模块  
+var router = require("./router");  
+var requestHandlers = require("./requestHandlers");
+
+var handle = {};  
+handle["/"] = requestHandlers.start;  
+handle["/start"] = requestHandlers.start;  
+handle["/upload"] = requestHandlers.upload;
+
+server.start(router.route, handle);   //调用该模块的方法（注意方法名是test.js中exports后面的变量名）  
+</code></pre>
+
+<p><code>server.js</code></p>
+
+<pre><code class="language-js">var http = require("http");  
+var url = require("url");  
+function start(route, handle) {  
+    var count = 0;
+
+    function onRequest(request, response) {
+        console.log(count++ + "#:");
+        var pathname = url.parse(request.url).pathname;
+        console.log("Request for " + pathname + " recived.");
+
+        route(handle, pathname);    //来源于上面的start的参数
+
+        response.writeHead(200);
+        response.write("Hello word!");
+        response.end();
+    }
+
+    http.createServer(onRequest).listen(8888);
+    console.log("Server has started!");
+}
+exports.start = start;  
+</code></pre>
+
+<p><code>router.js</code></p>
+
+<pre><code class="language-js">function route(handle, pathname) {  
+    console.log("About to route a request for " + pathname);
+    if (typeof handle[pathname] === 'function') {
+        handle[pathname]();
+    } else {
+        console.log("No request handler found for " + pathname);
+    }
+}
+
+exports.route = route;  
+</code></pre>
+
+<p><code>requestHandler.js</code></p>
+
+<pre><code class="language-js">function start() {  
+    console.log("Request handler 'start' was called");
+}
+
+function upload() {  
+    console.log("Request handler 'upload' was called");
+}
+
+exports.start = start;  
+exports.upload = upload;  
+</code></pre>
+
+<p>分析：
+* ①首先看index.js，他调用了3个模块，然后声明了一个空的对象，然后给这个对象声明了几个不同的变量（准确的说是函数变量），他们分别对应requestHandlers这个模块的不同函数；</p>
+
+<p>调用server这个模块的start方法，传两个参数，分别是router模块的route方法和对象handle（包含3个函数变量）；</p>
+
+<ul>
+<li>②由于调用了server模块的start方法，因此我们来看server模块；
+在server模块中，调用了两个模块，分别是http和url，这两个都是NodeJs自带的，具体里面的内容就不一一分析了（前面已经说明过了）。</li>
+</ul>
+
+<p>在servre模块的start函数（也是index.js调用的方法），有两个参数，第一个参数是route函数（来源于router模块），第二个参数是一个对象（来源于index.js）。</p>
+
+<p>而在start函数中，调用了其第一个参数（route函数），由于这个参数是函数，因此运行它，给其两个参数，分别是handle（来源于index.js的对象）和pathname（来源于当前模块，是用户请求的路径）；</p>
+
+<p>因此接下来我们看router模块的route函数，记得，这个函数传递了一个对象和一个路径；</p>
+
+<ul>
+<li>③在router模块中，传递了两个参数，并进行了一次判断；
+判断的逻辑是这样的，第一个参数（是一个对象），其加上下标后的值，如果是类型是函数，那么执行这个函数；如果不是函数，提示没找到该句柄；</li>
+</ul>
+
+<p>请注意，为什么说这个对象加上下标是函数呢，原因在于index中声明的这个对象，而这个对象的三个带下标的变量都是函数；</p>
+
+<p>而这三个被执行函数来源于哪呢？来源于index里加载的模块requestHandlers，那么最后让我们来看看这个模块；</p>
+
+<ul>
+<li>④在这个模块里，只有两个函数，分别是start和upload；
+这两个函数输出不同的内容（一个关键字是start，另一个关键字是upload）；
+请回想之前的下标，下标分为三个，分别是空（/），start下标（/start），和upload下标（/upload），因此当用户访问根目录、start目录、和upload目录时，调用对应的方法，而若访问其他目录（包括start目录的子目录等时，提示错误——来源于router模块）；
+<img src="http://img.blog.csdn.net/20160602214830419" alt="" />
+现在回顾这种模式是怎么实现的：
+<img src="http://img.blog.csdn.net/20160602214835576" alt="" /></li>
+</ul>
+
+<h3 id="7">7.等待函数</h3>
+
+<pre><code class="language-js">function sleep(milliSeconds) {  
+    var startTime = new Date().getTime();
+    while (new Date() &lt; startTime + milliSeconds);  //等待参数的时间
+}
+</code></pre>
+
+<p>传的参数是毫秒，在这个时间前，无法执行下一句代码，类似C++的Sleep()函数</p>
+
+<h3 id="8">8.返回的两种格式</h3>
+
+<pre><code class="language-js">response.writeHead(200, {"Content-Type": "text/html"});  
+response.write(content);  
+response.end();  
+</code></pre>
+
+<p>其中，writeHead里面的第二个参数，有多种格式，分别是：
+application/xml 、 text/xml、text/html、text/plain <br />
+经查：
+text/html是html格式的正文 <br />
+text/plain是无格式正文 <br />
+text/xml忽略xml头所指定编码格式而默认采用us-ascii编码 <br />
+application/xml会根据xml头指定的编码格式来编码： <br />
+简单来说，html就是返回一个html，plain就是无格式的，写什么就是什么，xml就是一个xml文件；</p>
+
+<h3 id="9">9.关于事件监听</h3>
+
+<p>之前说到有</p>
+
+<pre><code class="language-js">function onRequest(request, response)  
+</code></pre>
+
+<p>这样一个回调函数，其中request是请求，response是回应；
+根据推测，每次request的，都会触发至少一个data，一个end事件，因此应该监听这两个事件。（并且只有接受到data之后，才会接收到end事件）；
+我们之前是不监听的，只要有请求，就直接执行某个函数，而监听表示只有这些事件触发后，我们才会执行某一段代码。
+因此我们这么写：</p>
+
+<pre><code class="language-js">var postData = "";  
+request.setEncoding("utf8");  
+request.addListener("data", function (postDataChunk) {      //data事件  
+    postData += postDataChunk;
+    console.log("Received POST data chunk " + postDataChunk + ".");
+    console.log("————————");
+})
+request.addListener("end", function () {  
+    route(handle, pathname, response, postData);
+})
+</code></pre>
+
+<p>表示监听的编码类型为UTF8，监听data事件，把内容加起来，监听end事件，把加起来的内容发送出去。
+直到end事件触发时，才会执行之前写的route函数（也就是那个写回复的函数）。</p>
+
+<p>PS： <br />
+根据我的测试，如果data事件注释掉，end事件会无法执行，准确的说，是无法访问任何url的。
+但是，如果不注释掉，只是普通的访问的话，可是又不会触发data监听事件里面的console.log代码，很奇怪； 
+另外，注释掉end事件，留着data事件，也会卡住； </p>
+        </section>
+
+        <footer class="post-footer">
+
+
+            <figure class="author-image">
+                <a class="img" style="background-image: url(http://joe-10005639.cossh.myqcloud.com/jkbb.jpg)"><span class="hidden">江矿宝宝.'s Picture</span></a>
+            </figure>
+                            <h4 style="text-align:center;"><span>江矿宝宝.</span></h4>
+
+
+            <section class="author">
+                    <p>伪前端攻城狮, 喜欢钻研新技术.</p>
+                <div class="author-meta">
+                    <span class="author-location"><i class="fa fa-map-marker" aria-hidden="true"></i> Nanning, GX</span>
+                    <span class="author-link"><i class="fa fa-link" aria-hidden="true"></i> <a href="https://joname1.github.io">https://joname1.github.io</a></span>
+                </div>
+            </section>
+
+
+            <section class="share">
+                <h4>get in touch!</h4>
+                    <a href="https://github.com/joname1" target="_blank">
+                        <i class="iconfont i-github"></i>
+                    </a>
+
+                    <a href="https://twitter.com/im_joname" target="_blank">
+                        <i class="iconfont i-twitter"></i>
+                    </a>
+
+                    <a href="https://www.zhihu.com/people/joname-liangtan" target="_blank">
+                        <i class="iconfont i-zhihu"></i>
+                    </a>
+
+                    <a href="mailto:joname.liangtan@gmail.com" target="_blank">
+                        <i class="iconfont i-email"></i>
+                    </a>
+            </section>
+
+            <div id="totop" style="position:fixed;bottom:50px;right:30px;cursor: pointer;">
+                <a title="我要飞到最高"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACYAAAAmCAYAAACoPemuAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyBpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBXaW5kb3dzIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjBBQjM1RjI2RkE5MzExRTBCNDZDODlFRTY3MTBGM0E0IiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjBBQjM1RjI3RkE5MzExRTBCNDZDODlFRTY3MTBGM0E0Ij4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MEFCMzVGMjRGQTkzMTFFMEI0NkM4OUVFNjcxMEYzQTQiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MEFCMzVGMjVGQTkzMTFFMEI0NkM4OUVFNjcxMEYzQTQiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz7olMqSAAAG0klEQVR42oxYTWiURxie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"/>
+                </a>
+            </div>
+
+            <div id="disqus_thread"></div>
+
+            <script>
+            (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://jonames-blog.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+            })();
+            </script>
+        </footer>
+
+    </article>
+</main>
+
+
+
+        <footer class="site-footer clearfix">
+            <section class="poweredby">2017 &copy; make with <i class="fa fa-heart"></i> by <a href="http://joname1.github.io">Joname.</a></section>
+        </footer>
+
+    </div>
+
+    <script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://joe-10005639.cossh.myqcloud.com/prism.js"></script>
+    
+
+    <script type="text/javascript" src="https://cdn.bootcss.com/fitvids/1.1.0/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="../assets/js/index.js?v=fd4cefc62c"></script>
+    <script type="text/javascript" src="../assets/js/totop.js?v=fd4cefc62c"></script>
+
+</body>
+</html>
