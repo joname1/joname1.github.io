@@ -5,7 +5,7 @@
 {{#post}}
 <header class="main-header post-head {{#if image}}" style="background-image: url({{image}}){{else}}no-cover{{/if}}">
     <nav class="main-nav {{#if image}}overlay{{/if}} clearfix">
-        <a class="home-button" href="/">Home</a>
+        <a class="home-button" href="/#content">Home</a>
         {{#if @blog.logo}}<a class="blog-logo" href="{{@blog.url}}"><img src="{{@blog.logo}}" alt="{{@blog.title}}" /></a>{{/if}}
         {{#if @blog.navigation}}
             <a class="menu-button" href="#"><i class="fa fa-bars" aria-hidden="true"></i> <span class="word">Menu</span></a>
@@ -17,7 +17,7 @@
         <header class="post-header">
             <h1 class="post-title">{{title}}</h1>
             <section class="post-meta">
-                <time class="post-date" datetime="{{date format='YYYY-MM-DD'}}">{{date format="DD MMMM YYYY"}}</time>
+                <time class="post-date" datetime="{{date format='MMM-DD-YYYY'}}">{{date format="DD MMM YYYY"}}</time>
                 <!-- {{tags prefix=" on "}} -->
             </section>
         </header>
@@ -31,7 +31,7 @@
             <figure class="author-image">
                 <a class="img" style="background-image: url({{image}})"><span class="hidden">{{name}}'s Picture</span></a>
             </figure>
-                            <h4 style="text-align:center;"><span>{{name}}</span></h4>
+                            <h4><span>{{name}}</span></h4>
             {{/if}}
             <section class="author">
                 {{#if bio}}
@@ -46,7 +46,6 @@
             </section>
         {{/author}}
             <section class="share">
-                <h4>get in touch!</h4>
                     <a href="https://github.com/joname1" target="_blank">
                         <i class="iconfont i-github"></i>
                     </a>

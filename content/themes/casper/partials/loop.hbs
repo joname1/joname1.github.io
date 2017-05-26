@@ -9,12 +9,12 @@
         <h2 class="post-title"><a href="{{url}}">{{{title}}}</a></h2>
     </header>
     <section class="post-excerpt">
-        <p>{{excerpt words="10"}} <a class="read-more" href="{{url}}"> <p style="float:right;"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></a></p></p>
+        <p>{{excerpt words="8"}}<a class="read-more" href="{{url}}"><p style="float:right;"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></a></p></p>
     </section>
     <footer class="post-meta">
         {{#if author.image}}<img class="author-thumb" src="{{author.image}}" nopin="nopin" />{{/if}}
         {{author}}
-        <time class="post-date" datetime="{{date format='YYYY-MMM-DD'}}">{{date format="DD MMMM YYYY"}}</time>
+        <time class="post-date" datetime="{{date format='MMM-DD-YYYY'}}">{{date format="DD MMM YYYY"}}</time>
     </footer>
 </article>
 {{/foreach}}
