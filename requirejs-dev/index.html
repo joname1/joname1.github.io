@@ -7,56 +7,73 @@
     <meta name="description" content=",江矿宝宝,joname,joname.liangtan,前端,js,jquery,javascript,html5,开发者,攻城狮,码农,挖煤,挖矿,极客,编程,代码,开源,IT网站,Developer,Programmer,Coder,Geek,html,css,css3,Front-end,Front-end Developer,FE,FEer" />
     <meta name="HandheldFriendly" content="True" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="shortcut icon" href="../assets/favicon.png?v=9aa77a5a13">
-    <link href="../assets/css/all.min.css?v=9aa77a5a13" rel="stylesheet">
+    <link rel="shortcut icon" href="../assets/favicon.png?v=7a4ac88d46">
+    <link href="../assets/css/all.min.css?v=7a4ac88d46" rel="stylesheet">
     <link href="https://fonts.css.network/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" rel="stylesheet">
     <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
     <link href="https://joe-10005639.cossh.myqcloud.com/prism.css" rel="stylesheet">
     <link rel="canonical" href="http://joname1.github.io/requirejs-dev/" />
-    <meta name="referrer" content="origin" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="http://joname1.github.io/requirejs-dev/amp/" />
     
     <meta property="og:site_name" content="江矿宝宝的博客." />
     <meta property="og:type" content="article" />
     <meta property="og:title" content="使用RequireJS进行模块化开发" />
-    <meta property="og:description" content="在之前的项目中一直用的是seajs，感觉seajs是挺好用的，但是有个问题就是把现有的js框架打包成seajs模块略麻烦，官方文档里面也没有对这一块作详细的介绍，虽然有spm build，但还是觉得不太方便。因此便在新的项目中用了requirejs。 用requirejs其实还有另一个原因就是项目中用到了百度的图表库echarts，根据其官方文档的描述是不建议使用基于CMD规范的seajs来加载的，因为echarts是基于AMD模块化的，虽然网上有人改了可以用seajs加载，但是我最后还是选择用requirejs来加载，同时也是想尝试一下requirejs。 自定义构建echarts echarts的构建是用的r.js，因此我在这里先讲一下。 自定义构建echarts还必须下载zrender，下载完成之后，把echarts的目录和zrender目录放在同级目录下，然后进入echarts的build目录进行自定义build（需要node.js环境），下面是我的build命令： node build.js optimize=true exclude=force,scatter,k,radar,chord,gauge,funnel,map  output=..." />
+    <meta property="og:description" content="在之前的项目中一直用的是seajs，感觉seajs是挺好用的，但是有个问题就是把现有的js框架打包成seajs模块略麻烦，官方文档里面也没有对这一块作详细的介绍，虽然有spm build，但还是觉得不太方便。因此便在新的项目中用了requirejs。 用requirejs其实还有另一个原因就是项目中用到了百度的图表库echarts，根据其官方文档的描述是不建议使用基于CMD规范的seajs来加载的，因为echarts是基于AMD模块化的，虽然网上有人改了可以用seajs加载，但是我最后还是选择用requirejs来加载，同时也是想尝试一下requirejs。 自定义构建echarts echarts的构建是用的r.js，因此我在这里先讲一下。 自定义构建echarts还必须下载zrender，下载完成之后，把echarts的目录和zrender目录放在同级目录下，然后进入echarts的build目录进行自定义build（需要node.js环境），下面是我的build命令： node build.js optimize&#x3D;true exclude&#x3D;force,scatter,k,radar,chord,gauge,funnel,map  output&#x3D;echarts1.js   上面命令的意思是排除exclude的之后的那些模块，因为我只用到了echarts的折线图、柱状图和饼状图。 执行完成之后就可以在build目录看到刚才合并的echarts1.js requirejs模块加载配置 requirejs引入主模块的方法是通过在script标签里面添加data-main属性，如我的引入代码：" />
     <meta property="og:url" content="http://joname1.github.io/requirejs-dev/" />
     <meta property="article:published_time" content="2016-10-10T07:54:00.000Z" />
-    <meta property="article:modified_time" content="2017-05-25T08:41:51.847Z" />
-    
+    <meta property="article:modified_time" content="2017-05-25T08:41:51.000Z" />
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="使用RequireJS进行模块化开发" />
-    <meta name="twitter:description" content="在之前的项目中一直用的是seajs，感觉seajs是挺好用的，但是有个问题就是把现有的js框架打包成seajs模块略麻烦，官方文档里面也没有对这一块作详细的介绍，虽然有spm build，但还是觉得不太方便。因此便在新的项目中用了requirejs。 用requirejs其实还有另一个原因就是项目中用到了百度的图表库echarts，根据其官方文档的描述是不建议使用基于CMD规范的seajs来加载的，因为echarts是基于AMD模块化的，虽然网上有人改了可以用seajs加载，但是我最后还是选择用requirejs来加载，同时也是想尝试一下requirejs。 自定义构建echarts echarts的构建是用的r.js，因此我在这里先讲一下。 自定义构建echarts还必须下载zrender，下载完成之后，把echarts的目录和zrender目录放在同级目录下，然后进入echarts的build目录进行自定义build（需要node.js环境），下面是我的build命令： node build.js optimize=true exclude=force,scatter,k,radar,chord,gauge,funnel,map  output=..." />
+    <meta name="twitter:description" content="在之前的项目中一直用的是seajs，感觉seajs是挺好用的，但是有个问题就是把现有的js框架打包成seajs模块略麻烦，官方文档里面也没有对这一块作详细的介绍，虽然有spm build，但还是觉得不太方便。因此便在新的项目中用了requirejs。 用requirejs其实还有另一个原因就是项目中用到了百度的图表库echarts，根据其官方文档的描述是不建议使用基于CMD规范的seajs来加载的，因为echarts是基于AMD模块化的，虽然网上有人改了可以用seajs加载，但是我最后还是选择用requirejs来加载，同时也是想尝试一下requirejs。 自定义构建echarts echarts的构建是用的r.js，因此我在这里先讲一下。 自定义构建echarts还必须下载zrender，下载完成之后，把echarts的目录和zrender目录放在同级目录下，然后进入echarts的build目录进行自定义build（需要node.js环境），下面是我的build命令： node build.js optimize&#x3D;true exclude&#x3D;force,scatter,k,radar,chord,gauge,funnel,map  output&#x3D;echarts1.js   上面命令的意思是排除exclude的之后的那些模块，因为我只用到了echarts的折线图、柱状图和饼状图。 执行完成之后就可以在build目录看到刚才合并的echarts1.js requirejs模块加载配置 requirejs引入主模块的方法是通过在script标签里面添加data-main属性，如我的引入代码：" />
     <meta name="twitter:url" content="http://joname1.github.io/requirejs-dev/" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="江矿宝宝." />
     
     <script type="application/ld+json">
 {
-    "@context": "http://schema.org",
+    "@context": "https://schema.org",
     "@type": "Article",
-    "publisher": "江矿宝宝的博客.",
+    "publisher": {
+        "@type": "Organization",
+        "name": "江矿宝宝的博客.",
+        "logo": "http://joname1.github.io/ghost/img/ghosticon.jpg"
+    },
     "author": {
         "@type": "Person",
         "name": "江矿宝宝.",
-        "image": "https://joe-10005639.cossh.myqcloud.com/jkbb.jpg",
-        "url": "http://joname1.github.io/author/jkbb",
-        "sameAs": "https://joname1.github.io",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://joe-10005639.cossh.myqcloud.com/jkbb.jpg",
+            "width": 600,
+            "height": 600
+        },
+        "url": "http://joname1.github.io/author/jkbb/",
+        "sameAs": [
+            "https://joname1.github.io"
+        ],
         "description": "伪前端攻城狮, 喜欢钻研新技术."
     },
     "headline": "使用RequireJS进行模块化开发",
     "url": "http://joname1.github.io/requirejs-dev/",
     "datePublished": "2016-10-10T07:54:00.000Z",
-    "dateModified": "2017-05-25T08:41:51.847Z",
-    "description": "在之前的项目中一直用的是seajs，感觉seajs是挺好用的，但是有个问题就是把现有的js框架打包成seajs模块略麻烦，官方文档里面也没有对这一块作详细的介绍，虽然有spm build，但还是觉得不太方便。因此便在新的项目中用了requirejs。 用requirejs其实还有另一个原因就是项目中用到了百度的图表库echarts，根据其官方文档的描述是不建议使用基于CMD规范的seajs来加载的，因为echarts是基于AMD模块化的，虽然网上有人改了可以用seajs加载，但是我最后还是选择用requirejs来加载，同时也是想尝试一下requirejs。 自定义构建echarts echarts的构建是用的r.js，因此我在这里先讲一下。 自定义构建echarts还必须下载zrender，下载完成之后，把echarts的目录和zrender目录放在同级目录下，然后进入echarts的build目录进行自定义build（需要node.js环境），下面是我的build命令： node build.js optimize=true exclude=force,scatter,k,radar,chord,gauge,funnel,map  output=..."
+    "dateModified": "2017-05-25T08:41:51.000Z",
+    "description": "在之前的项目中一直用的是seajs，感觉seajs是挺好用的，但是有个问题就是把现有的js框架打包成seajs模块略麻烦，官方文档里面也没有对这一块作详细的介绍，虽然有spm build，但还是觉得不太方便。因此便在新的项目中用了requirejs。 用requirejs其实还有另一个原因就是项目中用到了百度的图表库echarts，根据其官方文档的描述是不建议使用基于CMD规范的seajs来加载的，因为echarts是基于AMD模块化的，虽然网上有人改了可以用seajs加载，但是我最后还是选择用requirejs来加载，同时也是想尝试一下requirejs。 自定义构建echarts echarts的构建是用的r.js，因此我在这里先讲一下。 自定义构建echarts还必须下载zrender，下载完成之后，把echarts的目录和zrender目录放在同级目录下，然后进入echarts的build目录进行自定义build（需要node.js环境），下面是我的build命令： node build.js optimize&#x3D;true exclude&#x3D;force,scatter,k,radar,chord,gauge,funnel,map  output&#x3D;echarts1.js   上面命令的意思是排除exclude的之后的那些模块，因为我只用到了echarts的折线图、柱状图和饼状图。 执行完成之后就可以在build目录看到刚才合并的echarts1.js requirejs模块加载配置 requirejs引入主模块的方法是通过在script标签里面添加data-main属性，如我的引入代码：",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://joname1.github.io"
+    }
 }
     </script>
 
-    <script type="text/javascript" src="../shared/ghost-url.js?v=9aa77a5a13"></script>
+    <script type="text/javascript" src="../shared/ghost-url.js?v=7a4ac88d46"></script>
 <script type="text/javascript">
 ghost.init({
 	clientId: "ghost-frontend",
 	clientSecret: "71d7e111692b"
 });
 </script>
-    <meta name="generator" content="Ghost 0.7" />
+    <meta name="generator" content="Ghost 0.11" />
     <link rel="alternate" type="application/rss+xml" title="江矿宝宝的博客." href="http://joname1.github.io/rss/" />
 </head>
 <body class="post-template nav-closed">
@@ -446,7 +463,8 @@ define([
     <script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://joe-10005639.cossh.myqcloud.com/prism.js"></script>
     <script src="https://cdn.bootcss.com/fitvids/1.1.0/jquery.fitvids.js"></script>
-    <script src="../assets/js/index.min.js?v=9aa77a5a13"></script>
+    <script src="http://tajs.qq.com/stats?sId=59279948" charset="UTF-8"></script>
+    <script src="../assets/js/index.min.js?v=7a4ac88d46"></script>
     
 </body>
 </html>

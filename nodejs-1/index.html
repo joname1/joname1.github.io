@@ -7,56 +7,73 @@
     <meta name="description" content=",江矿宝宝,joname,joname.liangtan,前端,js,jquery,javascript,html5,开发者,攻城狮,码农,挖煤,挖矿,极客,编程,代码,开源,IT网站,Developer,Programmer,Coder,Geek,html,css,css3,Front-end,Front-end Developer,FE,FEer" />
     <meta name="HandheldFriendly" content="True" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="shortcut icon" href="../assets/favicon.png?v=9aa77a5a13">
-    <link href="../assets/css/all.min.css?v=9aa77a5a13" rel="stylesheet">
+    <link rel="shortcut icon" href="../assets/favicon.png?v=7a4ac88d46">
+    <link href="../assets/css/all.min.css?v=7a4ac88d46" rel="stylesheet">
     <link href="https://fonts.css.network/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" rel="stylesheet">
     <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
     <link href="https://joe-10005639.cossh.myqcloud.com/prism.css" rel="stylesheet">
     <link rel="canonical" href="http://joname1.github.io/nodejs-1/" />
-    <meta name="referrer" content="origin" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="http://joname1.github.io/nodejs-1/amp/" />
     
     <meta property="og:site_name" content="江矿宝宝的博客." />
     <meta property="og:type" content="article" />
     <meta property="og:title" content="Node.js(1) 封装,调用,执行,访问路径,http,函数编程,等待函数,事件监听" />
-    <meta property="og:description" content="1.如何封装一个模块； 首先，我们建立一个js文件，例如命名为test.js； 然后在里面写一个函数，函数名任意； 然后通过exports.变量名，将函数赋值给这个变量； 如代码：    function test(){    //请注意这个函数名       console.log(&quot;1&quot;); } exports.testBegin= test;   //等号后面的test，指的是上面的函数名。等号前面的testBegin，是调用时的函数名（注意区别）   这个test.js的文件就写完了，这是一个模块，他的效果是调用该函数后，输出1； 另外，不要问我这个exports是什么，我暂时也不知道。 2.如何调用一个模块 在封装模块的前提下，我们新建一个文件，例如a.js，..." />
+    <meta property="og:description" content="1.如何封装一个模块； 首先，我们建立一个js文件，例如命名为test.js； 然后在里面写一个函数，函数名任意； 然后通过exports.变量名，将函数赋值给这个变量； 如代码：    function test(){    //请注意这个函数名       console.log(&quot;1&quot;); } exports.testBegin&#x3D; test;   //等号后面的test，指的是上面的函数名。等号前面的testBegin，是调用时的函数名（注意区别）   这个test.js的文件就写完了，这是一个模块，他的效果是调用该函数后，输出1； 另外，不要问我这个exports是什么，我暂时也不知道。 2.如何调用一个模块 在封装模块的前提下，我们新建一个文件，例如a.js，来调用之前封装的test.js模块； 方法是： var test &#x3D; require(&quot;./test&quot;);   //调用该模块   test.testBegin(" />
     <meta property="og:url" content="http://joname1.github.io/nodejs-1/" />
     <meta property="article:published_time" content="2016-10-01T07:53:00.000Z" />
-    <meta property="article:modified_time" content="2017-05-25T08:27:21.924Z" />
-    
+    <meta property="article:modified_time" content="2017-05-25T08:27:21.000Z" />
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="Node.js(1) 封装,调用,执行,访问路径,http,函数编程,等待函数,事件监听" />
-    <meta name="twitter:description" content="1.如何封装一个模块； 首先，我们建立一个js文件，例如命名为test.js； 然后在里面写一个函数，函数名任意； 然后通过exports.变量名，将函数赋值给这个变量； 如代码：    function test(){    //请注意这个函数名       console.log(&quot;1&quot;); } exports.testBegin= test;   //等号后面的test，指的是上面的函数名。等号前面的testBegin，是调用时的函数名（注意区别）   这个test.js的文件就写完了，这是一个模块，他的效果是调用该函数后，输出1； 另外，不要问我这个exports是什么，我暂时也不知道。 2.如何调用一个模块 在封装模块的前提下，我们新建一个文件，例如a.js，..." />
+    <meta name="twitter:description" content="1.如何封装一个模块； 首先，我们建立一个js文件，例如命名为test.js； 然后在里面写一个函数，函数名任意； 然后通过exports.变量名，将函数赋值给这个变量； 如代码：    function test(){    //请注意这个函数名       console.log(&quot;1&quot;); } exports.testBegin&#x3D; test;   //等号后面的test，指的是上面的函数名。等号前面的testBegin，是调用时的函数名（注意区别）   这个test.js的文件就写完了，这是一个模块，他的效果是调用该函数后，输出1； 另外，不要问我这个exports是什么，我暂时也不知道。 2.如何调用一个模块 在封装模块的前提下，我们新建一个文件，例如a.js，来调用之前封装的test.js模块； 方法是： var test &#x3D; require(&quot;./test&quot;);   //调用该模块   test.testBegin(" />
     <meta name="twitter:url" content="http://joname1.github.io/nodejs-1/" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="江矿宝宝." />
     
     <script type="application/ld+json">
 {
-    "@context": "http://schema.org",
+    "@context": "https://schema.org",
     "@type": "Article",
-    "publisher": "江矿宝宝的博客.",
+    "publisher": {
+        "@type": "Organization",
+        "name": "江矿宝宝的博客.",
+        "logo": "http://joname1.github.io/ghost/img/ghosticon.jpg"
+    },
     "author": {
         "@type": "Person",
         "name": "江矿宝宝.",
-        "image": "https://joe-10005639.cossh.myqcloud.com/jkbb.jpg",
-        "url": "http://joname1.github.io/author/jkbb",
-        "sameAs": "https://joname1.github.io",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://joe-10005639.cossh.myqcloud.com/jkbb.jpg",
+            "width": 600,
+            "height": 600
+        },
+        "url": "http://joname1.github.io/author/jkbb/",
+        "sameAs": [
+            "https://joname1.github.io"
+        ],
         "description": "伪前端攻城狮, 喜欢钻研新技术."
     },
     "headline": "Node.js(1) 封装,调用,执行,访问路径,http,函数编程,等待函数,事件监听",
     "url": "http://joname1.github.io/nodejs-1/",
     "datePublished": "2016-10-01T07:53:00.000Z",
-    "dateModified": "2017-05-25T08:27:21.924Z",
-    "description": "1.如何封装一个模块； 首先，我们建立一个js文件，例如命名为test.js； 然后在里面写一个函数，函数名任意； 然后通过exports.变量名，将函数赋值给这个变量； 如代码：    function test(){    //请注意这个函数名       console.log(&quot;1&quot;); } exports.testBegin= test;   //等号后面的test，指的是上面的函数名。等号前面的testBegin，是调用时的函数名（注意区别）   这个test.js的文件就写完了，这是一个模块，他的效果是调用该函数后，输出1； 另外，不要问我这个exports是什么，我暂时也不知道。 2.如何调用一个模块 在封装模块的前提下，我们新建一个文件，例如a.js，..."
+    "dateModified": "2017-05-25T08:27:21.000Z",
+    "description": "1.如何封装一个模块； 首先，我们建立一个js文件，例如命名为test.js； 然后在里面写一个函数，函数名任意； 然后通过exports.变量名，将函数赋值给这个变量； 如代码：    function test(){    //请注意这个函数名       console.log(&quot;1&quot;); } exports.testBegin&#x3D; test;   //等号后面的test，指的是上面的函数名。等号前面的testBegin，是调用时的函数名（注意区别）   这个test.js的文件就写完了，这是一个模块，他的效果是调用该函数后，输出1； 另外，不要问我这个exports是什么，我暂时也不知道。 2.如何调用一个模块 在封装模块的前提下，我们新建一个文件，例如a.js，来调用之前封装的test.js模块； 方法是： var test &#x3D; require(&quot;./test&quot;);   //调用该模块   test.testBegin(",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://joname1.github.io"
+    }
 }
     </script>
 
-    <script type="text/javascript" src="../shared/ghost-url.js?v=9aa77a5a13"></script>
+    <script type="text/javascript" src="../shared/ghost-url.js?v=7a4ac88d46"></script>
 <script type="text/javascript">
 ghost.init({
 	clientId: "ghost-frontend",
 	clientSecret: "71d7e111692b"
 });
 </script>
-    <meta name="generator" content="Ghost 0.7" />
+    <meta name="generator" content="Ghost 0.11" />
     <link rel="alternate" type="application/rss+xml" title="江矿宝宝的博客." href="http://joname1.github.io/rss/" />
 </head>
 <body class="post-template nav-closed">
@@ -449,7 +466,8 @@ request.addListener("end", function () {
     <script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://joe-10005639.cossh.myqcloud.com/prism.js"></script>
     <script src="https://cdn.bootcss.com/fitvids/1.1.0/jquery.fitvids.js"></script>
-    <script src="../assets/js/index.min.js?v=9aa77a5a13"></script>
+    <script src="http://tajs.qq.com/stats?sId=59279948" charset="UTF-8"></script>
+    <script src="../assets/js/index.min.js?v=7a4ac88d46"></script>
     
 </body>
 </html>

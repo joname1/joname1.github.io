@@ -7,56 +7,73 @@
     <meta name="description" content=",江矿宝宝,joname,joname.liangtan,前端,js,jquery,javascript,html5,开发者,攻城狮,码农,挖煤,挖矿,极客,编程,代码,开源,IT网站,Developer,Programmer,Coder,Geek,html,css,css3,Front-end,Front-end Developer,FE,FEer" />
     <meta name="HandheldFriendly" content="True" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="shortcut icon" href="../assets/favicon.png?v=9aa77a5a13">
-    <link href="../assets/css/all.min.css?v=9aa77a5a13" rel="stylesheet">
+    <link rel="shortcut icon" href="../assets/favicon.png?v=7a4ac88d46">
+    <link href="../assets/css/all.min.css?v=7a4ac88d46" rel="stylesheet">
     <link href="https://fonts.css.network/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" rel="stylesheet">
     <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
     <link href="https://joe-10005639.cossh.myqcloud.com/prism.css" rel="stylesheet">
     <link rel="canonical" href="http://joname1.github.io/gulp-sprite/" />
-    <meta name="referrer" content="origin" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="http://joname1.github.io/gulp-sprite/amp/" />
     
     <meta property="og:site_name" content="江矿宝宝的博客." />
     <meta property="og:type" content="article" />
     <meta property="og:title" content="使用gulp自动合成雪碧图" />
-    <meta property="og:description" content="相信做前端的同学都做过这样的事情，为优化图片，减少请求会把拿到切好的图标图片，通过ps（或者其他工具）把图片合并到一张图里面，再通过css定位把对于的样式写出来引用的html里面。对于一些图片较多的项目，这个过程可能要花费我们一天的时间，来实现这步。今天我给大家带来一个工具，将这一步缩短到几秒钟就能完成，究竟是什么工具这么神奇呢，他就是gulp的一个插件gulp.spritesmith。下面一张图来说明他能做什么。 看到这个图片介绍，相信大家已经对gulp.spritesmith能做到什么一目了然了，其他的不多说，下面说直接开撸： 安装gulp.spritesmith npm install gulp.spritesmith --save-dev   编写Gulpfile.js /引入gulp var gulp=require(&quot;gulp&quot;),       spritesmith=require(&#x27;gulp.spritesmith&#x27;); gulp...." />
+    <meta property="og:description" content="相信做前端的同学都做过这样的事情，为优化图片，减少请求会把拿到切好的图标图片，通过ps（或者其他工具）把图片合并到一张图里面，再通过css定位把对于的样式写出来引用的html里面。对于一些图片较多的项目，这个过程可能要花费我们一天的时间，来实现这步。今天我给大家带来一个工具，将这一步缩短到几秒钟就能完成，究竟是什么工具这么神奇呢，他就是gulp的一个插件gulp.spritesmith。下面一张图来说明他能做什么。 看到这个图片介绍，相信大家已经对gulp.spritesmith能做到什么一目了然了，其他的不多说，下面说直接开撸： 安装gulp.spritesmith npm install gulp.spritesmith --save-dev   编写Gulpfile.js /引入gulp var gulp&#x3D;require(&quot;gulp&quot;),       spritesmith&#x3D;require(&#x27;gulp.spritesmith&#x27;); gulp.task(&#x27;default&#x27;, function () {       return gulp.src(&#x27;images/*.png&#x27;)//需要合并的图片地址         .pipe(" />
     <meta property="og:url" content="http://joname1.github.io/gulp-sprite/" />
     <meta property="article:published_time" content="2016-09-11T08:41:00.000Z" />
-    <meta property="article:modified_time" content="2017-05-25T08:12:14.976Z" />
-    
+    <meta property="article:modified_time" content="2017-05-25T08:12:14.000Z" />
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="使用gulp自动合成雪碧图" />
-    <meta name="twitter:description" content="相信做前端的同学都做过这样的事情，为优化图片，减少请求会把拿到切好的图标图片，通过ps（或者其他工具）把图片合并到一张图里面，再通过css定位把对于的样式写出来引用的html里面。对于一些图片较多的项目，这个过程可能要花费我们一天的时间，来实现这步。今天我给大家带来一个工具，将这一步缩短到几秒钟就能完成，究竟是什么工具这么神奇呢，他就是gulp的一个插件gulp.spritesmith。下面一张图来说明他能做什么。 看到这个图片介绍，相信大家已经对gulp.spritesmith能做到什么一目了然了，其他的不多说，下面说直接开撸： 安装gulp.spritesmith npm install gulp.spritesmith --save-dev   编写Gulpfile.js /引入gulp var gulp=require(&quot;gulp&quot;),       spritesmith=require(&#x27;gulp.spritesmith&#x27;); gulp...." />
+    <meta name="twitter:description" content="相信做前端的同学都做过这样的事情，为优化图片，减少请求会把拿到切好的图标图片，通过ps（或者其他工具）把图片合并到一张图里面，再通过css定位把对于的样式写出来引用的html里面。对于一些图片较多的项目，这个过程可能要花费我们一天的时间，来实现这步。今天我给大家带来一个工具，将这一步缩短到几秒钟就能完成，究竟是什么工具这么神奇呢，他就是gulp的一个插件gulp.spritesmith。下面一张图来说明他能做什么。 看到这个图片介绍，相信大家已经对gulp.spritesmith能做到什么一目了然了，其他的不多说，下面说直接开撸： 安装gulp.spritesmith npm install gulp.spritesmith --save-dev   编写Gulpfile.js /引入gulp var gulp&#x3D;require(&quot;gulp&quot;),       spritesmith&#x3D;require(&#x27;gulp.spritesmith&#x27;); gulp.task(&#x27;default&#x27;, function () {       return gulp.src(&#x27;images/*.png&#x27;)//需要合并的图片地址         .pipe(" />
     <meta name="twitter:url" content="http://joname1.github.io/gulp-sprite/" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="江矿宝宝." />
     
     <script type="application/ld+json">
 {
-    "@context": "http://schema.org",
+    "@context": "https://schema.org",
     "@type": "Article",
-    "publisher": "江矿宝宝的博客.",
+    "publisher": {
+        "@type": "Organization",
+        "name": "江矿宝宝的博客.",
+        "logo": "http://joname1.github.io/ghost/img/ghosticon.jpg"
+    },
     "author": {
         "@type": "Person",
         "name": "江矿宝宝.",
-        "image": "https://joe-10005639.cossh.myqcloud.com/jkbb.jpg",
-        "url": "http://joname1.github.io/author/jkbb",
-        "sameAs": "https://joname1.github.io",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://joe-10005639.cossh.myqcloud.com/jkbb.jpg",
+            "width": 600,
+            "height": 600
+        },
+        "url": "http://joname1.github.io/author/jkbb/",
+        "sameAs": [
+            "https://joname1.github.io"
+        ],
         "description": "伪前端攻城狮, 喜欢钻研新技术."
     },
     "headline": "使用gulp自动合成雪碧图",
     "url": "http://joname1.github.io/gulp-sprite/",
     "datePublished": "2016-09-11T08:41:00.000Z",
-    "dateModified": "2017-05-25T08:12:14.976Z",
-    "description": "相信做前端的同学都做过这样的事情，为优化图片，减少请求会把拿到切好的图标图片，通过ps（或者其他工具）把图片合并到一张图里面，再通过css定位把对于的样式写出来引用的html里面。对于一些图片较多的项目，这个过程可能要花费我们一天的时间，来实现这步。今天我给大家带来一个工具，将这一步缩短到几秒钟就能完成，究竟是什么工具这么神奇呢，他就是gulp的一个插件gulp.spritesmith。下面一张图来说明他能做什么。 看到这个图片介绍，相信大家已经对gulp.spritesmith能做到什么一目了然了，其他的不多说，下面说直接开撸： 安装gulp.spritesmith npm install gulp.spritesmith --save-dev   编写Gulpfile.js /引入gulp var gulp=require(&quot;gulp&quot;),       spritesmith=require(&#x27;gulp.spritesmith&#x27;); gulp...."
+    "dateModified": "2017-05-25T08:12:14.000Z",
+    "description": "相信做前端的同学都做过这样的事情，为优化图片，减少请求会把拿到切好的图标图片，通过ps（或者其他工具）把图片合并到一张图里面，再通过css定位把对于的样式写出来引用的html里面。对于一些图片较多的项目，这个过程可能要花费我们一天的时间，来实现这步。今天我给大家带来一个工具，将这一步缩短到几秒钟就能完成，究竟是什么工具这么神奇呢，他就是gulp的一个插件gulp.spritesmith。下面一张图来说明他能做什么。 看到这个图片介绍，相信大家已经对gulp.spritesmith能做到什么一目了然了，其他的不多说，下面说直接开撸： 安装gulp.spritesmith npm install gulp.spritesmith --save-dev   编写Gulpfile.js /引入gulp var gulp&#x3D;require(&quot;gulp&quot;),       spritesmith&#x3D;require(&#x27;gulp.spritesmith&#x27;); gulp.task(&#x27;default&#x27;, function () {       return gulp.src(&#x27;images/*.png&#x27;)//需要合并的图片地址         .pipe(",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://joname1.github.io"
+    }
 }
     </script>
 
-    <script type="text/javascript" src="../shared/ghost-url.js?v=9aa77a5a13"></script>
+    <script type="text/javascript" src="../shared/ghost-url.js?v=7a4ac88d46"></script>
 <script type="text/javascript">
 ghost.init({
 	clientId: "ghost-frontend",
 	clientSecret: "71d7e111692b"
 });
 </script>
-    <meta name="generator" content="Ghost 0.7" />
+    <meta name="generator" content="Ghost 0.11" />
     <link rel="alternate" type="application/rss+xml" title="江矿宝宝的博客." href="http://joname1.github.io/rss/" />
 </head>
 <body class="post-template nav-closed">
@@ -213,7 +230,8 @@ gulp.task('default', function () {
     <script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://joe-10005639.cossh.myqcloud.com/prism.js"></script>
     <script src="https://cdn.bootcss.com/fitvids/1.1.0/jquery.fitvids.js"></script>
-    <script src="../assets/js/index.min.js?v=9aa77a5a13"></script>
+    <script src="http://tajs.qq.com/stats?sId=59279948" charset="UTF-8"></script>
+    <script src="../assets/js/index.min.js?v=7a4ac88d46"></script>
     
 </body>
 </html>

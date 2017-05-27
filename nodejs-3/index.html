@@ -7,56 +7,73 @@
     <meta name="description" content=",江矿宝宝,joname,joname.liangtan,前端,js,jquery,javascript,html5,开发者,攻城狮,码农,挖煤,挖矿,极客,编程,代码,开源,IT网站,Developer,Programmer,Coder,Geek,html,css,css3,Front-end,Front-end Developer,FE,FEer" />
     <meta name="HandheldFriendly" content="True" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="shortcut icon" href="../assets/favicon.png?v=9aa77a5a13">
-    <link href="../assets/css/all.min.css?v=9aa77a5a13" rel="stylesheet">
+    <link rel="shortcut icon" href="../assets/favicon.png?v=7a4ac88d46">
+    <link href="../assets/css/all.min.css?v=7a4ac88d46" rel="stylesheet">
     <link href="https://fonts.css.network/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" rel="stylesheet">
     <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
     <link href="https://joe-10005639.cossh.myqcloud.com/prism.css" rel="stylesheet">
     <link rel="canonical" href="http://joname1.github.io/nodejs-3/" />
-    <meta name="referrer" content="origin" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="http://joname1.github.io/nodejs-3/amp/" />
     
     <meta property="og:site_name" content="江矿宝宝的博客." />
     <meta property="og:type" content="article" />
     <meta property="og:title" content="Node.js(3) 模块" />
-    <meta property="og:description" content="当我们制作一个模块时，我们可能会写一个构造函数（因为在浏览器写构造函数时我们经常会这么做）。 如代码： function sayHello() {       this.say = function () {           console.log(&#x27;hello&#x27;);       }   }   exports.Hello = sayHello;   在这里，我们有一个构造函数sayHello，函数里有一个方法say，输出hello。 然后导出的是sayHello这个构造函数。我们在另外一个文件中调用它。 代码这么写： var hello = require(&#x27;./test&#x27;).Hello;    //调用刚才写的那个模块   var m = new hello();   m.say();   第一行表示我们调用刚才写的那个模块。 注意，这个时候和之前不同（之前是直接require模块即可），这里需要添加一个Hello。..." />
+    <meta property="og:description" content="当我们制作一个模块时，我们可能会写一个构造函数（因为在浏览器写构造函数时我们经常会这么做）。 如代码： function sayHello() {       this.say &#x3D; function () {           console.log(&#x27;hello&#x27;);       }   }   exports.Hello &#x3D; sayHello;   在这里，我们有一个构造函数sayHello，函数里有一个方法say，输出hello。 然后导出的是sayHello这个构造函数。我们在另外一个文件中调用它。 代码这么写： var hello &#x3D; require(&#x27;./test&#x27;).Hello;    //调用刚才写的那个模块   var m &#x3D; new hello();   m.say();   第一行表示我们调用刚才写的那个模块。 注意，这个时候和之前不同（之前是直接require模块即可），这里需要添加一个Hello。原因在于require表示导入的是一个整体（即有多个exports导出的方法），这里我们只需要其中的Hello方法（即对应原模块中的sayHello这个构造函数）； 当然，也可以写为require(&#x27;./test&#x27;)，在下面的代码，把hello改为hello." />
     <meta property="og:url" content="http://joname1.github.io/nodejs-3/" />
     <meta property="article:published_time" content="2016-10-03T08:59:00.000Z" />
-    <meta property="article:modified_time" content="2017-05-25T08:33:46.103Z" />
-    
+    <meta property="article:modified_time" content="2017-05-25T08:33:46.000Z" />
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="Node.js(3) 模块" />
-    <meta name="twitter:description" content="当我们制作一个模块时，我们可能会写一个构造函数（因为在浏览器写构造函数时我们经常会这么做）。 如代码： function sayHello() {       this.say = function () {           console.log(&#x27;hello&#x27;);       }   }   exports.Hello = sayHello;   在这里，我们有一个构造函数sayHello，函数里有一个方法say，输出hello。 然后导出的是sayHello这个构造函数。我们在另外一个文件中调用它。 代码这么写： var hello = require(&#x27;./test&#x27;).Hello;    //调用刚才写的那个模块   var m = new hello();   m.say();   第一行表示我们调用刚才写的那个模块。 注意，这个时候和之前不同（之前是直接require模块即可），这里需要添加一个Hello。..." />
+    <meta name="twitter:description" content="当我们制作一个模块时，我们可能会写一个构造函数（因为在浏览器写构造函数时我们经常会这么做）。 如代码： function sayHello() {       this.say &#x3D; function () {           console.log(&#x27;hello&#x27;);       }   }   exports.Hello &#x3D; sayHello;   在这里，我们有一个构造函数sayHello，函数里有一个方法say，输出hello。 然后导出的是sayHello这个构造函数。我们在另外一个文件中调用它。 代码这么写： var hello &#x3D; require(&#x27;./test&#x27;).Hello;    //调用刚才写的那个模块   var m &#x3D; new hello();   m.say();   第一行表示我们调用刚才写的那个模块。 注意，这个时候和之前不同（之前是直接require模块即可），这里需要添加一个Hello。原因在于require表示导入的是一个整体（即有多个exports导出的方法），这里我们只需要其中的Hello方法（即对应原模块中的sayHello这个构造函数）； 当然，也可以写为require(&#x27;./test&#x27;)，在下面的代码，把hello改为hello." />
     <meta name="twitter:url" content="http://joname1.github.io/nodejs-3/" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="江矿宝宝." />
     
     <script type="application/ld+json">
 {
-    "@context": "http://schema.org",
+    "@context": "https://schema.org",
     "@type": "Article",
-    "publisher": "江矿宝宝的博客.",
+    "publisher": {
+        "@type": "Organization",
+        "name": "江矿宝宝的博客.",
+        "logo": "http://joname1.github.io/ghost/img/ghosticon.jpg"
+    },
     "author": {
         "@type": "Person",
         "name": "江矿宝宝.",
-        "image": "https://joe-10005639.cossh.myqcloud.com/jkbb.jpg",
-        "url": "http://joname1.github.io/author/jkbb",
-        "sameAs": "https://joname1.github.io",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://joe-10005639.cossh.myqcloud.com/jkbb.jpg",
+            "width": 600,
+            "height": 600
+        },
+        "url": "http://joname1.github.io/author/jkbb/",
+        "sameAs": [
+            "https://joname1.github.io"
+        ],
         "description": "伪前端攻城狮, 喜欢钻研新技术."
     },
     "headline": "Node.js(3) 模块",
     "url": "http://joname1.github.io/nodejs-3/",
     "datePublished": "2016-10-03T08:59:00.000Z",
-    "dateModified": "2017-05-25T08:33:46.103Z",
-    "description": "当我们制作一个模块时，我们可能会写一个构造函数（因为在浏览器写构造函数时我们经常会这么做）。 如代码： function sayHello() {       this.say = function () {           console.log(&#x27;hello&#x27;);       }   }   exports.Hello = sayHello;   在这里，我们有一个构造函数sayHello，函数里有一个方法say，输出hello。 然后导出的是sayHello这个构造函数。我们在另外一个文件中调用它。 代码这么写： var hello = require(&#x27;./test&#x27;).Hello;    //调用刚才写的那个模块   var m = new hello();   m.say();   第一行表示我们调用刚才写的那个模块。 注意，这个时候和之前不同（之前是直接require模块即可），这里需要添加一个Hello。..."
+    "dateModified": "2017-05-25T08:33:46.000Z",
+    "description": "当我们制作一个模块时，我们可能会写一个构造函数（因为在浏览器写构造函数时我们经常会这么做）。 如代码： function sayHello() {       this.say &#x3D; function () {           console.log(&#x27;hello&#x27;);       }   }   exports.Hello &#x3D; sayHello;   在这里，我们有一个构造函数sayHello，函数里有一个方法say，输出hello。 然后导出的是sayHello这个构造函数。我们在另外一个文件中调用它。 代码这么写： var hello &#x3D; require(&#x27;./test&#x27;).Hello;    //调用刚才写的那个模块   var m &#x3D; new hello();   m.say();   第一行表示我们调用刚才写的那个模块。 注意，这个时候和之前不同（之前是直接require模块即可），这里需要添加一个Hello。原因在于require表示导入的是一个整体（即有多个exports导出的方法），这里我们只需要其中的Hello方法（即对应原模块中的sayHello这个构造函数）； 当然，也可以写为require(&#x27;./test&#x27;)，在下面的代码，把hello改为hello.",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://joname1.github.io"
+    }
 }
     </script>
 
-    <script type="text/javascript" src="../shared/ghost-url.js?v=9aa77a5a13"></script>
+    <script type="text/javascript" src="../shared/ghost-url.js?v=7a4ac88d46"></script>
 <script type="text/javascript">
 ghost.init({
 	clientId: "ghost-frontend",
 	clientSecret: "71d7e111692b"
 });
 </script>
-    <meta name="generator" content="Ghost 0.7" />
+    <meta name="generator" content="Ghost 0.11" />
     <link rel="alternate" type="application/rss+xml" title="江矿宝宝的博客." href="http://joname1.github.io/rss/" />
 </head>
 <body class="post-template nav-closed">
@@ -203,7 +220,8 @@ console.log(hello.say)
     <script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://joe-10005639.cossh.myqcloud.com/prism.js"></script>
     <script src="https://cdn.bootcss.com/fitvids/1.1.0/jquery.fitvids.js"></script>
-    <script src="../assets/js/index.min.js?v=9aa77a5a13"></script>
+    <script src="http://tajs.qq.com/stats?sId=59279948" charset="UTF-8"></script>
+    <script src="../assets/js/index.min.js?v=7a4ac88d46"></script>
     
 </body>
 </html>

@@ -7,56 +7,73 @@
     <meta name="description" content=",江矿宝宝,joname,joname.liangtan,前端,js,jquery,javascript,html5,开发者,攻城狮,码农,挖煤,挖矿,极客,编程,代码,开源,IT网站,Developer,Programmer,Coder,Geek,html,css,css3,Front-end,Front-end Developer,FE,FEer" />
     <meta name="HandheldFriendly" content="True" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="shortcut icon" href="../assets/favicon.png?v=9aa77a5a13">
-    <link href="../assets/css/all.min.css?v=9aa77a5a13" rel="stylesheet">
+    <link rel="shortcut icon" href="../assets/favicon.png?v=7a4ac88d46">
+    <link href="../assets/css/all.min.css?v=7a4ac88d46" rel="stylesheet">
     <link href="https://fonts.css.network/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" rel="stylesheet">
     <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
     <link href="https://joe-10005639.cossh.myqcloud.com/prism.css" rel="stylesheet">
     <link rel="canonical" href="http://joname1.github.io/gulp-basic/" />
-    <meta name="referrer" content="origin" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="http://joname1.github.io/gulp-basic/amp/" />
     
     <meta property="og:site_name" content="江矿宝宝的博客." />
     <meta property="og:type" content="article" />
     <meta property="og:title" content="Gulp入门指南" />
-    <meta property="og:description" content="是时候抛弃繁重的Grunt了。Gulp是一个直观的、配置的、基于流的任务发布系统，而且它更高效。 为什么我会感兴趣呢？好问题。Gulp通过配置写代码不仅使得它编写任务简单，而且更加方便阅读和维护。 Gulp运用node.js的流，这使得它构建任务很快，因为没有磁盘文件的读写操作，如果你想了解更多关于流的知识，你可以看看这个。Gulp允许你输入源文件，然后在一系列的管道插件中处理，最后输出，不像Grunt你需要为每个插件配置输入和输出。下面就让我们通过一个sass编译的例子来看看Gulp和Grunt的差异吧。 Grunt: sass: {     dist: {     options: {       style: &#x27;expanded&#x27;     },     files: {       &#x27;dist/assets/css/main.css&#x27;: &#x27;src/styles/main.scss&#x27;,     }   } }, autoprefixer: {     dist: {     options: {       browsers:..." />
+    <meta property="og:description" content="是时候抛弃繁重的Grunt了。Gulp是一个直观的、配置的、基于流的任务发布系统，而且它更高效。 为什么我会感兴趣呢？好问题。Gulp通过配置写代码不仅使得它编写任务简单，而且更加方便阅读和维护。 Gulp运用node.js的流，这使得它构建任务很快，因为没有磁盘文件的读写操作，如果你想了解更多关于流的知识，你可以看看这个。Gulp允许你输入源文件，然后在一系列的管道插件中处理，最后输出，不像Grunt你需要为每个插件配置输入和输出。下面就让我们通过一个sass编译的例子来看看Gulp和Grunt的差异吧。 Grunt: sass: {     dist: {     options: {       style: &#x27;expanded&#x27;     },     files: {       &#x27;dist/assets/css/main.css&#x27;: &#x27;src/styles/main.scss&#x27;,     }   } }, autoprefixer: {     dist: {     options: {       browsers: [         &#x27;last 2 version&#x27;, &#x27;safari 5&#x27;, &#x27;ie 8&#x27;, &#x27;ie 9&#x27;, &#x27;opera" />
     <meta property="og:url" content="http://joname1.github.io/gulp-basic/" />
     <meta property="article:published_time" content="2016-10-05T05:24:00.000Z" />
-    <meta property="article:modified_time" content="2017-05-25T08:13:26.266Z" />
-    
+    <meta property="article:modified_time" content="2017-05-25T08:13:26.000Z" />
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="Gulp入门指南" />
-    <meta name="twitter:description" content="是时候抛弃繁重的Grunt了。Gulp是一个直观的、配置的、基于流的任务发布系统，而且它更高效。 为什么我会感兴趣呢？好问题。Gulp通过配置写代码不仅使得它编写任务简单，而且更加方便阅读和维护。 Gulp运用node.js的流，这使得它构建任务很快，因为没有磁盘文件的读写操作，如果你想了解更多关于流的知识，你可以看看这个。Gulp允许你输入源文件，然后在一系列的管道插件中处理，最后输出，不像Grunt你需要为每个插件配置输入和输出。下面就让我们通过一个sass编译的例子来看看Gulp和Grunt的差异吧。 Grunt: sass: {     dist: {     options: {       style: &#x27;expanded&#x27;     },     files: {       &#x27;dist/assets/css/main.css&#x27;: &#x27;src/styles/main.scss&#x27;,     }   } }, autoprefixer: {     dist: {     options: {       browsers:..." />
+    <meta name="twitter:description" content="是时候抛弃繁重的Grunt了。Gulp是一个直观的、配置的、基于流的任务发布系统，而且它更高效。 为什么我会感兴趣呢？好问题。Gulp通过配置写代码不仅使得它编写任务简单，而且更加方便阅读和维护。 Gulp运用node.js的流，这使得它构建任务很快，因为没有磁盘文件的读写操作，如果你想了解更多关于流的知识，你可以看看这个。Gulp允许你输入源文件，然后在一系列的管道插件中处理，最后输出，不像Grunt你需要为每个插件配置输入和输出。下面就让我们通过一个sass编译的例子来看看Gulp和Grunt的差异吧。 Grunt: sass: {     dist: {     options: {       style: &#x27;expanded&#x27;     },     files: {       &#x27;dist/assets/css/main.css&#x27;: &#x27;src/styles/main.scss&#x27;,     }   } }, autoprefixer: {     dist: {     options: {       browsers: [         &#x27;last 2 version&#x27;, &#x27;safari 5&#x27;, &#x27;ie 8&#x27;, &#x27;ie 9&#x27;, &#x27;opera" />
     <meta name="twitter:url" content="http://joname1.github.io/gulp-basic/" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="江矿宝宝." />
     
     <script type="application/ld+json">
 {
-    "@context": "http://schema.org",
+    "@context": "https://schema.org",
     "@type": "Article",
-    "publisher": "江矿宝宝的博客.",
+    "publisher": {
+        "@type": "Organization",
+        "name": "江矿宝宝的博客.",
+        "logo": "http://joname1.github.io/ghost/img/ghosticon.jpg"
+    },
     "author": {
         "@type": "Person",
         "name": "江矿宝宝.",
-        "image": "https://joe-10005639.cossh.myqcloud.com/jkbb.jpg",
-        "url": "http://joname1.github.io/author/jkbb",
-        "sameAs": "https://joname1.github.io",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://joe-10005639.cossh.myqcloud.com/jkbb.jpg",
+            "width": 600,
+            "height": 600
+        },
+        "url": "http://joname1.github.io/author/jkbb/",
+        "sameAs": [
+            "https://joname1.github.io"
+        ],
         "description": "伪前端攻城狮, 喜欢钻研新技术."
     },
     "headline": "Gulp入门指南",
     "url": "http://joname1.github.io/gulp-basic/",
     "datePublished": "2016-10-05T05:24:00.000Z",
-    "dateModified": "2017-05-25T08:13:26.266Z",
-    "description": "是时候抛弃繁重的Grunt了。Gulp是一个直观的、配置的、基于流的任务发布系统，而且它更高效。 为什么我会感兴趣呢？好问题。Gulp通过配置写代码不仅使得它编写任务简单，而且更加方便阅读和维护。 Gulp运用node.js的流，这使得它构建任务很快，因为没有磁盘文件的读写操作，如果你想了解更多关于流的知识，你可以看看这个。Gulp允许你输入源文件，然后在一系列的管道插件中处理，最后输出，不像Grunt你需要为每个插件配置输入和输出。下面就让我们通过一个sass编译的例子来看看Gulp和Grunt的差异吧。 Grunt: sass: {     dist: {     options: {       style: &#x27;expanded&#x27;     },     files: {       &#x27;dist/assets/css/main.css&#x27;: &#x27;src/styles/main.scss&#x27;,     }   } }, autoprefixer: {     dist: {     options: {       browsers:..."
+    "dateModified": "2017-05-25T08:13:26.000Z",
+    "description": "是时候抛弃繁重的Grunt了。Gulp是一个直观的、配置的、基于流的任务发布系统，而且它更高效。 为什么我会感兴趣呢？好问题。Gulp通过配置写代码不仅使得它编写任务简单，而且更加方便阅读和维护。 Gulp运用node.js的流，这使得它构建任务很快，因为没有磁盘文件的读写操作，如果你想了解更多关于流的知识，你可以看看这个。Gulp允许你输入源文件，然后在一系列的管道插件中处理，最后输出，不像Grunt你需要为每个插件配置输入和输出。下面就让我们通过一个sass编译的例子来看看Gulp和Grunt的差异吧。 Grunt: sass: {     dist: {     options: {       style: &#x27;expanded&#x27;     },     files: {       &#x27;dist/assets/css/main.css&#x27;: &#x27;src/styles/main.scss&#x27;,     }   } }, autoprefixer: {     dist: {     options: {       browsers: [         &#x27;last 2 version&#x27;, &#x27;safari 5&#x27;, &#x27;ie 8&#x27;, &#x27;ie 9&#x27;, &#x27;opera",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://joname1.github.io"
+    }
 }
     </script>
 
-    <script type="text/javascript" src="../shared/ghost-url.js?v=9aa77a5a13"></script>
+    <script type="text/javascript" src="../shared/ghost-url.js?v=7a4ac88d46"></script>
 <script type="text/javascript">
 ghost.init({
 	clientId: "ghost-frontend",
 	clientSecret: "71d7e111692b"
 });
 </script>
-    <meta name="generator" content="Ghost 0.7" />
+    <meta name="generator" content="Ghost 0.11" />
     <link rel="alternate" type="application/rss+xml" title="江矿宝宝的博客." href="http://joname1.github.io/rss/" />
 </head>
 <body class="post-template nav-closed">
@@ -452,7 +469,8 @@ gulp.task('watch', function() {
     <script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://joe-10005639.cossh.myqcloud.com/prism.js"></script>
     <script src="https://cdn.bootcss.com/fitvids/1.1.0/jquery.fitvids.js"></script>
-    <script src="../assets/js/index.min.js?v=9aa77a5a13"></script>
+    <script src="http://tajs.qq.com/stats?sId=59279948" charset="UTF-8"></script>
+    <script src="../assets/js/index.min.js?v=7a4ac88d46"></script>
     
 </body>
 </html>

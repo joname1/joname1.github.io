@@ -7,56 +7,73 @@
     <meta name="description" content=",江矿宝宝,joname,joname.liangtan,前端,js,jquery,javascript,html5,开发者,攻城狮,码农,挖煤,挖矿,极客,编程,代码,开源,IT网站,Developer,Programmer,Coder,Geek,html,css,css3,Front-end,Front-end Developer,FE,FEer" />
     <meta name="HandheldFriendly" content="True" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="shortcut icon" href="../assets/favicon.png?v=9aa77a5a13">
-    <link href="../assets/css/all.min.css?v=9aa77a5a13" rel="stylesheet">
+    <link rel="shortcut icon" href="../assets/favicon.png?v=7a4ac88d46">
+    <link href="../assets/css/all.min.css?v=7a4ac88d46" rel="stylesheet">
     <link href="https://fonts.css.network/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" rel="stylesheet">
     <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
     <link href="https://joe-10005639.cossh.myqcloud.com/prism.css" rel="stylesheet">
     <link rel="canonical" href="http://joname1.github.io/browsersync-no-f5/" />
-    <meta name="referrer" content="origin" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="http://joname1.github.io/browsersync-no-f5/amp/" />
     
     <meta property="og:site_name" content="江矿宝宝的博客." />
     <meta property="og:type" content="article" />
     <meta property="og:title" content="BrowserSync自动刷新,释放你的F5." />
-    <meta property="og:description" content="想象一下这个场景：你开着两个显示器，一边是写代码，另一边是浏览器里的你正在开发的Web。此时桌上还放着你的手机，手机里也是这个开发中的应用。然后，你新写了一小段代码，按下了Ctrl+S保存。紧接着，你的手机和另一个显示器里的应用，就变成了更新后的效果。你可以马上检查效果是否和你预想的一致，甚至都不需要动一下鼠标。    想起来还不错？嗯，这只是简单地省略掉那个开发过程中会按好多遍的F5刷新。 LiveReload有所不足的地方是，需要搭配浏览器插件。但是，插件是取决于浏览器的，Chrome和Firefox都有可用插件，但IE和手机上的浏览器，就不能这样了，这时候只能手工向页面里添加一段&amp;lt;script&amp;gt;代码，而且还要记得结束后再手工移除。 BrowserSync的用法则不需要浏览器插件，也不用手工添加代码。一句控制台的命令之后，无论是在手机里还是电脑，无论用多少个浏览器，都可以拥有自动刷新的功能。 BrowserSync安装和使用 1.下载并安装Node...." />
+    <meta property="og:description" content="想象一下这个场景：你开着两个显示器，一边是写代码，另一边是浏览器里的你正在开发的Web。此时桌上还放着你的手机，手机里也是这个开发中的应用。然后，你新写了一小段代码，按下了Ctrl+S保存。紧接着，你的手机和另一个显示器里的应用，就变成了更新后的效果。你可以马上检查效果是否和你预想的一致，甚至都不需要动一下鼠标。    想起来还不错？嗯，这只是简单地省略掉那个开发过程中会按好多遍的F5刷新。 LiveReload有所不足的地方是，需要搭配浏览器插件。但是，插件是取决于浏览器的，Chrome和Firefox都有可用插件，但IE和手机上的浏览器，就不能这样了，这时候只能手工向页面里添加一段&amp;lt;script&amp;gt;代码，而且还要记得结束后再手工移除。 BrowserSync的用法则不需要浏览器插件，也不用手工添加代码。一句控制台的命令之后，无论是在手机里还是电脑，无论用多少个浏览器，都可以拥有自动刷新的功能。 BrowserSync安装和使用 1.下载并安装Node.js： https://nodejs.org/en/download 2.通过npm安装BrowserSync： npm install" />
     <meta property="og:url" content="http://joname1.github.io/browsersync-no-f5/" />
     <meta property="article:published_time" content="2016-10-04T04:04:00.000Z" />
-    <meta property="article:modified_time" content="2017-05-25T08:25:40.607Z" />
-    
+    <meta property="article:modified_time" content="2017-05-25T08:25:40.000Z" />
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="BrowserSync自动刷新,释放你的F5." />
-    <meta name="twitter:description" content="想象一下这个场景：你开着两个显示器，一边是写代码，另一边是浏览器里的你正在开发的Web。此时桌上还放着你的手机，手机里也是这个开发中的应用。然后，你新写了一小段代码，按下了Ctrl+S保存。紧接着，你的手机和另一个显示器里的应用，就变成了更新后的效果。你可以马上检查效果是否和你预想的一致，甚至都不需要动一下鼠标。    想起来还不错？嗯，这只是简单地省略掉那个开发过程中会按好多遍的F5刷新。 LiveReload有所不足的地方是，需要搭配浏览器插件。但是，插件是取决于浏览器的，Chrome和Firefox都有可用插件，但IE和手机上的浏览器，就不能这样了，这时候只能手工向页面里添加一段&amp;lt;script&amp;gt;代码，而且还要记得结束后再手工移除。 BrowserSync的用法则不需要浏览器插件，也不用手工添加代码。一句控制台的命令之后，无论是在手机里还是电脑，无论用多少个浏览器，都可以拥有自动刷新的功能。 BrowserSync安装和使用 1.下载并安装Node...." />
+    <meta name="twitter:description" content="想象一下这个场景：你开着两个显示器，一边是写代码，另一边是浏览器里的你正在开发的Web。此时桌上还放着你的手机，手机里也是这个开发中的应用。然后，你新写了一小段代码，按下了Ctrl+S保存。紧接着，你的手机和另一个显示器里的应用，就变成了更新后的效果。你可以马上检查效果是否和你预想的一致，甚至都不需要动一下鼠标。    想起来还不错？嗯，这只是简单地省略掉那个开发过程中会按好多遍的F5刷新。 LiveReload有所不足的地方是，需要搭配浏览器插件。但是，插件是取决于浏览器的，Chrome和Firefox都有可用插件，但IE和手机上的浏览器，就不能这样了，这时候只能手工向页面里添加一段&amp;lt;script&amp;gt;代码，而且还要记得结束后再手工移除。 BrowserSync的用法则不需要浏览器插件，也不用手工添加代码。一句控制台的命令之后，无论是在手机里还是电脑，无论用多少个浏览器，都可以拥有自动刷新的功能。 BrowserSync安装和使用 1.下载并安装Node.js： https://nodejs.org/en/download 2.通过npm安装BrowserSync： npm install" />
     <meta name="twitter:url" content="http://joname1.github.io/browsersync-no-f5/" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="江矿宝宝." />
     
     <script type="application/ld+json">
 {
-    "@context": "http://schema.org",
+    "@context": "https://schema.org",
     "@type": "Article",
-    "publisher": "江矿宝宝的博客.",
+    "publisher": {
+        "@type": "Organization",
+        "name": "江矿宝宝的博客.",
+        "logo": "http://joname1.github.io/ghost/img/ghosticon.jpg"
+    },
     "author": {
         "@type": "Person",
         "name": "江矿宝宝.",
-        "image": "https://joe-10005639.cossh.myqcloud.com/jkbb.jpg",
-        "url": "http://joname1.github.io/author/jkbb",
-        "sameAs": "https://joname1.github.io",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://joe-10005639.cossh.myqcloud.com/jkbb.jpg",
+            "width": 600,
+            "height": 600
+        },
+        "url": "http://joname1.github.io/author/jkbb/",
+        "sameAs": [
+            "https://joname1.github.io"
+        ],
         "description": "伪前端攻城狮, 喜欢钻研新技术."
     },
     "headline": "BrowserSync自动刷新,释放你的F5.",
     "url": "http://joname1.github.io/browsersync-no-f5/",
     "datePublished": "2016-10-04T04:04:00.000Z",
-    "dateModified": "2017-05-25T08:25:40.607Z",
-    "description": "想象一下这个场景：你开着两个显示器，一边是写代码，另一边是浏览器里的你正在开发的Web。此时桌上还放着你的手机，手机里也是这个开发中的应用。然后，你新写了一小段代码，按下了Ctrl+S保存。紧接着，你的手机和另一个显示器里的应用，就变成了更新后的效果。你可以马上检查效果是否和你预想的一致，甚至都不需要动一下鼠标。    想起来还不错？嗯，这只是简单地省略掉那个开发过程中会按好多遍的F5刷新。 LiveReload有所不足的地方是，需要搭配浏览器插件。但是，插件是取决于浏览器的，Chrome和Firefox都有可用插件，但IE和手机上的浏览器，就不能这样了，这时候只能手工向页面里添加一段&amp;lt;script&amp;gt;代码，而且还要记得结束后再手工移除。 BrowserSync的用法则不需要浏览器插件，也不用手工添加代码。一句控制台的命令之后，无论是在手机里还是电脑，无论用多少个浏览器，都可以拥有自动刷新的功能。 BrowserSync安装和使用 1.下载并安装Node...."
+    "dateModified": "2017-05-25T08:25:40.000Z",
+    "description": "想象一下这个场景：你开着两个显示器，一边是写代码，另一边是浏览器里的你正在开发的Web。此时桌上还放着你的手机，手机里也是这个开发中的应用。然后，你新写了一小段代码，按下了Ctrl+S保存。紧接着，你的手机和另一个显示器里的应用，就变成了更新后的效果。你可以马上检查效果是否和你预想的一致，甚至都不需要动一下鼠标。    想起来还不错？嗯，这只是简单地省略掉那个开发过程中会按好多遍的F5刷新。 LiveReload有所不足的地方是，需要搭配浏览器插件。但是，插件是取决于浏览器的，Chrome和Firefox都有可用插件，但IE和手机上的浏览器，就不能这样了，这时候只能手工向页面里添加一段&amp;lt;script&amp;gt;代码，而且还要记得结束后再手工移除。 BrowserSync的用法则不需要浏览器插件，也不用手工添加代码。一句控制台的命令之后，无论是在手机里还是电脑，无论用多少个浏览器，都可以拥有自动刷新的功能。 BrowserSync安装和使用 1.下载并安装Node.js： https://nodejs.org/en/download 2.通过npm安装BrowserSync： npm install",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://joname1.github.io"
+    }
 }
     </script>
 
-    <script type="text/javascript" src="../shared/ghost-url.js?v=9aa77a5a13"></script>
+    <script type="text/javascript" src="../shared/ghost-url.js?v=7a4ac88d46"></script>
 <script type="text/javascript">
 ghost.init({
 	clientId: "ghost-frontend",
 	clientSecret: "71d7e111692b"
 });
 </script>
-    <meta name="generator" content="Ghost 0.7" />
+    <meta name="generator" content="Ghost 0.11" />
     <link rel="alternate" type="application/rss+xml" title="江矿宝宝的博客." href="http://joname1.github.io/rss/" />
 </head>
 <body class="post-template nav-closed">
@@ -183,7 +200,8 @@ ghost.init({
     <script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://joe-10005639.cossh.myqcloud.com/prism.js"></script>
     <script src="https://cdn.bootcss.com/fitvids/1.1.0/jquery.fitvids.js"></script>
-    <script src="../assets/js/index.min.js?v=9aa77a5a13"></script>
+    <script src="http://tajs.qq.com/stats?sId=59279948" charset="UTF-8"></script>
+    <script src="../assets/js/index.min.js?v=7a4ac88d46"></script>
     
 </body>
 </html>

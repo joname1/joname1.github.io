@@ -7,56 +7,73 @@
     <meta name="description" content=",江矿宝宝,joname,joname.liangtan,前端,js,jquery,javascript,html5,开发者,攻城狮,码农,挖煤,挖矿,极客,编程,代码,开源,IT网站,Developer,Programmer,Coder,Geek,html,css,css3,Front-end,Front-end Developer,FE,FEer" />
     <meta name="HandheldFriendly" content="True" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="shortcut icon" href="../assets/favicon.png?v=9aa77a5a13">
-    <link href="../assets/css/all.min.css?v=9aa77a5a13" rel="stylesheet">
+    <link rel="shortcut icon" href="../assets/favicon.png?v=7a4ac88d46">
+    <link href="../assets/css/all.min.css?v=7a4ac88d46" rel="stylesheet">
     <link href="https://fonts.css.network/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" rel="stylesheet">
     <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
     <link href="https://joe-10005639.cossh.myqcloud.com/prism.css" rel="stylesheet">
     <link rel="canonical" href="http://joname1.github.io/requirejs-1/" />
-    <meta name="referrer" content="origin" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="http://joname1.github.io/requirejs-1/amp/" />
     
     <meta property="og:site_name" content="江矿宝宝的博客." />
     <meta property="og:type" content="article" />
     <meta property="og:title" content="RequireJS入门(一)" />
-    <meta property="og:description" content="RequireJS会让你以不同于往常的方式去写JavaScript。你将不再使用script标签在HTML中引入JS文件，以及不用通过script标签顺序去管理依赖关系。  当然也不会有阻塞（blocking）的情况发生。好，以一个简单示例开始。 新建一个目录，结构如下 目录r1下有index.html、jquery-1.7.2.js、main.js、require.js。require.js和jquery-1.7.2.js去各自官网下载即可。 index.html如下 &amp;lt;!doctype html&amp;gt;   &amp;lt;html&amp;gt;       &amp;lt;head&amp;gt;         &amp;lt;title&amp;gt;..." />
+    <meta property="og:description" content="RequireJS会让你以不同于往常的方式去写JavaScript。你将不再使用script标签在HTML中引入JS文件，以及不用通过script标签顺序去管理依赖关系。  当然也不会有阻塞（blocking）的情况发生。好，以一个简单示例开始。 新建一个目录，结构如下 目录r1下有index.html、jquery-1.7.2.js、main.js、require.js。require.js和jquery-1.7.2.js去各自官网下载即可。 index.html如下 &amp;lt;!doctype html&amp;gt;   &amp;lt;html&amp;gt;       &amp;lt;head&amp;gt;         &amp;lt;title&amp;gt;requirejs入门（一）&amp;lt;/title&amp;gt;         &amp;lt;meta charset&#x3D;&quot;utf-8&quot;&amp;gt;" />
     <meta property="og:url" content="http://joname1.github.io/requirejs-1/" />
     <meta property="article:published_time" content="2016-10-03T07:54:00.000Z" />
-    <meta property="article:modified_time" content="2017-05-25T08:39:38.533Z" />
-    
+    <meta property="article:modified_time" content="2017-05-25T08:39:38.000Z" />
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="RequireJS入门(一)" />
-    <meta name="twitter:description" content="RequireJS会让你以不同于往常的方式去写JavaScript。你将不再使用script标签在HTML中引入JS文件，以及不用通过script标签顺序去管理依赖关系。  当然也不会有阻塞（blocking）的情况发生。好，以一个简单示例开始。 新建一个目录，结构如下 目录r1下有index.html、jquery-1.7.2.js、main.js、require.js。require.js和jquery-1.7.2.js去各自官网下载即可。 index.html如下 &amp;lt;!doctype html&amp;gt;   &amp;lt;html&amp;gt;       &amp;lt;head&amp;gt;         &amp;lt;title&amp;gt;..." />
+    <meta name="twitter:description" content="RequireJS会让你以不同于往常的方式去写JavaScript。你将不再使用script标签在HTML中引入JS文件，以及不用通过script标签顺序去管理依赖关系。  当然也不会有阻塞（blocking）的情况发生。好，以一个简单示例开始。 新建一个目录，结构如下 目录r1下有index.html、jquery-1.7.2.js、main.js、require.js。require.js和jquery-1.7.2.js去各自官网下载即可。 index.html如下 &amp;lt;!doctype html&amp;gt;   &amp;lt;html&amp;gt;       &amp;lt;head&amp;gt;         &amp;lt;title&amp;gt;requirejs入门（一）&amp;lt;/title&amp;gt;         &amp;lt;meta charset&#x3D;&quot;utf-8&quot;&amp;gt;" />
     <meta name="twitter:url" content="http://joname1.github.io/requirejs-1/" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="江矿宝宝." />
     
     <script type="application/ld+json">
 {
-    "@context": "http://schema.org",
+    "@context": "https://schema.org",
     "@type": "Article",
-    "publisher": "江矿宝宝的博客.",
+    "publisher": {
+        "@type": "Organization",
+        "name": "江矿宝宝的博客.",
+        "logo": "http://joname1.github.io/ghost/img/ghosticon.jpg"
+    },
     "author": {
         "@type": "Person",
         "name": "江矿宝宝.",
-        "image": "https://joe-10005639.cossh.myqcloud.com/jkbb.jpg",
-        "url": "http://joname1.github.io/author/jkbb",
-        "sameAs": "https://joname1.github.io",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://joe-10005639.cossh.myqcloud.com/jkbb.jpg",
+            "width": 600,
+            "height": 600
+        },
+        "url": "http://joname1.github.io/author/jkbb/",
+        "sameAs": [
+            "https://joname1.github.io"
+        ],
         "description": "伪前端攻城狮, 喜欢钻研新技术."
     },
     "headline": "RequireJS入门(一)",
     "url": "http://joname1.github.io/requirejs-1/",
     "datePublished": "2016-10-03T07:54:00.000Z",
-    "dateModified": "2017-05-25T08:39:38.533Z",
-    "description": "RequireJS会让你以不同于往常的方式去写JavaScript。你将不再使用script标签在HTML中引入JS文件，以及不用通过script标签顺序去管理依赖关系。  当然也不会有阻塞（blocking）的情况发生。好，以一个简单示例开始。 新建一个目录，结构如下 目录r1下有index.html、jquery-1.7.2.js、main.js、require.js。require.js和jquery-1.7.2.js去各自官网下载即可。 index.html如下 &amp;lt;!doctype html&amp;gt;   &amp;lt;html&amp;gt;       &amp;lt;head&amp;gt;         &amp;lt;title&amp;gt;..."
+    "dateModified": "2017-05-25T08:39:38.000Z",
+    "description": "RequireJS会让你以不同于往常的方式去写JavaScript。你将不再使用script标签在HTML中引入JS文件，以及不用通过script标签顺序去管理依赖关系。  当然也不会有阻塞（blocking）的情况发生。好，以一个简单示例开始。 新建一个目录，结构如下 目录r1下有index.html、jquery-1.7.2.js、main.js、require.js。require.js和jquery-1.7.2.js去各自官网下载即可。 index.html如下 &amp;lt;!doctype html&amp;gt;   &amp;lt;html&amp;gt;       &amp;lt;head&amp;gt;         &amp;lt;title&amp;gt;requirejs入门（一）&amp;lt;/title&amp;gt;         &amp;lt;meta charset&#x3D;&quot;utf-8&quot;&amp;gt;",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://joname1.github.io"
+    }
 }
     </script>
 
-    <script type="text/javascript" src="../shared/ghost-url.js?v=9aa77a5a13"></script>
+    <script type="text/javascript" src="../shared/ghost-url.js?v=7a4ac88d46"></script>
 <script type="text/javascript">
 ghost.init({
 	clientId: "ghost-frontend",
 	clientSecret: "71d7e111692b"
 });
 </script>
-    <meta name="generator" content="Ghost 0.7" />
+    <meta name="generator" content="Ghost 0.11" />
     <link rel="alternate" type="application/rss+xml" title="江矿宝宝的博客." href="http://joname1.github.io/rss/" />
 </head>
 <body class="post-template nav-closed">
@@ -204,7 +221,8 @@ window.jQuery = window.$ = jQuery;
     <script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://joe-10005639.cossh.myqcloud.com/prism.js"></script>
     <script src="https://cdn.bootcss.com/fitvids/1.1.0/jquery.fitvids.js"></script>
-    <script src="../assets/js/index.min.js?v=9aa77a5a13"></script>
+    <script src="http://tajs.qq.com/stats?sId=59279948" charset="UTF-8"></script>
+    <script src="../assets/js/index.min.js?v=7a4ac88d46"></script>
     
 </body>
 </html>
