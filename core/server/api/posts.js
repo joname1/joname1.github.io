@@ -6,6 +6,7 @@ var Promise         = require('bluebird'),
     errors          = require('../errors'),
     utils           = require('./utils'),
     pipeline        = require('../utils/pipeline'),
+    i18n            = require('../i18n'),
 
     docName         = 'posts',
     allowedIncludes = [
@@ -93,7 +94,7 @@ posts = {
 
         // Push all of our tasks into a `tasks` array in the correct order
         tasks = [
-            utils.validate(docName, {attrs: attrs}),
+            utils.validate(docName, {attrs: attrs, opts: options.opts || []}),
             utils.handlePublicPermissions(docName, 'read'),
             utils.convertOptions(allowedIncludes),
             modelQuery
@@ -106,7 +107,7 @@ posts = {
                 return {posts: [result.toJSON(options)]};
             }
 
-            return Promise.reject(new errors.NotFoundError('Post not found.'));
+            return Promise.reject(new errors.NotFoundError(i18n.t('errors.api.posts.postNotFound')));
         });
     },
 
@@ -134,7 +135,7 @@ posts = {
 
         // Push all of our tasks into a `tasks` array in the correct order
         tasks = [
-            utils.validate(docName, {opts: utils.idDefaultOptions}),
+            utils.validate(docName, {opts: utils.idDefaultOptions.concat(options.opts || [])}),
             utils.handlePermissions(docName, 'edit'),
             utils.convertOptions(allowedIncludes),
             modelQuery
@@ -153,7 +154,7 @@ posts = {
                 return {posts: [post]};
             }
 
-            return Promise.reject(new errors.NotFoundError('Post not found.'));
+            return Promise.reject(new errors.NotFoundError(i18n.t('errors.api.posts.postNotFound')));
         });
     },
 
@@ -205,24 +206,24 @@ posts = {
      *
      * @public
      * @param {{id (required), context,...}} options
-     * @return {Promise(Post)} Deleted Post
+     * @return {Promise}
      */
     destroy: function destroy(options) {
         var tasks;
 
         /**
-         * ### Model Query
-         * Make the call to the Model layer
-         * @param {Object} options
-         * @returns {Object} options
+         * @function deletePost
+         * @param  {Object} options
          */
-        function modelQuery(options) {
-            // Removing a post needs to include all posts.
-            options.status = 'all';
-            return posts.read(options).then(function (result) {
-                return dataProvider.Post.destroy(options).then(function () {
-                    return result;
-                });
+        function deletePost(options) {
+            var Post = dataProvider.Post,
+                data = _.defaults({status: 'all'}, options),
+                fetchOpts = _.defaults({require: true, columns: 'id'}, options);
+
+            return Post.findOne(data, fetchOpts).then(function () {
+                return Post.destroy(options).return(null);
+            }).catch(Post.NotFoundError, function () {
+                throw new errors.NotFoundError(i18n.t('errors.api.posts.postNotFound'));
             });
         }
 
@@ -231,21 +232,11 @@ posts = {
             utils.validate(docName, {opts: utils.idDefaultOptions}),
             utils.handlePermissions(docName, 'destroy'),
             utils.convertOptions(allowedIncludes),
-            modelQuery
+            deletePost
         ];
 
         // Pipeline calls each task passing the result of one to be the arguments for the next
-        return pipeline(tasks, options).then(function formatResponse(result) {
-            var deletedObj = result;
-
-            if (deletedObj.posts) {
-                _.each(deletedObj.posts, function (post) {
-                    post.statusChanged = true;
-                });
-            }
-
-            return deletedObj;
-        });
+        return pipeline(tasks, options);
     }
 };
 
