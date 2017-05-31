@@ -1,0 +1,2910 @@
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:media="http://search.yahoo.com/mrss/"><channel><title><![CDATA[江矿宝宝. - 江矿宝宝的博客.]]></title><description><![CDATA[Just be nice, always think twice!]]></description><link>http://localhost:2368/</link><generator>Ghost 0.11</generator><lastBuildDate>Wed, 31 May 2017 06:21:00 GMT</lastBuildDate><atom:link href="http://localhost:2368/author/jkbb/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Vue.js的小学生笔记]]></title><description><![CDATA[<h2 id="">引入</h2>
+
+<p>本地还是网络导入都行</p>
+
+<pre><code class="language-http">&lt;script src='https://unpkg.com/vue@2.1.10/dist/vue.js'&gt;&lt;/script&gt;  
+</code></pre>
+
+<h2 id="">数据绑定</h2>
+
+<p>实现数据绑定的几个步骤</p>
+
+<ul>
+<li>创建vuejs实例</li>
+<li>划分vuejs势力范围</li>
+<li>向势力范围填充数据</li>
+</ul>
+
+<pre><code class="language-http">&lt;div id="demo"&gt;  
+&lt;!--vuejs中的变量格式--&gt;  
+        &lt;h1&gt;Hello {{msg}}&lt;/h1&gt;
+&lt;/div&gt;  
+&lt;script&gt;  
+&lt;!--创建vue对象--&gt;  
+new</code></pre>]]></description><link>http://localhost:2368/vuejs-newbie/</link><guid isPermaLink="false">3ed3b882-efd0-4232-8a71-c7c66cb51aec</guid><dc:creator><![CDATA[江矿宝宝.]]></dc:creator><pubDate>Sat, 27 May 2017 10:30:18 GMT</pubDate><content:encoded><![CDATA[<h2 id="">引入</h2>
+
+<p>本地还是网络导入都行</p>
+
+<pre><code class="language-http">&lt;script src='https://unpkg.com/vue@2.1.10/dist/vue.js'&gt;&lt;/script&gt;  
+</code></pre>
+
+<h2 id="">数据绑定</h2>
+
+<p>实现数据绑定的几个步骤</p>
+
+<ul>
+<li>创建vuejs实例</li>
+<li>划分vuejs势力范围</li>
+<li>向势力范围填充数据</li>
+</ul>
+
+<pre><code class="language-http">&lt;div id="demo"&gt;  
+&lt;!--vuejs中的变量格式--&gt;  
+        &lt;h1&gt;Hello {{msg}}&lt;/h1&gt;
+&lt;/div&gt;  
+&lt;script&gt;  
+&lt;!--创建vue对象--&gt;  
+new Vue({  
+&lt;!--el指定为#demo的dom对象--&gt;  
+  el:'#demo',
+&lt;!--msg变量赋值为haha--&gt;  
+  data:{
+    msg:'haha'
+    }
+  })
+&lt;/script&gt;  
+</code></pre>
+
+<h2 id="">双向绑定</h2>
+
+<p>vuejs通过<code>v-model</code>属性实现表单控件元素的双向绑定，只能用于<code>input、select、textarea、components</code></p>
+
+<pre><code class="language-http">&lt;div id="demo"&gt;  
+&lt;!--vuejs中的变量格式--&gt;  
+        &lt;h1&gt;屠龙宝刀,{{msg}}&lt;/h1&gt;
+        &lt;input type="text" v-model="msg"&gt;
+&lt;/div&gt;  
+&lt;script&gt;  
+&lt;!--创建vue对象--&gt;  
+new Vue({  
+&lt;!--el指定为#demo的dom对象--&gt;  
+  el:'#demo',
+&lt;!--msg变量赋值--&gt;  
+  data:{
+    msg:'点击就送'
+    }
+  })
+&lt;/script&gt;  
+</code></pre>
+
+<p>你会看到在输入框输完文字后，<code>{{msg}}</code>里面的文字也会跟着变，即所谓的双向绑定。</p>
+
+<h2 id="">内容绑定</h2>
+
+<p>vuejs通过<code>v-text</code>属性实现整个标签的内容绑定</p>
+
+<p>实际上和引用vue变量的效果是一样的，来看实例</p>
+
+<pre><code class="language-http">&lt;div id="demo"&gt;  
+&lt;!--vuejs中的变量格式--&gt;  
+        &lt;div&gt;{{msg}}&lt;/div&gt;
+        &lt;div v-text='haha'&gt;&lt;/div&gt;
+        &lt;input type="text" v-model="haha"&gt;
+&lt;/div&gt;  
+&lt;script&gt;  
+&lt;!--创建vue对象--&gt;  
+new Vue({  
+&lt;!--el指定为#demo的dom对象--&gt;  
+  el:'#demo',
+&lt;!--msg变量赋值为haha--&gt;  
+  data:{
+    msg:'v-text',
+    haha:'wtf',
+    }
+  })
+&lt;/script&gt;  
+</code></pre>
+
+<p>可以看到原来的div内并没有文本，但<code>v-text</code>会实现整个标签的内容绑定</p>]]></content:encoded></item><item><title><![CDATA[AngularJS动态加载Controller]]></title><description><![CDATA[<p>AngularJS原生并不支持动态加载Controller的方法，但是却提供注册Controller的方法。接下来就来看下如何实现动态加载Controller。</p>
+
+<!-- more -->
+
+<p>我们把实现动态加载Controller方法封装到一个通用的模块里面，并命名这个模块为<code>ngCommon</code>。</p>
+
+<pre><code class="language-javascript">(function (angular) {'use strict';
+    var CommonApp = angular.module('ngCommon');
+    ...
+})(angular);
+</code></pre>
+
+<p>接下来我们实现一个动态加载js的方法<code>$require</code>。</p>
+
+<pre><code class="language-javascript">/* 记录已加载的js */
+var loaded = {};  
+/* 检测是否加载 */
+var checkLoaded = function (url) {  
+    return !url || !angular.isString(url) || loaded[url];
+};
+
+CommonApp.factory('$require', ['$document', '$q', '$rootScope', function ($document, $q, $rootScope) {  
+    return function (url)</code></pre>]]></description><link>http://localhost:2368/angularjs-controller/</link><guid isPermaLink="false">b97f8410-a4cd-401c-b6bc-82220ce261ac</guid><dc:creator><![CDATA[江矿宝宝.]]></dc:creator><pubDate>Thu, 25 May 2017 08:24:25 GMT</pubDate><content:encoded><![CDATA[<p>AngularJS原生并不支持动态加载Controller的方法，但是却提供注册Controller的方法。接下来就来看下如何实现动态加载Controller。</p>
+
+<!-- more -->
+
+<p>我们把实现动态加载Controller方法封装到一个通用的模块里面，并命名这个模块为<code>ngCommon</code>。</p>
+
+<pre><code class="language-javascript">(function (angular) {'use strict';
+    var CommonApp = angular.module('ngCommon');
+    ...
+})(angular);
+</code></pre>
+
+<p>接下来我们实现一个动态加载js的方法<code>$require</code>。</p>
+
+<pre><code class="language-javascript">/* 记录已加载的js */
+var loaded = {};  
+/* 检测是否加载 */
+var checkLoaded = function (url) {  
+    return !url || !angular.isString(url) || loaded[url];
+};
+
+CommonApp.factory('$require', ['$document', '$q', '$rootScope', function ($document, $q, $rootScope) {  
+    return function (url) {
+        var script = null;
+        var onload = null;
+        var doc = $document[0];
+        var body = doc.body;
+        var deferred = $q.defer();
+        if (checkLoaded(url)) {
+            deferred.resolve();
+        } else {
+            script = doc.createElement('script');
+            onload = function (info) {
+                if (info === 1) {
+                    deferred.reject();
+                } else {
+                    loaded[url] = 1;
+                    /* AngularJS &lt; 1.2.x 请使用$timeout */
+                    $rootScope.$evalAsync(function () {
+                        deferred.resolve();
+                    });
+                }
+                script.onload = script.onerror = null;
+                body.removeChild(script);
+                script = null;
+            };
+            script.onload = onload;
+            script.onerror = function () {
+                onload(1);
+            };
+            script.async = true;
+            script.src = url;
+            body.appendChild(script);
+        }
+        return deferred.promise;
+    };
+}]);
+</code></pre>
+
+<p>然后重点来了，通过<code>$routeProvider route</code>的<code>resolve</code>功能来实现动态加载Controller。</p>
+
+<pre><code class="language-javascript">CommonApp.provider('$routeResolver', function () {  
+    this.$get = function () {
+        return this;
+    };
+    this.route = function (routeCnf) {
+        var controller = routeCnf.controller;
+        var controllerUrl = routeCnf.controllerUrl;
+        if (controllerUrl) {
+            routeCnf.reloadOnSearch = routeCnf.reloadOnSearch || false;
+            routeCnf.resolve = {
+                load: ['$route', '$require', 'ControllerChecker',
+                    function ($route, $require, ControllerChecker) {
+                        var controllerName = angular.isFunction(controller) ? controller($route.current.params) : controller;
+                        var url = angular.isFunction(controllerUrl) ? controllerUrl($route.current.params) : controllerUrl;
+                        if (checkLoaded(url) || (controllerName &amp;&amp; ControllerChecker.exists(controllerName))) {
+                            loaded[url] = true;
+                            return;
+                        }
+                        return $require(url);
+                }]
+            };
+        }
+        return routeCnf;
+    };
+})
+</code></pre>
+
+<p>看上面的代码中还注入了一个叫<code>ControllerChecker</code>的，这个是用来检测当前Controller是否已经注册了，如果未注册，那么我们就加载相关js注册新的Controller。
+代码如下：</p>
+
+<pre><code class="language-javascript">CommonApp.service('ControllerChecker', ['$controller', function ($controller) {  
+    return {
+        exists: function (controllerName) {
+            if (angular.isFunction(window[controllerName])) {
+                return true;
+            }
+            try {
+                $controller(controllerName, {}, true);
+                return true;
+            } catch (e) {
+                return false;
+            }
+        }
+    };
+}]);
+</code></pre>
+
+<p>最后我们来添加一个注动态册的方法。</p>
+
+<pre><code class="language-javascript">CommonApp.setupRegister = function (module) {  
+    module.config([
+        '$controllerProvider',
+        '$compileProvider',
+        '$filterProvider',
+        '$provide',
+        function ($controllerProvider, $compileProvider, $filterProvider, $provide) {
+            module.register = {
+                controller: $controllerProvider.register,
+                directive: $compileProvider.directive,
+                filter: $filterProvider.register,
+                factory: $provide.factory,
+                service: $provide.service,
+                value: $provide.value,
+                constant: $provide.constant
+            };
+        }
+    ]);
+};
+</code></pre>
+
+<p>到此已经基本完成了，如何使用呢？</p>
+
+<pre><code class="language-javascript">var DemoApp = angular.module('DemoApp',['ngRoute','ngCommon']);  
+/* 调用动态注册方法，为当前模块添加动态注册方法 */
+angular.module('ngCommon').setupRegister(DemoApp);  
+DemoApp.config(['$routeProvider', '$routeResolverProvider', function ($routeProvider, $routeResolverProvider) {  
+    var route = $routeResolverProvider.route;
+    $routeProvider.when('/index', route({
+        templateUrl: './view/index.html'),
+        controller: 'IndexController', /* 在此申明了controller就不需要再html里面申明ng-controller了 */
+        controllerUrl: './controller/index.js')
+    }))
+    .otherwise('/index');
+
+/* ./controller/index.js */
+DemoApp.register.controller('IndexController', ['$scope', '$require', function($scope, $require) {  
+    ...
+    /* 动态加载某个js文件 */
+    $require(url).then(function () {
+        ...
+    });
+}]);
+</code></pre>]]></content:encoded></item><item><title><![CDATA[Webpack分离css单独打包]]></title><description><![CDATA[<p>这个操作很简单的，只需要一个插件就好了，就是extract-text-webpack-plugin</p>
+
+<h2 id="1extracttextwebpackplugin">1、安装extract-text-webpack-plugin</h2>
+
+<pre><code class="language-js">cnpm install extract-text-webpack-plugin --save-dev  
+</code></pre>
+
+<!-- more -->
+
+<h2 id="2">2、配置文件添加对应配置</h2>
+
+<p>首先require一下</p>
+
+<pre><code class="language-js">var ExtractTextPlugin = require("extract-text-webpack-plugin");  
+</code></pre>
+
+<p>plugins里面添加  </p>
+
+<pre><code class="language-js">new ExtractTextPlugin("styles.css"),  
+</code></pre>
+
+<p>我这里如下：</p>
+
+<pre><code class="language-json">plugins: [  
+  new webpack.optimize.CommonsChunkPlugin('common.js'),
+  new ExtractTextPlugin("styles.css"),
+],
+</code></pre>
+
+<p>modules里面对css的处理修改为  </p>
+
+<pre><code class="language-js">{test:/\.css$/, loader: ExtractTextPlugin.extract("style-loader", "css-loader")},
+</code></pre>
+
+<p>千万不要重复了，不然会不起作用的</p>
+
+<p>我这里如下：</p>
+
+<pre><code class="language-json">module: {  
+  loaders: [
+    {test:/\.css$/, loader: ExtractTextPlugin.</code></pre>]]></description><link>http://localhost:2368/webpack-css/</link><guid isPermaLink="false">d926b142-8470-4343-a8e0-5234e0afe0a3</guid><dc:creator><![CDATA[江矿宝宝.]]></dc:creator><pubDate>Wed, 07 Dec 2016 09:15:00 GMT</pubDate><content:encoded><![CDATA[<p>这个操作很简单的，只需要一个插件就好了，就是extract-text-webpack-plugin</p>
+
+<h2 id="1extracttextwebpackplugin">1、安装extract-text-webpack-plugin</h2>
+
+<pre><code class="language-js">cnpm install extract-text-webpack-plugin --save-dev  
+</code></pre>
+
+<!-- more -->
+
+<h2 id="2">2、配置文件添加对应配置</h2>
+
+<p>首先require一下</p>
+
+<pre><code class="language-js">var ExtractTextPlugin = require("extract-text-webpack-plugin");  
+</code></pre>
+
+<p>plugins里面添加  </p>
+
+<pre><code class="language-js">new ExtractTextPlugin("styles.css"),  
+</code></pre>
+
+<p>我这里如下：</p>
+
+<pre><code class="language-json">plugins: [  
+  new webpack.optimize.CommonsChunkPlugin('common.js'),
+  new ExtractTextPlugin("styles.css"),
+],
+</code></pre>
+
+<p>modules里面对css的处理修改为  </p>
+
+<pre><code class="language-js">{test:/\.css$/, loader: ExtractTextPlugin.extract("style-loader", "css-loader")},
+</code></pre>
+
+<p>千万不要重复了，不然会不起作用的</p>
+
+<p>我这里如下：</p>
+
+<pre><code class="language-json">module: {  
+  loaders: [
+    {test:/\.css$/, loader: ExtractTextPlugin.extract("style-loader", "css-loader")},
+    {test: /\.scss$/, loader: "style!css!sass"},
+    {test: /\.less$/, loader: "style!css!less"},
+  ]
+},
+</code></pre>
+
+<h2 id="3css">3、在引入文件里面添加需要的css</h2>
+
+<pre><code class="language-js">require('../less/app.less');  
+require('./bower_components/bootstrap-select/dist/css/bootstrap-select.min.css');  
+require('./bower_components/fancybox/source/jquery.fancybox.css');  
+</code></pre>]]></content:encoded></item><item><title><![CDATA[webpack+gulp 静态文件打包并自动上传到七牛云存储]]></title><description><![CDATA[<p>经过几天的瞎折腾实现了webpack可以与gulp完美结合的进行打包静态文件，并将静态文件上传到七牛云存储，当然也可以传到你想传的云存储了，这里只分享一个七牛的云存储方案。</p>
+
+<p>关于如何使用webpack打包静态代码，这个可以参考我之前的一些文章和方案。</p>
+
+<p>这里只分享一下gulp这边的操作，然后给一个例子实现如何一条命令打包静态文件并更新CDN文件的方法。</p>
+
+<pre><code class="language-js">const gulp = require('gulp');  
+const uglify = require('gulp-uglify');  
+const concat = require('gulp-concat');  
+const shrink = require('gulp-cssshrink');  
+const webpack = require('gulp-webpack');  
+const qn = require('gulp-qn');
+
+const rev = require('gulp-rev-qn');  
+const revCollector = require('gulp-rev-collector');  
+const runSequence = require('run-sequence');  
+const config = require('./webpack.config')</code></pre>]]></description><link>http://localhost:2368/webpack-gulp-qiniu-cdn/</link><guid isPermaLink="false">767784b7-39f9-49d5-844b-325dc6d71d77</guid><dc:creator><![CDATA[江矿宝宝.]]></dc:creator><pubDate>Fri, 25 Nov 2016 18:17:00 GMT</pubDate><content:encoded><![CDATA[<p>经过几天的瞎折腾实现了webpack可以与gulp完美结合的进行打包静态文件，并将静态文件上传到七牛云存储，当然也可以传到你想传的云存储了，这里只分享一个七牛的云存储方案。</p>
+
+<p>关于如何使用webpack打包静态代码，这个可以参考我之前的一些文章和方案。</p>
+
+<p>这里只分享一下gulp这边的操作，然后给一个例子实现如何一条命令打包静态文件并更新CDN文件的方法。</p>
+
+<pre><code class="language-js">const gulp = require('gulp');  
+const uglify = require('gulp-uglify');  
+const concat = require('gulp-concat');  
+const shrink = require('gulp-cssshrink');  
+const webpack = require('gulp-webpack');  
+const qn = require('gulp-qn');
+
+const rev = require('gulp-rev-qn');  
+const revCollector = require('gulp-rev-collector');  
+const runSequence = require('run-sequence');  
+const config = require('./webpack.config');  
+const qiniu_options = {  
+  accessKey: 'xxxxxxxxxx',
+  secretKey: 'xxxxxxxxxx',
+  bucket: 'xxxxxxxxxxxxx',
+  domain: 'http://xxxxx.com'
+};
+gulp.task('publish-js', function () {  
+  return gulp.src(['./build/js/*.js'])
+    .pipe(uglify())
+    .pipe(rev())
+    .pipe(gulp.dest('./build/js'))
+    .pipe(qn({
+      qiniu: qiniu_options,
+      prefix: 'js'
+    }))
+    .pipe(rev.manifest())
+    .pipe(gulp.dest('./build/rev/js'));
+});
+gulp.task('publish-font', function () {  
+  return gulp.src(['./build/js/*.woff2','./build/js/*.ttf','./build/js/*.eot','./build/js/*.woff'])
+    .pipe(qn({
+      qiniu: qiniu_options,
+      prefix: 'js'
+    }));
+});
+gulp.task('publish-css', function () {  
+  return gulp.src(['./build/js/*.css'])
+    .pipe(rev())
+    .pipe(gulp.dest('./build/js'))
+    .pipe(qn({
+      qiniu: qiniu_options,
+      prefix: 'css'
+    }))
+    .pipe(rev.manifest())
+    .pipe(gulp.dest('./build/rev/css'));
+});
+gulp.task('publish-html', function () {  
+  return gulp.src(['./build/rev/**/*.json', './build/views/*.html'])
+    .pipe(revCollector({
+      dirReplacements: {
+        '/js/': ''
+      }
+    }))
+    .pipe(gulp.dest('./build/views'));
+});
+gulp.task('default',function(callback){  
+  runSequence(
+    ['publish-css','publish-js','publish-font'],
+    'publish-html',
+    callback);
+});
+</code></pre>
+
+<h2 id="ps">PS:</h2>
+
+<p>publish-js：将js文件进行版本更新并上传到七牛。</p>
+
+<p>publish-css：将css文件进行版本更新并上传到七牛。</p>
+
+<p>publish-font：将字体文件上传到七牛。</p>
+
+<p>publish-html：将html文件中对应的js路径进行替换。</p>]]></content:encoded></item><item><title><![CDATA[初探全新的 Node.js 包管理器 Yarn]]></title><description><![CDATA[就在前几天， Facebook 发布了新的 node.js 包管理器 Yarn 用以替代 npm 。这个和 Exponent, Google, 以及 Tilde 合作完成的项目。 咱虽然是个半桶水的咸鱼前端，不过也得跟上 Javascript 这股潮 (zhuang) 流 (bi) 的脚步，所以便有了下面这篇文章。大概的浅尝了一下这个自称是又快又可信赖又安全的包管理，所以写的内容不会很详细，更多的可能只是针对这个全新的包管理与 npm 的不同之处来对比。也可能有些地方写得不对，如果有的话，欢(lai)迎(da)指(wo)正(a)。
+<!-- more -->  
+
+<p><img src="http://img.blog.csdn.net/20161012124212953" alt=""></p>
+
+<h2 id="installation">Installation</h2>
+
+<p>首先当然是安装啦。跟 npm 这种被钦点而随 nodejs 一起被安装的包管理器不同， Yarn 需要自行手动安装。这也可以理解吧，毕竟是全新的东西。</p>]]></description><link>http://localhost:2368/yarn-preview/</link><guid isPermaLink="false">6c9076f8-390c-4ed0-b348-5bddc5aa40e4</guid><dc:creator><![CDATA[江矿宝宝.]]></dc:creator><pubDate>Sat, 15 Oct 2016 09:17:00 GMT</pubDate><content:encoded><![CDATA[就在前几天， Facebook 发布了新的 node.js 包管理器 Yarn 用以替代 npm 。这个和 Exponent, Google, 以及 Tilde 合作完成的项目。 咱虽然是个半桶水的咸鱼前端，不过也得跟上 Javascript 这股潮 (zhuang) 流 (bi) 的脚步，所以便有了下面这篇文章。大概的浅尝了一下这个自称是又快又可信赖又安全的包管理，所以写的内容不会很详细，更多的可能只是针对这个全新的包管理与 npm 的不同之处来对比。也可能有些地方写得不对，如果有的话，欢(lai)迎(da)指(wo)正(a)。
+<!-- more -->  
+
+<p><img src="http://img.blog.csdn.net/20161012124212953" alt=""></p>
+
+<h2 id="installation">Installation</h2>
+
+<p>首先当然是安装啦。跟 npm 这种被钦点而随 nodejs 一起被安装的包管理器不同， Yarn 需要自行手动安装。这也可以理解吧，毕竟是全新的东西。不过老实说，安装体验是不太好的……吧。</p>
+
+<p>为什么怎么说呢……因为我的开发环境是 Arch Linux ，而官方文档只提供了 apt-get 系 Linux 和 yum 系 Linux 的安装方式……</p>
+
+<p>既然志在取代 npm ，那么肯定有全平台的兼容方案咯，果然有适用于所有发行版的手动安装脚本，于是我就尝试这个，可是装了三次没有一次成功，各种问题……</p>
+
+<p>最后发现，其实 yarn 可以直接像装模块那样用 npm 装：</p>
+
+<pre><code class="language-js">npm install -g yarn  
+</code></pre>
+
+<p>啊嘞？一个要取代 npm 的东西，居然还要用 npm 来装？ excuse me ？好吧，不管怎么讲总之是这样装上了，所以我说安装体验一般般……也许可能对其他的发行版来说会好一些吧，可能对于一些大众的发行版和 macOS 来说，安装就是一条命令打进终端的事情。</p>
+
+<p>虽然截止到我写这篇文章的时候，已经有了 Arch Linux 上的安装方式，不过是通过 yaourt(AUR) 的方式，不过我并不觉得对于新手来说手动装一下 yaourt 再装 yarn 比直接装 nodejs 然后 npm install 简单。也许在现阶段，相比什么 Debian/Ubuntu/CentOS 来说 Arch 还是个小众的发行版吧……</p>
+
+<h2 id="dependenciesmanagement">Dependencies Management</h2>
+
+<p>安装部分就这样告一段落。既然作为一个包管理，就要做好自己的职责。接下来就想要试试这个新包管理是否真的有它所宣传的那样神奇。接下来我在同样的环境下，将 yarn 和 npm 以及 cnpm 做对比。由于墙内的特殊环境，已将 npm 的 registry 更换为 <a href="https://registry.npm.taobao.org">https://registry.npm.taobao.org</a> 。</p>
+
+<h2 id="faster">FASTER</h2>
+
+<p>在对比之前，我觉得这个对比对 yarn 来说有些不公平，因为 npm 已经设置了国内的镜像，而截止此文章发布的时候 yarn 并没有国内镜像，所以并没有对 yarn 进行特殊的设置。我有些担心这样会不会对测试的结果造成误差。</p>
+
+<p>Yarn 既然是 Facebook 家的东西，那我们就首先试一下安装他家的 React 好了：</p>
+
+<p>首先当然是主角 yarn 啦。需要注意的是 yarn 安装依赖的方式不同于 npm ，你需要执行以下命令来安装依赖：</p>
+
+<pre><code class="language-js">yarn add react  
+</code></pre>
+
+<p>接下来是 npm 。因为 npm 并不显示命令时间，所以我掐了一下秒表，大概 45s 的样子，是 yarn 的好几倍多。好像比起 npm 来说， yarn 的速度确实快了一些呢，而且 npm 用的还是国内的源。</p>
+
+<p>不过 cnpm 的速度就更快了，只用了 4s 便完成了整个安装过程。但是毕竟 cnpm 是 npm 的衍生产物，处于情理之中。既然这东西可以改善 npm 的速度，谁知道以后会不会有 cyarn 呢？但是通过这个测试我们可以看出， yarn 的速度相比原生 npm 着实是一个质的飞跃，FASTER 并不是浪得虚名。</p>
+
+<p>接下来我又尝试了安装其他的包，多次对比了一下， 平均下来 yarn 会比 npm 快上 3–6 倍（这是安装体积小一些的包的情况）。</p>
+
+<h2 id="reliablesecure">RELIABLE/SECURE</h2>
+
+<p>至于这个包管理是否 reliable/secure ，这个我暂时没想到怎么测试。我只知道在我用的时候，偶尔有几率会报一些莫名其妙的错误，但是反复执行两遍命令，就又正常工作了。毕竟 yarn 是新出的东西嘛，可以理解。不过就在这一天之内，yarn 的 GitHub 项目主页已经赢得了 9K star，issues 和 pull request 也有了上千个，可见其火热的程度，所以对于它的前景，我还是很看好的。</p>
+
+<h2 id="offlinemode">Offline mode</h2>
+
+<p>Yarn 的一个亮点就是可以离线安装依赖，当然，前提是曾经安装过这个依赖。 Yarn 会缓存安装过的包，下次安装的时候如果指定了 -offline 参数， Yarn 就会直接从缓存中取出这个包，这样将大大缩短安装依赖的时间。</p>
+
+<p>遗憾的是，尽管官方文档我看了一遍又一遍，这个功能还是无法正常在我的环境上工作。我会找一下原因，这一段稍后补充。</p>
+
+<p>但是这个 feature 真的是让人眼前一亮，可以说解决了 npm 的一个短板，很致命的短板。有了这样的功能之后，以后在没有网络的环境下也能够安装已有的依赖的。而且省去了下载的时间，大大提高了效率。想象一下以后执行 react-native init 的时候不用漫长等待 15 分钟了，是不是很开心（当然，什么时候 Facebook 把 react-native init 的安装依赖过程换成自家的包管理安装还是未知数喔）。</p>
+
+<h2 id="yarnlock">yarn.lock</h2>
+
+<p>Yarn 通过一个 yarn.lock 文件，来使得你的程序得以在不同的机器上获得一致的体验。虽然这个解释很牵强，好歹我没有机翻给大家看，已经很良心了（雾）。感觉这好像是个很高端的东西，其实主要是对 package.json 的一个补充。</p>
+
+<p>忽如一夜春风来，千树万树梨花开。有时候就是眼睛一睁一闭之间，一个新的东西就这样在你全然不知的时候悄然面世了。今天出了 yarn，明天指不定又会出现什么。庆幸的是，我们还能赶上这个新玩意的早班车。</p>
+
+<p>记得近几日的一篇高端黑文（大雾），描述了在 2016 年学习 Javascript 这门语言的感受，确实，这门语言单单一年的发展，就足以呛死不少人。</p>
+
+<p>但是必须要说 yarn 的出现确实是有进步意义的，他解决了 npm 已知的一些问题，拓展出了新的特性。既然如此，它就是值得去接触和学习的。尽管距离取代 npm 还有好长的一段时间，走好长的一段路，但是可以预见它的前途将是一片的光明。</p>
+
+<p>所以，来吧，你需要尝试一些新的东西。 yarn 未来的成长，将由我们共同见证。</p>]]></content:encoded></item><item><title><![CDATA[JavaScript ES6核心特性概述]]></title><description><![CDATA[<p>JavaScript在过去几年里发生了很大的变化。这里有12个新功能，您可以学习使用它们！</p>
+
+<p><img src="http://css88.b0.upaiyun.com/css88/2016/10/es6-core-features-overview-large.png" alt=""></p>
+
+<h2 id="javascript">JavaScript历史</h2>
+
+<p>新增加的语言称为ECMAScript 6。它也称为ES6或ES2015 +。</p>
+
+<p>自从 1995年提出的JavaScript构想以来，发展进展非常缓慢。每隔几年新增一次。1997年以来 ECMAScript 一直作为JavaScript实现的基础，引导JavaScript 发展。它已经发布了好几个版本，如ES3，ES5，ES6等。</p>
+
+<blockquote>
+  <p>ECMAScript与JavaScript的关系：</p>
+  
+  <p>ECMA-262标准的描述如下：“ ECMAScript 可以为不同种类的宿主环境提供核心的脚本编程能力，因此核心的脚本语言时与任何特定的宿主环境分开进行规定的。”简单地说，ECMAScript描述了以下内容：语法、类型、语句、关键字、保留字、运算符、对象等。</p>
+  
+  <p>ECMAScript是JavaScript的一个重要标准，但它并不是JavaScript唯一的部分，当然，也不是唯一被标准化的部分。比如在WEB前端开发中，Web浏览器对于ECMAScript来说是一个宿主环境，但它并不是唯一的宿主环境。事实上，还有不计其数的其他各种环境(例如目前很火的Node.js
+  )。一个完整的JavaScript实现是由以下3个不同部分组成的：核心(ECMAScript)、文档对象模型(DOM)</p></blockquote>]]></description><link>http://localhost:2368/javascript-es6/</link><guid isPermaLink="false">12f014a0-f53b-4213-9a82-ca4d4bff4f0f</guid><dc:creator><![CDATA[江矿宝宝.]]></dc:creator><pubDate>Mon, 10 Oct 2016 07:58:00 GMT</pubDate><content:encoded><![CDATA[<p>JavaScript在过去几年里发生了很大的变化。这里有12个新功能，您可以学习使用它们！</p>
+
+<p><img src="http://css88.b0.upaiyun.com/css88/2016/10/es6-core-features-overview-large.png" alt=""></p>
+
+<h2 id="javascript">JavaScript历史</h2>
+
+<p>新增加的语言称为ECMAScript 6。它也称为ES6或ES2015 +。</p>
+
+<p>自从 1995年提出的JavaScript构想以来，发展进展非常缓慢。每隔几年新增一次。1997年以来 ECMAScript 一直作为JavaScript实现的基础，引导JavaScript 发展。它已经发布了好几个版本，如ES3，ES5，ES6等。</p>
+
+<blockquote>
+  <p>ECMAScript与JavaScript的关系：</p>
+  
+  <p>ECMA-262标准的描述如下：“ ECMAScript 可以为不同种类的宿主环境提供核心的脚本编程能力，因此核心的脚本语言时与任何特定的宿主环境分开进行规定的。”简单地说，ECMAScript描述了以下内容：语法、类型、语句、关键字、保留字、运算符、对象等。</p>
+  
+  <p>ECMAScript是JavaScript的一个重要标准，但它并不是JavaScript唯一的部分，当然，也不是唯一被标准化的部分。比如在WEB前端开发中，Web浏览器对于ECMAScript来说是一个宿主环境，但它并不是唯一的宿主环境。事实上，还有不计其数的其他各种环境(例如目前很火的Node.js
+  )。一个完整的JavaScript实现是由以下3个不同部分组成的：核心(ECMAScript)、文档对象模型(DOM)、浏览器对象模型(BOM)。</p>
+  
+  <p>正如你所看到的，ES3，ES5和ES6之间分别存在10年和6年的时间间隔。目前ECMAScript发展的新模式是每年进行少量变更。而不是像ES6一样做大量的更改。</p>
+</blockquote>
+
+<h2 id="">浏览器支持</h2>
+
+<p><img src="http://css88.b0.upaiyun.com/css88/2016/10/es6-javascript-support.png" alt=""></p>
+
+<p>所有现代浏览器和环境都已经支持ES6了！Chrome，MS Edge，Firefox，Safari，Node等等已经内置支持JavaScript ES6的大部分功能。所以，你在本教程中学到的一切，你可以立即开始使用它。</p>
+
+<p>让我们开始使用 ECMAScript 6 吧！</p>
+
+<h2 id="es6">核心ES6特性</h2>
+
+<p>变量的块作用域</p>
+
+<p>在过去声明变量使用 var，而在ES6中，声明变量还可以使用 let / const。</p>
+
+<p>var 有什么问题？</p>
+
+<p>var 的问题是变量会被泄漏到其他代码块，例如 for 循环或 if 代码块。  </p>
+
+<pre><code class="language-js">ES5 代码:  
+var x = 'outer';  
+function test(inner) {  
+  if (inner) {
+    var x = 'inner'; // 作用域是整个function
+    return x;
+  }
+  return x; //被重新定义，因为第4行声明被提升
+}
+test(false); // undefined  
+test(true); // inner  
+</code></pre>
+
+<p>上面代码中，对于test(false) 你可能期望的是返回 outer, 但是不是, 你得到的是 undefined。</p>
+
+<p>为什么?</p>
+
+<p>因为即使 if 代码块没有被执行，第4行中的表达式var x也是被提升的。</p>
+
+<blockquote>
+  <p>var 变量提升</p>
+  
+  <p>var是函数作用域。它在整个函数中是可用的，甚至在被声明之前。
+  初始化 不 提升。如果你使用var ，请总是在顶部声明你的变量。
+  应用提升规则后我们可以更好地了解发生了什么：</p>
+</blockquote>
+
+<pre><code class="language-js">ES5 代码:  
+var x = 'outer';  
+function test(inner) {  
+  var x; // 提升声明
+  if (inner) {
+    x = 'inner'; // 初始化不提升
+    return x;
+  }
+  return x;
+}
+</code></pre>
+
+<p>用ECMAScript 6 来拯救：</p>
+
+<pre><code class="language-js">ES6 代码:  
+let x = 'outer';  
+function test(inner) {  
+  if (inner) {
+    let x = 'inner';
+    return x;
+  }
+  return x; // 从第1行获得预期结果
+}
+test(false); // outer  
+test(true); // inner  
+</code></pre>
+
+<p>从var改用 let,使代码按你设想的那样执行。 if 代码块没有被执行，变量x不会从if 代码块中被提升。</p>
+
+<p>let 提升 和 “暂时性死区”</p>
+
+<p>在ES6中，let将把变量提升到代码块的顶部（不是像ES5那样的函数顶部）。
+但是，代码块中，在变量声明之前引用这个变量会导致一个 ReferenceError 错误。
+let是块作用域。在声明之前不能使用它。 <br>
+“暂时性死区”是指从代码块开始直到变量被声明的区域。</p>
+
+<h2 id="iife">IIFE</h2>
+
+<p>在解释LIFE之前，让我们举个例子。 看看这里：</p>
+
+<pre><code class="language-js">ES5 代码:  
+{
+  var private = 1;
+}
+console.log(private); // 1  
+</code></pre>
+
+<p>正如你所看到的，变量private 被泄漏到了代码块外面。你需要使用IIFE（immediately-invoked function expression，即：立即调用函数表达式）来包含它：</p>
+
+<pre><code class="language-js">ES5 代码:  
+(function(){
+  var private2 = 1;
+})();
+console.log(private2); // 未捕获 ReferenceError  
+</code></pre>
+
+<p>如果你看看jQuery / lodash或其他开源项目，您将注意到他们使用IIFE以避免污染全局环境并只是在全局定义，如 _，$ 或 jQuery 。</p>
+
+<p>在ES6中更干净，如果我们只是现在某个代码块中使用使用某个变量，我们可以使用let，再也不需要使用IIFE了：</p>
+
+<pre><code class="language-js">ES6 代码:  
+{
+  let private3 = 1;
+}
+console.log(private3); // 未捕获 ReferenceError  
+</code></pre>
+
+<h2 id="const">Const</h2>
+
+<p>如果你想要一个变量一直不改变，你也可以使用 const。</p>
+
+<p><img src="http://css88.b0.upaiyun.com/css88/2016/10/javascript-es6-const-variables-example.png" alt=""></p>
+
+<p>底线：var 区分 let 和 const。</p>
+
+<p>对于所有引用使用const; 避免使用var。
+如果你必须重新分配引用（愚人码头注：变量需要重新赋值的），使用let而不是const。</p>
+
+<h2 id="templateliterals">模板字面量(Template Literals)</h2>
+
+<p>当我们有了模板字面量，我们就不需要做更多的嵌套连接。看一看：</p>
+
+<pre><code class="language-js">ES5 代码:  
+var first = 'Adrian';  
+var last = 'Mejia';  
+console.log('Your name is ' + first + ' ' + last + '.');  
+</code></pre>
+
+<p>现在你可以使用反引号 ( <code></code> ) 和插值字符串 ${};</p>
+
+<pre><code class="language-js">ES6 代码:  
+const first = 'Adrian';  
+const last = 'Mejia';  
+console.log(`Your name is ${first} ${last}.`);  
+</code></pre>
+
+<p>ES6的模板字面量没有转义、循环、条件判断等内置语法，感觉功能还很弱。</p>
+
+<h2 id="">多行字符串</h2>
+
+<p>我们不必在连接字符串时需要加 \n，就像这样：</p>
+
+<pre><code class="language-js">ES5 代码:  
+var template = '&lt;li *ngFor="let todo of todos" [ngClass]="{completed: todo.isDone}" &gt;\n' +  
+'  &lt;div class="view"&gt;\n' +  
+'    &lt;input class="toggle" type="checkbox" [checked]="todo.isDone"&gt;\n' +  
+'    &lt;label&gt;&lt;/label&gt;\n' +  
+'    &lt;button class="destroy"&gt;&lt;/button&gt;\n' +  
+'  &lt;/div&gt;\n' +  
+'  &lt;input class="edit" value=""&gt;\n' +  
+'&lt;/li&gt;';  
+console.log(template);  
+</code></pre>
+
+<p>在ES6中，我们可以再次使用反引号来解决这个问题：</p>
+
+<pre><code class="language-js">ES6 代码:  
+const template = `&lt;li *ngFor="let todo of todos" [ngClass]="{completed: todo.isDone}" &gt;  
+  &lt;div class="view"&gt;
+    &lt;input class="toggle" type="checkbox" [checked]="todo.isDone"&gt;
+    &lt;label&gt;&lt;/label&gt;
+    &lt;button class="destroy"&gt;&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;input class="edit" value=""&gt;
+&lt;/li&gt;`;  
+console.log(template);  
+</code></pre>
+
+<p>这两段代码将等到完全相同的结果。</p>
+
+<h2 id="">解构分配</h2>
+
+<p>ES6解构非常有用和简洁。 按照这个例子：</p>
+
+<p>从数组中获取元素</p>
+
+<pre><code class="language-js">ES5 代码:  
+var array = [1, 2, 3, 4];  
+var first = array[0];  
+var third = array[2];  
+console.log(first, third); // 1 3  
+</code></pre>
+
+<p>等价于：</p>
+
+<pre><code class="language-js">ES6 代码:  
+const array = [1, 2, 3, 4];  
+const [first, ,third] = array;  
+console.log(first, third); // 1 3  
+</code></pre>
+
+<p>交换值</p>
+
+<pre><code class="language-js">ES5 代码:  
+var a = 1;  
+var b = 2;  
+var tmp = a;  
+a = b;  
+b = tmp;  
+console.log(a, b); // 2 1  
+</code></pre>
+
+<p>等价于：</p>
+
+<pre><code class="language-js">ES6 代码:  
+let a = 1;  
+let b = 2;  
+[a, b] = [b, a];
+console.log(a, b); // 2 1  
+</code></pre>
+
+<p>多个返回值的解构</p>
+
+<pre><code class="language-js">ES5 代码:  
+function margin() {  
+  var left=1, right=2, top=3, bottom=4;
+  return { left: left, right: right, top: top, bottom: bottom };
+}
+var data = margin();  
+var left = data.left;  
+var bottom = data.bottom;  
+console.log(left, bottom); // 1 4  
+</code></pre>
+
+<p>在第3行，你也可以在一个数组中返回它像这样（并保存一些类型）：</p>
+
+<pre><code class="language-js">js 代码:  
+return [left, right, top, bottom];  
+</code></pre>
+
+<p>但是调用者需要顾及到返回数据的顺序。</p>
+
+<pre><code class="language-js">js 代码:  
+var left = data[0];  
+var bottom = data[3];  
+</code></pre>
+
+<p>使用ES6，调用者只需要选择他们需要的数据（第6行）：</p>
+
+<pre><code class="language-js">ES6 代码:  
+function margin() {  
+  const left=1, right=2, top=3, bottom=4;
+  return { left, right, top, bottom };
+}
+const { left, bottom } = margin();  
+console.log(left, bottom); // 1 4  
+</code></pre>
+
+<p>注意：第3行，我们可以看到ES6的一些其他特性。我们可以压缩{left：left}为{left}。看看它比 ES5 简洁了很多。是不是很酷？</p>
+
+<h2 id="">参数匹配的解构</h2>
+
+<pre><code class="language-js">ES5 代码:  
+var user = {firstName: 'Adrian', lastName: 'Mejia'};  
+function getFullName(user) {  
+  var firstName = user.firstName;
+  var lastName = user.lastName;
+  return firstName + ' ' + lastName;
+}
+console.log(getFullName(user)); // Adrian Mejia  
+</code></pre>
+
+<p>等价于：</p>
+
+<pre><code class="language-js">ES6 代码:  
+const user = {firstName: 'Adrian', lastName: 'Mejia'};  
+function getFullName({ firstName, lastName }) {  
+  return `${firstName} ${lastName}`;
+}
+console.log(getFullName(user)); // Adrian Mejia  
+</code></pre>
+
+<h2 id="">深度匹配</h2>
+
+<pre><code class="language-js">ES5 代码:  
+function settings() {  
+  return { display: { color: 'red' }, keyboard: { layout: 'querty'} };
+}
+var tmp = settings();  
+var displayColor = tmp.display.color;  
+var keyboardLayout = tmp.keyboard.layout;  
+console.log(displayColor, keyboardLayout); // red querty  
+</code></pre>
+
+<p>等价于：</p>
+
+<pre><code class="language-js">ES6 代码:  
+function settings() {  
+  return { display: { color: 'red' }, keyboard: { layout: 'querty'} };
+}
+const { display: { color: displayColor }, keyboard: { layout: keyboardLayout }} = settings();  
+console.log(displayColor, keyboardLayout); // red querty  
+</code></pre>
+
+<p>这也称为对象解构。</p>
+
+<p>正如你所看到的，解构是非常有用的，并鼓励良好的编码风格。</p>
+
+<p>最佳实践：</p>
+
+<p>使用数组解构来获取元素或交换变量。它可以避免创建临时引用。
+对于函数多个返回值不要使用数组解构，而使用对象解构。</p>
+
+<h2 id="">类与对象</h2>
+
+<p>使用ECMAScript 6，我们可以从“构造函数”过渡到“类”。</p>
+
+<p>在JavaScript中每一个对象都有一个原型，这是另一个对象。所有JavaScript对象继承了它们原型中的方法和属性。</p>
+
+<p>在ES5中，我们面向对象编程（OOP）需要使用构造函数来创建对象，如下：</p>
+
+<pre><code class="language-js">ES5 代码:  
+var Animal = (function () {  
+  function MyConstructor(name) {
+    this.name = name;
+  }
+  MyConstructor.prototype.speak = function speak() {
+    console.log(this.name + ' makes a noise.');
+  };
+  return MyConstructor;
+})();
+var animal = new Animal('animal');  
+animal.speak(); // animal makes a noise.  
+</code></pre>
+
+<p>在ES6中，我们有一些语法糖。我们可以用较少的板式代码，以及class和constructor等新的关键字做同样的事情。
+另外，请注意我们如何清楚地定义方法constructor.prototype.speak = function () vs speak()：</p>
+
+<pre><code class="language-js">ES6 代码:  
+class Animal {  
+  constructor(name) {
+    this.name = name;
+  }
+  speak() {
+    console.log(this.name + ' makes a noise.');
+  }
+}
+const animal = new Animal('animal');  
+animal.speak(); // animal makes a noise.  
+</code></pre>
+
+<p>正如你所看到的，两种样式（ES5/6）在幕后产生相同的结果，并且可以以相同的方式使用。</p>
+
+<p>最佳实践：</p>
+
+<p>始终使用class语法，并避免直接操作 prototype。为什么？因为它使代码更简洁和更容易理解。
+避免使用空的构造函数。如果没有指定，类有一个默认构造函数。</p>
+
+<h2 id="">继承</h2>
+
+<p>基于前面的Animal类。假设我们想要扩展它并定义Lion类。</p>
+
+<p>在ES5中，它更多地涉及原型继承。</p>
+
+<pre><code class="language-js">ES5 代码:  
+var Lion = (function () {  
+  function MyConstructor(name){
+    Animal.call(this, name);
+  }
+
+  // prototypal inheritance
+  MyConstructor.prototype = Object.create(Animal.prototype);
+  MyConstructor.prototype.constructor = Animal;
+
+  MyConstructor.prototype.speak = function speak() {
+    Animal.prototype.speak.call(this);
+    console.log(this.name + ' roars ');
+  };
+  return MyConstructor;
+})();
+var lion = new Lion('Simba');  
+lion.speak(); // Simba makes a noise.  
+// Simba roars.
+</code></pre>
+
+<p>我不详细描述所有细节，但请注意：</p>
+
+<ul>
+<li>第3行，我们用参数显式调用Animal构造函数。</li>
+<li>第7-8行，我们将Lion原型分配给Animal原型。</li>
+<li>第11行，我们从父类Animal中调用speak方法。</li>
+<li>在ES6中，我们有2个新的关键字extends和super。</li>
+</ul>
+
+<pre><code class="language-js">ES6 代码:  
+class Lion extends Animal {  
+  speak() {
+    super.speak();
+    console.log(this.name + ' roars ');
+  }
+}
+const lion = new Lion('Simba');  
+lion.speak(); // Simba makes a noise.  
+// Simba roars.
+</code></pre>
+
+<p>看看ES6的代码比ES5看起来清晰了很多，并且他们做的事情完全一样。</p>
+
+<p>最佳实践：</p>
+
+<p>使用extends内置继承方式来实现继承。</p>
+
+<h2 id="promises">原生的 Promises</h2>
+
+<p>从回调地狱 到 promises</p>
+
+<pre><code class="language-js">ES5 代码:  
+function printAfterTimeout(string, timeout, done){  
+  setTimeout(function(){
+    done(string);
+  }, timeout);
+}
+printAfterTimeout('Hello ', 2e3, function(result){  
+  console.log(result);
+  // nested callback
+  printAfterTimeout(result + 'Reader', 2e3, function(result){
+    console.log(result);
+  });
+});
+</code></pre>
+
+<p>我们有一个函数接收一个回调，当done时执行。我们必须一个接一个地两度执行它。这就是为什么我们在回调中第二次调用printAfterTimeout的原因。</p>
+
+<p>如果你需要第3或第4次回调，那么你很快就凌乱了。让我们看看我们如何使用promises：</p>
+
+<pre><code class="language-js">ES6 代码:  
+function printAfterTimeout(string, timeout){  
+  return new Promise((resolve, reject) =&gt; {
+    setTimeout(function(){
+      resolve(string);
+    }, timeout);
+  });
+}
+printAfterTimeout('Hello ', 2e3).then((result) =&gt; {  
+  console.log(result);
+  return printAfterTimeout(result + 'Reader', 2e3);
+}).then((result) =&gt; {
+  console.log(result);
+});
+</code></pre>
+
+<p>正如你说看到的，使用 promises，我们可以使用then在一个函数完成后做另一些事情。不再需要嵌套函数。</p>
+
+<h2 id="">箭头函数</h2>
+
+<p>ES6没有删除函数表达式，但它添加了一个新的函数表达式，称为箭头函数。</p>
+
+<p>在ES5中，对于this我们有一些疑问：</p>
+
+<pre><code class="language-js">ES5 代码:  
+var _this = this; // 需要保持一个引用  
+$('.btn').click(function(event){
+  _this.sendData(); // 引用函数外层的 this
+});
+$('.input').on('change',function(event){
+  this.sendData(); // 引用函数外层的 this
+}.bind(this)); // 绑定函数外层的 this
+</code></pre>
+
+<p>你需要使用一个临时的 this ，以便在函数内部引用，或使用bind。在ES6中，可以使用箭头函数！</p>
+
+<pre><code class="language-js">ES6 代码:  
+// this 将引用外部的那个 this
+$('.btn').click((event) =&gt;  this.sendData());
+// 隐式返回
+const ids = [291, 288, 984];  
+const messages = ids.map(value =&gt; `ID is ${value}`);  
+</code></pre>
+
+<h2 id="forof">For…of</h2>
+
+<p>从 for 到 forEach 再到 for...of:</p>
+
+<pre><code class="language-js">ES5 代码:  
+// for
+var array = ['a', 'b', 'c', 'd'];  
+for (var i = 0; i &lt; array.length; i++) {  
+  var element = array[i];
+  console.log(element);
+}
+// forEach
+array.forEach(function (element) {  
+  console.log(element);
+});
+</code></pre>
+
+<p>ES6 的 for...of 同样允许我们迭代。  </p>
+
+<pre><code class="language-js">ES6 代码:  
+// for ...of
+const array = ['a', 'b', 'c', 'd'];  
+for (const element of array) {  
+    console.log(element);
+}
+</code></pre>
+
+<h2 id="">默认参数</h2>
+
+<p>从检查变量是否被定义 到 分配一个值给默认参数。你以前做过类似的事情吗？</p>
+
+<pre><code class="language-js">ES5 代码:  
+function point(x, y, isFlag){  
+  x = x || 0;
+  y = y || -1;
+  isFlag = isFlag || true;
+  console.log(x,y, isFlag);
+}
+point(0, 0) // 0 -1 true  
+point(0, 0, false) // 0 -1 true  
+point(1) // 1 -1 true  
+point() // 0 -1 true  
+</code></pre>
+
+<p>肯定这些做过吧？这是一个常见的模式来检查是变量是否赋值，否则分配一个默认值。但是，注意有一些问题：
+* 第7行，我们传递0, 0，得到0, -1。
+* 第8行，我们传递false，但得到true。
+如果你将一个布尔值作为默认参数或将值设置为0，它就不正常工作了。你知道为什么吗？？？我将在ES6示例后面告诉你;）</p>
+
+<p>现在，如果你用ES6，可以用更少的代码做的更好！</p>
+
+<pre><code class="language-js">ES6 代码:  
+function point(x = 0, y = -1, isFlag = true){  
+  console.log(x,y, isFlag);
+}
+point(0, 0) // 0 0 true  
+point(0, 0, false) // 0 0 false  
+point(1) // 1 -1 true  
+point() // 0 -1 true  
+</code></pre>
+
+<p>注意第4行和第5行， 我们得到了预期的结果。ES5的示例则没有正常工作。我们必须属性检查  undefined,因为false，null，undefined和0是假（falsy）值。我们需要更加多的代码来修复这个问题：</p>
+
+<pre><code class="language-js">ES5 代码:  
+function point(x, y, isFlag){  
+  x = x || 0;
+  y = typeof(y) === 'undefined' ? -1 : y;
+  isFlag = typeof(isFlag) === 'undefined' ? true : isFlag;
+  console.log(x,y, isFlag);
+}
+point(0, 0) // 0 0 true  
+point(0, 0, false) // 0 0 false  
+point(1) // 1 -1 true  
+point() // 0 -1 true  
+</code></pre>
+
+<p>我们检查 undefined，现在它就能按预期工作了。</p>
+
+<h2 id="rest">Rest参数（多余参数）</h2>
+
+<p>从 arguments 到 rest参数 和 扩展运算符。</p>
+
+<p>在ES5中，获取任意数量的参数是非常麻烦的：</p>
+
+<pre><code class="language-js">ES5 代码:  
+function printf(format) {  
+  var params = [].slice.call(arguments, 1);
+  console.log('params: ', params);
+  console.log('format: ', format);
+}
+printf('%s %d %.2f', 'adrian', 321, Math.PI);  
+</code></pre>
+
+<p>我们可以使用rest运算符...做同样的事情。</p>
+
+<pre><code class="language-js">ES6 代码:  
+function printf(format, ...params) {  
+  console.log('params: ', params);
+  console.log('format: ', format);
+}
+printf('%s %d %.2f', 'adrian', 321, Math.PI);  
+</code></pre>
+
+<h2 id="">扩展运算符</h2>
+
+<p>从apply()到扩展运算符，我们有 ... 拯救：</p>
+
+<p>提醒：我们使用apply() 将数组转换为一个参数列表。例如，Math.max()获取参数列表，但是如果我们有一个数组，我们可以使用apply来使它工作。</p>
+
+<p><img src="http://css88.b0.upaiyun.com/css88/2016/10/javascript-math-apply-arrays.png" alt=""></p>
+
+<p>正如我们在前面看到的，我们可以使用apply将数组作为参数列表传递：</p>
+
+<pre><code class="language-js">ES5 代码:  
+Math.max.apply(Math, [2,100,1,6,43]) // 100  
+</code></pre>
+
+<p>在ES6中，你可以使用 扩展运算符。</p>
+
+<pre><code class="language-js">ES6 代码:  
+Math.max(...[2,100,1,6,43]) // 100  
+</code></pre>
+
+<p>另外，我们可以使用扩展运算符来 concat（合并）数组：</p>
+
+<pre><code class="language-js">ES5 代码:  
+var array1 = [2,100,1,6,43];  
+var array2 = ['a', 'b', 'c', 'd'];  
+var array3 = [false, true, null, undefined];  
+console.log(array1.concat(array2, array3));  
+</code></pre>
+
+<p>在ES6中，可以使用扩展运算符合并数组：</p>
+
+<pre><code class="language-js">ES6 代码:  
+const array1 = [2,100,1,6,43];  
+const array2 = ['a', 'b', 'c', 'd'];  
+const array3 = [false, true, null, undefined];  
+console.log([...array1, ...array2, ...array3]);  
+</code></pre>]]></content:encoded></item><item><title><![CDATA[使用RequireJS进行模块化开发]]></title><description><![CDATA[<p>在之前的项目中一直用的是seajs，感觉seajs是挺好用的，但是有个问题就是把现有的js框架打包成seajs模块略麻烦，官方文档里面也没有对这一块作详细的介绍，虽然有spm build，但还是觉得不太方便。因此便在新的项目中用了requirejs。</p>
+
+<p><img src="http://blog.u.qiniudn.com/uploads%2Frequirejs.png" alt="requirejs"></p>
+
+<p>用requirejs其实还有另一个原因就是项目中用到了百度的图表库<a href="http://echarts.baidu.com/" title="echarts">echarts</a>，根据其官方文档的描述是不建议使用基于CMD规范的seajs来加载的，因为echarts是基于AMD模块化的，虽然网上有人改了可以用seajs加载，但是我最后还是选择用requirejs来加载，同时也是想尝试一下requirejs。</p>
+
+<p><strong>自定义构建echarts</strong></p>
+
+<p><code>echarts</code>的构建是用的<code>r.js</code>，因此我在这里先讲一下。</p>
+
+<p>自定义构建<code>echarts</code>还必须下载<code>zrender</code>，下载完成之后，把<code>echarts</code>的目录和<code>zrender</code>目录放在同级目录下，然后进入<code>echarts</code>的<code>build</code>目录进行自定义<code>build</code>（需要node.js环境），下面是我的build命令：</p>
+
+<pre><code class="language-bash">node build.js optimize=true exclude=force,scatter,k,radar,</code></pre>]]></description><link>http://localhost:2368/requirejs-dev/</link><guid isPermaLink="false">cbf4880a-dabe-40fe-a60d-ba7d6566e634</guid><dc:creator><![CDATA[江矿宝宝.]]></dc:creator><pubDate>Mon, 10 Oct 2016 07:54:00 GMT</pubDate><content:encoded><![CDATA[<p>在之前的项目中一直用的是seajs，感觉seajs是挺好用的，但是有个问题就是把现有的js框架打包成seajs模块略麻烦，官方文档里面也没有对这一块作详细的介绍，虽然有spm build，但还是觉得不太方便。因此便在新的项目中用了requirejs。</p>
+
+<p><img src="http://blog.u.qiniudn.com/uploads%2Frequirejs.png" alt="requirejs"></p>
+
+<p>用requirejs其实还有另一个原因就是项目中用到了百度的图表库<a href="http://echarts.baidu.com/" title="echarts">echarts</a>，根据其官方文档的描述是不建议使用基于CMD规范的seajs来加载的，因为echarts是基于AMD模块化的，虽然网上有人改了可以用seajs加载，但是我最后还是选择用requirejs来加载，同时也是想尝试一下requirejs。</p>
+
+<p><strong>自定义构建echarts</strong></p>
+
+<p><code>echarts</code>的构建是用的<code>r.js</code>，因此我在这里先讲一下。</p>
+
+<p>自定义构建<code>echarts</code>还必须下载<code>zrender</code>，下载完成之后，把<code>echarts</code>的目录和<code>zrender</code>目录放在同级目录下，然后进入<code>echarts</code>的<code>build</code>目录进行自定义<code>build</code>（需要node.js环境），下面是我的build命令：</p>
+
+<pre><code class="language-bash">node build.js optimize=true exclude=force,scatter,k,radar,chord,gauge,funnel,map  output=echarts1.js  
+</code></pre>
+
+<p>上面命令的意思是排除<code>exclude</code>的之后的那些模块，因为我只用到了<code>echarts</code>的折线图、柱状图和饼状图。</p>
+
+<p>执行完成之后就可以在build目录看到刚才合并的<code>echarts1.js</code></p>
+
+<p><strong>requirejs模块加载配置</strong></p>
+
+<p><code>requirejs</code>引入主模块的方法是通过在script标签里面添加<code>data-main</code>属性，如我的引入代码：</p>
+
+<pre><code class="language-html">&lt;script data-main="js/main" src="js/lib/requirejs/require.js"&gt;&lt;/script&gt;  
+</code></pre>
+
+<p><code>main.js</code>是程序的入口js文件，然后我们在<code>main.js</code>里面进行模块的加载配置：</p>
+
+<pre><code class="language-javascript">requirejs.config({  
+    //开发专用，阻止浏览器缓存
+    urlArgs: "v=" + Date.now(),
+    //js文件的目录，相对于引入main.js的那个文件的目录
+    baseUrl: 'js',
+    //对于默认不兼容AMD规范的模块通过shim来配置
+    //deps数组，表明该模块的依赖性，
+    //exports值，表明这个模块外部调用时的名称
+    //下面代码里面包含了如何加载库和插件
+    shim: {
+        'backbone': {
+               deps: ['underscore', 'jquery'],
+            exports: 'Backbone'
+        },
+        'underscore': {
+            exports: '_'
+        },
+        'backbone.localStorage': {
+              deps: ['backbone'],
+              exports: 'Backbone'
+        },
+        'bootstrap.modal': {
+            deps: ['jquery'],
+            exports: 'jQuery.fn.modal'
+        }
+    },
+    //模块的加载路径（不要加.js后缀，因为默认就是加载js，加了会报错）
+    //路径是相对于上面的baseUrl
+    paths: {
+        jquery: 'lib/jquery/jquery-1.11.1.min',
+        underscore: 'lib/underscore/underscore-min',
+        ...
+        text: 'lib/requirejs/plugins/text',
+        echarts:'lib/echarts/echarts',
+        'echarts/chart/bar' : 'lib/echarts/echarts',
+        config: 'modules/common/config'
+    }   
+});
+
+//下面开始加载执行
+require(['backbone', 'modules/app'], function (Backbone, AppRouter) {  
+    new AppRouter();
+    Backbone.history.start();
+});
+</code></pre>
+
+<p><strong>requirejs模块定义与加载</strong></p>
+
+<p><code>requirejs</code>定义一个模块相当简单，下面是一个简单的例子:</p>
+
+<pre><code class="language-javascript">define(['backbone'], function(Backbone){  
+    var AppRouter = Backbone.Router.extend({
+        ...
+    });
+
+    //导出对象
+    return AppRouter;
+});
+</code></pre>
+
+<p>我们也可以动态加载模块：</p>
+
+<pre><code class="language-javascript">define(['backbone'], function(Backbone){  
+    var AppRouter = Backbone.Router.extend({
+        ...
+        index： function(){
+            require(['echarts', 'echarts/chart/bar'], function(ec){
+                ...
+            });
+        }
+    });
+
+    //导出对象
+    return AppRouter;
+});
+</code></pre>
+
+<p>如果你已经用习惯了<code>seajs</code>的模块加载方法的话，你也可以像<code>seajs</code>里面那样去加载模块：</p>
+
+<pre><code class="language-javascript">define(function (require) {  
+    var $ = require('jquery');
+
+    return function () {
+        ...
+    };
+});
+</code></pre>
+
+<p>或者<code>CommonJS</code>的方式也ok:</p>
+
+<pre><code class="language-javascript">define(function(require, exports, module) {  
+    ...
+});
+</code></pre>
+
+<p><code>requirejs</code>提供一个加载文本的插件<code>text.js</code>，细心的话你可能已经看到我在<code>requirejs.config</code>里面已经配置了，使用也很简单：</p>
+
+<pre><code class="language-javascript">// 注意这里自定义模块的加载路径
+// 可以写相对路径，那就是相对于当前js文件的路径
+// 也可以写绝对路径，就是相对于baseUrl的路径
+define(['backbone','text!../tmpl/index.html'], function(Backbone, html){
+
+});
+</code></pre>
+
+<p><strong>requirejs构建工具r.js</strong></p>
+
+<p>当项目上线的时候，我们可能需要对模块代码进行压缩合并的操作，这时我们就会用到<code>requirejs</code>的构建工具<code>r.js</code>。首先我们在项目根目录创建一个<code>build</code>的文件夹和<code>dist</code>的文件夹，分别用来存放模块合并相关配置和合并后的代码的文件目录，在<code>build</code>目录里面存放<code>r.js</code>，并新建一个压缩合并的配置文件<code>config.js</code>,下面是<code>config.js</code>的配置示例：</p>
+
+<pre><code class="language-javascript">//config.js
+{
+    //requirejs.cofig文件的路径,它会自动读取main.js里面的配置信息
+    mainConfigFile : "../js/main.js",
+    baseUrl: '../js',
+    name: "main",
+    //输出文件的路径和名称
+    out: "../dist/js/main.js",
+    //默认情况写r.js会把相关的依赖文件拷贝到输出目录里面去
+    //设置为true之后r.js就不会进行这一操作
+    removeCombined: true,
+    //findNestedDependencies设置为true表示将所有相关的依赖模块也合并进来，默认为false只会对main.js进行压缩合并的操作
+    findNestedDependencies: true
+}
+</code></pre>
+
+<p>然后在命令行执行：</p>
+
+<pre><code class="language-bash">node r.js -o config.js  
+</code></pre>
+
+<p>执行完成之后便会在<code>dist/js/</code>目录下面生成一个合并后的<code>main.js</code></p>
+
+<p>你会发现这个<code>main.js</code>可能会非常大，而在实际项目中，像通用的一些jquery、backbone等有时候我们可能没有必要把它压缩进来，我们只需要压缩自己写的一些代码，于是我们再次开始配置我们的<code>config.js</code>：</p>
+
+<pre><code class="language-javascript">{
+    mainConfigFile : "../js/main.js",
+    baseUrl: "../js",
+    removeCombined: true,
+    findNestedDependencies: true,
+    dir: "../dist/js",
+    modules: [{
+        name: "main",
+        exclude: [
+            "backbone",
+            "underscore",
+            "jquery",
+            "text",
+            ...
+        ]
+    }]
+}
+</code></pre>
+
+<p>再次运行压缩合并命令将会发现在<code>exclude</code>数组里面的项不会被合并。</p>
+
+<p>然而我觉得更好的做法是把通用的一些库，如jquery,bacnbone等合并到一个文件里面，我们自己的代码合并到了一个文件，因此，我们重新进行配置。</p>
+
+<p>首先我们新建一个js文件，这个js文件啥也不用做，就是为了引用所有通用的库，这样方便我们进行排除，如下：</p>
+
+<pre><code class="language-javascript">//libs.js
+
+define([  
+    "jquery",
+    "underscore",
+    "backbone",
+    ...
+    "text"
+], function() {});
+</code></pre>
+
+<p>然后我们的<code>config.js</code>变成了这样：</p>
+
+<pre><code class="language-javascript">{
+    mainConfigFile : "../js/main.js",
+    baseUrl: "../js",
+    removeCombined: true,
+    findNestedDependencies: true,
+    dir: "../dist/js",
+    modules: [
+        {
+            name: "main",
+            exclude: [
+                "libs"
+            ]
+        },
+           {
+               name: "libs"
+           }
+    ]
+}
+</code></pre>
+
+<p>现在，我们的<code>build</code>操作终于完美了。</p>
+
+<p>但是，如果我们的js直接通过cdn引用的呢？如果我们直接运行上面的压缩配置，<code>r.js</code>将会报错。因此，对于从cdn引入的js，我们作如下配置：</p>
+
+<pre><code class="language-javascript">requirejs.config({  
+    paths: {
+        //如果cdn挂点，通过本地加载jquery
+        jquery: ['http://cdn.staticfile.org/jquery/1.11.1/jquery.min.js', 'lib/jquery/jquery-1.11.1.min'],
+        underscore: 'lib/underscore/underscore-min',
+        ...
+        text: 'lib/requirejs/plugins/text',
+        echarts:'lib/echarts/echarts',
+        'echarts/chart/bar' : 'lib/echarts/echarts',
+        config: 'modules/common/config'
+    }  
+});
+
+//修改config.js
+{
+    mainConfigFile : "../js/main.js",
+    baseUrl: "../js",
+    removeCombined: true,
+    findNestedDependencies: true,
+    dir: "../dist/js",
+    modules: [
+        {
+            name: "main",
+            exclude: [
+                "libs"
+            ]
+        },
+           {
+               name: "libs"
+           }
+    ],
+    paths: {
+        jquery: "empty:"
+    }
+}
+</code></pre>
+
+<p>我们再次运行合并的操作<code>node r.js -o config.js</code>会发现此时<code>r.js</code>没有把<code>jquery</code>合并进来，因为它是通过cdn加载的。</p>
+
+<p><strong>css的压缩合并配置</strong></p>
+
+<p>虽然我的项目中没有用到，但在这里还是说一下吧。</p>
+
+<p>项目中可能引用了多个css文件，如：</p>
+
+<pre><code class="language-html">&lt;link rel="stylesheet" type="text/css" href="css/bootstrap.css"&gt;  
+&lt;link rel="stylesheet" type="text/css" href="css/style.css"&gt;  
+</code></pre>
+
+<p>如果我们只想引用一个css文件，我们可以这样：</p>
+
+<pre><code class="language-css">@import url('/css/bootstrap.css');
+/* style.css content here…. */
+</code></pre>
+
+<p>然后在压缩合并的时候进行配置：</p>
+
+<pre><code class="language-javascript">//config.js
+{
+    mainConfigFile : "../js/main.js",
+    appDir: "../",
+    baseUrl: "js",
+    removeCombined: true,
+    findNestedDependencies: true,
+    dir: "../dist",
+    optimizeCss: "standard",
+    modules: [
+        {
+            name: "main",
+            exclude: [
+                "libs"
+            ]
+        },
+           {
+               name: "libs"
+           }
+    ],
+    paths: {
+        jquery: "empty:"
+    }，
+    //匹配到的文件或者目录不会被拷贝到dist目录
+    fileExclusionRegExp: /(^\.|build|dist|sass|config.rb)/,
+    generateSourceMaps: true
+}
+</code></pre>
+
+<blockquote>
+  <p><code>appDir</code>：项目根目录</p>
+  
+  <p><code>optimizeCss</code> ：css压缩规则，有四种，分别是：<code>none</code> 、<code>standard</code> 、<code>standard.keeplines</code>、<code>standard.keepComments</code>、<code>standard.keepComments.keeplines</code>。具体意思我就不一一解释了。</p>
+  
+  <p><code>generateSourceMaps</code>：生成map文件，把压缩过的js与未压缩的作映射</p>
+</blockquote>]]></content:encoded></item><item><title><![CDATA[RequireJS入门(三)]]></title><description><![CDATA[<p>前面两篇讲述了r.js如何通过命令行把所有的模块压缩为一个js文件或把所有的css压缩为一个css文件。其中包括一些压缩配置参数的使用。</p>
+
+<p>但以上两种方式有几个问题</p>
+
+<ul>
+<li>通过命令手动配置压缩选项显得很呆板</li>
+<li>都仅合并为一个文件</li>
+</ul>
+
+<p>对于最后只生成一个文件的库来说，这种方式并无不妥。比如jQuery，它的工程中小文件有20多个，打包后只有一个jquery-1.x.x.js。对于多数实际应用项目来说，可能打包后需要生成多个js文件。有些是页面打开时就要用到的，有些是用户点击或输入时按需加载的。</p>
+
+<p>r.js有另外一种方式来合并压缩，即通过一个配置文件（如build.js）。配置文件内部采用前端工程师非常熟悉JSON格式。这样当项目开发目录固定后，配置文件也相应固定。通过配置文件就很好的隔离了开发环境及上线环境。</p>
+
+<p>这次我们创建的目录中包含所有前端资源，js，css，图片。</p>
+
+<p><img src="http://pic002.cnblogs.com/images/2012/114013/2012060811392032.png" alt=""></p>
+
+<p>其中有两个页面page1.html，page2.html。这两个页面分别使用page1.js和page2.js。</p>
+
+<p>page1.js依赖于event和selector，page2.js依赖于event、selector和jQuery。jQuery是非本地的，没有合并前我们直接访问这两个页面，那么单个的js文件会依次下载。</p>
+
+<p><img src="http://pic002.cnblogs.com/images/2012/114013/2012060811401231.png" alt=""></p>
+
+<p><img src="http://pic002.cnblogs.com/images/2012/114013/2012060811402732.png" alt=""></p>
+
+<p>现在使用r.js来合并压缩，使每个页面除下载require.js外只下载各自合并的大文件page1.</p>]]></description><link>http://localhost:2368/requirejs-3/</link><guid isPermaLink="false">fcd61022-0403-4b78-8f11-a1e3e9eb5a84</guid><dc:creator><![CDATA[江矿宝宝.]]></dc:creator><pubDate>Thu, 06 Oct 2016 13:54:00 GMT</pubDate><content:encoded><![CDATA[<p>前面两篇讲述了r.js如何通过命令行把所有的模块压缩为一个js文件或把所有的css压缩为一个css文件。其中包括一些压缩配置参数的使用。</p>
+
+<p>但以上两种方式有几个问题</p>
+
+<ul>
+<li>通过命令手动配置压缩选项显得很呆板</li>
+<li>都仅合并为一个文件</li>
+</ul>
+
+<p>对于最后只生成一个文件的库来说，这种方式并无不妥。比如jQuery，它的工程中小文件有20多个，打包后只有一个jquery-1.x.x.js。对于多数实际应用项目来说，可能打包后需要生成多个js文件。有些是页面打开时就要用到的，有些是用户点击或输入时按需加载的。</p>
+
+<p>r.js有另外一种方式来合并压缩，即通过一个配置文件（如build.js）。配置文件内部采用前端工程师非常熟悉JSON格式。这样当项目开发目录固定后，配置文件也相应固定。通过配置文件就很好的隔离了开发环境及上线环境。</p>
+
+<p>这次我们创建的目录中包含所有前端资源，js，css，图片。</p>
+
+<p><img src="http://pic002.cnblogs.com/images/2012/114013/2012060811392032.png" alt=""></p>
+
+<p>其中有两个页面page1.html，page2.html。这两个页面分别使用page1.js和page2.js。</p>
+
+<p>page1.js依赖于event和selector，page2.js依赖于event、selector和jQuery。jQuery是非本地的，没有合并前我们直接访问这两个页面，那么单个的js文件会依次下载。</p>
+
+<p><img src="http://pic002.cnblogs.com/images/2012/114013/2012060811401231.png" alt=""></p>
+
+<p><img src="http://pic002.cnblogs.com/images/2012/114013/2012060811402732.png" alt=""></p>
+
+<p>现在使用r.js来合并压缩，使每个页面除下载require.js外只下载各自合并的大文件page1.js和page2.js。</p>
+
+<h2 id="buildjs">build.js如下</h2>
+
+<pre><code class="language-js">({
+    appDir: "./",
+    baseUrl: "js",
+    dir: "../r6-built",
+    paths: {
+        jquery: 'empty:'
+    },
+    modules: [
+        {
+            name: "page1"
+        },
+        {
+            name: "page2"
+        }
+    ]
+})
+</code></pre>
+
+<h2 id="">进入命令行输入如下命令</h2>
+
+<pre><code class="language-js">node r.js -o build.js  
+</code></pre>
+
+<p><img src="http://pic002.cnblogs.com/images/2012/114013/2012060811423490.png" alt=""></p>
+
+<p>会发现在和r6同级的目录生成了r6-built目录</p>
+
+<p><img src="http://pic002.cnblogs.com/images/2012/114013/2012060811435458.png" alt=""></p>
+
+<p>该目录包含于r6一样的层级结构，这时访问该目录中的page1.html，page2.html。</p>
+
+<p><img src="http://pic002.cnblogs.com/images/2012/114013/2012060811442195.png" alt=""></p>
+
+<p><img src="http://pic002.cnblogs.com/images/2012/114013/2012060811443268.png" alt=""></p>
+
+<p>这时的page1.js和page2.js就是其它模块文件的合并。另外在r6-built中其它的模块文件也被压缩了。
+在build.js中可以配置很多其它参数，可以在这个示例文件中找到更多配置选项。这里不一一列举。</p>
+
+<h2 id="">总结</h2>
+
+<p>通过配置文件方式可以实现更加强大，灵活的合并工作。可以生成多个合并文件，包括不同页面的js、css。</p>]]></content:encoded></item><item><title><![CDATA[Gulp入门指南]]></title><description><![CDATA[<p>是时候抛弃繁重的Grunt了。Gulp是一个直观的、配置的、基于流的任务发布系统，而且它更高效。</p>
+
+<p><img src="http://p1.bpimg.com/567571/0440708ae3690092.jpg" alt=""></p>
+
+<p>为什么我会感兴趣呢？好问题。Gulp通过配置写代码不仅使得它编写任务简单，而且更加方便阅读和维护。</p>
+
+<p>Gulp运用node.js的流，这使得它构建任务很快，因为没有磁盘文件的读写操作，如果你想了解更多关于流的知识，你可以看看<a href="https://github.com/substack/stream-handbook">这个</a>。Gulp允许你输入源文件，然后在一系列的管道插件中处理，最后输出，不像Grunt你需要为每个插件配置输入和输出。下面就让我们通过一个sass编译的例子来看看Gulp和Grunt的差异吧。</p>
+
+<p><strong>Grunt:</strong></p>
+
+<pre><code class="language-javascript">sass: {  
+  dist: {
+    options: {
+      style: 'expanded'
+    },
+    files: {
+      'dist/assets/css/main.css': 'src/styles/main.scss',
+    }
+  }
+},
+
+autoprefixer: {  
+  dist: {
+    options: {
+      browsers: [
+        'last 2 version', 'safari 5', 'ie 8', 'ie 9',</code></pre>]]></description><link>http://localhost:2368/gulp-basic/</link><guid isPermaLink="false">5c6bc378-5a59-4204-94a6-b6081bc532f2</guid><dc:creator><![CDATA[江矿宝宝.]]></dc:creator><pubDate>Wed, 05 Oct 2016 05:24:00 GMT</pubDate><content:encoded><![CDATA[<p>是时候抛弃繁重的Grunt了。Gulp是一个直观的、配置的、基于流的任务发布系统，而且它更高效。</p>
+
+<p><img src="http://p1.bpimg.com/567571/0440708ae3690092.jpg" alt=""></p>
+
+<p>为什么我会感兴趣呢？好问题。Gulp通过配置写代码不仅使得它编写任务简单，而且更加方便阅读和维护。</p>
+
+<p>Gulp运用node.js的流，这使得它构建任务很快，因为没有磁盘文件的读写操作，如果你想了解更多关于流的知识，你可以看看<a href="https://github.com/substack/stream-handbook">这个</a>。Gulp允许你输入源文件，然后在一系列的管道插件中处理，最后输出，不像Grunt你需要为每个插件配置输入和输出。下面就让我们通过一个sass编译的例子来看看Gulp和Grunt的差异吧。</p>
+
+<p><strong>Grunt:</strong></p>
+
+<pre><code class="language-javascript">sass: {  
+  dist: {
+    options: {
+      style: 'expanded'
+    },
+    files: {
+      'dist/assets/css/main.css': 'src/styles/main.scss',
+    }
+  }
+},
+
+autoprefixer: {  
+  dist: {
+    options: {
+      browsers: [
+        'last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'
+      ]
+    },
+    src: 'dist/assets/css/main.css',
+    dest: 'dist/assets/css/main.css'
+  }
+},
+
+grunt.registerTask('styles', ['sass', 'autoprefixer']);  
+</code></pre>
+
+<p>Grunt要求每个插件配置要相互独立、要分别为每个插件配置输入源和输出路径。如，我们在sass插件里面配置了一个输入文件，然后保存输出。接着我们需要配置Autoprefixer的输入为Sass的输出，然后再输出了一个文件。让我们来看看Gulp是怎么做的：</p>
+
+<p><strong>Gulp:</strong></p>
+
+<pre><code class="language-javascript">gulp.task('sass', function() {  
+  return gulp.src('src/styles/main.scss')
+    .pipe(sass({ style: 'compressed' }))
+    .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
+    .pipe(gulp.dest('dist/assets/css'))
+});
+</code></pre>
+
+<p>在Gulp中我们只配置一次输入文件，然后依次通过Sass插件处理，再传给<code>Autoprefixer</code>插件处理，然后我们得到输出文件。整个过程没有读取和写入不必要的文件，效率大大提高。</p>
+
+<p>因此，你感兴趣了么？让我们从安装Gulp，创建基本的任务配置文件<code>gulpfile</code>开始吧。</p>
+
+<p><strong>安装gulp</strong></p>
+
+<p>在我们开始配置任务之前，我们先要安装gulp:</p>
+
+<pre><code class="language-bash">npm install gulp -g  
+</code></pre>
+
+<p>这样gulp就以全局的方式安装了，你可以在任何node命令行里面调用<code>gulp CLI</code>。然后我们需要在本地的某个项目里面使用<code>gulp</code>。使用<code>cd</code>命令进入到项目目录，运行下面的命令（先确保项目目录存在<code>package.json</code>文件）：</p>
+
+<pre><code class="language-bash">npm install gulp --save-dev  
+</code></pre>
+
+<p>这会把gulp安装到本地项目，并且把依赖的包写入到<code>package.json</code>文件的<code>devDependencies</code>里面</p>
+
+<p><strong>安装gulp插件</strong></p>
+
+<p>我们将会安装下列插件来开始我们的任务：</p>
+
+<ul>
+<li>Sass 编译 (<a href="https://github.com/sindresorhus/gulp-ruby-sass">gulp-ruby-sass</a>)</li>
+<li>添加浏览器前缀Autoprefixer(<a href="https://github.com/Metrime/gulp-autoprefixer">gulp-autoprefixer</a>)</li>
+<li>CSS压缩（<a href="https://github.com/jonathanepollack/gulp-minify-css">gulp-minify-css</a>）</li>
+<li>JS语法检查 (<a href="https://github.com/wearefractal/gulp-jshint">gulp-jshint</a>)</li>
+<li>文件合并 (<a href="https://github.com/wearefractal/gulp-concat">gulp-concat</a>)</li>
+<li>JS压Uglify (<a href="https://github.com/terinjokes/gulp-uglify">gulp-uglify</a>)</li>
+<li>图片压缩(<a href="https://github.com/sindresorhus/gulp-imagemin">gulp-imagemin</a>)</li>
+<li>LiveReload (<a href="https://github.com/vohof/gulp-livereload">gulp-livereload</a>)</li>
+<li>图片缓存，只压缩修改过的图片(<a href="https://github.com/jgable/gulp-cache/">gulp-cache</a>)</li>
+<li>修改提醒(<a href="https://github.com/mikaelbr/gulp-notify">gulp-notify</a>)</li>
+<li>文件清理 (<a href="https://www.npmjs.org/package/del">del</a>)</li>
+</ul>
+
+<p>运行下面的命令安装这些插件：</p>
+
+<pre><code class="language-bash">npm install gulp-ruby-sass gulp-autoprefixer gulp-minify-css gulp-jshint gulp-concat gulp-uglify gulp-imagemin gulp-notify gulp-rename gulp-livereload gulp-cache del --save-dev  
+</code></pre>
+
+<p>这将会安装所有的依赖插件，并写入到package.json的devDependencies里面。所有的gulp插件列表可以<a href="http://gratimax.net/search-gulp-plugins/">在这里</a>看到。</p>
+
+<p><strong>加载插件</strong></p>
+
+<p>我们需要创建一个<code>gulpfile.js</code>，然后使用这些插件：</p>
+
+<pre><code class="language-javascript">var gulp = require('gulp'),  
+    sass = require('gulp-ruby-sass'),
+    autoprefixer = require('gulp-autoprefixer'),
+    minifycss = require('gulp-minify-css'),
+    jshint = require('gulp-jshint'),
+    uglify = require('gulp-uglify'),
+    imagemin = require('gulp-imagemin'),
+    rename = require('gulp-rename'),
+    concat = require('gulp-concat'),
+    notify = require('gulp-notify'),
+    cache = require('gulp-cache'),
+    livereload = require('gulp-livereload'),
+    del = require('del');
+</code></pre>
+
+<p>我们也可以像grunt那样自动加载插件：<a href="https://github.com/jackfranklin/gulp-load-plugins">auto load</a></p>
+
+<p><strong>创建任务</strong></p>
+
+<p><em>编译sass、加前缀、压缩</em></p>
+
+<pre><code class="language-javascript">gulp.task('styles', function() {  
+  return gulp.src('src/styles/main.scss')
+    .pipe(sass({ style: 'expanded' }))
+    .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
+    .pipe(gulp.dest('dist/assets/css'))
+    .pipe(rename({suffix: '.min'}))
+    .pipe(minifycss())
+    .pipe(gulp.dest('dist/assets/css'))
+    .pipe(notify({ message: '样式任务完成' }));
+});
+</code></pre>
+
+<blockquote>
+  <p>sass({ style: 'expanded' }：编译后保留原格式</p>
+</blockquote>
+
+<pre><code class="language-javascript">gulp.task('styles', function() { ... )};  
+</code></pre>
+
+<p><code>gulp.task</code>API是用来创建任务的。然后通过命令<code>gulp styles</code>运行这个任务。</p>
+
+<pre><code class="language-javascript">return gulp.src('src/styles/main.scss')  
+</code></pre>
+
+<p><code>gulp.src</code>API用来配置输入的源文件。也可以用模式匹配，如<code>/**/*.scss</code>匹配所有文件夹下面后缀为<code>.scss</code>的文件作为输入。通过返回流使得它是异步的，确保在提醒任务完成的时候任务是完成了的。</p>
+
+<pre><code class="language-javascript">.pipe(sass({ style: 'expanded' }))
+</code></pre>
+
+<p>通过<code>.pipe()</code>把源文件流入一个插件的管道中。然后我们可以去插件的官网看看这个插件的详细用法。</p>
+
+<pre><code class="language-javascript">.pipe(gulp.dest('dist/assets/css'));
+</code></pre>
+
+<p><code>gulp.dest</code>API是用来告知输出文件的路径的。一个任务可以有多个输出，如一个用来输出原来的版本（即源文件），一个输出处理后的版本（即输出文件）。你可以在上面的<code>styles</code>任务中看到。</p>
+
+<p>建议去看<a href="https://github.com/gulpjs/gulp/blob/master/docs/API.md">gulp api文档</a>，这样会更加清楚。</p>
+
+<p><strong>js语法检查、合并和压缩任务</strong></p>
+
+<pre><code class="language-javascript">gulp.task('scripts', function() {  
+  return gulp.src('src/scripts/**/*.js')
+    .pipe(jshint('.jshintrc'))
+    .pipe(jshint.reporter('default'))
+    .pipe(concat('main.js'))
+    .pipe(gulp.dest('dist/assets/js'))
+    .pipe(rename({suffix: '.min'}))
+    .pipe(uglify())
+    .pipe(gulp.dest('dist/assets/js'))
+    .pipe(notify({ message: 'Scripts task complete' }));
+});
+</code></pre>
+
+<p>这里用的<code>JSHin</code>t插件，我们使用了默认的<code>JSHint Reporter</code>，可能适用于大多数人，想了解更多可以去<a href="http://www.jshint.com/docs/reporters/">jshint官网</a>看</p>
+
+<p><strong>图片压缩任务</strong></p>
+
+<pre><code class="language-javascript">gulp.task('images', function() {  
+  return gulp.src('src/images/**/*')
+    .pipe(imagemin({ optimizationLevel: 3, progressive: true, interlaced: true }))
+    .pipe(gulp.dest('dist/assets/img'))
+    .pipe(notify({ message: 'Images task complete' }));
+});
+</code></pre>
+
+<p>这里我们只用了<code>imagemin</code>插件，但是可以做的更好，我们可以缓存修改过的图片，或者只对修改过的图片进行再次的压缩操作，因此我们可以使用<a href="https://github.com/jgable/gulp-cache">gulp-cahce</a>插件，因此我们需要将这行代码：</p>
+
+<pre><code class="language-javascript">.pipe(imagemin({ optimizationLevel: 3, progressive: true, interlaced: true }))
+</code></pre>
+
+<p>改成：レ`人</p>
+
+<p><pre><code class="language-javascript">gulp.task('styles', function() {  
+  return gulp.src('src/styles/main.scss')
+    .pipe(sass({ style: 'expanded' }))
+    .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
+    .pipe(gulp.dest('dist/assets/css'))
+    .pipe(rename({suffix: '.min'}))
+    .pipe(minifycss())
+    .pipe(gulp.dest('dist/assets/css'))
+    .pipe(notify({ message: '样式任务完成' }));
+});
+</code></pre></p>
+
+<p>此时，只有新的图片或者改变过的图片才会被压缩。</p>
+
+<p><strong>文件清理</strong></p>
+
+<p>在再次发布之前，我们最好把目标文件的文件先清理掉，然后重新构建：</p>
+
+<p><pre><code class="language-javascript">gulp.task('styles', function() { ... )};  
+</code></pre></p>
+
+<p><strong>默认任务</strong></p>
+
+<p>我们可以通过<code>$ gulp</code>启动默认任务，然后在默认任务中调用其他任务：</p>
+
+<p><code>gulp.task</code></p>
+
+<p>看到<code>gulp.task</code>里面的数组了吧？这里定义了任务的依赖，也就是说<code>default</code>任务依赖<code>clean</code>任务。在这个例子中，执行<code>gulp.start</code>之前会先运行<code>clean</code>任务。Gulp里面的任务同时进行，没有明确的顺序哪个先完成，所以我们要确保<code>clean</code>任务执行完之后再执行<code>gulp.start</code>里面的任务。</p>
+
+<blockquote>
+  <p>虽然不建议在执行依赖任务数组的时候使用<code>gulp.start</code>，但是在这里我们没有办法确保<code>clean</code>任务执行完毕后再执行其它任务，因此这里使用<code>gulp.start</code>貌似是最好的选择。</p>
+</blockquote>
+
+<p><strong>Watch任务</strong></p>
+
+<p>当文件发生变化的时候，我们可能需要重新执行任务，因此我们需要配置一个监听文件变化的任务：</p>
+
+<p><code>gulp styles</code></p>
+
+<p>我们通过<code>gulp.watch</code>API来监听文件的变化，然后执行相关的依赖任务。现在我们可以执行<code>$ gulp watch</code>命令来执行我们的<code>watch</code>任务，监听<code>.scss</code>、<code>.js</code>或者图片文件的变化执行相应的任务。</p>
+
+<p><strong>LiveReload任务</strong></p>
+
+<p>当我们代码修改的时候，Gulp也可以主动帮我们刷新页面，此时我们需要配置<code>LiveReload</code>服务，并修改我们的<code>watch</code>任务：</p>
+
+<p><pre><code class="language-javascript">return gulp.src('src/styles/main.scss')  
+</code></pre></p>
+
+<p>要让这个任务生效，我们还需要安装并开启浏览器LiveReload插件，我们也可以<a href="http://feedback.livereload.com/knowledgebase/articles/86180-how-do-i-add-the-script-tag-manually-">手动添加代码片段</a>。</p>
+
+<p><strong>整合这些任务</strong></p>
+
+<p>把上面的这些任务综合起来，就构成了一个完整的<code>gulpfile</code>:</p>
+
+<pre><code class="language-javascript">// gulpfile.js
+// Load plugins
+var gulp = require('gulp'),  
+    sass = require('gulp-ruby-sass'),
+    autoprefixer = require('gulp-autoprefixer'),
+    minifycss = require('gulp-minify-css'),
+    jshint = require('gulp-jshint'),
+    uglify = require('gulp-uglify'),
+    imagemin = require('gulp-imagemin'),
+    rename = require('gulp-rename'),
+    concat = require('gulp-concat'),
+    notify = require('gulp-notify'),
+    cache = require('gulp-cache'),
+    livereload = require('gulp-livereload'),
+    del = require('del');
+
+// Styles
+gulp.task('styles', function() {  
+  return gulp.src('src/styles/main.scss')
+    .pipe(sass({ style: 'expanded', }))
+    .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
+    .pipe(gulp.dest('dist/styles'))
+    .pipe(rename({ suffix: '.min' }))
+    .pipe(minifycss())
+    .pipe(gulp.dest('dist/styles'))
+    .pipe(notify({ message: 'Styles task complete' }));
+});
+
+// Scripts
+gulp.task('scripts', function() {  
+  return gulp.src('src/scripts/**/*.js')
+    .pipe(jshint('.jshintrc'))
+    .pipe(jshint.reporter('default'))
+    .pipe(concat('main.js'))
+    .pipe(gulp.dest('dist/scripts'))
+    .pipe(rename({ suffix: '.min' }))
+    .pipe(uglify())
+    .pipe(gulp.dest('dist/scripts'))
+    .pipe(notify({ message: 'Scripts task complete' }));
+});
+
+// Images
+gulp.task('images', function() {  
+  return gulp.src('src/images/**/*')
+    .pipe(cache(imagemin({ optimizationLevel: 3, progressive: true, interlaced: true })))
+    .pipe(gulp.dest('dist/images'))
+    .pipe(notify({ message: 'Images task complete' }));
+});
+
+// Clean
+gulp.task('clean', function(cb) {  
+    del(['dist/assets/css', 'dist/assets/js', 'dist/assets/img'], cb)
+});
+
+// Default task
+gulp.task('default', ['clean'], function() {  
+    gulp.start('styles', 'scripts', 'images');
+});
+
+// Watch
+gulp.task('watch', function() {
+
+  // Watch .scss files
+  gulp.watch('src/styles/**/*.scss', ['styles']);
+
+  // Watch .js files
+  gulp.watch('src/scripts/**/*.js', ['scripts']);
+
+  // Watch image files
+  gulp.watch('src/images/**/*', ['images']);
+
+  // Create LiveReload server
+  livereload.listen();
+
+  // Watch any files in dist/, reload on change
+  gulp.watch(['dist/**']).on('change', livereload.changed);
+
+});
+</code></pre>
+
+<p>如有任何问题，可以在下面评论。:)</p>]]></content:encoded></item><item><title><![CDATA[BrowserSync自动刷新,释放你的F5.]]></title><description><![CDATA[想象一下这个场景：你开着两个显示器，一边是写代码，另一边是浏览器里的你正在开发的Web。此时桌上还放着你的手机，手机里也是这个开发中的应用。然后，你新写了一小段代码，按下了<code>Ctrl+S</code>保存。紧接着，你的手机和另一个显示器里的应用，就变成了更新后的效果。你可以马上检查效果是否和你预想的一致，甚至都不需要动一下鼠标。
+<!-- more -->  
+
+<p>想起来还不错？嗯，这只是简单地省略掉那个开发过程中会按好多遍的F5刷新。</p>
+
+<p>LiveReload有所不足的地方是，需要搭配浏览器插件。但是，插件是取决于浏览器的，Chrome和Firefox都有可用插件，但IE和手机上的浏览器，就不能这样了，这时候只能手工向页面里添加一段<code>&lt;script&gt;</code>代码，而且还要记得结束后再手工移除。</p>
+
+<p>BrowserSync的用法则不需要浏览器插件，也不用手工添加代码。一句控制台的命令之后，无论是在手机里还是电脑，无论用多少个浏览器，都可以拥有自动刷新的功能。</p>
+
+<p><img src="http://i1.piimg.com/567571/c60e6937130d255d.jpg" alt=""></p>
+
+<h1 id="browsersync">BrowserSync安装和使用</h1>
+
+<ul>
+<li>1.下载并安装Node.js：</li>
+</ul>
+
+<p><a href="https://nodejs.org/en/download">https://nodejs.org/en/download</a></p>
+
+<ul>
+<li>2.通过npm安装BrowserSync：</li></ul>]]></description><link>http://localhost:2368/browsersync-no-f5/</link><guid isPermaLink="false">fd3cd88b-2e2f-4018-9f80-639ee31d0c11</guid><dc:creator><![CDATA[江矿宝宝.]]></dc:creator><pubDate>Tue, 04 Oct 2016 04:04:00 GMT</pubDate><content:encoded><![CDATA[想象一下这个场景：你开着两个显示器，一边是写代码，另一边是浏览器里的你正在开发的Web。此时桌上还放着你的手机，手机里也是这个开发中的应用。然后，你新写了一小段代码，按下了<code>Ctrl+S</code>保存。紧接着，你的手机和另一个显示器里的应用，就变成了更新后的效果。你可以马上检查效果是否和你预想的一致，甚至都不需要动一下鼠标。
+<!-- more -->  
+
+<p>想起来还不错？嗯，这只是简单地省略掉那个开发过程中会按好多遍的F5刷新。</p>
+
+<p>LiveReload有所不足的地方是，需要搭配浏览器插件。但是，插件是取决于浏览器的，Chrome和Firefox都有可用插件，但IE和手机上的浏览器，就不能这样了，这时候只能手工向页面里添加一段<code>&lt;script&gt;</code>代码，而且还要记得结束后再手工移除。</p>
+
+<p>BrowserSync的用法则不需要浏览器插件，也不用手工添加代码。一句控制台的命令之后，无论是在手机里还是电脑，无论用多少个浏览器，都可以拥有自动刷新的功能。</p>
+
+<p><img src="http://i1.piimg.com/567571/c60e6937130d255d.jpg" alt=""></p>
+
+<h1 id="browsersync">BrowserSync安装和使用</h1>
+
+<ul>
+<li>1.下载并安装Node.js：</li>
+</ul>
+
+<p><a href="https://nodejs.org/en/download">https://nodejs.org/en/download</a></p>
+
+<ul>
+<li>2.通过npm安装BrowserSync：</li>
+</ul>
+
+<p><code>npm install -g browser-sync</code></p>
+
+<ul>
+<li>3.安装后，就可以开始使用了。打开控制台进入项目所在的目录，然后输入命令(此命令用于纯静态站点)：
+--files 路径是相对于运行该命令的项目（目录）</li>
+</ul>
+
+<p><code>browser-sync start --server --files "*.css, *.html"</code></p>
+
+<p>后面的*.css, *.html，是指监听目录中的后缀名为.css和.html的文件。</p>
+
+<h2 id="">如果你的文件层级比较深，您可以考虑使用 **（任意目录匹配），来监听目录下的任意文件。</h2>
+
+<p><code>browser-sync start --server --files "**"</code></p>
+
+<h2 id="phphttplocalhost8080">如果是动态站点，则使用代理模式。例如PHP站点，已经建立了一个本地服务器如<code>http://localhost:8080</code></h2>
+
+<p>此时会是这样的命令：</p>
+
+<p><code>browser-sync start --proxy "localhost:8080" --files "*.css"</code></p>
+
+<p>BrowserSync会提供一个新地址（如未被占用的话，<code>http://localhost:3000</code>）用于访问。</p>
+
+<p>好了，为什么BrowserSync不需要浏览器插件？因为它使用了服务器的形式（直接或代理）来处理项目文件。默认情况下，访问它的服务器上的网页，可以看到这样的提示签：</p>
+
+<p><img src="http://i1.piimg.com/567571/48b052b246d65304.png" alt=""></p>
+
+<p>这说明当前浏览的网页已连接到BrowserSync。查看一下源码，会发现它们都被添加了与BrowserSync有关的一段<code>&lt;script&gt;</code>代码，就像LiveReload浏览器插件做的那样。这些代码会在浏览器和BrowserSync的服务器之间建立web socket连接，一旦有监听的文件发生变化，BrowserSync会通知浏览器。
+如果监听的文件是CSS，BrowserSync不会刷新整页，而是直接重新请求这个css文件，并更新到当前页中，如图：</p>
+
+<p><img src="http://i1.piimg.com/567571/a193de06ae37289b.gif" alt=""></p>]]></content:encoded></item><item><title><![CDATA[RequireJS入门(二)]]></title><description><![CDATA[<p>上一篇是把整个jQuery库作为一个模块。这篇来写一个自己的模块：选择器。
+为演示方便这里仅实现常用的三种选择器id，className，attribute。RequireJS使用define来定义模块。</p>
+
+<p>新建目录结构如下</p>
+
+<p><img src="http://pic002.cnblogs.com/images/2012/114013/2012052309380326.png" alt=""></p>
+
+<p>这次新建了一个子目录js，把main.js和selctor.js放入其中，require.js仍然和index.html在同一级目录。</p>
+
+<h2 id="html">HTML 如下</h2>
+
+<pre><code class="language-html">&lt;!doctype html&gt;  
+&lt;html&gt;  
+    &lt;head&gt;
+        &lt;title&gt;requirejs入门（二）&lt;/title&gt;
+        &lt;meta charset="utf-8"&gt;
+        &lt;style type="text/css"&gt;
+            .wrapper {
+                width: 200px;
+                height:</code></pre>]]></description><link>http://localhost:2368/requirejs-2/</link><guid isPermaLink="false">3780c6fe-48a9-4f66-b69a-1f3b2f0622b1</guid><dc:creator><![CDATA[江矿宝宝.]]></dc:creator><pubDate>Tue, 04 Oct 2016 02:54:00 GMT</pubDate><content:encoded><![CDATA[<p>上一篇是把整个jQuery库作为一个模块。这篇来写一个自己的模块：选择器。
+为演示方便这里仅实现常用的三种选择器id，className，attribute。RequireJS使用define来定义模块。</p>
+
+<p>新建目录结构如下</p>
+
+<p><img src="http://pic002.cnblogs.com/images/2012/114013/2012052309380326.png" alt=""></p>
+
+<p>这次新建了一个子目录js，把main.js和selctor.js放入其中，require.js仍然和index.html在同一级目录。</p>
+
+<h2 id="html">HTML 如下</h2>
+
+<pre><code class="language-html">&lt;!doctype html&gt;  
+&lt;html&gt;  
+    &lt;head&gt;
+        &lt;title&gt;requirejs入门（二）&lt;/title&gt;
+        &lt;meta charset="utf-8"&gt;
+        &lt;style type="text/css"&gt;
+            .wrapper {
+                width: 200px;
+                height: 200px;
+                background: gray;
+            }
+        &lt;/style&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div class="wrapper"&gt;&lt;/div&gt;
+        &lt;script data-main="js/main" src="require.js"&gt;&lt;/script&gt;
+    &lt;/body&gt;
+&lt;/html&gt;  
+</code></pre>
+
+<p>这次把script标签放到了div的后面，因为要用选择器去获取页面dom元素，而这要等到dom ready后。</p>
+
+<p>因为把main.js放到js目录中，这里data-main的值须改为“js/main”。</p>
+
+<h2 id="selectorjs">selector.js 如下</h2>
+
+<pre><code class="language-js">define(function() {
+
+    function query(selector,context) {
+        var s = selector,
+            doc = document,
+            regId = /^#[\w\-]+/,
+            regCls = /^([\w\-]+)?\.([\w\-]+)/,
+            regTag = /^([\w\*]+)$/,
+            regNodeAttr = /^([\w\-]+)?\[([\w]+)(=(\w+))?\]/;
+
+        var context =
+                context == undefined ?
+                document :
+                typeof context == 'string' ?
+                doc.getElementById(context.substr(1,context.length)) :
+                context;
+
+        if(regId.test(s)) {
+            return doc.getElementById(s.substr(1,s.length));
+        }
+    }
+
+    return query;
+});
+</code></pre>
+
+<p>define的参数为一个匿名函数，该匿名函数执行后返回query，query为函数类型。query就是选择器的实现函数。</p>
+
+<h2 id="mainjs">main.js 如下</h2>
+
+<pre><code class="language-js">require.config({  
+    baseUrl: 'js'
+});
+
+require(['selector'], function(query) {  
+    var els = query('.wrapper');
+    console.log(els)
+});
+</code></pre>
+
+<p>require.config方法执行配置了baseUrl为“js”，baseUrl指的模块文件的根目录，可以是绝对路径或相对路径。这里用的是相对路径。相对路径指引入require.js的页面为参考点，这里是index.html。</p>
+
+<p>把目录r2放到apache或其它web服务器上，访问index.html。</p>
+
+<h2 id="">网络请求如下</h2>
+
+<p><img src="http://pic002.cnblogs.com/images/2012/114013/2012052309381828.png" alt=""></p>
+
+<p>main.js和selector.js都请求下来了。</p>
+
+<p>selector.js下载后使用query获取页面class为“.wrapper”的元素，控制台输出了该元素。如下</p>
+
+<p><img src="http://pic002.cnblogs.com/images/2012/114013/2012052309390448.png" alt=""></p>
+
+<h2 id="">总结</h2>
+
+<ul>
+<li>使用baseUrl来配置模块根目录，baseUrl可以是绝对路径也可以是相对路径</li>
+<li>使用define定义一个函数类型模块，RequireJS的模块可以是JS对象，函数或其它任何类型（CommonJS/SeaJS则只能是JS对象）</li>
+</ul>]]></content:encoded></item><item><title><![CDATA[Node.js(3) 模块]]></title><description><![CDATA[<p>当我们制作一个模块时，我们可能会写一个构造函数（因为在浏览器写构造函数时我们经常会这么做）。</p>
+
+<p>如代码：</p>
+
+<pre><code class="language-js">function sayHello() {  
+    this.say = function () {  
+        console.log('hello');  
+    }  
+}  
+exports.Hello = sayHello;  
+</code></pre>
+
+<p>在这里，我们有一个构造函数sayHello，函数里有一个方法say，输出hello。
+然后导出的是sayHello这个构造函数。我们在另外一个文件中调用它。
+代码这么写：</p>
+
+<pre><code class="language-js">var hello = require('./test').Hello;    //调用刚才写的那个模块  
+var m = new hello();  
+m.say();  
+</code></pre>
+
+<p>第一行表示我们调用刚才写的那个模块。
+注意，这个时候和之前不同（之前是直接require模块即可），这里需要添加一个Hello。原因在于require表示导入的是一个整体（即有多个exports导出的方法），这里我们只需要其中的Hello方法（即对应原模块中的sayHello这个构造函数）；</p>
+
+<p>当然，也可以写为require('./test')，在下面的代码，把hello改为hello.</p>]]></description><link>http://localhost:2368/nodejs-3/</link><guid isPermaLink="false">fd415422-b9c7-4e66-803c-897d8f28f560</guid><dc:creator><![CDATA[江矿宝宝.]]></dc:creator><pubDate>Mon, 03 Oct 2016 08:59:00 GMT</pubDate><content:encoded><![CDATA[<p>当我们制作一个模块时，我们可能会写一个构造函数（因为在浏览器写构造函数时我们经常会这么做）。</p>
+
+<p>如代码：</p>
+
+<pre><code class="language-js">function sayHello() {  
+    this.say = function () {  
+        console.log('hello');  
+    }  
+}  
+exports.Hello = sayHello;  
+</code></pre>
+
+<p>在这里，我们有一个构造函数sayHello，函数里有一个方法say，输出hello。
+然后导出的是sayHello这个构造函数。我们在另外一个文件中调用它。
+代码这么写：</p>
+
+<pre><code class="language-js">var hello = require('./test').Hello;    //调用刚才写的那个模块  
+var m = new hello();  
+m.say();  
+</code></pre>
+
+<p>第一行表示我们调用刚才写的那个模块。
+注意，这个时候和之前不同（之前是直接require模块即可），这里需要添加一个Hello。原因在于require表示导入的是一个整体（即有多个exports导出的方法），这里我们只需要其中的Hello方法（即对应原模块中的sayHello这个构造函数）；</p>
+
+<p>当然，也可以写为require('./test')，在下面的代码，把hello改为hello.Hello即可。</p>
+
+<p>第二行代码表示生成一个这个构造函数的实例（还记得js里如何调用构造函数么？构造函数是不能直接调用其方法的）；</p>
+
+<p>第三行代码表示调用这个实例的say方法（即模块中的this.say=的那个函数）；</p>
+
+<p>这个流程是：
+请求模块<mark>>生成函数的实例</mark>>调用函数的方法</p>
+
+<p>我们也可以在导出的时候，用另一种方法：</p>
+
+<pre><code class="language-js">module.exports = sayHello;  
+</code></pre>
+
+<p>然后调用这个模块</p>
+
+<pre><code class="language-js">var hello = require('./test');    //调用刚才导入的那个文件  
+m = new hello();  
+m.say();  
+</code></pre>
+
+<p>这个时候hello就是这个函数，然后生成一个实例，调用其方法。</p>
+
+<p>但我觉得有个潜在问题，这个模块里只能有这一个函数（不是很确定）。我验证结果如下：
+修改之前的模块：</p>
+
+<pre><code class="language-js">function sayHello() {  
+    this.say = function () {  
+        console.log('hello');  
+    }  
+}  
+function say() {  
+    console.log("say");  
+}  
+module.exports = sayHello;  
+exports.say = say;  
+</code></pre>
+
+<p>调用其的模块：</p>
+
+<pre><code class="language-js">var hello = require('./test');    //调用刚才导入的那个文件  
+console.log(hello.say)  
+</code></pre>
+
+<p>显示是undefined，而正常情况下（删除module.exports = sayHello;这一行）应该显示：
+<img src="http://img.blog.csdn.net/20160612154252163" alt="">
+经过查询，这种用法的作用在于，假如我们只想将一个对象封装到模块中，就这么用。</p>
+
+<p>另外，不可以直接对exports进行赋值以替代（module.exports这种用法）。
+按照说明，这个变量会在模块执行结束后被释放，但module.exports不会。</p>]]></content:encoded></item><item><title><![CDATA[RequireJS入门(一)]]></title><description><![CDATA[<p>RequireJS会让你以不同于往常的方式去写JavaScript。你将不再使用script标签在HTML中引入JS文件，以及不用通过script标签顺序去管理依赖关系。 <br>
+当然也不会有阻塞（blocking）的情况发生。好，以一个简单示例开始。</p>
+
+<p>新建一个目录，结构如下
+<img src="http://pic002.cnblogs.com/images/2012/114013/2012052217445846.png" alt=""></p>
+
+<p>目录r1下有index.html、jquery-1.7.2.js、main.js、require.js。require.js和jquery-1.7.2.js去各自官网下载即可。</p>
+
+<h2 id="indexhtml">index.html如下</h2>
+
+<pre><code class="language-html">&lt;!doctype html&gt;  
+&lt;html&gt;  
+    &lt;head&gt;
+        &lt;title&gt;requirejs入门（一）&lt;/title&gt;
+        &lt;meta charset="utf-8"&gt;</code></pre>]]></description><link>http://localhost:2368/requirejs-1/</link><guid isPermaLink="false">4a74d902-81cd-455f-9d7f-4ad0036ff32b</guid><dc:creator><![CDATA[江矿宝宝.]]></dc:creator><pubDate>Mon, 03 Oct 2016 07:54:00 GMT</pubDate><content:encoded><![CDATA[<p>RequireJS会让你以不同于往常的方式去写JavaScript。你将不再使用script标签在HTML中引入JS文件，以及不用通过script标签顺序去管理依赖关系。 <br>
+当然也不会有阻塞（blocking）的情况发生。好，以一个简单示例开始。</p>
+
+<p>新建一个目录，结构如下
+<img src="http://pic002.cnblogs.com/images/2012/114013/2012052217445846.png" alt=""></p>
+
+<p>目录r1下有index.html、jquery-1.7.2.js、main.js、require.js。require.js和jquery-1.7.2.js去各自官网下载即可。</p>
+
+<h2 id="indexhtml">index.html如下</h2>
+
+<pre><code class="language-html">&lt;!doctype html&gt;  
+&lt;html&gt;  
+    &lt;head&gt;
+        &lt;title&gt;requirejs入门（一）&lt;/title&gt;
+        &lt;meta charset="utf-8"&gt;
+        &lt;script data-main="main" src="require.js"&gt;&lt;/script&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+
+    &lt;/body&gt;
+&lt;/html&gt;  
+</code></pre>
+
+<p>使用requirejs很简单，只需要在head中通过script标签引入它（实际上除了require.js，其它文件模块都不再使用script标签引入）。
+细心的同学会发现script标签上了多了一个自定义属性：data-main="main"，等号右边的main指的main.js。当然可以使用任意的名称。这个main指主模块或入口模块，好比c或java的主函数main。</p>
+
+<h2 id="mainjs">main.js如下</h2>
+
+<pre><code class="language-js">require.config({  
+    paths: {
+        jquery: 'jquery-1.7.2'
+    }
+});
+
+require(['jquery'], function($) {  
+    alert($().jquery);
+});
+</code></pre>
+
+<p>main.js中就两个函数调用require.config和require。</p>
+
+<p>require.config用来配置一些参数，它将影响到requirejs库的一些行为。</p>
+
+<p>require.config的参数是一个JS对象，常用的配置有baseUrl，paths等。</p>
+
+<p>这里配置了paths参数，使用模块名“jquery”，其实际文件路径jquery-1.7.2.js（后缀.js可以省略）。</p>
+
+<p>我们知道jQuery从1.7后开始支持AMD规范，即如果jQuery作为一个AMD模块运行时，它的模块名是“jquery”。注意“jquery”是固定的，不能写“jQuery”或其它。</p>
+
+<p>注：如果文件名“jquery-1.7.2.js”改为“jquery.js”就不必配置paths参数了。</p>
+
+<h2 id="jqueryamd">jQuery中的支持AMD代码如下</h2>
+
+<pre><code class="language-js">if ( typeof define === "function" &amp;&amp; define.amd &amp;&amp; define.amd.jQuery ) {  
+    define( "jquery", [], function () { return jQuery; } );
+}
+</code></pre>
+
+<p>我们知道jQuery最终向外暴露的是全局的jQuery和 $。如下</p>
+
+<pre><code class="language-js">// Expose jQuery to the global object
+window.jQuery = window.$ = jQuery;  
+</code></pre>
+
+<p>如果将jQuery应用在模块化开发时，其实可以不使用全局的，即可以不暴露出来。需要用到jQuery时使用require函数即可，</p>
+
+<p>这里require函数的第一个参数是数组，数组中存放的是模块名（字符串类型），数组中的模块与回调函数的参数一一对应。这里的例子则只有一个模块“jquery”。</p>
+
+<p>把目录r1放到apache或其它web服务器上，访问index.html。</p>
+
+<h2 id="">网络请求如下</h2>
+
+<p><img src="http://pic002.cnblogs.com/images/2012/114013/2012052217462496.png" alt=""></p>
+
+<p>我们看到除了require.js外main.js和jquery-1.7.2.js也请求下来了。而它们正是通过requirejs请求的。</p>]]></content:encoded></item><item><title><![CDATA[Node.js(1) 封装,调用,执行,访问路径,http,函数编程,等待函数,事件监听]]></title><description><![CDATA[<h3 id="1">1.如何封装一个模块；</h3>
+
+首先，我们建立一个js文件，例如命名为test.js；
+然后在里面写一个函数，函数名任意；
+然后通过exports.变量名，将函数赋值给这个变量；
+如代码：
+<!-- more -->  
+
+<pre><code class="language-js">function test(){    //请注意这个函数名  
+    console.log("1");
+}
+exports.testBegin= test;   //等号后面的test，指的是上面的函数名。等号前面的testBegin，是调用时的函数名（注意区别）  
+</code></pre>
+
+<p>这个test.js的文件就写完了，这是一个模块，他的效果是调用该函数后，输出1；
+另外，不要问我这个exports是什么，我暂时也不知道。</p>
+
+<h2 id="2">2.如何调用一个模块</h2>
+
+<p>在封装模块的前提下，我们新建一个文件，例如a.js，来调用之前封装的test.js模块；
+方法是：</p>
+
+<pre><code class="language-js">var test = require("./test");   //调用该模块  
+test.testBegin(</code></pre>]]></description><link>http://localhost:2368/nodejs-1/</link><guid isPermaLink="false">6b162fc0-d956-497e-801f-94f1f23e0b46</guid><dc:creator><![CDATA[江矿宝宝.]]></dc:creator><pubDate>Sat, 01 Oct 2016 07:53:00 GMT</pubDate><content:encoded><![CDATA[<h3 id="1">1.如何封装一个模块；</h3>
+
+首先，我们建立一个js文件，例如命名为test.js；
+然后在里面写一个函数，函数名任意；
+然后通过exports.变量名，将函数赋值给这个变量；
+如代码：
+<!-- more -->  
+
+<pre><code class="language-js">function test(){    //请注意这个函数名  
+    console.log("1");
+}
+exports.testBegin= test;   //等号后面的test，指的是上面的函数名。等号前面的testBegin，是调用时的函数名（注意区别）  
+</code></pre>
+
+<p>这个test.js的文件就写完了，这是一个模块，他的效果是调用该函数后，输出1；
+另外，不要问我这个exports是什么，我暂时也不知道。</p>
+
+<h2 id="2">2.如何调用一个模块</h2>
+
+<p>在封装模块的前提下，我们新建一个文件，例如a.js，来调用之前封装的test.js模块；
+方法是：</p>
+
+<pre><code class="language-js">var test = require("./test");   //调用该模块  
+test.testBegin();   //调用该模块的方法（注意方法名是test.js中exports后面的变量名）；  
+</code></pre>
+
+<p>注意调用时的方法名，并非是test.js中的函数名test；</p>
+
+<h3 id="3nodejs">3.如何执行一个Node.js的文件</h3>
+
+<p>我们现在需要执行a.js这个调用了封装模块的文件了，执行他的方法，和执行普通的node.js的文件的方法并没有什么不同；
+在a.js这个文件的目录下，打开命令行。windows是shift＋鼠标右键；
+像下面这样输入即可：
+然后将输出1，感觉执行执行Python文件那样</p>
+
+<h3 id="4">4.获得访问者想要访问的路径</h3>
+
+<p><img src="http://img.blog.csdn.net/20160602214711294" alt="">
+首先上图，其中pathname指的是路径；而query指的是请求之类的东西（暂时不关心）；
+假如我们想要获得pathname（即字符串“start”），我们该怎么办呢？
+方法：
+* ①首先，需要获取访问者需要访问的路径，方法是通过http的方法createServer
+具体来说：
+我们先require一个http模块：</p>
+
+<pre><code class="language-js">var http = require("http");  
+</code></pre>
+
+<p>然后调用其方法，创建一个服务器：</p>
+
+<pre><code class="language-js">http.createServer(onRequest).listen(8888);  
+</code></pre>
+
+<p>注意，这个方法监听的是8888端口，其参数是一个函数；</p>
+
+<p>然后我们书写这个函数的内容：</p>
+
+<pre><code class="language-js">function onRequest(request, response) {  
+    console.log(request.url);
+}
+</code></pre>
+
+<p>这个函数的第一个参数request是用户访问的一些东西，我们需要的是其url变量；假设我们访问地址是这样的：
+<code>http://127.0.0.1:8888/index/loading?start</code>
+请注意红色部分，那么服务器在console.log输出的是</p>
+
+<pre><code>/index/loading?start
+</code></pre>
+
+<ul>
+<li>②我们下来要对这个url做点什么了；
+虽然直接对上面那个参数进行操纵也可以，但这太笨了，让我们来require一个新的模块url</li>
+</ul>
+
+<pre><code class="language-js">var url = require("url");  
+</code></pre>
+
+<ul>
+<li>③调用这个新模块的方法parse，将第一步获得的url地址，作为其参数，再调用其方法pathname，就可以获得我们想要的东西了；
+具体而言，需要这么一段代码：</li>
+</ul>
+
+<pre><code class="language-js">var pathname = url.parse(request.url).pathname;  
+</code></pre>
+
+<p>这个pathname就是我们需要的东西了；</p>
+
+<p>把所有代码综合起来，是这样的：</p>
+
+<pre><code class="language-js">var http = require("http");  
+var url = require("url");  
+function onRequest(request, response) {  
+    var pathname = url.parse(request.url).pathname;
+    console.log("Request for " + pathname + " recived.");
+    response.writeHead(200, {"Content-type": "text/plain"});
+    response.write("Hello word!");
+    response.end();
+}
+http.createServer(onRequest).listen(8888);  
+console.log("Server has started!");  
+</code></pre>
+
+<p>然后运行之：</p>
+
+<p>我们随便访问一个本地的地址：
+<code>http://127.0.0.1:8888/index/loading?start</code></p>
+
+<p>发现，/index/loding这部分被正常的显示出来了。
+另外，favicon.ico是该网站的图标，据说很多服务器是会默认读取的；</p>
+
+<p>假如我们直接访问：<code>http://127.0.0.1:8888</code>，显示是这样的
+<img src="http://img.blog.csdn.net/20160602214745169" alt=""></p>
+
+<h3 id="5http">5.关于http</h3>
+
+<p>我们之前有了这么一段代码（已delete掉无关部分）：</p>
+
+<pre><code class="language-js">var http = require("http");  
+function onRequest(request, response) {  
+    response.writeHead(200, {"Content-type": "text/plain"});
+    response.write("Hello word!");
+    response.end();
+}
+http.createServer(onRequest).listen(8888);  
+</code></pre>
+
+<p>其中，http调用了NodeJs自带的一个模块“http”，而这个模块是一个服务器模块；
+而createServer是这个模块的方法，效果是返回一个对象，而这个对象有一个listen的方法；
+当然，由于你和我，也许都是新手，因此我们尚没有搞清楚这个到底是怎么运作的；但如果有一定经验的话，可以猜到，这个listen是监听，监听的是8888端口；如果去掉这部分会怎么样？经过测试，服务器并没有运行，如图：</p>
+
+<p>而onRequest函数呢，从名字可以猜到，这个函数的效果是“当请求的时候做些什么”，我们来看其函数：</p>
+
+<pre><code class="language-js">function onRequest(request, response) {  
+    response.writeHead(200);
+    response.write("Hello word!");
+    response.end();
+}
+</code></pre>
+
+<p>这个函数有两个参数：request和response，顾名思义，请求和响应。
+request请求指用户访问的时候，相关的信息； <br>
+response指服务器的响应，会做些什么；这个函数的三个方法，都是response相关的；</p>
+
+<ul>
+<li><p>第一个：response.writeHead方法，具体来说，就是HTTP响应报文的头行；
+这个指HTTP通信的响应报文中的头部分，如果没有基础的话，暂时不需要关心，写200即可，这里的200，是约定俗称的请求成功时的返回；
+具体搜：
+<code>response.writeHead(statusCode,[reasonPhrase], [headers])</code></p></li>
+<li><p>第二个：response.write方法，具体来说，是HTTP响应报文；
+简单理解，负责发送正文中的一部分，可以同时发送多个不一样的；
+在上面搜：
+<code>response.write(chunk,encoding='utf8')</code></p></li>
+<li><p>第三个：response.end方法，具体来说每一个响应的结束，必须要调用这个方法，然后服务器会认为这条信息已经发送完毕了。</p></li>
+</ul>
+
+<p>综合效果来说，当我们访问：<code>http://127.0.0.1:8888/</code>时，浏览器会出现：
+<code>Hello world!</code></p>
+
+<h3 id="6">6.函数式编程</h3>
+
+<p>所谓函数式编程，简单的理解，就是将函数作为参数传递；
+目前有四个文件：
+<code>index.js</code></p>
+
+<pre><code class="language-js">var server = require("./server");   //调用该模块  
+var router = require("./router");  
+var requestHandlers = require("./requestHandlers");
+
+var handle = {};  
+handle["/"] = requestHandlers.start;  
+handle["/start"] = requestHandlers.start;  
+handle["/upload"] = requestHandlers.upload;
+
+server.start(router.route, handle);   //调用该模块的方法（注意方法名是test.js中exports后面的变量名）  
+</code></pre>
+
+<p><code>server.js</code></p>
+
+<pre><code class="language-js">var http = require("http");  
+var url = require("url");  
+function start(route, handle) {  
+    var count = 0;
+
+    function onRequest(request, response) {
+        console.log(count++ + "#:");
+        var pathname = url.parse(request.url).pathname;
+        console.log("Request for " + pathname + " recived.");
+
+        route(handle, pathname);    //来源于上面的start的参数
+
+        response.writeHead(200);
+        response.write("Hello word!");
+        response.end();
+    }
+
+    http.createServer(onRequest).listen(8888);
+    console.log("Server has started!");
+}
+exports.start = start;  
+</code></pre>
+
+<p><code>router.js</code></p>
+
+<pre><code class="language-js">function route(handle, pathname) {  
+    console.log("About to route a request for " + pathname);
+    if (typeof handle[pathname] === 'function') {
+        handle[pathname]();
+    } else {
+        console.log("No request handler found for " + pathname);
+    }
+}
+
+exports.route = route;  
+</code></pre>
+
+<p><code>requestHandler.js</code></p>
+
+<pre><code class="language-js">function start() {  
+    console.log("Request handler 'start' was called");
+}
+
+function upload() {  
+    console.log("Request handler 'upload' was called");
+}
+
+exports.start = start;  
+exports.upload = upload;  
+</code></pre>
+
+<p>分析：
+* ①首先看index.js，他调用了3个模块，然后声明了一个空的对象，然后给这个对象声明了几个不同的变量（准确的说是函数变量），他们分别对应requestHandlers这个模块的不同函数；</p>
+
+<p>调用server这个模块的start方法，传两个参数，分别是router模块的route方法和对象handle（包含3个函数变量）；</p>
+
+<ul>
+<li>②由于调用了server模块的start方法，因此我们来看server模块；
+在server模块中，调用了两个模块，分别是http和url，这两个都是NodeJs自带的，具体里面的内容就不一一分析了（前面已经说明过了）。</li>
+</ul>
+
+<p>在servre模块的start函数（也是index.js调用的方法），有两个参数，第一个参数是route函数（来源于router模块），第二个参数是一个对象（来源于index.js）。</p>
+
+<p>而在start函数中，调用了其第一个参数（route函数），由于这个参数是函数，因此运行它，给其两个参数，分别是handle（来源于index.js的对象）和pathname（来源于当前模块，是用户请求的路径）；</p>
+
+<p>因此接下来我们看router模块的route函数，记得，这个函数传递了一个对象和一个路径；</p>
+
+<ul>
+<li>③在router模块中，传递了两个参数，并进行了一次判断；
+判断的逻辑是这样的，第一个参数（是一个对象），其加上下标后的值，如果是类型是函数，那么执行这个函数；如果不是函数，提示没找到该句柄；</li>
+</ul>
+
+<p>请注意，为什么说这个对象加上下标是函数呢，原因在于index中声明的这个对象，而这个对象的三个带下标的变量都是函数；</p>
+
+<p>而这三个被执行函数来源于哪呢？来源于index里加载的模块requestHandlers，那么最后让我们来看看这个模块；</p>
+
+<ul>
+<li>④在这个模块里，只有两个函数，分别是start和upload；
+这两个函数输出不同的内容（一个关键字是start，另一个关键字是upload）；
+请回想之前的下标，下标分为三个，分别是空（/），start下标（/start），和upload下标（/upload），因此当用户访问根目录、start目录、和upload目录时，调用对应的方法，而若访问其他目录（包括start目录的子目录等时，提示错误——来源于router模块）；
+<img src="http://img.blog.csdn.net/20160602214830419" alt="">
+现在回顾这种模式是怎么实现的：
+<img src="http://img.blog.csdn.net/20160602214835576" alt=""></li>
+</ul>
+
+<h3 id="7">7.等待函数</h3>
+
+<pre><code class="language-js">function sleep(milliSeconds) {  
+    var startTime = new Date().getTime();
+    while (new Date() &lt; startTime + milliSeconds);  //等待参数的时间
+}
+</code></pre>
+
+<p>传的参数是毫秒，在这个时间前，无法执行下一句代码，类似C++的Sleep()函数</p>
+
+<h3 id="8">8.返回的两种格式</h3>
+
+<pre><code class="language-js">response.writeHead(200, {"Content-Type": "text/html"});  
+response.write(content);  
+response.end();  
+</code></pre>
+
+<p>其中，writeHead里面的第二个参数，有多种格式，分别是：
+application/xml 、 text/xml、text/html、text/plain <br>
+经查：
+text/html是html格式的正文 <br>
+text/plain是无格式正文 <br>
+text/xml忽略xml头所指定编码格式而默认采用us-ascii编码 <br>
+application/xml会根据xml头指定的编码格式来编码： <br>
+简单来说，html就是返回一个html，plain就是无格式的，写什么就是什么，xml就是一个xml文件；</p>
+
+<h3 id="9">9.关于事件监听</h3>
+
+<p>之前说到有</p>
+
+<pre><code class="language-js">function onRequest(request, response)  
+</code></pre>
+
+<p>这样一个回调函数，其中request是请求，response是回应；
+根据推测，每次request的，都会触发至少一个data，一个end事件，因此应该监听这两个事件。（并且只有接受到data之后，才会接收到end事件）；
+我们之前是不监听的，只要有请求，就直接执行某个函数，而监听表示只有这些事件触发后，我们才会执行某一段代码。
+因此我们这么写：</p>
+
+<pre><code class="language-js">var postData = "";  
+request.setEncoding("utf8");  
+request.addListener("data", function (postDataChunk) {      //data事件  
+    postData += postDataChunk;
+    console.log("Received POST data chunk " + postDataChunk + ".");
+    console.log("————————");
+})
+request.addListener("end", function () {  
+    route(handle, pathname, response, postData);
+})
+</code></pre>
+
+<p>表示监听的编码类型为UTF8，监听data事件，把内容加起来，监听end事件，把加起来的内容发送出去。
+直到end事件触发时，才会执行之前写的route函数（也就是那个写回复的函数）。</p>
+
+<p>PS： <br>
+根据我的测试，如果data事件注释掉，end事件会无法执行，准确的说，是无法访问任何url的。
+但是，如果不注释掉，只是普通的访问的话，可是又不会触发data监听事件里面的console.log代码，很奇怪； 
+另外，注释掉end事件，留着data事件，也会卡住； </p>]]></content:encoded></item><item><title><![CDATA[Webpack 入门及实践]]></title><description><![CDATA[<p>React自发布以来吸引了越来越多的开发者，React开发和模块管理的主流工具webpack也被大家所熟知。那么webpack有哪些优势，可以成为最主流的React开发工具呢？本文和大家一起探讨一下。</p>
+
+<h1 id="webpack">webpack是什么？</h1>
+
+<p>web开发中常用到的静态资源主要有JavaScript、CSS、图片、Jade等文件，webpack中将静态资源文件称之为模块。webpack是一个模块打包工具，其可以兼容多种js书写规范，且可以处理模块间的依赖关系，具有更强大的js模块化的功能。 官方网站中用下图清晰的描述了webpack采用不同的loader加载不同的资源文件，打包生成多个js文件，也可以根据设置生成独立的图片、css文件等。</p>
+
+<h1 id="whywebpack">why webpack？</h1>
+
+<p>在以往的开发过程中，经常会遇到以下三种情况：</p>
+
+<ul>
+<li>项目中资源多样性和依赖性 - js、css、png、less、jade等 为了方便开发，我们经常会使用不同的语法来编写文档，用less、sass、jade等会提高开发效率，但同时我们需要借助gulp或grunt来编写任务编译文件或对图片进行压缩等。</li>
+<li>js模块规范复杂化 - AMD、CommonJS、UMD、ES6等 requireJS主要用来处理AMD规范的js文件，若使用CommonJS规范的js库文件，需进行AMD规范的封装，才能正常使用。而browserify主要处理CommonJS规范的文件，其他规范也需要进行转化。近期ES6的兴起，前面两种打包工具已经不能满足我们的需求了。</li></ul>]]></description><link>http://localhost:2368/webpack-basic/</link><guid isPermaLink="false">38fd4ed8-145b-4817-bcbd-2f4bb14d9228</guid><dc:creator><![CDATA[江矿宝宝.]]></dc:creator><pubDate>Tue, 13 Sep 2016 09:46:00 GMT</pubDate><content:encoded><![CDATA[<p>React自发布以来吸引了越来越多的开发者，React开发和模块管理的主流工具webpack也被大家所熟知。那么webpack有哪些优势，可以成为最主流的React开发工具呢？本文和大家一起探讨一下。</p>
+
+<h1 id="webpack">webpack是什么？</h1>
+
+<p>web开发中常用到的静态资源主要有JavaScript、CSS、图片、Jade等文件，webpack中将静态资源文件称之为模块。webpack是一个模块打包工具，其可以兼容多种js书写规范，且可以处理模块间的依赖关系，具有更强大的js模块化的功能。 官方网站中用下图清晰的描述了webpack采用不同的loader加载不同的资源文件，打包生成多个js文件，也可以根据设置生成独立的图片、css文件等。</p>
+
+<h1 id="whywebpack">why webpack？</h1>
+
+<p>在以往的开发过程中，经常会遇到以下三种情况：</p>
+
+<ul>
+<li>项目中资源多样性和依赖性 - js、css、png、less、jade等 为了方便开发，我们经常会使用不同的语法来编写文档，用less、sass、jade等会提高开发效率，但同时我们需要借助gulp或grunt来编写任务编译文件或对图片进行压缩等。</li>
+<li>js模块规范复杂化 - AMD、CommonJS、UMD、ES6等 requireJS主要用来处理AMD规范的js文件，若使用CommonJS规范的js库文件，需进行AMD规范的封装，才能正常使用。而browserify主要处理CommonJS规范的文件，其他规范也需要进行转化。近期ES6的兴起，前面两种打包工具已经不能满足我们的需求了。</li>
+<li>开发与线上文件不一致性（打包压缩造成影响）</li>
+</ul>
+
+<p>webpack可以很好地解决上面的问题，它具有Grunt、Gulp对于静态资源自动化构建的能力，是一个出色的前端自动化构建工具、模块化工具、资源管理工具。</p>
+
+<h1 id="webpack">webpack 特性</h1>
+
+<p>webpack具有requireJs和browserify的功能，但仍有很多自己的新特性：</p>
+
+<ol>
+<li>对 CommonJS 、 AMD 、ES6的语法做了兼容  </li>
+<li>对js、css、图片等资源文件都支持打包  </li>
+<li>串联式模块加载器以及插件机制，让其具有更好的灵活性和扩展性，例如提供对CoffeeScript、ES6的支持  </li>
+<li>有独立的配置文件webpack.config.js  </li>
+<li>可以将代码切割成不同的chunk，实现按需加载，降低了初始化时间  </li>
+<li>支持 SourceUrls 和 SourceMaps，易于调试  </li>
+<li>具有强大的Plugin接口，大多是内部插件，使用起来比较灵活  </li>
+<li>webpack 使用异步 IO 并具有多级缓存。这使得 webpack 很快且在增量编译上更加快</li>
+</ol>
+
+<h1 id="webpack">webpack 安装及使用</h1>
+
+<p>webpack 可以作为全局的npm模块安装，也可以在当前项目中安装。</p>
+
+<pre><code class="language-js">npm install -g webpack  
+</code></pre>
+
+<pre><code class="language-js">npm install --save-dev webpack  
+</code></pre>
+
+<p>webpack的使用通常有三种方式：</p>
+
+<ul>
+<li>命令行使用：webpack <entry.js> <result.js> 其中entry.js是入口文件，result.js是打包后的输出文件</result.js></entry.js></li>
+<li>node.js API使用：</li>
+</ul>
+
+<pre><code class="language-js">var webpack = require('webpack');  
+webpack({  
+//configuration
+}, function(err, stats){});
+</code></pre>
+
+<p>默认使用当前目录的webpack.config.js作为配置文件。如果要指定另外的配置文件，可以执行：webpack --config webpack.custom.config.js</p>
+
+<h1 id="webpack">webpack 常用命令</h1>
+
+<p>webpack的使用和browserify有些类似，下面列举几个常用命令：</p>
+
+<ul>
+<li><code>webpack</code> 最基本的启动webpack命令</li>
+<li><code>webpack -w</code> 提供watch方法，实时进行打包更新</li>
+<li><code>webpack -p</code> 对打包后的文件进行压缩</li>
+<li><code>webpack -d</code> 提供SourceMaps，方便调试</li>
+<li><code>webpack --colors</code> 输出结果带彩色，比如：会用红色显示耗时较长的步骤</li>
+<li><code>webpack --profile</code> 输出性能数据，可以看到每一步的耗时</li>
+<li><code>webpack --display-modules</code> 默认情况下 node_modules 下的模块会被隐藏，加上这个参数可以显示这些被隐藏的模块
+前面的四个命令比较基础，使用频率会比较大，后面的命令主要是用来定位打包时间较长的原因，方便改进配置文件，提高打包效率。</li>
+</ul>
+
+<h1 id="webpack">webpack 配置文件</h1>
+
+<p>项目中静态资源文件较多，使用配置文件进行打包会方便很多。最简单的Webpack配置文件webpack.config.js如下所示：</p>
+
+<pre><code class="language-js">module.exports = {  
+  entry:[
+    './entry.js',
+    ...
+  ],
+  output: {
+    path: __dirname + '/output/',
+    publicPath: "/output/",
+    filename: 'result.js'
+  }
+};
+</code></pre>
+
+<ul>
+<li>其中entry参数定义了打包后的入口文件，数组中的所有文件会打包生成一个filename文件</li>
+<li>output参数定义了输出文件的位置及名字，其中参数path是指文件的绝对路径，publicPath是指访问路径，filename是指输出的文件名。</li>
+</ul>
+
+<p>开发中需要将多个页面的公用模块独立打包，从而可以利用浏览器缓存机制来提高页面加载效率，减少页面初次加载时间，只有当某功能被用到时，才去动态的加载。这就需要使用webpack中的CommonsChunkPlugin插件。具体配置如下：</p>
+
+<pre><code class="language-js">var CommonsChunkPlugin = require("webpack/lib/optimize/CommonsChunkPlugin");  
+module.exports = {  
+  entry: { a: "./a", b: "./b" },
+  output: { filename: "[name].js" },
+  plugins: [ new CommonsChunkPlugin("common.js") ]
+}
+</code></pre>
+
+<p>在文件中根据下面的方式引用即可。</p>
+
+<pre><code class="language-html">&lt;script src="common.js"&gt;&lt;/script&gt;  
+&lt;script src="a.js"&gt;&lt;/script&gt;  
+&lt;script src="b.js"&gt;&lt;/script&gt;  
+</code></pre>
+
+<h1 id="webpack">webpack 模块加载器</h1>
+
+<p>在webpack中JavaScript，CSS，LESS，TypeScript，JSX，CoffeeScript，图片等静态文件都是模块，不同模块的加载是通过模块加载器（webpack-loader）来统一管理的。loaders之间是可以串联的，一个加载器的输出可以作为下一个加载器的输入，最终返回到JavaScript上。loader的配置可以写在配置文件中，通过正则表达式的方式对文件进行匹配，具体可参见下面的示例：</p>
+
+<pre><code class="language-js">module: {  
+    loaders: [{
+        test: /\.less/,
+        loader:  'style-loader!css-loader!less-loader'
+    }, {
+      test: /\.(png|jpg)$/,
+      loader: 'url-loader?limit=10000&amp;name=build/[name].[ext]'
+    }]
+}
+</code></pre>
+
+<p>loader也支持在js文件中通过require的方式进行加载，只需要在require资源path的前面指定loader，用！来串联不同的loader和资源即可。</p>
+
+<pre><code class="language-js">require("style!css!less!./mystyles.less");  
+</code></pre>
+
+<h1 id="css">css文件独立打包</h1>
+
+<p>在webpack中编写js文件时，可以通过require的方式引入其他的静态资源，可通过loader对文件自动解析并打包文件。通常会将js文件打包合并，css文件会在页面的header中嵌入style的方式载入页面。但开发过程中我们并不想将样式打在脚本中，最好可以独立生成css文件，以外链的形式加载。这时extract-text-webpack-plugin插件可以帮我们达到想要的效果。需要使用npm的方式加载插件，然后参见下面的配置，就可以将js中的css文件提取，并以指定的文件名来进行加载。</p>
+
+<pre><code class="language-js">npm install extract-text-webpack-plugin –save-dev  
+</code></pre>
+
+<pre><code class="language-js">plugins: [  
+    new ExtractTextPlugin('styles.css')
+]
+</code></pre>
+
+<h1 id="">图片打包</h1>
+
+<p>webpack中对于图片的处理，可以通过url-loader来实现图片的压缩。  </p>
+
+<pre><code class="language-js">div.img{  
+    background: url(../image/xxx.jpg)
+}
+
+//或者
+var img = document.createElement("img");  
+img.src = require("../image/xxx.jpg");  
+document.body.appendChild(img);  
+</code></pre>
+
+<p>针对上面的两种使用方式，loader可以自动识别并处理。根据loader中的设置，webpack会将小于指点大小的文件转化成 base64 格式的 dataUrl，其他图片会做适当的压缩并存放在指定目录中。</p>
+
+<pre><code class="language-js">module: {  
+    {
+      test: /\.(png|jpg)$/,
+      loader: 'url-loader?limit=10000&amp;name=build/[name].[ext]'
+    }]
+}
+</code></pre>
+
+<p>对于上面的配置，如果图片资源小于10kb就会转化成 base64 格式的 dataUrl，其他的图片会存放在build/文件夹下。</p>
+
+<h1 id="webpackdevserver">webpack-dev-server</h1>
+
+<p>webpack除了可以对模块进行打包，还提供了一个开发服务器。它的特点是：</p>
+
+<ul>
+<li>基于Node.js Express框架的轻量开发服务器</li>
+<li>静态资源Web服务器</li>
+<li>开发中会监听文件的变化在内存中实时打包</li>
+</ul>
+
+<p>webpack-dev-server需要单独安装，命令如下：</p>
+
+<pre><code class="language-js">npm install -g webpack-dev-server  
+</code></pre>
+
+<p>可以使用webpack-dev-server直接启动，也可以增加参数来获取更多的功能，具体配置可以参见<a href="http://webpack.github.io/docs/webpack-dev-server.html">官方文档</a>。默认启动端口8080，通过localhost:8080/webpack-dev-server/可以访问页面，文件修改后保存时会在页面头部看到sever的状态变化，并且会进行热替换，实现页面的自动刷新。</p>
+
+<h1 id="">双服务器模式</h1>
+
+<p>项目开发中，仅有一台静态服务器是不能满足需求的，我们需要另启一台web服务器，且将静态服务器集成到web服务器中，就可以使用webpack的打包和加载功能。我们只需要修改一下配置文件就可以实现服务器的集成。</p>
+
+<pre><code class="language-js"> entry: [
+    './src/page/main.js',
+    'webpack/hot/dev-server',
+    'webpack-dev-server/client?http://127.0.0.1:8080'
+  ]
+  output: {
+    path: __dirname,
+    filename: '[name].js',
+    publicPath: "http://127.0.0.1:8080/assets/"
+  }
+  plugins: [
+    new webpack.HotModuleReplacementPlugin()
+  ]
+</code></pre>
+
+<p>如果在开发中启动两个服务器并不是一个很好地选择，webpack提供了一个中间件webpack-dev-middleware，但其只能在生产环境中使用，可以实现在内存中实时打包生成虚拟文件，供浏览器访问以及调试。使用方式如下：</p>
+
+<pre><code class="language-js">var webpackDevMiddleware = require("webpack-dev-middleware");  
+var webpack = require("webpack");
+
+var compiler = webpack({  
+    // configuration
+    output: { path: '/' }
+});
+
+app.use(webpackDevMiddleware(compiler, {  
+    // options
+}));
+</code></pre>
+
+<h1 id="ps">PS</h1>
+
+<p>通过上面的介绍，基本涵盖了webpack的各个特性及简单的使用方法。最近出了个<code>hjs-webpack</code>，可以简化webpack中复杂的配置项，只需要安装开发中所需的loader，无需再module中配置，即可正确使用。有兴趣的同学可以尝试一下。</p>]]></content:encoded></item></channel></rss>

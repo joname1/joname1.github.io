@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+
+    <title>使用RequireJS进行模块化开发</title>
+    <meta name="description" content="" />
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <link rel="shortcut icon" href="../../favicon.ico">
+
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="江矿宝宝的博客." />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="使用RequireJS进行模块化开发" />
+    <meta property="og:description" content="在之前的项目中一直用的是seajs，感觉seajs是挺好用的，但是有个问题就是把现有的js框架打包成seajs模块略麻烦，官方文档里面也没有对这一块作详细的介绍，虽然有spm build，但还是觉得不太方便。因此便在新的项目中用了requirejs。 用requirejs其实还有另一个原因就是项目中用到了百度的图表库echarts，根据其官方文档的描述是不建议使用基于CMD规范的seajs来加载的，因为echarts是基于AMD模块化的，虽然网上有人改了可以用seajs加载，但是我最后还是选择用requirejs来加载，同时也是想尝试一下requirejs。 自定义构建echarts echarts的构建是用的r.js，因此我在这里先讲一下。 自定义构建echarts还必须下载zrender，下载完成之后，把echarts的目录和zrender目录放在同级目录下，然后进入echarts的build目录进行自定义build（需要node.js环境），下面是我的build命令： node build.js optimize&#x3D;true exclude&#x3D;force,scatter,k,radar,chord,gauge,funnel,map  output&#x3D;echarts1.js   上面命令的意思是排除exclude的之后的那些模块，因为我只用到了echarts的折线图、柱状图和饼状图。 执行完成之后就可以在build目录看到刚才合并的echarts1.js requirejs模块加载配置 requirejs引入主模块的方法是通过在script标签里面添加data-main属性，如我的引入代码：" />
+    <meta property="og:url" content="http://localhost:2368/requirejs-dev/" />
+    <meta property="article:published_time" content="2016-10-10T07:54:00.000Z" />
+    <meta property="article:modified_time" content="2017-05-25T08:41:51.000Z" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="使用RequireJS进行模块化开发" />
+    <meta name="twitter:description" content="在之前的项目中一直用的是seajs，感觉seajs是挺好用的，但是有个问题就是把现有的js框架打包成seajs模块略麻烦，官方文档里面也没有对这一块作详细的介绍，虽然有spm build，但还是觉得不太方便。因此便在新的项目中用了requirejs。 用requirejs其实还有另一个原因就是项目中用到了百度的图表库echarts，根据其官方文档的描述是不建议使用基于CMD规范的seajs来加载的，因为echarts是基于AMD模块化的，虽然网上有人改了可以用seajs加载，但是我最后还是选择用requirejs来加载，同时也是想尝试一下requirejs。 自定义构建echarts echarts的构建是用的r.js，因此我在这里先讲一下。 自定义构建echarts还必须下载zrender，下载完成之后，把echarts的目录和zrender目录放在同级目录下，然后进入echarts的build目录进行自定义build（需要node.js环境），下面是我的build命令： node build.js optimize&#x3D;true exclude&#x3D;force,scatter,k,radar,chord,gauge,funnel,map  output&#x3D;echarts1.js   上面命令的意思是排除exclude的之后的那些模块，因为我只用到了echarts的折线图、柱状图和饼状图。 执行完成之后就可以在build目录看到刚才合并的echarts1.js requirejs模块加载配置 requirejs引入主模块的方法是通过在script标签里面添加data-main属性，如我的引入代码：" />
+    <meta name="twitter:url" content="http://localhost:2368/requirejs-dev/" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="江矿宝宝." />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "江矿宝宝的博客.",
+        "logo": "http://localhost:2368/ghost/img/ghosticon.jpg"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "江矿宝宝.",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://joe-10005639.cossh.myqcloud.com/jkbb.jpg",
+            "width": 600,
+            "height": 600
+        },
+        "url": "http://localhost:2368/author/jkbb/",
+        "sameAs": [
+            "https://joname1.github.io"
+        ],
+        "description": "伪前端攻城狮, 喜欢钻研新技术."
+    },
+    "headline": "使用RequireJS进行模块化开发",
+    "url": "http://localhost:2368/requirejs-dev/",
+    "datePublished": "2016-10-10T07:54:00.000Z",
+    "dateModified": "2017-05-25T08:41:51.000Z",
+    "description": "在之前的项目中一直用的是seajs，感觉seajs是挺好用的，但是有个问题就是把现有的js框架打包成seajs模块略麻烦，官方文档里面也没有对这一块作详细的介绍，虽然有spm build，但还是觉得不太方便。因此便在新的项目中用了requirejs。 用requirejs其实还有另一个原因就是项目中用到了百度的图表库echarts，根据其官方文档的描述是不建议使用基于CMD规范的seajs来加载的，因为echarts是基于AMD模块化的，虽然网上有人改了可以用seajs加载，但是我最后还是选择用requirejs来加载，同时也是想尝试一下requirejs。 自定义构建echarts echarts的构建是用的r.js，因此我在这里先讲一下。 自定义构建echarts还必须下载zrender，下载完成之后，把echarts的目录和zrender目录放在同级目录下，然后进入echarts的build目录进行自定义build（需要node.js环境），下面是我的build命令： node build.js optimize&#x3D;true exclude&#x3D;force,scatter,k,radar,chord,gauge,funnel,map  output&#x3D;echarts1.js   上面命令的意思是排除exclude的之后的那些模块，因为我只用到了echarts的折线图、柱状图和饼状图。 执行完成之后就可以在build目录看到刚才合并的echarts1.js requirejs模块加载配置 requirejs引入主模块的方法是通过在script标签里面添加data-main属性，如我的引入代码：",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://localhost:2368"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.11" />
+    <link rel="alternate" type="application/rss+xml" title="江矿宝宝的博客." href="../../rss/index.html" />
+
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,600,400" />
+    <style amp-custom>
+        /* ==========================================================================
+           Table of Contents
+           ========================================================================== */
+
+        /*
+
+            0. Normalize
+            1. General
+            2. Utilities
+            3. AMP Post
+            4. Footer
+
+        */
+
+        /* ==========================================================================
+           0. normalize.css v3.0.3 | MIT License | git.io/normalize | (minified)
+           ========================================================================== */
+
+        html {
+            font-family: sans-serif;
+
+            -ms-text-size-adjust: 100%;
+            -webkit-text-size-adjust: 100%;
+        }
+        body {
+            margin: 0;
+        }
+        article,
+        aside,
+        details,
+        figcaption,
+        figure,
+        footer,
+        header,
+        main,
+        menu,
+        nav,
+        section,
+        summary {
+            display: block;
+        }
+        audio,
+        canvas,
+        progress,
+        video {
+            display: inline-block;
+            vertical-align: baseline;
+        }
+        audio:not([controls]) {
+            display: none;
+            height: 0;
+        }
+        [hidden],
+        template {
+            display: none;
+        }
+        a {
+            background-color: transparent;
+        }
+        a:active,
+        a:hover {
+            outline: 0;
+        }
+        abbr[title] {
+            border-bottom: 1px dotted;
+        }
+        b,
+        strong {
+            font-weight: bold;
+        }
+        dfn {
+            font-style: italic;
+        }
+        h1 {
+            margin: 0.67em 0;
+            font-size: 2em;
+        }
+        mark {
+            background: #ff0;
+            color: #000;
+        }
+        small {
+            font-size: 80%;
+        }
+        sub,
+        sup {
+            position: relative;
+            vertical-align: baseline;
+            font-size: 75%;
+            line-height: 0;
+        }
+        sup {
+            top: -0.5em;
+        }
+        sub {
+            bottom: -0.25em;
+        }
+        img {
+            border: 0;
+        }
+        amp-img {
+            border: 0;
+        }
+        svg:not(:root) {
+            overflow: hidden;
+        }
+        figure {
+            margin: 1em 40px;
+        }
+        hr {
+            box-sizing: content-box;
+            height: 0;
+        }
+        pre {
+            overflow: auto;
+        }
+        code,
+        kbd,
+        pre,
+        samp {
+            font-family: monospace, monospace;
+            font-size: 1em;
+        }
+        button,
+        input,
+        optgroup,
+        select,
+        textarea {
+            margin: 0;
+            color: inherit;
+            font: inherit;
+        }
+        button {
+            overflow: visible;
+        }
+        button,
+        select {
+            text-transform: none;
+        }
+        button,
+        html input[type="button"],
+        input[type="reset"],
+        input[type="submit"] {
+            cursor: pointer;
+
+            -webkit-appearance: button;
+        }
+        button[disabled],
+        html input[disabled] {
+            cursor: default;
+        }
+        button::-moz-focus-inner,
+        input::-moz-focus-inner {
+            padding: 0;
+            border: 0;
+        }
+        input {
+            line-height: normal;
+        }
+        input[type="checkbox"],
+        input[type="radio"] {
+            box-sizing: border-box;
+            padding: 0;
+        }
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            height: auto;
+        }
+        input[type="search"] {
+            -webkit-appearance: textfield;
+        }
+        input[type="search"]::-webkit-search-cancel-button,
+        input[type="search"]::-webkit-search-decoration {
+            -webkit-appearance: none;
+        }
+        fieldset {
+            margin: 0 2px;
+            padding: 0.35em 0.625em 0.75em;
+            border: 1px solid #c0c0c0;
+        }
+        legend {
+            padding: 0;
+            border: 0;
+        }
+        textarea {
+            overflow: auto;
+        }
+        optgroup {
+            font-weight: bold;
+        }
+        table {
+            border-spacing: 0;
+            border-collapse: collapse;
+        }
+        td,
+        th {
+            padding: 0;
+        }
+
+
+        /* ==========================================================================
+           1. General - Setting up some base styles
+           ========================================================================== */
+
+        html {
+            max-height: 100%;
+            height: 100%;
+            font-size: 62.5%;
+
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        }
+
+        body {
+            max-height: 100%;
+            height: 100%;
+            color: #3a4145;
+            background: #f4f8fb;
+            letter-spacing: 0.01rem;
+            font-family: "Merriweather", serif;
+            font-size: 1.8rem;
+            line-height: 1.75em;
+            text-rendering: geometricPrecision;
+
+            -webkit-font-feature-settings: "kern" 1;
+            -moz-font-feature-settings: "kern" 1;
+            -o-font-feature-settings: "kern" 1;
+        }
+
+        ::-moz-selection {
+            background: #d6edff;
+        }
+
+        ::selection {
+            background: #d6edff;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            margin: 0 0 0.3em 0;
+            color: #2e2e2e;
+            font-family: "Open Sans", sans-serif;
+            line-height: 1.15em;
+            text-rendering: geometricPrecision;
+
+            -webkit-font-feature-settings: "dlig" 1, "liga" 1, "lnum" 1, "kern" 1;
+            -moz-font-feature-settings: "dlig" 1, "liga" 1, "lnum" 1, "kern" 1;
+            -o-font-feature-settings: "dlig" 1, "liga" 1, "lnum" 1, "kern" 1;
+        }
+
+        h1 {
+            text-indent: -2px;
+            letter-spacing: -1px;
+            font-size: 2.6rem;
+        }
+
+        h2 {
+            letter-spacing: 0;
+            font-size: 2.4rem;
+        }
+
+        h3 {
+            letter-spacing: -0.6px;
+            font-size: 2.1rem;
+        }
+
+        h4 {
+            font-size: 1.9rem;
+        }
+
+        h5 {
+            font-size: 1.8rem;
+        }
+
+        h6 {
+            font-size: 1.8rem;
+        }
+
+        a {
+            color: #4a4a4a;
+        }
+
+        a:hover {
+            color: #111;
+        }
+
+        p,
+        ul,
+        ol,
+        dl {
+            margin: 0 0 2.5rem 0;
+            font-size: 1.5rem;
+            text-rendering: geometricPrecision;
+
+            -webkit-font-feature-settings: "liga" 1, "onum" 1, "kern" 1;
+            -moz-font-feature-settings: "liga" 1, "onum" 1, "kern" 1;
+            -o-font-feature-settings: "liga" 1, "onum" 1, "kern" 1;
+        }
+
+        ol,
+        ul {
+            padding-left: 2em;
+        }
+
+        ol ol,
+        ul ul,
+        ul ol,
+        ol ul {
+            margin: 0 0 0.4em 0;
+            padding-left: 2em;
+        }
+
+        dl dt {
+            float: left;
+            clear: left;
+            overflow: hidden;
+            margin-bottom: 1em;
+            width: 180px;
+            text-align: right;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            font-weight: 700;
+        }
+
+        dl dd {
+            margin-bottom: 1em;
+            margin-left: 200px;
+        }
+
+        li {
+            margin: 0.4em 0;
+        }
+
+        li li {
+            margin: 0;
+        }
+
+        hr {
+            display: block;
+            margin: 1.75em 0;
+            padding: 0;
+            height: 1px;
+            border: 0;
+            border-top: #efefef 1px solid;
+        }
+
+        blockquote {
+            box-sizing: border-box;
+            margin: 1.75em 0 1.75em 0;
+            padding: 0 0 0 1.75em;
+            border-left: #4a4a4a 0.4em solid;
+
+            -moz-box-sizing: border-box;
+        }
+
+        blockquote p {
+            margin: 0.8em 0;
+            font-style: italic;
+        }
+
+        blockquote small {
+            display: inline-block;
+            margin: 0.8em 0 0.8em 1.5em;
+            color: #ccc;
+            font-size: 0.9em;
+        }
+
+        blockquote small:before {
+            content: "\2014 \00A0";
+        }
+
+        blockquote cite {
+            font-weight: 700;
+        }
+
+        blockquote cite a {
+            font-weight: normal;
+        }
+
+        mark {
+            background-color: #fdffb6;
+        }
+
+        code,
+        tt {
+            padding: 1px 3px;
+            border: #e3edf3 1px solid;
+            background: #f7fafb;
+            border-radius: 2px;
+            white-space: pre-wrap;
+            font-family: Inconsolata, monospace, sans-serif;
+            font-size: 0.85em;
+            font-feature-settings: "liga" 0;
+
+            -webkit-font-feature-settings: "liga" 0;
+            -moz-font-feature-settings: "liga" 0;
+        }
+
+        pre {
+            overflow: auto;
+            box-sizing: border-box;
+            margin: 0 0 1.75em 0;
+            padding: 10px;
+            width: 100%;
+            border: #e3edf3 1px solid;
+            background: #f7fafb;
+            border-radius: 3px;
+            white-space: pre;
+            font-family: Inconsolata, monospace, sans-serif;
+            font-size: 0.9em;
+
+            -moz-box-sizing: border-box;
+        }
+
+        pre code,
+        pre tt {
+            padding: 0;
+            border: none;
+            background: transparent;
+            white-space: pre-wrap;
+            font-size: inherit;
+        }
+
+        kbd {
+            display: inline-block;
+            margin-bottom: 0.4em;
+            padding: 1px 8px;
+            border: #ccc 1px solid;
+            background: #f4f4f4;
+            border-radius: 4px;
+            box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2),
+            0 1px 0 0 #fff inset;
+            color: #666;
+            text-shadow: #fff 0 1px 0;
+            font-size: 0.9em;
+            font-weight: 700;
+        }
+
+        table {
+            box-sizing: border-box;
+            margin: 1.75em 0;
+            max-width: 100%;
+            width: 100%;
+            background-color: transparent;
+
+            -moz-box-sizing: border-box;
+        }
+
+        table th,
+        table td {
+            padding: 8px;
+            border-top: #efefef 1px solid;
+            vertical-align: top;
+            text-align: left;
+            line-height: 20px;
+        }
+
+        table th {
+            color: #000;
+        }
+
+        table caption + thead tr:first-child th,
+        table caption + thead tr:first-child td,
+        table colgroup + thead tr:first-child th,
+        table colgroup + thead tr:first-child td,
+        table thead:first-child tr:first-child th,
+        table thead:first-child tr:first-child td {
+            border-top: 0;
+        }
+
+        table tbody + tbody {
+            border-top: #efefef 2px solid;
+        }
+
+        table table table {
+            background-color: #fff;
+        }
+
+        table tbody > tr:nth-child(odd) > td,
+        table tbody > tr:nth-child(odd) > th {
+            background-color: #f6f6f6;
+        }
+
+        table.plain tbody > tr:nth-child(odd) > td,
+        table.plain tbody > tr:nth-child(odd) > th {
+            background: transparent;
+        }
+
+        iframe,
+        amp-iframe,
+        .fluid-width-video-wrapper {
+            display: block;
+            margin: 1.75em 0;
+        }
+
+        /* When a video is inside the fitvids wrapper, drop the
+        margin on the iframe, cause it breaks stuff. */
+        .fluid-width-video-wrapper iframe,
+        .fluid-width-video-wrapper amp-iframe {
+            margin: 0;
+        }
+
+        textarea,
+        select,
+        input {
+            margin: 0 0 5px 0;
+            padding: 6px 9px;
+            width: 260px;
+            outline: 0;
+            border: #e7eef2 1px solid;
+            background: #fff;
+            border-radius: 4px;
+            box-shadow: none;
+            font-family: "Open Sans", sans-serif;
+            font-size: 1.6rem;
+            line-height: 1.4em;
+            font-weight: 100;
+
+            -webkit-appearance: none;
+        }
+
+        textarea {
+            min-width: 250px;
+            min-height: 80px;
+            max-width: 340px;
+            width: 100%;
+            height: auto;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="search"]:focus,
+        input[type="tel"]:focus,
+        input[type="url"]:focus,
+        input[type="password"]:focus,
+        input[type="number"]:focus,
+        input[type="date"]:focus,
+        input[type="month"]:focus,
+        input[type="week"]:focus,
+        input[type="time"]:focus,
+        input[type="datetime"]:focus,
+        input[type="datetime-local"]:focus,
+        textarea:focus {
+            outline: none;
+            outline-width: 0;
+            border: #bbc7cc 1px solid;
+            background: #fff;
+        }
+
+        select {
+            width: 270px;
+            height: 30px;
+            line-height: 30px;
+        }
+
+        /* ==========================================================================
+           2. Utilities
+           ========================================================================== */
+
+        /* Clears shit */
+        .clearfix:before,
+        .clearfix:after {
+            content: " ";
+            display: table;
+        }
+        .clearfix:after {
+            clear: both;
+        }
+        .clearfix {
+            zoom: 1;
+        }
+
+        /* ==========================================================================
+           3. AMP Post
+           ========================================================================== */
+
+
+
+        .main-header {
+            position: relative;
+            display: table;
+            overflow: hidden;
+            box-sizing: border-box;
+            width: 100%;
+            height: 50px;
+            background: #5ba4e5 no-repeat center center;
+            background-size: cover;
+            text-align: left;
+
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+        }
+
+        .content {
+            background: #fff;
+            padding-top: 15px;
+        }
+        .blog-title,
+        .content {
+            margin: auto;
+            max-width: 600px;
+        }
+
+        .blog-title a {
+            display: block;
+            padding-right: 16px;
+            padding-left: 16px;
+            height: 50px;
+            color: #fff;
+            text-decoration: none;
+            font-family: "Open Sans", sans-serif;
+            font-size: 16px;
+            line-height: 50px;
+            font-weight: 600;
+        }
+
+        .post {
+            position: relative;
+            margin-top: 0;
+            margin-right: 16px;
+            margin-left: 16px;
+            padding-bottom: 0;
+            max-width: 100%;
+            border-bottom: #ebf2f6 1px solid;
+            word-wrap: break-word;
+            font-size: 0.95em;
+            line-height: 1.65em;
+        }
+
+        .post-header {
+            margin-bottom: 1rem;
+        }
+
+        .post-title {
+            margin-bottom: 0;
+        }
+
+        .post-title a {
+            text-decoration: none;
+        }
+
+        .post-meta {
+            display: block;
+            margin: 3px 0 0 0;
+            color: #9eabb3;
+            font-family: "Open Sans", sans-serif;
+            font-size: 1.3rem;
+            line-height: 2.2rem;
+        }
+
+        .post-meta a {
+            color: #9eabb3;
+            text-decoration: none;
+        }
+
+        .post-meta a:hover {
+            text-decoration: underline;
+        }
+
+        .post-meta .author {
+            margin: 0;
+            font-size: 1.3rem;
+            line-height: 1.3em;
+        }
+
+        .post-date {
+            display: inline-block;
+            text-transform: uppercase;
+            white-space: nowrap;
+            font-size: 1.2rem;
+            line-height: 1.2em;
+        }
+
+        .post-image {
+            margin: 0;
+            padding-top: 3rem;
+            padding-bottom: 30px;
+            border-top: 1px #E8E8E8 solid;
+        }
+
+        /* Keep images centered, and allow images wider than the main
+           text column to break out. */
+        .post-content amp-img,
+        .post-content amp-anim {
+            /* Centers an image by (1) pushing its left edge to the
+               center of its container and (2) shifting the entire image
+               in the opposite direction by half its own width.
+               Works for images that are larger than their containers. */
+            position: relative;
+            left: 50%;
+            display: block;
+            padding: 0;
+            min-width: 0;
+            max-width: 112%; /* fallback when calc doesn't work */
+            width: calc(100% + 32px); /* expand with to image + margins */
+            height: auto;
+            transform: translateX(-50%);
+
+            -webkit-transform: translateX(-50%); /* for Safari and iOS */
+            -ms-transform: translateX(-50%); /* for IE9 */
+        }
+
+        .footnotes {
+            font-size: 1.3rem;
+            line-height: 1.6em;
+            font-style: italic;
+        }
+
+        .footnotes li {
+            margin: 0.6rem 0;
+        }
+
+        .footnotes p {
+            margin: 0;
+        }
+
+        .footnotes p a:last-child {
+            text-decoration: none;
+        }
+
+        /* ==========================================================================
+           4. Footer - The bottom the AMP Post
+           ========================================================================== */
+
+        .site-footer {
+            position: relative;
+            margin: 0 auto 20px auto;
+            padding: 1rem 15px;
+            max-width: 600px;
+            color: rgba(0,0,0,0.5);
+            font-family: "Open Sans", sans-serif;
+            font-size: 1.1rem;
+            line-height: 1.75em;
+        }
+
+        .site-footer a {
+            color: rgba(0,0,0,0.5);
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .site-footer a:hover {
+            border-bottom: #bbc7cc 1px solid;
+        }
+
+        .poweredby {
+            display: block;
+            float: right;
+            width: 45%;
+            text-align: right;
+        }
+
+        .copyright {
+            display: block;
+            float: left;
+            width: 45%;
+        }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="main-header">
+        <nav class="blog-title">
+            <a href="../../index.html">江矿宝宝的博客.</a>
+        </nav>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">使用RequireJS进行模块化开发</h1>
+                <section class="post-meta">
+                    <p class="author">by <a href="../../author/jkbb/index.html">江矿宝宝.</a></p>
+                    <time class="post-date" datetime="2016-10-10">2016-10-10</time>
+                </section>
+            </header>
+            <section class="post-content">
+
+                <p>在之前的项目中一直用的是seajs，感觉seajs是挺好用的，但是有个问题就是把现有的js框架打包成seajs模块略麻烦，官方文档里面也没有对这一块作详细的介绍，虽然有spm build，但还是觉得不太方便。因此便在新的项目中用了requirejs。</p>
+
+<p><amp-img src="http://blog.u.qiniudn.com/uploads%2Frequirejs.png" alt="requirejs" width="220" height="138" layout="fixed"></amp-img></p>
+
+<p>用requirejs其实还有另一个原因就是项目中用到了百度的图表库<a href="http://echarts.baidu.com/" title="echarts">echarts</a>，根据其官方文档的描述是不建议使用基于CMD规范的seajs来加载的，因为echarts是基于AMD模块化的，虽然网上有人改了可以用seajs加载，但是我最后还是选择用requirejs来加载，同时也是想尝试一下requirejs。</p>
+
+<p><strong>自定义构建echarts</strong></p>
+
+<p><code>echarts</code>的构建是用的<code>r.js</code>，因此我在这里先讲一下。</p>
+
+<p>自定义构建<code>echarts</code>还必须下载<code>zrender</code>，下载完成之后，把<code>echarts</code>的目录和<code>zrender</code>目录放在同级目录下，然后进入<code>echarts</code>的<code>build</code>目录进行自定义<code>build</code>（需要node.js环境），下面是我的build命令：</p>
+
+<pre><code class="language-bash">node build.js optimize=true exclude=force,scatter,k,radar,chord,gauge,funnel,map  output=echarts1.js  
+</code></pre>
+
+<p>上面命令的意思是排除<code>exclude</code>的之后的那些模块，因为我只用到了<code>echarts</code>的折线图、柱状图和饼状图。</p>
+
+<p>执行完成之后就可以在build目录看到刚才合并的<code>echarts1.js</code></p>
+
+<p><strong>requirejs模块加载配置</strong></p>
+
+<p><code>requirejs</code>引入主模块的方法是通过在script标签里面添加<code>data-main</code>属性，如我的引入代码：</p>
+
+<pre><code class="language-html">&lt;script data-main=&quot;js/main&quot; src=&quot;js/lib/requirejs/require.js&quot;&gt;&lt;/script&gt;  
+</code></pre>
+
+<p><code>main.js</code>是程序的入口js文件，然后我们在<code>main.js</code>里面进行模块的加载配置：</p>
+
+<pre><code class="language-javascript">requirejs.config({  
+    //开发专用，阻止浏览器缓存
+    urlArgs: &quot;v=&quot; + Date.now(),
+    //js文件的目录，相对于引入main.js的那个文件的目录
+    baseUrl: 'js',
+    //对于默认不兼容AMD规范的模块通过shim来配置
+    //deps数组，表明该模块的依赖性，
+    //exports值，表明这个模块外部调用时的名称
+    //下面代码里面包含了如何加载库和插件
+    shim: {
+        'backbone': {
+               deps: ['underscore', 'jquery'],
+            exports: 'Backbone'
+        },
+        'underscore': {
+            exports: '_'
+        },
+        'backbone.localStorage': {
+              deps: ['backbone'],
+              exports: 'Backbone'
+        },
+        'bootstrap.modal': {
+            deps: ['jquery'],
+            exports: 'jQuery.fn.modal'
+        }
+    },
+    //模块的加载路径（不要加.js后缀，因为默认就是加载js，加了会报错）
+    //路径是相对于上面的baseUrl
+    paths: {
+        jquery: 'lib/jquery/jquery-1.11.1.min',
+        underscore: 'lib/underscore/underscore-min',
+        ...
+        text: 'lib/requirejs/plugins/text',
+        echarts:'lib/echarts/echarts',
+        'echarts/chart/bar' : 'lib/echarts/echarts',
+        config: 'modules/common/config'
+    }   
+});
+
+//下面开始加载执行
+require(['backbone', 'modules/app'], function (Backbone, AppRouter) {  
+    new AppRouter();
+    Backbone.history.start();
+});
+</code></pre>
+
+<p><strong>requirejs模块定义与加载</strong></p>
+
+<p><code>requirejs</code>定义一个模块相当简单，下面是一个简单的例子:</p>
+
+<pre><code class="language-javascript">define(['backbone'], function(Backbone){  
+    var AppRouter = Backbone.Router.extend({
+        ...
+    });
+
+    //导出对象
+    return AppRouter;
+});
+</code></pre>
+
+<p>我们也可以动态加载模块：</p>
+
+<pre><code class="language-javascript">define(['backbone'], function(Backbone){  
+    var AppRouter = Backbone.Router.extend({
+        ...
+        index： function(){
+            require(['echarts', 'echarts/chart/bar'], function(ec){
+                ...
+            });
+        }
+    });
+
+    //导出对象
+    return AppRouter;
+});
+</code></pre>
+
+<p>如果你已经用习惯了<code>seajs</code>的模块加载方法的话，你也可以像<code>seajs</code>里面那样去加载模块：</p>
+
+<pre><code class="language-javascript">define(function (require) {  
+    var $ = require('jquery');
+
+    return function () {
+        ...
+    };
+});
+</code></pre>
+
+<p>或者<code>CommonJS</code>的方式也ok:</p>
+
+<pre><code class="language-javascript">define(function(require, exports, module) {  
+    ...
+});
+</code></pre>
+
+<p><code>requirejs</code>提供一个加载文本的插件<code>text.js</code>，细心的话你可能已经看到我在<code>requirejs.config</code>里面已经配置了，使用也很简单：</p>
+
+<pre><code class="language-javascript">// 注意这里自定义模块的加载路径
+// 可以写相对路径，那就是相对于当前js文件的路径
+// 也可以写绝对路径，就是相对于baseUrl的路径
+define(['backbone','text!../tmpl/index.html'], function(Backbone, html){
+
+});
+</code></pre>
+
+<p><strong>requirejs构建工具r.js</strong></p>
+
+<p>当项目上线的时候，我们可能需要对模块代码进行压缩合并的操作，这时我们就会用到<code>requirejs</code>的构建工具<code>r.js</code>。首先我们在项目根目录创建一个<code>build</code>的文件夹和<code>dist</code>的文件夹，分别用来存放模块合并相关配置和合并后的代码的文件目录，在<code>build</code>目录里面存放<code>r.js</code>，并新建一个压缩合并的配置文件<code>config.js</code>,下面是<code>config.js</code>的配置示例：</p>
+
+<pre><code class="language-javascript">//config.js
+{
+    //requirejs.cofig文件的路径,它会自动读取main.js里面的配置信息
+    mainConfigFile : &quot;../js/main.js&quot;,
+    baseUrl: '../js',
+    name: &quot;main&quot;,
+    //输出文件的路径和名称
+    out: &quot;../dist/js/main.js&quot;,
+    //默认情况写r.js会把相关的依赖文件拷贝到输出目录里面去
+    //设置为true之后r.js就不会进行这一操作
+    removeCombined: true,
+    //findNestedDependencies设置为true表示将所有相关的依赖模块也合并进来，默认为false只会对main.js进行压缩合并的操作
+    findNestedDependencies: true
+}
+</code></pre>
+
+<p>然后在命令行执行：</p>
+
+<pre><code class="language-bash">node r.js -o config.js  
+</code></pre>
+
+<p>执行完成之后便会在<code>dist/js/</code>目录下面生成一个合并后的<code>main.js</code></p>
+
+<p>你会发现这个<code>main.js</code>可能会非常大，而在实际项目中，像通用的一些jquery、backbone等有时候我们可能没有必要把它压缩进来，我们只需要压缩自己写的一些代码，于是我们再次开始配置我们的<code>config.js</code>：</p>
+
+<pre><code class="language-javascript">{
+    mainConfigFile : &quot;../js/main.js&quot;,
+    baseUrl: &quot;../js&quot;,
+    removeCombined: true,
+    findNestedDependencies: true,
+    dir: &quot;../dist/js&quot;,
+    modules: [{
+        name: &quot;main&quot;,
+        exclude: [
+            &quot;backbone&quot;,
+            &quot;underscore&quot;,
+            &quot;jquery&quot;,
+            &quot;text&quot;,
+            ...
+        ]
+    }]
+}
+</code></pre>
+
+<p>再次运行压缩合并命令将会发现在<code>exclude</code>数组里面的项不会被合并。</p>
+
+<p>然而我觉得更好的做法是把通用的一些库，如jquery,bacnbone等合并到一个文件里面，我们自己的代码合并到了一个文件，因此，我们重新进行配置。</p>
+
+<p>首先我们新建一个js文件，这个js文件啥也不用做，就是为了引用所有通用的库，这样方便我们进行排除，如下：</p>
+
+<pre><code class="language-javascript">//libs.js
+
+define([  
+    &quot;jquery&quot;,
+    &quot;underscore&quot;,
+    &quot;backbone&quot;,
+    ...
+    &quot;text&quot;
+], function() {});
+</code></pre>
+
+<p>然后我们的<code>config.js</code>变成了这样：</p>
+
+<pre><code class="language-javascript">{
+    mainConfigFile : &quot;../js/main.js&quot;,
+    baseUrl: &quot;../js&quot;,
+    removeCombined: true,
+    findNestedDependencies: true,
+    dir: &quot;../dist/js&quot;,
+    modules: [
+        {
+            name: &quot;main&quot;,
+            exclude: [
+                &quot;libs&quot;
+            ]
+        },
+           {
+               name: &quot;libs&quot;
+           }
+    ]
+}
+</code></pre>
+
+<p>现在，我们的<code>build</code>操作终于完美了。</p>
+
+<p>但是，如果我们的js直接通过cdn引用的呢？如果我们直接运行上面的压缩配置，<code>r.js</code>将会报错。因此，对于从cdn引入的js，我们作如下配置：</p>
+
+<pre><code class="language-javascript">requirejs.config({  
+    paths: {
+        //如果cdn挂点，通过本地加载jquery
+        jquery: ['http://cdn.staticfile.org/jquery/1.11.1/jquery.min.js', 'lib/jquery/jquery-1.11.1.min'],
+        underscore: 'lib/underscore/underscore-min',
+        ...
+        text: 'lib/requirejs/plugins/text',
+        echarts:'lib/echarts/echarts',
+        'echarts/chart/bar' : 'lib/echarts/echarts',
+        config: 'modules/common/config'
+    }  
+});
+
+//修改config.js
+{
+    mainConfigFile : &quot;../js/main.js&quot;,
+    baseUrl: &quot;../js&quot;,
+    removeCombined: true,
+    findNestedDependencies: true,
+    dir: &quot;../dist/js&quot;,
+    modules: [
+        {
+            name: &quot;main&quot;,
+            exclude: [
+                &quot;libs&quot;
+            ]
+        },
+           {
+               name: &quot;libs&quot;
+           }
+    ],
+    paths: {
+        jquery: &quot;empty:&quot;
+    }
+}
+</code></pre>
+
+<p>我们再次运行合并的操作<code>node r.js -o config.js</code>会发现此时<code>r.js</code>没有把<code>jquery</code>合并进来，因为它是通过cdn加载的。</p>
+
+<p><strong>css的压缩合并配置</strong></p>
+
+<p>虽然我的项目中没有用到，但在这里还是说一下吧。</p>
+
+<p>项目中可能引用了多个css文件，如：</p>
+
+<pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;css/bootstrap.css&quot;&gt;  
+&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;css/style.css&quot;&gt;  
+</code></pre>
+
+<p>如果我们只想引用一个css文件，我们可以这样：</p>
+
+<pre><code class="language-css">@import url('/css/bootstrap.css');
+/* style.css content here…. */
+</code></pre>
+
+<p>然后在压缩合并的时候进行配置：</p>
+
+<pre><code class="language-javascript">//config.js
+{
+    mainConfigFile : &quot;../js/main.js&quot;,
+    appDir: &quot;../&quot;,
+    baseUrl: &quot;js&quot;,
+    removeCombined: true,
+    findNestedDependencies: true,
+    dir: &quot;../dist&quot;,
+    optimizeCss: &quot;standard&quot;,
+    modules: [
+        {
+            name: &quot;main&quot;,
+            exclude: [
+                &quot;libs&quot;
+            ]
+        },
+           {
+               name: &quot;libs&quot;
+           }
+    ],
+    paths: {
+        jquery: &quot;empty:&quot;
+    }，
+    //匹配到的文件或者目录不会被拷贝到dist目录
+    fileExclusionRegExp: /(^\.|build|dist|sass|config.rb)/,
+    generateSourceMaps: true
+}
+</code></pre>
+
+<blockquote>
+  <p><code>appDir</code>：项目根目录</p>
+  
+  <p><code>optimizeCss</code> ：css压缩规则，有四种，分别是：<code>none</code> 、<code>standard</code> 、<code>standard.keeplines</code>、<code>standard.keepComments</code>、<code>standard.keepComments.keeplines</code>。具体意思我就不一一解释了。</p>
+  
+  <p><code>generateSourceMaps</code>：生成map文件，把压缩过的js与未压缩的作映射</p>
+</blockquote>
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="site-footer clearfix">
+        <section class="copyright"><a href="../../index.html">江矿宝宝的博客.</a> &copy; 2017</section>
+        <section class="poweredby">Proudly published with <a href="https://ghost.org">Ghost</a></section>
+    </footer>
+</body>
+</html>

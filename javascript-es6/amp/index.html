@@ -1,0 +1,1505 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+
+    <title>JavaScript ES6核心特性概述</title>
+    <meta name="description" content="" />
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <link rel="shortcut icon" href="../../favicon.ico">
+
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="江矿宝宝的博客." />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="JavaScript ES6核心特性概述" />
+    <meta property="og:description" content="JavaScript在过去几年里发生了很大的变化。这里有12个新功能，您可以学习使用它们！ JavaScript历史 新增加的语言称为ECMAScript 6。它也称为ES6或ES2015 +。 自从 1995年提出的JavaScript构想以来，发展进展非常缓慢。每隔几年新增一次。1997年以来 ECMAScript 一直作为JavaScript实现的基础，引导JavaScript 发展。它已经发布了好几个版本，如ES3，ES5，ES6等。   ECMAScript与JavaScript的关系：      ECMA-262标准的描述如下：“ ECMAScript 可以为不同种类的宿主环境提供核心的脚本编程能力，因此核心的脚本语言时与任何特定的宿主环境分开进行规定的。”简单地说，ECMAScript描述了以下内容：语法、类型、语句、关键字、保留字、运算符、对象等。      ECMAScript是JavaScript的一个重要标准，但它并不是JavaScript唯一的部分，当然，也不是唯一被标准化的部分。比如在WEB前端开发中，Web浏览器对于ECMAScript来说是一个宿主环境，但它并不是唯一的宿主环境。事实上，还有不计其数的其他各种环境(例如目前很火的Node.js   )。一个完整的JavaScript实现是由以下3个不同部分组成的：核心(ECMAScript)、文档对象模型(DOM)" />
+    <meta property="og:url" content="http://localhost:2368/javascript-es6/" />
+    <meta property="article:published_time" content="2016-10-10T07:58:00.000Z" />
+    <meta property="article:modified_time" content="2017-05-25T08:22:11.000Z" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="JavaScript ES6核心特性概述" />
+    <meta name="twitter:description" content="JavaScript在过去几年里发生了很大的变化。这里有12个新功能，您可以学习使用它们！ JavaScript历史 新增加的语言称为ECMAScript 6。它也称为ES6或ES2015 +。 自从 1995年提出的JavaScript构想以来，发展进展非常缓慢。每隔几年新增一次。1997年以来 ECMAScript 一直作为JavaScript实现的基础，引导JavaScript 发展。它已经发布了好几个版本，如ES3，ES5，ES6等。   ECMAScript与JavaScript的关系：      ECMA-262标准的描述如下：“ ECMAScript 可以为不同种类的宿主环境提供核心的脚本编程能力，因此核心的脚本语言时与任何特定的宿主环境分开进行规定的。”简单地说，ECMAScript描述了以下内容：语法、类型、语句、关键字、保留字、运算符、对象等。      ECMAScript是JavaScript的一个重要标准，但它并不是JavaScript唯一的部分，当然，也不是唯一被标准化的部分。比如在WEB前端开发中，Web浏览器对于ECMAScript来说是一个宿主环境，但它并不是唯一的宿主环境。事实上，还有不计其数的其他各种环境(例如目前很火的Node.js   )。一个完整的JavaScript实现是由以下3个不同部分组成的：核心(ECMAScript)、文档对象模型(DOM)" />
+    <meta name="twitter:url" content="http://localhost:2368/javascript-es6/" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="江矿宝宝." />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "江矿宝宝的博客.",
+        "logo": "http://localhost:2368/ghost/img/ghosticon.jpg"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "江矿宝宝.",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://joe-10005639.cossh.myqcloud.com/jkbb.jpg",
+            "width": 600,
+            "height": 600
+        },
+        "url": "http://localhost:2368/author/jkbb/",
+        "sameAs": [
+            "https://joname1.github.io"
+        ],
+        "description": "伪前端攻城狮, 喜欢钻研新技术."
+    },
+    "headline": "JavaScript ES6核心特性概述",
+    "url": "http://localhost:2368/javascript-es6/",
+    "datePublished": "2016-10-10T07:58:00.000Z",
+    "dateModified": "2017-05-25T08:22:11.000Z",
+    "description": "JavaScript在过去几年里发生了很大的变化。这里有12个新功能，您可以学习使用它们！ JavaScript历史 新增加的语言称为ECMAScript 6。它也称为ES6或ES2015 +。 自从 1995年提出的JavaScript构想以来，发展进展非常缓慢。每隔几年新增一次。1997年以来 ECMAScript 一直作为JavaScript实现的基础，引导JavaScript 发展。它已经发布了好几个版本，如ES3，ES5，ES6等。   ECMAScript与JavaScript的关系：      ECMA-262标准的描述如下：“ ECMAScript 可以为不同种类的宿主环境提供核心的脚本编程能力，因此核心的脚本语言时与任何特定的宿主环境分开进行规定的。”简单地说，ECMAScript描述了以下内容：语法、类型、语句、关键字、保留字、运算符、对象等。      ECMAScript是JavaScript的一个重要标准，但它并不是JavaScript唯一的部分，当然，也不是唯一被标准化的部分。比如在WEB前端开发中，Web浏览器对于ECMAScript来说是一个宿主环境，但它并不是唯一的宿主环境。事实上，还有不计其数的其他各种环境(例如目前很火的Node.js   )。一个完整的JavaScript实现是由以下3个不同部分组成的：核心(ECMAScript)、文档对象模型(DOM)",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://localhost:2368"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.11" />
+    <link rel="alternate" type="application/rss+xml" title="江矿宝宝的博客." href="../../rss/index.html" />
+
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,600,400" />
+    <style amp-custom>
+        /* ==========================================================================
+           Table of Contents
+           ========================================================================== */
+
+        /*
+
+            0. Normalize
+            1. General
+            2. Utilities
+            3. AMP Post
+            4. Footer
+
+        */
+
+        /* ==========================================================================
+           0. normalize.css v3.0.3 | MIT License | git.io/normalize | (minified)
+           ========================================================================== */
+
+        html {
+            font-family: sans-serif;
+
+            -ms-text-size-adjust: 100%;
+            -webkit-text-size-adjust: 100%;
+        }
+        body {
+            margin: 0;
+        }
+        article,
+        aside,
+        details,
+        figcaption,
+        figure,
+        footer,
+        header,
+        main,
+        menu,
+        nav,
+        section,
+        summary {
+            display: block;
+        }
+        audio,
+        canvas,
+        progress,
+        video {
+            display: inline-block;
+            vertical-align: baseline;
+        }
+        audio:not([controls]) {
+            display: none;
+            height: 0;
+        }
+        [hidden],
+        template {
+            display: none;
+        }
+        a {
+            background-color: transparent;
+        }
+        a:active,
+        a:hover {
+            outline: 0;
+        }
+        abbr[title] {
+            border-bottom: 1px dotted;
+        }
+        b,
+        strong {
+            font-weight: bold;
+        }
+        dfn {
+            font-style: italic;
+        }
+        h1 {
+            margin: 0.67em 0;
+            font-size: 2em;
+        }
+        mark {
+            background: #ff0;
+            color: #000;
+        }
+        small {
+            font-size: 80%;
+        }
+        sub,
+        sup {
+            position: relative;
+            vertical-align: baseline;
+            font-size: 75%;
+            line-height: 0;
+        }
+        sup {
+            top: -0.5em;
+        }
+        sub {
+            bottom: -0.25em;
+        }
+        img {
+            border: 0;
+        }
+        amp-img {
+            border: 0;
+        }
+        svg:not(:root) {
+            overflow: hidden;
+        }
+        figure {
+            margin: 1em 40px;
+        }
+        hr {
+            box-sizing: content-box;
+            height: 0;
+        }
+        pre {
+            overflow: auto;
+        }
+        code,
+        kbd,
+        pre,
+        samp {
+            font-family: monospace, monospace;
+            font-size: 1em;
+        }
+        button,
+        input,
+        optgroup,
+        select,
+        textarea {
+            margin: 0;
+            color: inherit;
+            font: inherit;
+        }
+        button {
+            overflow: visible;
+        }
+        button,
+        select {
+            text-transform: none;
+        }
+        button,
+        html input[type="button"],
+        input[type="reset"],
+        input[type="submit"] {
+            cursor: pointer;
+
+            -webkit-appearance: button;
+        }
+        button[disabled],
+        html input[disabled] {
+            cursor: default;
+        }
+        button::-moz-focus-inner,
+        input::-moz-focus-inner {
+            padding: 0;
+            border: 0;
+        }
+        input {
+            line-height: normal;
+        }
+        input[type="checkbox"],
+        input[type="radio"] {
+            box-sizing: border-box;
+            padding: 0;
+        }
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            height: auto;
+        }
+        input[type="search"] {
+            -webkit-appearance: textfield;
+        }
+        input[type="search"]::-webkit-search-cancel-button,
+        input[type="search"]::-webkit-search-decoration {
+            -webkit-appearance: none;
+        }
+        fieldset {
+            margin: 0 2px;
+            padding: 0.35em 0.625em 0.75em;
+            border: 1px solid #c0c0c0;
+        }
+        legend {
+            padding: 0;
+            border: 0;
+        }
+        textarea {
+            overflow: auto;
+        }
+        optgroup {
+            font-weight: bold;
+        }
+        table {
+            border-spacing: 0;
+            border-collapse: collapse;
+        }
+        td,
+        th {
+            padding: 0;
+        }
+
+
+        /* ==========================================================================
+           1. General - Setting up some base styles
+           ========================================================================== */
+
+        html {
+            max-height: 100%;
+            height: 100%;
+            font-size: 62.5%;
+
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        }
+
+        body {
+            max-height: 100%;
+            height: 100%;
+            color: #3a4145;
+            background: #f4f8fb;
+            letter-spacing: 0.01rem;
+            font-family: "Merriweather", serif;
+            font-size: 1.8rem;
+            line-height: 1.75em;
+            text-rendering: geometricPrecision;
+
+            -webkit-font-feature-settings: "kern" 1;
+            -moz-font-feature-settings: "kern" 1;
+            -o-font-feature-settings: "kern" 1;
+        }
+
+        ::-moz-selection {
+            background: #d6edff;
+        }
+
+        ::selection {
+            background: #d6edff;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            margin: 0 0 0.3em 0;
+            color: #2e2e2e;
+            font-family: "Open Sans", sans-serif;
+            line-height: 1.15em;
+            text-rendering: geometricPrecision;
+
+            -webkit-font-feature-settings: "dlig" 1, "liga" 1, "lnum" 1, "kern" 1;
+            -moz-font-feature-settings: "dlig" 1, "liga" 1, "lnum" 1, "kern" 1;
+            -o-font-feature-settings: "dlig" 1, "liga" 1, "lnum" 1, "kern" 1;
+        }
+
+        h1 {
+            text-indent: -2px;
+            letter-spacing: -1px;
+            font-size: 2.6rem;
+        }
+
+        h2 {
+            letter-spacing: 0;
+            font-size: 2.4rem;
+        }
+
+        h3 {
+            letter-spacing: -0.6px;
+            font-size: 2.1rem;
+        }
+
+        h4 {
+            font-size: 1.9rem;
+        }
+
+        h5 {
+            font-size: 1.8rem;
+        }
+
+        h6 {
+            font-size: 1.8rem;
+        }
+
+        a {
+            color: #4a4a4a;
+        }
+
+        a:hover {
+            color: #111;
+        }
+
+        p,
+        ul,
+        ol,
+        dl {
+            margin: 0 0 2.5rem 0;
+            font-size: 1.5rem;
+            text-rendering: geometricPrecision;
+
+            -webkit-font-feature-settings: "liga" 1, "onum" 1, "kern" 1;
+            -moz-font-feature-settings: "liga" 1, "onum" 1, "kern" 1;
+            -o-font-feature-settings: "liga" 1, "onum" 1, "kern" 1;
+        }
+
+        ol,
+        ul {
+            padding-left: 2em;
+        }
+
+        ol ol,
+        ul ul,
+        ul ol,
+        ol ul {
+            margin: 0 0 0.4em 0;
+            padding-left: 2em;
+        }
+
+        dl dt {
+            float: left;
+            clear: left;
+            overflow: hidden;
+            margin-bottom: 1em;
+            width: 180px;
+            text-align: right;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            font-weight: 700;
+        }
+
+        dl dd {
+            margin-bottom: 1em;
+            margin-left: 200px;
+        }
+
+        li {
+            margin: 0.4em 0;
+        }
+
+        li li {
+            margin: 0;
+        }
+
+        hr {
+            display: block;
+            margin: 1.75em 0;
+            padding: 0;
+            height: 1px;
+            border: 0;
+            border-top: #efefef 1px solid;
+        }
+
+        blockquote {
+            box-sizing: border-box;
+            margin: 1.75em 0 1.75em 0;
+            padding: 0 0 0 1.75em;
+            border-left: #4a4a4a 0.4em solid;
+
+            -moz-box-sizing: border-box;
+        }
+
+        blockquote p {
+            margin: 0.8em 0;
+            font-style: italic;
+        }
+
+        blockquote small {
+            display: inline-block;
+            margin: 0.8em 0 0.8em 1.5em;
+            color: #ccc;
+            font-size: 0.9em;
+        }
+
+        blockquote small:before {
+            content: "\2014 \00A0";
+        }
+
+        blockquote cite {
+            font-weight: 700;
+        }
+
+        blockquote cite a {
+            font-weight: normal;
+        }
+
+        mark {
+            background-color: #fdffb6;
+        }
+
+        code,
+        tt {
+            padding: 1px 3px;
+            border: #e3edf3 1px solid;
+            background: #f7fafb;
+            border-radius: 2px;
+            white-space: pre-wrap;
+            font-family: Inconsolata, monospace, sans-serif;
+            font-size: 0.85em;
+            font-feature-settings: "liga" 0;
+
+            -webkit-font-feature-settings: "liga" 0;
+            -moz-font-feature-settings: "liga" 0;
+        }
+
+        pre {
+            overflow: auto;
+            box-sizing: border-box;
+            margin: 0 0 1.75em 0;
+            padding: 10px;
+            width: 100%;
+            border: #e3edf3 1px solid;
+            background: #f7fafb;
+            border-radius: 3px;
+            white-space: pre;
+            font-family: Inconsolata, monospace, sans-serif;
+            font-size: 0.9em;
+
+            -moz-box-sizing: border-box;
+        }
+
+        pre code,
+        pre tt {
+            padding: 0;
+            border: none;
+            background: transparent;
+            white-space: pre-wrap;
+            font-size: inherit;
+        }
+
+        kbd {
+            display: inline-block;
+            margin-bottom: 0.4em;
+            padding: 1px 8px;
+            border: #ccc 1px solid;
+            background: #f4f4f4;
+            border-radius: 4px;
+            box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2),
+            0 1px 0 0 #fff inset;
+            color: #666;
+            text-shadow: #fff 0 1px 0;
+            font-size: 0.9em;
+            font-weight: 700;
+        }
+
+        table {
+            box-sizing: border-box;
+            margin: 1.75em 0;
+            max-width: 100%;
+            width: 100%;
+            background-color: transparent;
+
+            -moz-box-sizing: border-box;
+        }
+
+        table th,
+        table td {
+            padding: 8px;
+            border-top: #efefef 1px solid;
+            vertical-align: top;
+            text-align: left;
+            line-height: 20px;
+        }
+
+        table th {
+            color: #000;
+        }
+
+        table caption + thead tr:first-child th,
+        table caption + thead tr:first-child td,
+        table colgroup + thead tr:first-child th,
+        table colgroup + thead tr:first-child td,
+        table thead:first-child tr:first-child th,
+        table thead:first-child tr:first-child td {
+            border-top: 0;
+        }
+
+        table tbody + tbody {
+            border-top: #efefef 2px solid;
+        }
+
+        table table table {
+            background-color: #fff;
+        }
+
+        table tbody > tr:nth-child(odd) > td,
+        table tbody > tr:nth-child(odd) > th {
+            background-color: #f6f6f6;
+        }
+
+        table.plain tbody > tr:nth-child(odd) > td,
+        table.plain tbody > tr:nth-child(odd) > th {
+            background: transparent;
+        }
+
+        iframe,
+        amp-iframe,
+        .fluid-width-video-wrapper {
+            display: block;
+            margin: 1.75em 0;
+        }
+
+        /* When a video is inside the fitvids wrapper, drop the
+        margin on the iframe, cause it breaks stuff. */
+        .fluid-width-video-wrapper iframe,
+        .fluid-width-video-wrapper amp-iframe {
+            margin: 0;
+        }
+
+        textarea,
+        select,
+        input {
+            margin: 0 0 5px 0;
+            padding: 6px 9px;
+            width: 260px;
+            outline: 0;
+            border: #e7eef2 1px solid;
+            background: #fff;
+            border-radius: 4px;
+            box-shadow: none;
+            font-family: "Open Sans", sans-serif;
+            font-size: 1.6rem;
+            line-height: 1.4em;
+            font-weight: 100;
+
+            -webkit-appearance: none;
+        }
+
+        textarea {
+            min-width: 250px;
+            min-height: 80px;
+            max-width: 340px;
+            width: 100%;
+            height: auto;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="search"]:focus,
+        input[type="tel"]:focus,
+        input[type="url"]:focus,
+        input[type="password"]:focus,
+        input[type="number"]:focus,
+        input[type="date"]:focus,
+        input[type="month"]:focus,
+        input[type="week"]:focus,
+        input[type="time"]:focus,
+        input[type="datetime"]:focus,
+        input[type="datetime-local"]:focus,
+        textarea:focus {
+            outline: none;
+            outline-width: 0;
+            border: #bbc7cc 1px solid;
+            background: #fff;
+        }
+
+        select {
+            width: 270px;
+            height: 30px;
+            line-height: 30px;
+        }
+
+        /* ==========================================================================
+           2. Utilities
+           ========================================================================== */
+
+        /* Clears shit */
+        .clearfix:before,
+        .clearfix:after {
+            content: " ";
+            display: table;
+        }
+        .clearfix:after {
+            clear: both;
+        }
+        .clearfix {
+            zoom: 1;
+        }
+
+        /* ==========================================================================
+           3. AMP Post
+           ========================================================================== */
+
+
+
+        .main-header {
+            position: relative;
+            display: table;
+            overflow: hidden;
+            box-sizing: border-box;
+            width: 100%;
+            height: 50px;
+            background: #5ba4e5 no-repeat center center;
+            background-size: cover;
+            text-align: left;
+
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+        }
+
+        .content {
+            background: #fff;
+            padding-top: 15px;
+        }
+        .blog-title,
+        .content {
+            margin: auto;
+            max-width: 600px;
+        }
+
+        .blog-title a {
+            display: block;
+            padding-right: 16px;
+            padding-left: 16px;
+            height: 50px;
+            color: #fff;
+            text-decoration: none;
+            font-family: "Open Sans", sans-serif;
+            font-size: 16px;
+            line-height: 50px;
+            font-weight: 600;
+        }
+
+        .post {
+            position: relative;
+            margin-top: 0;
+            margin-right: 16px;
+            margin-left: 16px;
+            padding-bottom: 0;
+            max-width: 100%;
+            border-bottom: #ebf2f6 1px solid;
+            word-wrap: break-word;
+            font-size: 0.95em;
+            line-height: 1.65em;
+        }
+
+        .post-header {
+            margin-bottom: 1rem;
+        }
+
+        .post-title {
+            margin-bottom: 0;
+        }
+
+        .post-title a {
+            text-decoration: none;
+        }
+
+        .post-meta {
+            display: block;
+            margin: 3px 0 0 0;
+            color: #9eabb3;
+            font-family: "Open Sans", sans-serif;
+            font-size: 1.3rem;
+            line-height: 2.2rem;
+        }
+
+        .post-meta a {
+            color: #9eabb3;
+            text-decoration: none;
+        }
+
+        .post-meta a:hover {
+            text-decoration: underline;
+        }
+
+        .post-meta .author {
+            margin: 0;
+            font-size: 1.3rem;
+            line-height: 1.3em;
+        }
+
+        .post-date {
+            display: inline-block;
+            text-transform: uppercase;
+            white-space: nowrap;
+            font-size: 1.2rem;
+            line-height: 1.2em;
+        }
+
+        .post-image {
+            margin: 0;
+            padding-top: 3rem;
+            padding-bottom: 30px;
+            border-top: 1px #E8E8E8 solid;
+        }
+
+        /* Keep images centered, and allow images wider than the main
+           text column to break out. */
+        .post-content amp-img,
+        .post-content amp-anim {
+            /* Centers an image by (1) pushing its left edge to the
+               center of its container and (2) shifting the entire image
+               in the opposite direction by half its own width.
+               Works for images that are larger than their containers. */
+            position: relative;
+            left: 50%;
+            display: block;
+            padding: 0;
+            min-width: 0;
+            max-width: 112%; /* fallback when calc doesn't work */
+            width: calc(100% + 32px); /* expand with to image + margins */
+            height: auto;
+            transform: translateX(-50%);
+
+            -webkit-transform: translateX(-50%); /* for Safari and iOS */
+            -ms-transform: translateX(-50%); /* for IE9 */
+        }
+
+        .footnotes {
+            font-size: 1.3rem;
+            line-height: 1.6em;
+            font-style: italic;
+        }
+
+        .footnotes li {
+            margin: 0.6rem 0;
+        }
+
+        .footnotes p {
+            margin: 0;
+        }
+
+        .footnotes p a:last-child {
+            text-decoration: none;
+        }
+
+        /* ==========================================================================
+           4. Footer - The bottom the AMP Post
+           ========================================================================== */
+
+        .site-footer {
+            position: relative;
+            margin: 0 auto 20px auto;
+            padding: 1rem 15px;
+            max-width: 600px;
+            color: rgba(0,0,0,0.5);
+            font-family: "Open Sans", sans-serif;
+            font-size: 1.1rem;
+            line-height: 1.75em;
+        }
+
+        .site-footer a {
+            color: rgba(0,0,0,0.5);
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .site-footer a:hover {
+            border-bottom: #bbc7cc 1px solid;
+        }
+
+        .poweredby {
+            display: block;
+            float: right;
+            width: 45%;
+            text-align: right;
+        }
+
+        .copyright {
+            display: block;
+            float: left;
+            width: 45%;
+        }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="main-header">
+        <nav class="blog-title">
+            <a href="../../index.html">江矿宝宝的博客.</a>
+        </nav>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">JavaScript ES6核心特性概述</h1>
+                <section class="post-meta">
+                    <p class="author">by <a href="../../author/jkbb/index.html">江矿宝宝.</a></p>
+                    <time class="post-date" datetime="2016-10-10">2016-10-10</time>
+                </section>
+            </header>
+            <section class="post-content">
+
+                <p>JavaScript在过去几年里发生了很大的变化。这里有12个新功能，您可以学习使用它们！</p>
+
+<p><amp-img src="http://css88.b0.upaiyun.com/css88/2016/10/es6-core-features-overview-large.png" alt width="728" height="360" layout="responsive"></amp-img></p>
+
+<h2 id="javascript">JavaScript历史</h2>
+
+<p>新增加的语言称为ECMAScript 6。它也称为ES6或ES2015 +。</p>
+
+<p>自从 1995年提出的JavaScript构想以来，发展进展非常缓慢。每隔几年新增一次。1997年以来 ECMAScript 一直作为JavaScript实现的基础，引导JavaScript 发展。它已经发布了好几个版本，如ES3，ES5，ES6等。</p>
+
+<blockquote>
+  <p>ECMAScript与JavaScript的关系：</p>
+  
+  <p>ECMA-262标准的描述如下：“ ECMAScript 可以为不同种类的宿主环境提供核心的脚本编程能力，因此核心的脚本语言时与任何特定的宿主环境分开进行规定的。”简单地说，ECMAScript描述了以下内容：语法、类型、语句、关键字、保留字、运算符、对象等。</p>
+  
+  <p>ECMAScript是JavaScript的一个重要标准，但它并不是JavaScript唯一的部分，当然，也不是唯一被标准化的部分。比如在WEB前端开发中，Web浏览器对于ECMAScript来说是一个宿主环境，但它并不是唯一的宿主环境。事实上，还有不计其数的其他各种环境(例如目前很火的Node.js
+  )。一个完整的JavaScript实现是由以下3个不同部分组成的：核心(ECMAScript)、文档对象模型(DOM)、浏览器对象模型(BOM)。</p>
+  
+  <p>正如你所看到的，ES3，ES5和ES6之间分别存在10年和6年的时间间隔。目前ECMAScript发展的新模式是每年进行少量变更。而不是像ES6一样做大量的更改。</p>
+</blockquote>
+
+<h2 id>浏览器支持</h2>
+
+<p><amp-img src="http://css88.b0.upaiyun.com/css88/2016/10/es6-javascript-support.png" alt width="1086" height="711" layout="responsive"></amp-img></p>
+
+<p>所有现代浏览器和环境都已经支持ES6了！Chrome，MS Edge，Firefox，Safari，Node等等已经内置支持JavaScript ES6的大部分功能。所以，你在本教程中学到的一切，你可以立即开始使用它。</p>
+
+<p>让我们开始使用 ECMAScript 6 吧！</p>
+
+<h2 id="es6">核心ES6特性</h2>
+
+<p>变量的块作用域</p>
+
+<p>在过去声明变量使用 var，而在ES6中，声明变量还可以使用 let / const。</p>
+
+<p>var 有什么问题？</p>
+
+<p>var 的问题是变量会被泄漏到其他代码块，例如 for 循环或 if 代码块。  </p>
+
+<pre><code class="language-js">ES5 代码:  
+var x = 'outer';  
+function test(inner) {  
+  if (inner) {
+    var x = 'inner'; // 作用域是整个function
+    return x;
+  }
+  return x; //被重新定义，因为第4行声明被提升
+}
+test(false); // undefined  
+test(true); // inner  
+</code></pre>
+
+<p>上面代码中，对于test(false) 你可能期望的是返回 outer, 但是不是, 你得到的是 undefined。</p>
+
+<p>为什么?</p>
+
+<p>因为即使 if 代码块没有被执行，第4行中的表达式var x也是被提升的。</p>
+
+<blockquote>
+  <p>var 变量提升</p>
+  
+  <p>var是函数作用域。它在整个函数中是可用的，甚至在被声明之前。
+  初始化 不 提升。如果你使用var ，请总是在顶部声明你的变量。
+  应用提升规则后我们可以更好地了解发生了什么：</p>
+</blockquote>
+
+<pre><code class="language-js">ES5 代码:  
+var x = 'outer';  
+function test(inner) {  
+  var x; // 提升声明
+  if (inner) {
+    x = 'inner'; // 初始化不提升
+    return x;
+  }
+  return x;
+}
+</code></pre>
+
+<p>用ECMAScript 6 来拯救：</p>
+
+<pre><code class="language-js">ES6 代码:  
+let x = 'outer';  
+function test(inner) {  
+  if (inner) {
+    let x = 'inner';
+    return x;
+  }
+  return x; // 从第1行获得预期结果
+}
+test(false); // outer  
+test(true); // inner  
+</code></pre>
+
+<p>从var改用 let,使代码按你设想的那样执行。 if 代码块没有被执行，变量x不会从if 代码块中被提升。</p>
+
+<p>let 提升 和 “暂时性死区”</p>
+
+<p>在ES6中，let将把变量提升到代码块的顶部（不是像ES5那样的函数顶部）。
+但是，代码块中，在变量声明之前引用这个变量会导致一个 ReferenceError 错误。
+let是块作用域。在声明之前不能使用它。 <br></br>
+“暂时性死区”是指从代码块开始直到变量被声明的区域。</p>
+
+<h2 id="iife">IIFE</h2>
+
+<p>在解释LIFE之前，让我们举个例子。 看看这里：</p>
+
+<pre><code class="language-js">ES5 代码:  
+{
+  var private = 1;
+}
+console.log(private); // 1  
+</code></pre>
+
+<p>正如你所看到的，变量private 被泄漏到了代码块外面。你需要使用IIFE（immediately-invoked function expression，即：立即调用函数表达式）来包含它：</p>
+
+<pre><code class="language-js">ES5 代码:  
+(function(){
+  var private2 = 1;
+})();
+console.log(private2); // 未捕获 ReferenceError  
+</code></pre>
+
+<p>如果你看看jQuery / lodash或其他开源项目，您将注意到他们使用IIFE以避免污染全局环境并只是在全局定义，如 _，$ 或 jQuery 。</p>
+
+<p>在ES6中更干净，如果我们只是现在某个代码块中使用使用某个变量，我们可以使用let，再也不需要使用IIFE了：</p>
+
+<pre><code class="language-js">ES6 代码:  
+{
+  let private3 = 1;
+}
+console.log(private3); // 未捕获 ReferenceError  
+</code></pre>
+
+<h2 id="const">Const</h2>
+
+<p>如果你想要一个变量一直不改变，你也可以使用 const。</p>
+
+<p><amp-img src="http://css88.b0.upaiyun.com/css88/2016/10/javascript-es6-const-variables-example.png" alt width="818" height="206" layout="responsive"></amp-img></p>
+
+<p>底线：var 区分 let 和 const。</p>
+
+<p>对于所有引用使用const; 避免使用var。
+如果你必须重新分配引用（愚人码头注：变量需要重新赋值的），使用let而不是const。</p>
+
+<h2 id="templateliterals">模板字面量(Template Literals)</h2>
+
+<p>当我们有了模板字面量，我们就不需要做更多的嵌套连接。看一看：</p>
+
+<pre><code class="language-js">ES5 代码:  
+var first = 'Adrian';  
+var last = 'Mejia';  
+console.log('Your name is ' + first + ' ' + last + '.');  
+</code></pre>
+
+<p>现在你可以使用反引号 ( <code></code> ) 和插值字符串 ${};</p>
+
+<pre><code class="language-js">ES6 代码:  
+const first = 'Adrian';  
+const last = 'Mejia';  
+console.log(`Your name is ${first} ${last}.`);  
+</code></pre>
+
+<p>ES6的模板字面量没有转义、循环、条件判断等内置语法，感觉功能还很弱。</p>
+
+<h2 id>多行字符串</h2>
+
+<p>我们不必在连接字符串时需要加 \n，就像这样：</p>
+
+<pre><code class="language-js">ES5 代码:  
+var template = '&lt;li *ngFor=&quot;let todo of todos&quot; [ngClass]=&quot;{completed: todo.isDone}&quot; &gt;\n' +  
+'  &lt;div class=&quot;view&quot;&gt;\n' +  
+'    &lt;input class=&quot;toggle&quot; type=&quot;checkbox&quot; [checked]=&quot;todo.isDone&quot;&gt;\n' +  
+'    &lt;label&gt;&lt;/label&gt;\n' +  
+'    &lt;button class=&quot;destroy&quot;&gt;&lt;/button&gt;\n' +  
+'  &lt;/div&gt;\n' +  
+'  &lt;input class=&quot;edit&quot; value=&quot;&quot;&gt;\n' +  
+'&lt;/li&gt;';  
+console.log(template);  
+</code></pre>
+
+<p>在ES6中，我们可以再次使用反引号来解决这个问题：</p>
+
+<pre><code class="language-js">ES6 代码:  
+const template = `&lt;li *ngFor=&quot;let todo of todos&quot; [ngClass]=&quot;{completed: todo.isDone}&quot; &gt;  
+  &lt;div class=&quot;view&quot;&gt;
+    &lt;input class=&quot;toggle&quot; type=&quot;checkbox&quot; [checked]=&quot;todo.isDone&quot;&gt;
+    &lt;label&gt;&lt;/label&gt;
+    &lt;button class=&quot;destroy&quot;&gt;&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;input class=&quot;edit&quot; value=&quot;&quot;&gt;
+&lt;/li&gt;`;  
+console.log(template);  
+</code></pre>
+
+<p>这两段代码将等到完全相同的结果。</p>
+
+<h2 id>解构分配</h2>
+
+<p>ES6解构非常有用和简洁。 按照这个例子：</p>
+
+<p>从数组中获取元素</p>
+
+<pre><code class="language-js">ES5 代码:  
+var array = [1, 2, 3, 4];  
+var first = array[0];  
+var third = array[2];  
+console.log(first, third); // 1 3  
+</code></pre>
+
+<p>等价于：</p>
+
+<pre><code class="language-js">ES6 代码:  
+const array = [1, 2, 3, 4];  
+const [first, ,third] = array;  
+console.log(first, third); // 1 3  
+</code></pre>
+
+<p>交换值</p>
+
+<pre><code class="language-js">ES5 代码:  
+var a = 1;  
+var b = 2;  
+var tmp = a;  
+a = b;  
+b = tmp;  
+console.log(a, b); // 2 1  
+</code></pre>
+
+<p>等价于：</p>
+
+<pre><code class="language-js">ES6 代码:  
+let a = 1;  
+let b = 2;  
+[a, b] = [b, a];
+console.log(a, b); // 2 1  
+</code></pre>
+
+<p>多个返回值的解构</p>
+
+<pre><code class="language-js">ES5 代码:  
+function margin() {  
+  var left=1, right=2, top=3, bottom=4;
+  return { left: left, right: right, top: top, bottom: bottom };
+}
+var data = margin();  
+var left = data.left;  
+var bottom = data.bottom;  
+console.log(left, bottom); // 1 4  
+</code></pre>
+
+<p>在第3行，你也可以在一个数组中返回它像这样（并保存一些类型）：</p>
+
+<pre><code class="language-js">js 代码:  
+return [left, right, top, bottom];  
+</code></pre>
+
+<p>但是调用者需要顾及到返回数据的顺序。</p>
+
+<pre><code class="language-js">js 代码:  
+var left = data[0];  
+var bottom = data[3];  
+</code></pre>
+
+<p>使用ES6，调用者只需要选择他们需要的数据（第6行）：</p>
+
+<pre><code class="language-js">ES6 代码:  
+function margin() {  
+  const left=1, right=2, top=3, bottom=4;
+  return { left, right, top, bottom };
+}
+const { left, bottom } = margin();  
+console.log(left, bottom); // 1 4  
+</code></pre>
+
+<p>注意：第3行，我们可以看到ES6的一些其他特性。我们可以压缩{left：left}为{left}。看看它比 ES5 简洁了很多。是不是很酷？</p>
+
+<h2 id>参数匹配的解构</h2>
+
+<pre><code class="language-js">ES5 代码:  
+var user = {firstName: 'Adrian', lastName: 'Mejia'};  
+function getFullName(user) {  
+  var firstName = user.firstName;
+  var lastName = user.lastName;
+  return firstName + ' ' + lastName;
+}
+console.log(getFullName(user)); // Adrian Mejia  
+</code></pre>
+
+<p>等价于：</p>
+
+<pre><code class="language-js">ES6 代码:  
+const user = {firstName: 'Adrian', lastName: 'Mejia'};  
+function getFullName({ firstName, lastName }) {  
+  return `${firstName} ${lastName}`;
+}
+console.log(getFullName(user)); // Adrian Mejia  
+</code></pre>
+
+<h2 id>深度匹配</h2>
+
+<pre><code class="language-js">ES5 代码:  
+function settings() {  
+  return { display: { color: 'red' }, keyboard: { layout: 'querty'} };
+}
+var tmp = settings();  
+var displayColor = tmp.display.color;  
+var keyboardLayout = tmp.keyboard.layout;  
+console.log(displayColor, keyboardLayout); // red querty  
+</code></pre>
+
+<p>等价于：</p>
+
+<pre><code class="language-js">ES6 代码:  
+function settings() {  
+  return { display: { color: 'red' }, keyboard: { layout: 'querty'} };
+}
+const { display: { color: displayColor }, keyboard: { layout: keyboardLayout }} = settings();  
+console.log(displayColor, keyboardLayout); // red querty  
+</code></pre>
+
+<p>这也称为对象解构。</p>
+
+<p>正如你所看到的，解构是非常有用的，并鼓励良好的编码风格。</p>
+
+<p>最佳实践：</p>
+
+<p>使用数组解构来获取元素或交换变量。它可以避免创建临时引用。
+对于函数多个返回值不要使用数组解构，而使用对象解构。</p>
+
+<h2 id>类与对象</h2>
+
+<p>使用ECMAScript 6，我们可以从“构造函数”过渡到“类”。</p>
+
+<p>在JavaScript中每一个对象都有一个原型，这是另一个对象。所有JavaScript对象继承了它们原型中的方法和属性。</p>
+
+<p>在ES5中，我们面向对象编程（OOP）需要使用构造函数来创建对象，如下：</p>
+
+<pre><code class="language-js">ES5 代码:  
+var Animal = (function () {  
+  function MyConstructor(name) {
+    this.name = name;
+  }
+  MyConstructor.prototype.speak = function speak() {
+    console.log(this.name + ' makes a noise.');
+  };
+  return MyConstructor;
+})();
+var animal = new Animal('animal');  
+animal.speak(); // animal makes a noise.  
+</code></pre>
+
+<p>在ES6中，我们有一些语法糖。我们可以用较少的板式代码，以及class和constructor等新的关键字做同样的事情。
+另外，请注意我们如何清楚地定义方法constructor.prototype.speak = function () vs speak()：</p>
+
+<pre><code class="language-js">ES6 代码:  
+class Animal {  
+  constructor(name) {
+    this.name = name;
+  }
+  speak() {
+    console.log(this.name + ' makes a noise.');
+  }
+}
+const animal = new Animal('animal');  
+animal.speak(); // animal makes a noise.  
+</code></pre>
+
+<p>正如你所看到的，两种样式（ES5/6）在幕后产生相同的结果，并且可以以相同的方式使用。</p>
+
+<p>最佳实践：</p>
+
+<p>始终使用class语法，并避免直接操作 prototype。为什么？因为它使代码更简洁和更容易理解。
+避免使用空的构造函数。如果没有指定，类有一个默认构造函数。</p>
+
+<h2 id>继承</h2>
+
+<p>基于前面的Animal类。假设我们想要扩展它并定义Lion类。</p>
+
+<p>在ES5中，它更多地涉及原型继承。</p>
+
+<pre><code class="language-js">ES5 代码:  
+var Lion = (function () {  
+  function MyConstructor(name){
+    Animal.call(this, name);
+  }
+
+  // prototypal inheritance
+  MyConstructor.prototype = Object.create(Animal.prototype);
+  MyConstructor.prototype.constructor = Animal;
+
+  MyConstructor.prototype.speak = function speak() {
+    Animal.prototype.speak.call(this);
+    console.log(this.name + ' roars ');
+  };
+  return MyConstructor;
+})();
+var lion = new Lion('Simba');  
+lion.speak(); // Simba makes a noise.  
+// Simba roars.
+</code></pre>
+
+<p>我不详细描述所有细节，但请注意：</p>
+
+<ul>
+<li>第3行，我们用参数显式调用Animal构造函数。</li>
+<li>第7-8行，我们将Lion原型分配给Animal原型。</li>
+<li>第11行，我们从父类Animal中调用speak方法。</li>
+<li>在ES6中，我们有2个新的关键字extends和super。</li>
+</ul>
+
+<pre><code class="language-js">ES6 代码:  
+class Lion extends Animal {  
+  speak() {
+    super.speak();
+    console.log(this.name + ' roars ');
+  }
+}
+const lion = new Lion('Simba');  
+lion.speak(); // Simba makes a noise.  
+// Simba roars.
+</code></pre>
+
+<p>看看ES6的代码比ES5看起来清晰了很多，并且他们做的事情完全一样。</p>
+
+<p>最佳实践：</p>
+
+<p>使用extends内置继承方式来实现继承。</p>
+
+<h2 id="promises">原生的 Promises</h2>
+
+<p>从回调地狱 到 promises</p>
+
+<pre><code class="language-js">ES5 代码:  
+function printAfterTimeout(string, timeout, done){  
+  setTimeout(function(){
+    done(string);
+  }, timeout);
+}
+printAfterTimeout('Hello ', 2e3, function(result){  
+  console.log(result);
+  // nested callback
+  printAfterTimeout(result + 'Reader', 2e3, function(result){
+    console.log(result);
+  });
+});
+</code></pre>
+
+<p>我们有一个函数接收一个回调，当done时执行。我们必须一个接一个地两度执行它。这就是为什么我们在回调中第二次调用printAfterTimeout的原因。</p>
+
+<p>如果你需要第3或第4次回调，那么你很快就凌乱了。让我们看看我们如何使用promises：</p>
+
+<pre><code class="language-js">ES6 代码:  
+function printAfterTimeout(string, timeout){  
+  return new Promise((resolve, reject) =&gt; {
+    setTimeout(function(){
+      resolve(string);
+    }, timeout);
+  });
+}
+printAfterTimeout('Hello ', 2e3).then((result) =&gt; {  
+  console.log(result);
+  return printAfterTimeout(result + 'Reader', 2e3);
+}).then((result) =&gt; {
+  console.log(result);
+});
+</code></pre>
+
+<p>正如你说看到的，使用 promises，我们可以使用then在一个函数完成后做另一些事情。不再需要嵌套函数。</p>
+
+<h2 id>箭头函数</h2>
+
+<p>ES6没有删除函数表达式，但它添加了一个新的函数表达式，称为箭头函数。</p>
+
+<p>在ES5中，对于this我们有一些疑问：</p>
+
+<pre><code class="language-js">ES5 代码:  
+var _this = this; // 需要保持一个引用  
+$('.btn').click(function(event){
+  _this.sendData(); // 引用函数外层的 this
+});
+$('.input').on('change',function(event){
+  this.sendData(); // 引用函数外层的 this
+}.bind(this)); // 绑定函数外层的 this
+</code></pre>
+
+<p>你需要使用一个临时的 this ，以便在函数内部引用，或使用bind。在ES6中，可以使用箭头函数！</p>
+
+<pre><code class="language-js">ES6 代码:  
+// this 将引用外部的那个 this
+$('.btn').click((event) =&gt;  this.sendData());
+// 隐式返回
+const ids = [291, 288, 984];  
+const messages = ids.map(value =&gt; `ID is ${value}`);  
+</code></pre>
+
+<h2 id="forof">For…of</h2>
+
+<p>从 for 到 forEach 再到 for...of:</p>
+
+<pre><code class="language-js">ES5 代码:  
+// for
+var array = ['a', 'b', 'c', 'd'];  
+for (var i = 0; i &lt; array.length; i++) {  
+  var element = array[i];
+  console.log(element);
+}
+// forEach
+array.forEach(function (element) {  
+  console.log(element);
+});
+</code></pre>
+
+<p>ES6 的 for...of 同样允许我们迭代。  </p>
+
+<pre><code class="language-js">ES6 代码:  
+// for ...of
+const array = ['a', 'b', 'c', 'd'];  
+for (const element of array) {  
+    console.log(element);
+}
+</code></pre>
+
+<h2 id>默认参数</h2>
+
+<p>从检查变量是否被定义 到 分配一个值给默认参数。你以前做过类似的事情吗？</p>
+
+<pre><code class="language-js">ES5 代码:  
+function point(x, y, isFlag){  
+  x = x || 0;
+  y = y || -1;
+  isFlag = isFlag || true;
+  console.log(x,y, isFlag);
+}
+point(0, 0) // 0 -1 true  
+point(0, 0, false) // 0 -1 true  
+point(1) // 1 -1 true  
+point() // 0 -1 true  
+</code></pre>
+
+<p>肯定这些做过吧？这是一个常见的模式来检查是变量是否赋值，否则分配一个默认值。但是，注意有一些问题：
+* 第7行，我们传递0, 0，得到0, -1。
+* 第8行，我们传递false，但得到true。
+如果你将一个布尔值作为默认参数或将值设置为0，它就不正常工作了。你知道为什么吗？？？我将在ES6示例后面告诉你;）</p>
+
+<p>现在，如果你用ES6，可以用更少的代码做的更好！</p>
+
+<pre><code class="language-js">ES6 代码:  
+function point(x = 0, y = -1, isFlag = true){  
+  console.log(x,y, isFlag);
+}
+point(0, 0) // 0 0 true  
+point(0, 0, false) // 0 0 false  
+point(1) // 1 -1 true  
+point() // 0 -1 true  
+</code></pre>
+
+<p>注意第4行和第5行， 我们得到了预期的结果。ES5的示例则没有正常工作。我们必须属性检查  undefined,因为false，null，undefined和0是假（falsy）值。我们需要更加多的代码来修复这个问题：</p>
+
+<pre><code class="language-js">ES5 代码:  
+function point(x, y, isFlag){  
+  x = x || 0;
+  y = typeof(y) === 'undefined' ? -1 : y;
+  isFlag = typeof(isFlag) === 'undefined' ? true : isFlag;
+  console.log(x,y, isFlag);
+}
+point(0, 0) // 0 0 true  
+point(0, 0, false) // 0 0 false  
+point(1) // 1 -1 true  
+point() // 0 -1 true  
+</code></pre>
+
+<p>我们检查 undefined，现在它就能按预期工作了。</p>
+
+<h2 id="rest">Rest参数（多余参数）</h2>
+
+<p>从 arguments 到 rest参数 和 扩展运算符。</p>
+
+<p>在ES5中，获取任意数量的参数是非常麻烦的：</p>
+
+<pre><code class="language-js">ES5 代码:  
+function printf(format) {  
+  var params = [].slice.call(arguments, 1);
+  console.log('params: ', params);
+  console.log('format: ', format);
+}
+printf('%s %d %.2f', 'adrian', 321, Math.PI);  
+</code></pre>
+
+<p>我们可以使用rest运算符...做同样的事情。</p>
+
+<pre><code class="language-js">ES6 代码:  
+function printf(format, ...params) {  
+  console.log('params: ', params);
+  console.log('format: ', format);
+}
+printf('%s %d %.2f', 'adrian', 321, Math.PI);  
+</code></pre>
+
+<h2 id>扩展运算符</h2>
+
+<p>从apply()到扩展运算符，我们有 ... 拯救：</p>
+
+<p>提醒：我们使用apply() 将数组转换为一个参数列表。例如，Math.max()获取参数列表，但是如果我们有一个数组，我们可以使用apply来使它工作。</p>
+
+<p><amp-img src="http://css88.b0.upaiyun.com/css88/2016/10/javascript-math-apply-arrays.png" alt width="546" height="220" layout="responsive"></amp-img></p>
+
+<p>正如我们在前面看到的，我们可以使用apply将数组作为参数列表传递：</p>
+
+<pre><code class="language-js">ES5 代码:  
+Math.max.apply(Math, [2,100,1,6,43]) // 100  
+</code></pre>
+
+<p>在ES6中，你可以使用 扩展运算符。</p>
+
+<pre><code class="language-js">ES6 代码:  
+Math.max(...[2,100,1,6,43]) // 100  
+</code></pre>
+
+<p>另外，我们可以使用扩展运算符来 concat（合并）数组：</p>
+
+<pre><code class="language-js">ES5 代码:  
+var array1 = [2,100,1,6,43];  
+var array2 = ['a', 'b', 'c', 'd'];  
+var array3 = [false, true, null, undefined];  
+console.log(array1.concat(array2, array3));  
+</code></pre>
+
+<p>在ES6中，可以使用扩展运算符合并数组：</p>
+
+<pre><code class="language-js">ES6 代码:  
+const array1 = [2,100,1,6,43];  
+const array2 = ['a', 'b', 'c', 'd'];  
+const array3 = [false, true, null, undefined];  
+console.log([...array1, ...array2, ...array3]);  
+</code></pre>
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="site-footer clearfix">
+        <section class="copyright"><a href="../../index.html">江矿宝宝的博客.</a> &copy; 2017</section>
+        <section class="poweredby">Proudly published with <a href="https://ghost.org">Ghost</a></section>
+    </footer>
+</body>
+</html>
