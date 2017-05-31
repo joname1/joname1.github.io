@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" /> 
-    <title>使用 gulp 编译 Sass</title>
+    <title>Vue.js的小学生笔记</title>
     <meta name="description" content=",江矿宝宝,joname,joname.liangtan,前端,js,jquery,javascript,html5,开发者,攻城狮,码农,挖煤,挖矿,极客,编程,代码,开源,IT网站,Developer,Programmer,Coder,Geek,html,css,css3,Front-end,Front-end Developer,FE,FEer" />
     <meta name="HandheldFriendly" content="True" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" />
@@ -14,20 +14,20 @@
     <link rel="apple-touch-icon" sizes="120x120" href="../assets/images/touch-icon-iphone-retina.png?v=c1cddb7123"">
     <link rel="stylesheet" href="../assets/css/all.min.css?v=c1cddb7123" />
     <link rel="stylesheet" href="https://joe-10005639.cossh.myqcloud.com/prism.css" />
-    <link rel="canonical" href="http://joname1.github.io/gulp-sass/" />
+    <link rel="canonical" href="http://joname1.github.io/vuejs-newbie/" />
     <meta name="referrer" content="no-referrer-when-downgrade" />
     
     <meta property="og:site_name" content="江矿宝宝的博客." />
     <meta property="og:type" content="article" />
-    <meta property="og:title" content="使用 gulp 编译 Sass" />
-    <meta property="og:description" content="gulp-sass 本章使用的是 ruby-sass 如果你不方便安装 ruby 或编译速度慢，建议使用gulp-sass   Sass 是一种 CSS 的开发工具，提供了许多便利的写法，大大节省了开发者的时间，使得 CSS 的开发，变得简单和可维护。 本章使用 ruby-sass 编译 css,若你没有安装 ruby 和 sass 请移步使用ruby.taobao安装 Sass 安装 npm install gulp-ruby-sass   基本用法 // 获取 gulp var gulp &#x3D; require(&#x27;gulp&#x27;)   // 获取 gulp-ruby-sass 模块 var sass &#x3D; require(&#x27;gulp-ruby-sass&#x27;) // 编译sass // 在命令行输入 gulp sass" />
-    <meta property="og:url" content="http://joname1.github.io/gulp-sass/" />
-    <meta property="article:published_time" content="2016-09-10T11:55:00.000Z" />
-    <meta property="article:modified_time" content="2017-05-25T08:10:21.000Z" />
+    <meta property="og:title" content="Vue.js的小学生笔记" />
+    <meta property="og:description" content="引入 本地还是网络导入都行 &amp;lt;script src&#x3D;&#x27;https://unpkg.com/vue@2.1.10/dist/vue.js&#x27;&amp;gt;&amp;lt;/script&amp;gt;   数据绑定 实现数据绑定的几个步骤 创建vuejs实例 划分vuejs势力范围 向势力范围填充数据 &amp;lt;div id&#x3D;&quot;demo&quot;&amp;gt;   &amp;lt;!--vuejs中的变量格式--&amp;gt;           &amp;lt;h1&amp;gt;Hello {{msg}}&amp;lt;/h1&amp;gt; &amp;lt;/div&amp;gt;   &amp;lt;script&amp;gt;   &amp;lt;!--创建vue对象--&amp;gt;   new" />
+    <meta property="og:url" content="http://joname1.github.io/vuejs-newbie/" />
+    <meta property="article:published_time" content="2017-05-27T10:30:18.000Z" />
+    <meta property="article:modified_time" content="2017-05-31T05:38:05.000Z" />
     <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="使用 gulp 编译 Sass" />
-    <meta name="twitter:description" content="gulp-sass 本章使用的是 ruby-sass 如果你不方便安装 ruby 或编译速度慢，建议使用gulp-sass   Sass 是一种 CSS 的开发工具，提供了许多便利的写法，大大节省了开发者的时间，使得 CSS 的开发，变得简单和可维护。 本章使用 ruby-sass 编译 css,若你没有安装 ruby 和 sass 请移步使用ruby.taobao安装 Sass 安装 npm install gulp-ruby-sass   基本用法 // 获取 gulp var gulp &#x3D; require(&#x27;gulp&#x27;)   // 获取 gulp-ruby-sass 模块 var sass &#x3D; require(&#x27;gulp-ruby-sass&#x27;) // 编译sass // 在命令行输入 gulp sass" />
-    <meta name="twitter:url" content="http://joname1.github.io/gulp-sass/" />
+    <meta name="twitter:title" content="Vue.js的小学生笔记" />
+    <meta name="twitter:description" content="引入 本地还是网络导入都行 &amp;lt;script src&#x3D;&#x27;https://unpkg.com/vue@2.1.10/dist/vue.js&#x27;&amp;gt;&amp;lt;/script&amp;gt;   数据绑定 实现数据绑定的几个步骤 创建vuejs实例 划分vuejs势力范围 向势力范围填充数据 &amp;lt;div id&#x3D;&quot;demo&quot;&amp;gt;   &amp;lt;!--vuejs中的变量格式--&amp;gt;           &amp;lt;h1&amp;gt;Hello {{msg}}&amp;lt;/h1&amp;gt; &amp;lt;/div&amp;gt;   &amp;lt;script&amp;gt;   &amp;lt;!--创建vue对象--&amp;gt;   new" />
+    <meta name="twitter:url" content="http://joname1.github.io/vuejs-newbie/" />
     <meta name="twitter:label1" content="Written by" />
     <meta name="twitter:data1" content="江矿宝宝." />
     
@@ -55,11 +55,11 @@
         ],
         "description": "伪前端攻城狮, 喜欢钻研新技术."
     },
-    "headline": "使用 gulp 编译 Sass",
-    "url": "http://joname1.github.io/gulp-sass/",
-    "datePublished": "2016-09-10T11:55:00.000Z",
-    "dateModified": "2017-05-25T08:10:21.000Z",
-    "description": "gulp-sass 本章使用的是 ruby-sass 如果你不方便安装 ruby 或编译速度慢，建议使用gulp-sass   Sass 是一种 CSS 的开发工具，提供了许多便利的写法，大大节省了开发者的时间，使得 CSS 的开发，变得简单和可维护。 本章使用 ruby-sass 编译 css,若你没有安装 ruby 和 sass 请移步使用ruby.taobao安装 Sass 安装 npm install gulp-ruby-sass   基本用法 // 获取 gulp var gulp &#x3D; require(&#x27;gulp&#x27;)   // 获取 gulp-ruby-sass 模块 var sass &#x3D; require(&#x27;gulp-ruby-sass&#x27;) // 编译sass // 在命令行输入 gulp sass",
+    "headline": "Vue.js的小学生笔记",
+    "url": "http://joname1.github.io/vuejs-newbie/",
+    "datePublished": "2017-05-27T10:30:18.000Z",
+    "dateModified": "2017-05-31T05:38:05.000Z",
+    "description": "引入 本地还是网络导入都行 &amp;lt;script src&#x3D;&#x27;https://unpkg.com/vue@2.1.10/dist/vue.js&#x27;&amp;gt;&amp;lt;/script&amp;gt;   数据绑定 实现数据绑定的几个步骤 创建vuejs实例 划分vuejs势力范围 向势力范围填充数据 &amp;lt;div id&#x3D;&quot;demo&quot;&amp;gt;   &amp;lt;!--vuejs中的变量格式--&amp;gt;           &amp;lt;h1&amp;gt;Hello {{msg}}&amp;lt;/h1&amp;gt; &amp;lt;/div&amp;gt;   &amp;lt;script&amp;gt;   &amp;lt;!--创建vue对象--&amp;gt;   new",
     "mainEntityOfPage": {
         "@type": "WebPage",
         "@id": "http://joname1.github.io"
@@ -93,9 +93,9 @@ ghost.init({
         <div class="header-wrap">
             <div class="post-info-container">
                 <h2 class="post-page-title ">
-                使用 gulp 编译 Sass
+                Vue.js的小学生笔记
             </h2>
-                <time class="post-page-time">10 September 2016</time>
+                <time class="post-page-time">27 May 2017</time>
                 <span class="post-page-author">江矿宝宝.</span>
                 <span class="post-page-tags">
                     
@@ -118,89 +118,91 @@ ghost.init({
 
             <section class="post-content">
                 <div class="single-post-inner">
-                    <h2 id="gulpsass">gulp-sass</h2>
+                    <h2 id="">引入</h2>
 
-<p>本章使用的是 ruby-sass 如果你不方便安装 ruby 或编译速度慢，建议使用<code>gulp-sass</code></p>
+<p>本地还是网络导入都行</p>
 
-<hr />
-
-<blockquote>
-  <p>Sass 是一种 CSS 的开发工具，提供了许多便利的写法，大大节省了开发者的时间，使得 CSS 的开发，变得简单和可维护。</p>
-</blockquote>
-
-<p>本章使用 <code>ruby-sass</code> 编译 css,若你没有安装 ruby 和 sass 请移步<code>使用ruby.taobao安装 Sass</code></p>
-
-<h2 id="">安装</h2>
-
-<pre><code>npm install gulp-ruby-sass  
+<pre><code class="language-http">&lt;script src='https://unpkg.com/vue@2.1.10/dist/vue.js'&gt;&lt;/script&gt;  
 </code></pre>
 
-<h2 id="">基本用法</h2>
+<h2 id="">数据绑定</h2>
 
-<pre><code class="language-js">// 获取 gulp
-var gulp = require('gulp')  
-// 获取 gulp-ruby-sass 模块
-var sass = require('gulp-ruby-sass')
+<p>实现数据绑定的几个步骤</p>
 
-// 编译sass
-// 在命令行输入 gulp sass 启动此任务
-gulp.task('sass', function() {  
-    return sass('sass/') 
-    .on('error', function (err) {
-      console.error('Error!', err.message);
-   })
-    .pipe(gulp.dest('dist/css'))
-});
+<ul>
+<li>创建vuejs实例</li>
+<li>划分vuejs势力范围</li>
+<li>向势力范围填充数据</li>
+</ul>
 
-
-// 在命令行使用 gulp auto 启动此任务
-gulp.task('auto', function () {  
-    // 监听文件修改，当文件被修改则执行 images 任务
-    gulp.watch('sass/**/*.scss', ['sass'])
-});
-
-// 使用 gulp.task('default') 定义默认任务
-// 在命令行使用 gulp 启动 sass 任务和 auto 任务
-gulp.task('default', ['sass', 'auto'])  
-</code></pre>
-
-<h2 id="sasscss">Sass 代码和编译后的 CSS 代码  </h2>
-
-<p>sass/a.scss</p>
-
-<pre><code class="language-css">.sass{
-    a{
-        color:pink;
+<pre><code class="language-http">&lt;div id="demo"&gt;  
+&lt;!--vuejs中的变量格式--&gt;  
+        &lt;h1&gt;Hello {{msg}}&lt;/h1&gt;
+&lt;/div&gt;  
+&lt;script&gt;  
+&lt;!--创建vue对象--&gt;  
+new Vue({  
+&lt;!--el指定为#demo的dom对象--&gt;  
+  el:'#demo',
+&lt;!--msg变量赋值为haha--&gt;  
+  data:{
+    msg:'haha'
     }
-}
+  })
+&lt;/script&gt;  
 </code></pre>
 
-<p>sass/import.scss</p>
+<h2 id="">双向绑定</h2>
 
-<pre><code class="language-css">@import "a.scss";
-.import{
-  a{
-    color:red;
+<p>vuejs通过<code>v-model</code>属性实现表单控件元素的双向绑定，只能用于<code>input、select、textarea、components</code></p>
+
+<pre><code class="language-http">&lt;div id="demo"&gt;  
+&lt;!--vuejs中的变量格式--&gt;  
+        &lt;h1&gt;屠龙宝刀,{{msg}}&lt;/h1&gt;
+        &lt;input type="text" v-model="msg"&gt;
+&lt;/div&gt;  
+&lt;script&gt;  
+&lt;!--创建vue对象--&gt;  
+new Vue({  
+&lt;!--el指定为#demo的dom对象--&gt;  
+  el:'#demo',
+&lt;!--msg变量赋值--&gt;  
+  data:{
+    msg:'点击就送'
     }
-}
+  })
+&lt;/script&gt;  
 </code></pre>
 
-<p>sass/a.css</p>
+<p>你会看到在输入框输完文字后，<code>{{msg}}</code>里面的文字也会跟着变，即所谓的双向绑定。</p>
 
-<pre><code class="language-css">.sass a {
-  color: pink;
-}
+<h2 id="">内容绑定</h2>
+
+<p>vuejs通过<code>v-text</code>属性实现整个标签的内容绑定</p>
+
+<p>实际上和引用vue变量的效果是一样的，来看实例</p>
+
+<pre><code class="language-http">&lt;div id="demo"&gt;  
+&lt;!--vuejs中的变量格式--&gt;  
+        &lt;div&gt;{{msg}}&lt;/div&gt;
+        &lt;div v-text='haha'&gt;&lt;/div&gt;
+        &lt;input type="text" v-model="haha"&gt;
+&lt;/div&gt;  
+&lt;script&gt;  
+&lt;!--创建vue对象--&gt;  
+new Vue({  
+&lt;!--el指定为#demo的dom对象--&gt;  
+  el:'#demo',
+&lt;!--msg变量赋值为haha--&gt;  
+  data:{
+    msg:'v-text',
+    haha:'wtf',
+    }
+  })
+&lt;/script&gt;  
 </code></pre>
 
-<p>sass/import.css</p>
-
-<pre><code class="language-css">.sass a {
-  color: pink;
-}
-.import a{
-  color: red;
-}
-</code></pre>
+<p>可以看到原来的div内并没有文本，但<code>v-text</code>会实现整个标签的内容绑定</p>
                 </div>
             </section>
 

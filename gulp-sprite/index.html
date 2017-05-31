@@ -1,20 +1,21 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" /> 
     <title>使用gulp自动合成雪碧图</title>
     <meta name="description" content=",江矿宝宝,joname,joname.liangtan,前端,js,jquery,javascript,html5,开发者,攻城狮,码农,挖煤,挖矿,极客,编程,代码,开源,IT网站,Developer,Programmer,Coder,Geek,html,css,css3,Front-end,Front-end Developer,FE,FEer" />
     <meta name="HandheldFriendly" content="True" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="shortcut icon" href="../assets/favicon.png?v=7a4ac88d46">
-    <link href="../assets/css/all.min.css?v=7a4ac88d46" rel="stylesheet">
-    <link href="https://fonts.css.network/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" rel="stylesheet">
-    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
-    <link href="https://joe-10005639.cossh.myqcloud.com/prism.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" />
+    <link rel="shortcut icon" href="../assets/images/favicon.png?v=c1cddb7123">
+    <link rel="shortcut icon" href="../assets/images/favicon.ico?v=c1cddb7123" type="image/x-icon">
+    <link rel="apple-touch-icon" href="../assets/images/apple-touch-icon-iphone.png?v=c1cddb7123">
+    <link rel="apple-touch-icon" sizes="120x120" href="../assets/images/touch-icon-iphone-retina.png?v=c1cddb7123"">
+    <link rel="stylesheet" href="../assets/css/all.min.css?v=c1cddb7123" />
+    <link rel="stylesheet" href="https://joe-10005639.cossh.myqcloud.com/prism.css" />
     <link rel="canonical" href="http://joname1.github.io/gulp-sprite/" />
     <meta name="referrer" content="no-referrer-when-downgrade" />
-    <link rel="amphtml" href="http://joname1.github.io/gulp-sprite/amp/" />
     
     <meta property="og:site_name" content="江矿宝宝的博客." />
     <meta property="og:type" content="article" />
@@ -66,7 +67,7 @@
 }
     </script>
 
-    <script type="text/javascript" src="../shared/ghost-url.js?v=7a4ac88d46"></script>
+    <script type="text/javascript" src="../shared/ghost-url.js?v=c1cddb7123"></script>
 <script type="text/javascript">
 ghost.init({
 	clientId: "ghost-frontend",
@@ -75,27 +76,49 @@ ghost.init({
 </script>
     <meta name="generator" content="Ghost 0.11" />
     <link rel="alternate" type="application/rss+xml" title="江矿宝宝的博客." href="http://joname1.github.io/rss/" />
+
 </head>
-<body class="post-template nav-closed">
+<body class="post-template ">
     
-    <div class="site-wrapper">
-        <header class="main-header post-head no-cover">
-    <nav class="main-nav  clearfix">
-        <a class="home-button" href="../index.html#content">Home</a>
-        
-    </nav>
-</header>
-<main class="content" role="main">
-    <article class="post">
-        <header class="post-header">
-            <h1 class="post-title">使用gulp自动合成雪碧图</h1>
-            <section class="post-meta">
-                <time class="post-date" datetime="Sep-11-2016">11 Sep 2016</time>
-                <!--  -->
-            </section>
-        </header>
-        <section class="post-content">
-            <p>相信做前端的同学都做过这样的事情，为优化图片，减少请求会把拿到切好的图标图片，通过ps（或者其他工具）把图片合并到一张图里面，再通过css定位把对于的样式写出来引用的html里面。对于一些图片较多的项目，这个过程可能要花费我们一天的时间，来实现这步。今天我给大家带来一个工具，将这一步缩短到几秒钟就能完成，究竟是什么工具这么神奇呢，他就是gulp的一个插件gulp.spritesmith。下面一张图来说明他能做什么。</p>
+
+
+
+    <header id="header" class="home-header blog-background banner-mask no-cover">
+        <div class="nav-header">
+            <div class="nav-header-container">
+                <a href="http://joname1.github.io" class="back-home">Home</a>
+            </div>
+
+        </div>
+        <div class="header-wrap">
+            <div class="post-info-container">
+                <h2 class="post-page-title ">
+                使用gulp自动合成雪碧图
+            </h2>
+                <time class="post-page-time">11 September 2016</time>
+                <span class="post-page-author">江矿宝宝.</span>
+                <span class="post-page-tags">
+                    
+               </span>
+
+            </div>
+
+        </div>
+        <div class="arrow_down">
+            <a href="javascript:;"></a>
+        </div>
+    </header>
+
+
+
+
+    <main class="content" id="main" role="main">
+
+        <article class="post">
+
+            <section class="post-content">
+                <div class="single-post-inner">
+                    <p>相信做前端的同学都做过这样的事情，为优化图片，减少请求会把拿到切好的图标图片，通过ps（或者其他工具）把图片合并到一张图里面，再通过css定位把对于的样式写出来引用的html里面。对于一些图片较多的项目，这个过程可能要花费我们一天的时间，来实现这步。今天我给大家带来一个工具，将这一步缩短到几秒钟就能完成，究竟是什么工具这么神奇呢，他就是gulp的一个插件gulp.spritesmith。下面一张图来说明他能做什么。</p>
 
 <p><img src="http://p1.bpimg.com/567571/e55bcb8c0182dab2.png" alt="" />
 看到这个图片介绍，相信大家已经对gulp.spritesmith能做到什么一目了然了，其他的不多说，下面说直接开撸：</p>
@@ -179,59 +202,64 @@ gulp.task('default', function () {
 </code></pre>
 
 <p>以上就是实现将css代码中的切片图片合并成雪碧图的实现，有问题的大家可以留言</p>
-        </section>
-        <footer class="post-footer">
-            <figure class="author-image">
-                <a class="img" style="background-image: url(https://joe-10005639.cossh.myqcloud.com/jkbb.jpg)"><span class="hidden">江矿宝宝.'s Picture</span></a>
-            </figure>
-                            <h4><span>江矿宝宝.</span></h4>
-            <section class="author">
-                    <p>伪前端攻城狮, 喜欢钻研新技术.</p>
-                <div class="author-meta">
-                    <span class="author-location"><i class="fa fa-map-marker" aria-hidden="true"></i> Nanning, GX</span>
-                    <span class="author-link"><i class="fa fa-link" aria-hidden="true"></i> <a href="https://joname1.github.io">https://joname1.github.io</a></span>
                 </div>
             </section>
-            <section class="share">
-                    <a href="https://github.com/joname1" target="_blank">
-                        <i class="iconfont i-github"></i>
-                    </a>
-                    <a href="https://twitter.com/im_joname" target="_blank">
-                        <i class="iconfont i-twitter"></i>
-                    </a>
-                    <a href="https://www.zhihu.com/people/joname-liangtan" target="_blank">
-                        <i class="iconfont i-zhihu"></i>
-                    </a>
-                    <a href="mailto:joname.liangtan@gmail.com" target="_blank">
-                        <i class="iconfont i-email"></i>
-                    </a>
-            </section>
-            <div id="totop" style="position:fixed;bottom:50px;right:30px;cursor: pointer;">
-                <a title="我要飞到最高"><i class="fa fa-chevron-circle-up" aria-hidden="true"></i></a>
+
+
+                <section class="author">
+                        <figure class="author-image">
+                            <a class="img" style="background-image: url('https://joe-10005639.cossh.myqcloud.com/jkbb.jpg')"><span class="hide">江矿宝宝.'s Picture</span></a>
+                        </figure>
+                    <section class="author-detail">
+                        <h4>江矿宝宝.</h4>
+                            <p>伪前端攻城狮, 喜欢钻研新技术.</p>
+                        <div class="author-meta">
+                                <span class="author-location icon-location">Nanning, GX</span>
+                                <span class="author-link icon-link"><a href="https://joname1.github.io">https://joname1.github.io</a></span>
+                        </div>
+
+                    </section>
+                </section>
+
+        </article>
+
+        <section class="share">
+            <div class="share-icons" id="share-icons">
+                <a href="https://github.com/joname1" target="_blank">
+                    <i class="iconfont i-github"></i>
+                </a>
+                <a href="https://twitter.com/im_joname" target="_blank">
+                    <i class="iconfont i-twitter"></i>
+                </a>
+                <a href="https://www.zhihu.com/people/joname-liangtan" target="_blank">
+                    <i class="iconfont i-zhihu"></i>
+                </a>
+                <a href="mailto:joname.liangtan@gmail.com" target="_blank">
+                    <i class="iconfont i-email"></i>
+                </a>
             </div>
-            <div id="disqus_thread"></div>
-            <script>
-            (function() {
-            var d = document, s = d.createElement('script');
+        </section>
+
+        <div id="disqus_thread"></div>
+    </main>
+
+    <script>
+        (function() {
+            var d = document,
+                s = d.createElement('script');
             s.src = 'https://jonames-blog.disqus.com/embed.js';
             s.setAttribute('data-timestamp', +new Date());
             (d.head || d.body).appendChild(s);
-            })();
-            </script>
-        </footer>
-    </article>
-</main>
+        })();
+    </script>
 
-
-        <footer class="site-footer clearfix">
-            <section class="poweredby">2017 &copy; made with <i class="fa fa-heart"></i> by <a href="../index.html">Joname.</a></section>
-        </footer>
-    </div>
-    <script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
-    <script src="https://joe-10005639.cossh.myqcloud.com/prism.js"></script>
-    <script src="https://cdn.bootcss.com/fitvids/1.1.0/jquery.fitvids.js"></script>
-    <script src="http://tajs.qq.com/stats?sId=59279948" charset="UTF-8"></script>
-    <script src="../assets/js/index.min.js?v=7a4ac88d46"></script>
-    
+<footer class="site-footer clearfix ">
+        <section class="copyright">2017 &copy; <a href="http://joname1.github.io">江矿宝宝的博客.</a></section>
+</footer>
+<script src="https://cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/fitvids/1.1.0/jquery.fitvids.min.js"></script>
+<script src="https://joe-10005639.cossh.myqcloud.com/prism.js"></script>
+<script src="../assets/js/all.min.js?v=c1cddb7123"></script>
+<script src="http://tajs.qq.com/stats?sId=59279948" charset="UTF-8"></script>
 </body>
 </html>
