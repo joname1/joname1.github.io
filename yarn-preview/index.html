@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>初探全新的 Node.js 包管理器 Yarn</title>
-    <meta name="description" content=",江矿宝宝,joname,joname.liangtan,前端,伪前端,js,jquery,javascript,html5,开发者,攻城狮,码农,挖煤,挖矿,鹅厂,猪厂,矿厂,极客,编程,代码,开源,IT网站,Developer,Programmer,Coder,Geek,html,css,css3,Front-end,Front-end Developer,FE,FEer" />
+    <meta name="description" content=",江矿宝宝,joname,joname.liangtan,前端,伪前端,js,jquery,javascript,html5,开发者,攻城狮,码农,挖煤,挖矿,鹅厂,猪厂,矿厂,极客,编程,代码,开源,IT网站,Developer,Programmer,Coder,Geek,html,html5,css,css3,Front-end,Front-end Developer,FE,FEer" />
     <meta name="HandheldFriendly" content="True" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="shortcut icon" href="../assets/favicon.png?v=234b362746">
-    <link href="../assets/css/all.min.css?v=234b362746" rel="stylesheet">
+    <link rel="shortcut icon" href="../assets/favicon.png?v=ccb15457c3">
+    <link href="../assets/css/all.min.css?v=ccb15457c3" rel="stylesheet">
     <link href="https://fonts.css.network/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" rel="stylesheet">
     <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
-    <link href="https://joe-10005639.cossh.myqcloud.com/prism.css" rel="stylesheet">
-    <link rel="canonical" href="index.html" />
+    <link href="https://joe-10005639.cossh.myqcloud.com/prism.css" rel="stylesheet"> <link rel="canonical" href="index.html" />
     <meta name="referrer" content="no-referrer-when-downgrade" />
     <link rel="amphtml" href="amp/index.html" />
     
@@ -66,7 +66,7 @@
 }
     </script>
 
-    <script type="text/javascript" src="../shared/ghost-url.js?v=234b362746"></script>
+    <script type="text/javascript" src="../shared/ghost-url.js?v=ccb15457c3"></script>
 <script type="text/javascript">
 ghost.init({
 	clientId: "ghost-frontend",
@@ -76,26 +76,27 @@ ghost.init({
     <meta name="generator" content="Ghost 0.11" />
     <link rel="alternate" type="application/rss+xml" title="江矿宝宝的博客." href="../rss/index.html" />
 </head>
+
 <body class="post-template nav-closed">
     
     <div class="site-wrapper">
-        <header class="main-header post-head no-cover">
-    <nav class="main-nav  clearfix">
-        <a class="home-button" href="../index.html#content">Home</a>
-        
-    </nav>
-</header>
-<main class="content" role="main">
-    <article class="post">
-        <header class="post-header">
-            <h1 class="post-title">初探全新的 Node.js 包管理器 Yarn</h1>
-            <section class="post-meta">
-                <time class="post-date" datetime="Oct-15-2016">15 Oct 2016</time>
-                <!--  -->
-            </section>
-        </header>
-        <section class="post-content">
-            就在前几天， Facebook 发布了新的 node.js 包管理器 Yarn 用以替代 npm 。这个和 Exponent, Google, 以及 Tilde 合作完成的项目。 咱虽然是个半桶水的咸鱼前端，不过也得跟上 Javascript 这股潮 (zhuang) 流 (bi) 的脚步，所以便有了下面这篇文章。大概的浅尝了一下这个自称是又快又可信赖又安全的包管理，所以写的内容不会很详细，更多的可能只是针对这个全新的包管理与 npm 的不同之处来对比。也可能有些地方写得不对，如果有的话，欢(lai)迎(da)指(wo)正(a)。
+            <header class="main-header post-head no-cover">
+        <nav class="main-nav  clearfix">
+            <a class="home-button" href="../index.html">Home</a>
+            
+        </nav>
+    </header>
+    <main class="content" role="main">
+        <article class="post">
+            <header class="post-header">
+                <h1 class="post-title">初探全新的 Node.js 包管理器 Yarn</h1>
+                <section class="post-meta">
+                    <time class="post-date" datetime="Oct-15-2016">15 Oct 2016</time>
+                    <!--  -->
+                </section>
+            </header>
+            <section class="post-content">
+                就在前几天， Facebook 发布了新的 node.js 包管理器 Yarn 用以替代 npm 。这个和 Exponent, Google, 以及 Tilde 合作完成的项目。 咱虽然是个半桶水的咸鱼前端，不过也得跟上 Javascript 这股潮 (zhuang) 流 (bi) 的脚步，所以便有了下面这篇文章。大概的浅尝了一下这个自称是又快又可信赖又安全的包管理，所以写的内容不会很详细，更多的可能只是针对这个全新的包管理与 npm 的不同之处来对比。也可能有些地方写得不对，如果有的话，欢(lai)迎(da)指(wo)正(a)。
 <!-- more -->  
 
 <p><img src="http://img.blog.csdn.net/20161012124212953" alt="" /></p>
@@ -161,20 +162,20 @@ ghost.init({
 <p>但是必须要说 yarn 的出现确实是有进步意义的，他解决了 npm 已知的一些问题，拓展出了新的特性。既然如此，它就是值得去接触和学习的。尽管距离取代 npm 还有好长的一段时间，走好长的一段路，但是可以预见它的前途将是一片的光明。</p>
 
 <p>所以，来吧，你需要尝试一些新的东西。 yarn 未来的成长，将由我们共同见证。</p>
-        </section>
-        <footer class="post-footer">
-            <figure class="author-image">
-                <a class="img" style="background-image: url(https://joe-10005639.cossh.myqcloud.com/jkbb.jpg)"><span class="hidden">江矿宝宝.'s Picture</span></a>
-            </figure>
-                            <h4><span>江矿宝宝.</span></h4>
-            <section class="author">
-                    <p>伪前端攻城狮, 喜欢钻研新技术.</p>
-                <div class="author-meta">
-                    <span class="author-location"><i class="fa fa-map-marker" aria-hidden="true"></i> Nanning, GX</span>
-                    <span class="author-link"><i class="fa fa-link" aria-hidden="true"></i> <a href="https://joname1.github.io">https://joname1.github.io</a></span>
-                </div>
             </section>
-            <section class="share">
+            <footer class="post-footer">
+                        <figure class="author-image">
+                            <a class="img" style="background-image: url(https://joe-10005639.cossh.myqcloud.com/jkbb.jpg)"><span class="hidden">江矿宝宝.'s Picture</span></a>
+                        </figure>
+                        <h4><span>江矿宝宝.</span></h4>
+                    <section class="author">
+                            <p>伪前端攻城狮, 喜欢钻研新技术.</p>
+                        <div class="author-meta">
+                            <span class="author-location"><i class="fa fa-map-marker" aria-hidden="true"></i> Nanning, GX</span>
+                            <span class="author-link"><i class="fa fa-link" aria-hidden="true"></i> <a href="https://joname1.github.io">https://joname1.github.io</a></span>
+                        </div>
+                    </section>
+                <section class="share">
                     <a href="https://github.com/joname1" target="_blank">
                         <i class="iconfont i-github"></i>
                     </a>
@@ -187,33 +188,35 @@ ghost.init({
                     <a href="mailto:joname.liangtan@gmail.com" target="_blank">
                         <i class="iconfont i-email"></i>
                     </a>
-            </section>
-            <div id="totop" style="position:fixed;bottom:50px;right:30px;cursor: pointer;">
-                <a title="我要飞到最高"><i class="fa fa-chevron-circle-up" aria-hidden="true"></i></a>
-            </div>
-            <div id="disqus_thread"></div>
-            <script>
-            (function() {
-            var d = document, s = d.createElement('script');
-            s.src = 'https://jonames-blog.disqus.com/embed.js';
-            s.setAttribute('data-timestamp', +new Date());
-            (d.head || d.body).appendChild(s);
-            })();
-            </script>
-        </footer>
-    </article>
-</main>
+                </section>
+                <div id="totop">
+                    <a title="我要飞上去"><i class="fa fa-chevron-circle-up" aria-hidden="true"></i></a>
+                </div>
+                <div id="disqus_thread"></div>
+                <script>
+                    (function() {
+                        var d = document,
+                            s = d.createElement('script');
+                        s.src = 'https://jonames-blog.disqus.com/embed.js';
+                        s.setAttribute('data-timestamp', +new Date());
+                        (d.head || d.body).appendChild(s);
+                    })();
+                </script>
+            </footer>
+        </article>
+    </main>
 
 
         <footer class="site-footer clearfix">
-            <section class="poweredby">2017 &copy; made with <i class="fa fa-heart"></i> by <a href="../index.html">Joname.</a></section>
+            <section class="poweredby">2017 &copy; Made with <i class="fa fa-heart"></i> using &lt;ghost/&gt;</section>
         </footer>
     </div>
     <script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://joe-10005639.cossh.myqcloud.com/prism.js"></script>
     <script src="https://cdn.bootcss.com/fitvids/1.1.0/jquery.fitvids.js"></script>
     <script src="https://tajs.qq.com/stats?sId=59279948" charset="UTF-8"></script>
-    <script src="../assets/js/index.min.js?v=234b362746"></script>
+    <script src="../assets/js/index.min.js?v=ccb15457c3"></script>
     
 </body>
+
 </html>
