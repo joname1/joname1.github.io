@@ -12,7 +12,8 @@
     <link href="../assets/css/all.min.css?v=bd2081a8bc" rel="stylesheet">
     <link href="https://fonts.css.network/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" rel="stylesheet">
     <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
-    <link href="https://joe-10005639.cossh.myqcloud.com/prism.css" rel="stylesheet"> <link rel="canonical" href="index.html" />
+    <link href="https://joe-10005639.cossh.myqcloud.com/prism.css" rel="stylesheet">
+    <link href="https://joe-10005639.cossh.myqcloud.com/gitment.css" rel="stylesheet"> <link rel="canonical" href="index.html" />
     <meta name="referrer" content="no-referrer-when-downgrade" />
     
     <meta property="og:site_name" content="江矿宝宝的博客." />
@@ -393,10 +394,19 @@ gulp.task('default', ['script', 'auto'])
                 <div id="totop">
                     <a><i class="fa fa-chevron-circle-up" aria-hidden="true"></i></a>
                 </div>
-                <!-- UY BEGIN -->
-                <div id="uyan_frame"></div>
-                <script src="https://joe-10005639.cossh.myqcloud.com/uyan.js?uid=2144922"></script>
-                <!-- UY END -->
+                <div id="container"></div>
+                <script src="https://joe-10005639.cossh.myqcloud.com/gitment.js"></script>
+                <script>
+                var gitment = new Gitment({
+                    owner: 'joname1',
+                    repo: 'joname1.github.io',
+                    oauth: {
+                        client_id: '7e88527bb9bf5c88f5cd',
+                        client_secret: '5de1774faeaa4772fd8dd21fc7e31376de0911ff',
+                    },
+                }) 
+                gitment.render('container')
+            </script>
             </footer>
         </article>
     </main>
@@ -407,7 +417,7 @@ gulp.task('default', ['script', 'auto'])
         </footer>
     </div>
     <script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
-    <script src="https://joe-10005639.cossh.myqcloud.com/prism.js"></script>
+    <script src="https://joe-10005639.cossh.myqcloud.com/prism.js"></script>    
     <script src="https://cdn.bootcss.com/fitvids/1.1.0/jquery.fitvids.js"></script>
     <script src="https://tajs.qq.com/stats?sId=59279948" charset="UTF-8"></script>
     <script src="../assets/js/index.min.js?v=bd2081a8bc"></script>
