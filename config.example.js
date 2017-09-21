@@ -1,7 +1,8 @@
 // # Ghost Configuration
-// Setup your Ghost install for various [environments](http://support.ghost.org/config/#about-environments).
+// Setup your Ghost install for various [environments](https://docs.ghost.org/v0.11.9/docs/configuring-ghost#section-about-environments).
 
-// Ghost runs in `development` mode by default. Full documentation can be found at http://support.ghost.org/config/
+// Ghost runs in `development` mode by default. Full documentation can be found
+// at https://docs.ghost.org/v0.11.9/docs/configuring-ghost
 
 var path = require('path'),
     config;
@@ -11,7 +12,7 @@ config = {
     // When running Ghost in the wild, use the production environment.
     // Configure your URL and mail settings here
     production: {
-        url: 'http://my-ghost-blog.com',
+        url: 'https://joname1.github.io',
         mail: {},
         database: {
             client: 'sqlite3',
@@ -39,7 +40,7 @@ config = {
         // referrerPolicy: 'origin-when-cross-origin',
 
         // Example mail config
-        // Visit http://support.ghost.org/mail for instructions
+        // Visit https://docs.ghost.org/v0.11.9/docs/mail-config for instructions
         // ```
         //  mail: {
         //      transport: 'SMTP',
