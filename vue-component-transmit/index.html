@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>吼啊! Vue2.4组件间通信新姿势</title>
+    <meta name="description" content=",江矿,江矿宝宝,joname,joname.liangtan,前端,伪前端,js,jquery,javascript,开发者,攻城狮,码农,挖煤,挖矿,煤厂,矿厂,极客,编程,代码,开源,IT网站,Developer,Programmer,Coder,Geek,html,html5,css,css3,Front-end,Front-end Developer,FE,FEer" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="../assets/favicon.png?v=5375e8ddc9">
+    <link href="../assets/css/all.min.css?v=5375e8ddc9" rel="stylesheet">
+    <link href="https://fonts.css.network/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
+    <link href="https://joe-10005639.cossh.myqcloud.com/prism.css" rel="stylesheet"> <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="江矿宝宝的博客." />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="吼啊! Vue2.4组件间通信新姿势" />
+    <meta property="og:description" content="Vue应用在组件化之后，通常存在着 父子组件、兄弟组件、跨级组件 等组件关系，那么组件之间如何进行通信；Vue2.4提供了两种新的组件通讯方法。 在 Vue 中，父子组件的关系可以总结为 props down、events up。 父子组件通信 ：父组件通过 props 向下传递数据给子组件 子父组件通信 ：子组件通过 events 给父组件发送消息 使用 $on(eventName) 监听事件  使用 $emit(eventName) 触发事件 非父子组件通信 ：使用一个空的 Vue 实例作为中央事件总线 在Vue 2.4 版本引入了组件通讯的新方式。 1. 重新引入 .sync 修饰符 熟悉 Vue1.x 的朋友一定对 .sync" />
+    <meta property="og:url" content="http://localhost:2368/vue-component-transmit/" />
+    <meta property="article:published_time" content="2017-08-17T08:09:00.000Z" />
+    <meta property="article:modified_time" content="2017-09-21T02:59:50.000Z" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="吼啊! Vue2.4组件间通信新姿势" />
+    <meta name="twitter:description" content="Vue应用在组件化之后，通常存在着 父子组件、兄弟组件、跨级组件 等组件关系，那么组件之间如何进行通信；Vue2.4提供了两种新的组件通讯方法。 在 Vue 中，父子组件的关系可以总结为 props down、events up。 父子组件通信 ：父组件通过 props 向下传递数据给子组件 子父组件通信 ：子组件通过 events 给父组件发送消息 使用 $on(eventName) 监听事件  使用 $emit(eventName) 触发事件 非父子组件通信 ：使用一个空的 Vue 实例作为中央事件总线 在Vue 2.4 版本引入了组件通讯的新方式。 1. 重新引入 .sync 修饰符 熟悉 Vue1.x 的朋友一定对 .sync" />
+    <meta name="twitter:url" content="http://localhost:2368/vue-component-transmit/" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="江矿宝宝." />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "江矿宝宝的博客.",
+        "logo": "http://localhost:2368/ghost/img/ghosticon.jpg"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "江矿宝宝.",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://joe-10005639.cossh.myqcloud.com/jkbb.jpg",
+            "width": 600,
+            "height": 600
+        },
+        "url": "http://localhost:2368/author/jkbb/",
+        "sameAs": [
+            "https://joname1.github.io"
+        ],
+        "description": "伪前端攻城狮, 喜欢钻研新技术."
+    },
+    "headline": "吼啊! Vue2.4组件间通信新姿势",
+    "url": "http://localhost:2368/vue-component-transmit/",
+    "datePublished": "2017-08-17T08:09:00.000Z",
+    "dateModified": "2017-09-21T02:59:50.000Z",
+    "description": "Vue应用在组件化之后，通常存在着 父子组件、兄弟组件、跨级组件 等组件关系，那么组件之间如何进行通信；Vue2.4提供了两种新的组件通讯方法。 在 Vue 中，父子组件的关系可以总结为 props down、events up。 父子组件通信 ：父组件通过 props 向下传递数据给子组件 子父组件通信 ：子组件通过 events 给父组件发送消息 使用 $on(eventName) 监听事件  使用 $emit(eventName) 触发事件 非父子组件通信 ：使用一个空的 Vue 实例作为中央事件总线 在Vue 2.4 版本引入了组件通讯的新方式。 1. 重新引入 .sync 修饰符 熟悉 Vue1.x 的朋友一定对 .sync",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://localhost:2368"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.11" />
+    <link rel="alternate" type="application/rss+xml" title="江矿宝宝的博客." href="../rss/index.html" />
+</head>
+
+<body class="post-template nav-closed">
+    
+    <div class="site-wrapper">
+            <header class="main-header post-head no-cover">
+        <nav class="main-nav  clearfix">
+            <a class="home-button" href="../index.html">Home</a>
+            
+        </nav>
+    </header>
+    <main class="content" role="main">
+        <article class="post">
+            <header class="post-header">
+                <h1 class="post-title">吼啊! Vue2.4组件间通信新姿势</h1>
+                <section class="post-meta">
+                    <time class="post-date">17 Aug 2017</time>
+                    <!-- "" -->
+                </section>
+            </header>
+            <section class="post-content">
+                <p>Vue应用在组件化之后，通常存在着 父子组件、兄弟组件、跨级组件 等组件关系，那么组件之间如何进行通信；Vue2.4提供了两种新的组件通讯方法。</p>
+
+<p>在 Vue 中，父子组件的关系可以总结为 props down、events up。</p>
+
+<ul>
+<li>父子组件通信 ：父组件通过 props 向下传递数据给子组件</li>
+<li><p>子父组件通信 ：子组件通过 events 给父组件发送消息</p>
+
+<ul><li>使用 $on(eventName) 监听事件 </li>
+<li>使用 $emit(eventName) 触发事件</li></ul></li>
+<li><p>非父子组件通信 ：使用一个空的 Vue 实例作为中央事件总线</p></li>
+</ul>
+
+<p>在Vue 2.4 版本引入了组件通讯的新方式。</p>
+
+<h4 id="1sync">1. 重新引入 .sync 修饰符</h4>
+
+<p>熟悉 Vue1.x 的朋友一定对 .sync 修饰器并不陌生。在Vue1.x 中我们可能会需要对一个 prop 进行『双向绑定』。当一个 子组件 改变了一个 prop的值时，这个变化也会 同步到父组件中 所绑定的值。</p>
+
+<p>因为它破坏了『单向数据流』的假设， .sync 在2.0版本被移除，引起了广泛的讨论。在2.3.0版本 .sync 又回来了，不过与1.x不同。</p>
+
+<p>这次只是原有语法的语法糖(syntax sugar)包装而成，其背后实现原理是，在组件上自动扩充一个额外的 v-on 监听器：</p>
+
+<p>代码如下：</p>
+
+<pre><code class="language-html">&lt;comp:foo.sync="bar"&gt;&lt;/comp&gt;  
+</code></pre>
+
+<p>会被扩充为：</p>
+
+<pre><code class="language-html">&lt;child:bar="foo"@update:bar="e =&gt; foo = e"&gt;  
+</code></pre>
+
+<p>对于子组件，如果想要更新 foo 的值，则需要显式地触发一个事件，而不是直接修改 prop：</p>
+
+<pre><code class="language-js">this.$emit('update:bar', newValue)  
+</code></pre>
+
+<h4 id="2dattrsdlisteners">2. $attrs 与 $listeners</h4>
+
+<p>多级组件嵌套需要传递数据时，通常使用的方法是通过vuex。如果仅仅是传递数据，而不做中间处理，使用 vuex 处理，未免有点杀鸡用牛刀。Vue 2.4 版本提供了另一种方法，使用 v-bind=”$attrs”, 将父组件中不被认为 props特性绑定的属性传入子组件中，通常配合 interitAttrs 选项一起使用。</p>
+
+<ul>
+<li>2.1 interitAttrs</li>
+</ul>
+
+<p>在版本 2.4 之前，默认情况下父作用域的不被作为props特性绑定的属性，将会作为普通的 HTML 属性，应用在跟元素上。</p>
+
+<pre><code class="language-html"> // parent.vue
+&lt;template&gt;  
+    &lt;child-commpent:foo="f":boo="b"&gt;&lt;/child-comment&gt;
+&lt;/template&gt;
+
+&lt;script&gt;  
+const childComment = ()=&gt; import('./childCom.vue')  
+export default {  
+    data () {
+      return {
+        f: 'Hello world!'
+        b: 'Hello Vue!'
+      }  
+    }
+}
+&lt;/script&gt;  
+</code></pre>
+
+<pre><code class="language-html">// childComment.vue
+&lt;template&gt;  
+    &lt;div&gt;{{ foo }}&lt;div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;  
+export default {  
+    props: ['foo'] //父作用域的boo不被作为props绑定
+}
+&lt;/script&gt;  
+</code></pre>
+
+<p>//boo会作为普通的 HTML 属性，应用在跟元素上。</p>
+
+<pre><code class="language-html">&lt;div boo="Hello Vue!"&gt;Hello world!&lt;/div&gt;  
+</code></pre>
+
+<p>html
+设置 interitAttrs 为 false，之后，不会应用到跟元素上。</p>
+
+<pre><code class="language-html">// childCom.vue
+&lt;template&gt;  
+    &lt;div&gt;{{ foo }}&lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;  
+  export default {
+    props: ['foo'],
+    inheritAttrs: false
+  }
+&lt;/script&gt;  
+</code></pre>
+
+<p>//boo会作为普通的 HTML 属性，应用在跟元素上。</p>
+
+<pre><code class="language-html">&lt;div&gt;Hello world!&lt;/div&gt;  
+</code></pre>
+
+<ul>
+<li>2.2 $attrs, $listeners</li>
+</ul>
+
+<p>在Vue 2.4 版本,配合 interitAttrs选项， 父组件中未被props(v-on)绑定的属性(事件) 可以在子组件中，通过 $attrs ， $listeners 获取。</p>
+
+<pre><code class="language-html">// demo.vue
+  &lt;template&gt;
+    &lt;div&gt;
+      &lt;child-com:foo="foo":boo="boo":coo="coo":doo="doo"&gt;&lt;/child-com&gt;
+    &lt;/div&gt;
+  &lt;/tempalte&gt;
+  &lt;script&gt;
+  const childCom = ()=&gt; import('./childCom1.vue')
+  export default {
+    data () {
+      return {
+        foo: 'Hello World!',
+        boo: 'Hello Javascript!',
+        coo: 'Hello Vue',
+        doo: 'Last'
+      }
+    },
+    components: { childCom }
+  }
+  &lt;/script&gt;
+</code></pre>
+
+<pre><code class="language-html">// childCom1.vue
+&lt;template&gt;  
+  &lt;div&gt;
+    &lt;p&gt;foo: {{ foo }}&lt;/p&gt;
+    &lt;p&gt;attrs: {{ $attrs }}&lt;/p&gt;
+    &lt;child-com2v-bind="$attrs"&gt;&lt;/child-com2&gt;
+  &lt;/div&gt;
+&lt;/template&gt;  
+&lt;script&gt;  
+const childCom2 = ()=&gt; import('./childCom2.vue')  
+export default {  
+  props: ['foo'],  // foo作为props属性绑定
+  inheritAttrs: false,
+  created () {
+    console.log(this.$attrs) // { boo: 'Hello Javascript!', coo: 'Hello Vue', doo: 'Last' }
+  }
+}
+&lt;/script&gt;  
+</code></pre>
+
+<pre><code class="language-html">// childCom2.vue
+&lt;template&gt;  
+  &lt;div&gt;
+   &lt;p&gt;boo: {{ boo }}&lt;/p&gt;
+   &lt;p&gt;attrs: {{ $attrs }}&lt;/p&gt;
+   &lt;child-com3v-bind="$attrs"&gt;&lt;/child-com3&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;  
+const childCom3 = ()=&gt; import('./childCom3.vue')  
+export default {  
+  props: ['boo'] // boo作为props属性绑定
+  inheritAttrs: false,
+  created () {
+    console.log(this.$attrs) // { coo: 'Hello Vue', doo: 'Last' }
+  }
+}
+&lt;/script&gt;  
+</code></pre>
+
+<h4 id="">小结</h4>
+
+<p>在Vue2.0被移除的 .sync 被重新加入到2.4版本，不同的是需要显式地触发一个事件，而不是直接修改 prop。
+Vue2.4提供了 $attrs , $listeners 来传递数据与事件，跨级组件之间的通讯变得更简单。</p>
+            </section>
+            <footer class="post-footer">
+                        <figure class="author-image">
+                            <a class="img" style="background-image: url(https://joe-10005639.cossh.myqcloud.com/jkbb.jpg)"><span class="hidden">江矿宝宝.'s Picture</span></a>
+                        </figure>
+                        <h4><span>江矿宝宝.</span></h4>
+                    <section class="author">
+                            <p>伪前端攻城狮, 喜欢钻研新技术.</p>
+                        <div class="author-meta">
+                            <span class="author-location"><i class="fa fa-map-marker" aria-hidden="true"></i> Nanning, GX</span>
+                            <span class="author-link"><i class="fa fa-link" aria-hidden="true"></i> <a href="https://joname1.github.io">https://joname1.github.io</a></span>
+                        </div>
+                    </section>
+                <section class="share">
+                    <a href="https://github.com/joname1" target="_blank">
+                        <i class="iconfont i-github"></i>
+                    </a>
+                    <a href="https://twitter.com/im_joname" target="_blank">
+                        <i class="iconfont i-twitter"></i>
+                    </a>
+                    <a href="https://www.zhihu.com/people/joname-liangtan" target="_blank">
+                        <i class="iconfont i-zhihu"></i>
+                    </a>
+                    <a href="mailto:joname.liangtan@gmail.com" target="_blank">
+                        <i class="iconfont i-email"></i>
+                    </a>
+                </section>
+                <div id="totop">
+                    <a><i class="fa fa-chevron-circle-up" aria-hidden="true"></i></a>
+                </div>
+                <!-- UY BEGIN -->
+                <div id="uyan_frame"></div>
+                <script src="http://v2.uyan.cc/code/uyan.js?uid=2144922"></script>
+                <!-- UY END -->
+            </footer>
+        </article>
+    </main>
+
+
+        <footer class="site-footer clearfix">
+            <section class="poweredby">2017 &copy; Made with <i class="fa fa-heart"></i> using &lt;ghost/&gt;</section>
+        </footer>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://joe-10005639.cossh.myqcloud.com/prism.js"></script>
+    <script src="https://cdn.bootcss.com/fitvids/1.1.0/jquery.fitvids.js"></script>
+    <script src="https://tajs.qq.com/stats?sId=59279948" charset="UTF-8"></script>
+    <script src="../assets/js/index.min.js?v=5375e8ddc9"></script>
+    
+</body>
+
+</html>

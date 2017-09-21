@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>使用 gulp 编译 Sass</title>
+    <title>Vue用$emit与$on来进行兄弟组件之间的通信</title>
     <meta name="description" content=",江矿,江矿宝宝,joname,joname.liangtan,前端,伪前端,js,jquery,javascript,开发者,攻城狮,码农,挖煤,挖矿,煤厂,矿厂,极客,编程,代码,开源,IT网站,Developer,Programmer,Coder,Geek,html,html5,css,css3,Front-end,Front-end Developer,FE,FEer" />
     <meta name="HandheldFriendly" content="True" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -17,15 +17,15 @@
     
     <meta property="og:site_name" content="江矿宝宝的博客." />
     <meta property="og:type" content="article" />
-    <meta property="og:title" content="使用 gulp 编译 Sass" />
-    <meta property="og:description" content="gulp-sass 本章使用的是 ruby-sass 如果你不方便安装 ruby 或编译速度慢，建议使用gulp-sass   Sass 是一种 CSS 的开发工具，提供了许多便利的写法，大大节省了开发者的时间，使得 CSS 的开发，变得简单和可维护。 本章使用 ruby-sass 编译 css,若你没有安装 ruby 和 sass 请移步使用ruby.taobao安装 Sass 安装 npm install gulp-ruby-sass   基本用法 // 获取 gulp var gulp &#x3D; require(&#x27;gulp&#x27;)   // 获取 gulp-ruby-sass 模块 var sass &#x3D; require(&#x27;gulp-ruby-sass&#x27;) // 编译sass // 在命令行输入 gulp sass" />
-    <meta property="og:url" content="http://localhost:2368/gulp-sass/" />
-    <meta property="article:published_time" content="2016-09-10T11:55:00.000Z" />
-    <meta property="article:modified_time" content="2017-05-25T08:10:21.000Z" />
+    <meta property="og:title" content="Vue用$emit与$on来进行兄弟组件之间的通信" />
+    <meta property="og:description" content="&amp;lt;template&amp;gt;     &amp;lt;div id&#x3D;&quot;app&quot;&amp;gt;     &amp;lt;dom-a&amp;gt;&amp;lt;/dom-a&amp;gt;        &amp;lt;dom-b&amp;gt;&amp;lt;/dom-b&amp;gt;        &amp;lt;dom-c&amp;gt;&amp;lt;/dom-c&amp;gt;      &amp;lt;/div&amp;gt; &amp;lt;/template&amp;gt;     &amp;lt;script&amp;gt;   var Event &#x3D; new Vue();   //组件A   var A &#x3D; {     template: &#x60;       &amp;lt;div&amp;gt;         &amp;lt;span&amp;gt;我是A组件的数据-&amp;" />
+    <meta property="og:url" content="http://localhost:2368/vue-emit-on/" />
+    <meta property="article:published_time" content="2017-07-01T09:38:00.000Z" />
+    <meta property="article:modified_time" content="2017-09-21T03:00:13.000Z" />
     <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="使用 gulp 编译 Sass" />
-    <meta name="twitter:description" content="gulp-sass 本章使用的是 ruby-sass 如果你不方便安装 ruby 或编译速度慢，建议使用gulp-sass   Sass 是一种 CSS 的开发工具，提供了许多便利的写法，大大节省了开发者的时间，使得 CSS 的开发，变得简单和可维护。 本章使用 ruby-sass 编译 css,若你没有安装 ruby 和 sass 请移步使用ruby.taobao安装 Sass 安装 npm install gulp-ruby-sass   基本用法 // 获取 gulp var gulp &#x3D; require(&#x27;gulp&#x27;)   // 获取 gulp-ruby-sass 模块 var sass &#x3D; require(&#x27;gulp-ruby-sass&#x27;) // 编译sass // 在命令行输入 gulp sass" />
-    <meta name="twitter:url" content="http://localhost:2368/gulp-sass/" />
+    <meta name="twitter:title" content="Vue用$emit与$on来进行兄弟组件之间的通信" />
+    <meta name="twitter:description" content="&amp;lt;template&amp;gt;     &amp;lt;div id&#x3D;&quot;app&quot;&amp;gt;     &amp;lt;dom-a&amp;gt;&amp;lt;/dom-a&amp;gt;        &amp;lt;dom-b&amp;gt;&amp;lt;/dom-b&amp;gt;        &amp;lt;dom-c&amp;gt;&amp;lt;/dom-c&amp;gt;      &amp;lt;/div&amp;gt; &amp;lt;/template&amp;gt;     &amp;lt;script&amp;gt;   var Event &#x3D; new Vue();   //组件A   var A &#x3D; {     template: &#x60;       &amp;lt;div&amp;gt;         &amp;lt;span&amp;gt;我是A组件的数据-&amp;" />
+    <meta name="twitter:url" content="http://localhost:2368/vue-emit-on/" />
     <meta name="twitter:label1" content="Written by" />
     <meta name="twitter:data1" content="江矿宝宝." />
     
@@ -53,11 +53,11 @@
         ],
         "description": "伪前端攻城狮, 喜欢钻研新技术."
     },
-    "headline": "使用 gulp 编译 Sass",
-    "url": "http://localhost:2368/gulp-sass/",
-    "datePublished": "2016-09-10T11:55:00.000Z",
-    "dateModified": "2017-05-25T08:10:21.000Z",
-    "description": "gulp-sass 本章使用的是 ruby-sass 如果你不方便安装 ruby 或编译速度慢，建议使用gulp-sass   Sass 是一种 CSS 的开发工具，提供了许多便利的写法，大大节省了开发者的时间，使得 CSS 的开发，变得简单和可维护。 本章使用 ruby-sass 编译 css,若你没有安装 ruby 和 sass 请移步使用ruby.taobao安装 Sass 安装 npm install gulp-ruby-sass   基本用法 // 获取 gulp var gulp &#x3D; require(&#x27;gulp&#x27;)   // 获取 gulp-ruby-sass 模块 var sass &#x3D; require(&#x27;gulp-ruby-sass&#x27;) // 编译sass // 在命令行输入 gulp sass",
+    "headline": "Vue用$emit与$on来进行兄弟组件之间的通信",
+    "url": "http://localhost:2368/vue-emit-on/",
+    "datePublished": "2017-07-01T09:38:00.000Z",
+    "dateModified": "2017-09-21T03:00:13.000Z",
+    "description": "&amp;lt;template&amp;gt;     &amp;lt;div id&#x3D;&quot;app&quot;&amp;gt;     &amp;lt;dom-a&amp;gt;&amp;lt;/dom-a&amp;gt;        &amp;lt;dom-b&amp;gt;&amp;lt;/dom-b&amp;gt;        &amp;lt;dom-c&amp;gt;&amp;lt;/dom-c&amp;gt;      &amp;lt;/div&amp;gt; &amp;lt;/template&amp;gt;     &amp;lt;script&amp;gt;   var Event &#x3D; new Vue();   //组件A   var A &#x3D; {     template: &#x60;       &amp;lt;div&amp;gt;         &amp;lt;span&amp;gt;我是A组件的数据-&amp;",
     "mainEntityOfPage": {
         "@type": "WebPage",
         "@id": "http://localhost:2368"
@@ -81,95 +81,121 @@
     <main class="content" role="main">
         <article class="post">
             <header class="post-header">
-                <h1 class="post-title">使用 gulp 编译 Sass</h1>
+                <h1 class="post-title">Vue用$emit与$on来进行兄弟组件之间的通信</h1>
                 <section class="post-meta">
-                    <time class="post-date">10 Sep 2016</time>
+                    <time class="post-date">01 Jul 2017</time>
                     <!-- "" -->
                 </section>
             </header>
             <section class="post-content">
-                <h2 id="gulpsass">gulp-sass</h2>
-
-<p>本章使用的是 ruby-sass 如果你不方便安装 ruby 或编译速度慢，建议使用<code>gulp-sass</code></p>
-
-<hr />
-
-<blockquote>
-  <p>Sass 是一种 CSS 的开发工具，提供了许多便利的写法，大大节省了开发者的时间，使得 CSS 的开发，变得简单和可维护。</p>
-</blockquote>
-
-<p>本章使用 <code>ruby-sass</code> 编译 css,若你没有安装 ruby 和 sass 请移步<code>使用ruby.taobao安装 Sass</code></p>
-
-<h2 id="">安装</h2>
-
-<pre><code>npm install gulp-ruby-sass  
+                <pre><code class="language-html">&lt;template&gt;  
+  &lt;div id="app"&gt;
+    &lt;dom-a&gt;&lt;/dom-a&gt;   
+    &lt;dom-b&gt;&lt;/dom-b&gt;   
+    &lt;dom-c&gt;&lt;/dom-c&gt;   
+  &lt;/div&gt;
+&lt;/template&gt;  
 </code></pre>
 
-<h2 id="">基本用法</h2>
+<pre><code class="language-js">  &lt;script&gt;
+  var Event = new Vue();
 
-<pre><code class="language-js">// 获取 gulp
-var gulp = require('gulp')  
-// 获取 gulp-ruby-sass 模块
-var sass = require('gulp-ruby-sass')
-
-// 编译sass
-// 在命令行输入 gulp sass 启动此任务
-gulp.task('sass', function() {  
-    return sass('sass/') 
-    .on('error', function (err) {
-      console.error('Error!', err.message);
-   })
-    .pipe(gulp.dest('dist/css'))
-});
-
-
-// 在命令行使用 gulp auto 启动此任务
-gulp.task('auto', function () {  
-    // 监听文件修改，当文件被修改则执行 images 任务
-    gulp.watch('sass/**/*.scss', ['sass'])
-});
-
-// 使用 gulp.task('default') 定义默认任务
-// 在命令行使用 gulp 启动 sass 任务和 auto 任务
-gulp.task('default', ['sass', 'auto'])  
-</code></pre>
-
-<h2 id="sasscss">Sass 代码和编译后的 CSS 代码  </h2>
-
-<p>sass/a.scss</p>
-
-<pre><code class="language-css">.sass{
-    a{
-        color:pink;
+  //组件A
+  var A = {
+    template: `
+      &lt;div&gt;
+        &lt;span&gt;我是A组件的数据-&gt;{{a}}&lt;/span&gt;
+        &lt;input type="button" value="把A数据传给C" @click="send"&gt;
+      &lt;/div&gt;
+    `,
+    methods: {
+      send () {
+        Event.$emit("a-msg", this.a);
+      }
+    },
+    data () {
+      return {
+        a: "我是a组件中数据"
+      }
     }
-}
-</code></pre>
-
-<p>sass/import.scss</p>
-
-<pre><code class="language-css">@import "a.scss";
-.import{
-  a{
-    color:red;
+  };
+  //组件B
+  var B = {
+    template: `
+      &lt;div&gt;
+        &lt;span&gt;我是B组件的数据-&gt;{{a}}&lt;/span&gt;
+        &lt;input type="button" value="把B数据传给C" @click = "send"&gt;
+      &lt;/div&gt;
+    `,
+    methods: {
+      send () {
+        Event.$emit("b-msg", this.a);
+      }
+    },
+    data () {
+      return {
+        a: "我是b组件中数据"
+      }
     }
-}
+  };
+  //组件C
+  var C = {
+    template: `
+      &lt;div&gt;
+        &lt;h3&gt;我是C组件&lt;/h3&gt;
+        &lt;span&gt;接收过来A的数据为: {{a}}&lt;/span&gt;
+        &lt;br&gt;
+        &lt;span&gt;接收过来B的数据为: {{b}}&lt;/span&gt;
+      &lt;/div&gt;
+    `,
+    mounted () {
+      //接收A组件的数据
+      Event.$on("a-msg", function (a) {
+        this.a = a;
+      }.bind(this));
+
+      //接收B组件的数据
+      Event.$on("b-msg", function (a) {
+        this.b = a;
+      }.bind(this));
+    },
+    data () {
+      return {
+        a: "",
+        b: ""
+      }
+    }
+  };
+  window.onload = function () {
+    new Vue({
+      el: "#app",
+      components: {
+        "dom-a": A,
+        "dom-b": B,
+        "dom-c": C
+      }
+    });
+  };
+  &lt;/script&gt;
 </code></pre>
 
-<p>sass/a.css</p>
+<p>Vue用$emit与$on来进行跨页面之间的数据传输通信 <br />
+on和emit的事件必须是在一个公共的实例上，才能触发。  </p>
 
-<pre><code class="language-css">.sass a {
-  color: pink;
-}
-</code></pre>
+<pre><code class="language-js">import Vue from 'vue'
 
-<p>sass/import.css</p>
+export var bus = new Vue()  
+App.vue里created方法里定义事件  
+import { bus } from 'bus.js'
 
-<pre><code class="language-css">.sass a {
-  color: pink;
+created () {  
+  bus.$on('tip', (text) =&gt; {
+    alert(text)
+  })
 }
-.import a{
-  color: red;
-}
+Test.vue组件内调用  
+import { bus } from 'bus.js'  
+bus.$emit('tip', '123')  
 </code></pre>
             </section>
             <footer class="post-footer">

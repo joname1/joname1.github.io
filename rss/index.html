@@ -1,111 +1,781 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:media="http://search.yahoo.com/mrss/"><channel><title><![CDATA[江矿宝宝的博客.]]></title><description><![CDATA[Just be nice, always think twice!]]></description><link>http://localhost:2368/</link><generator>Ghost 0.11</generator><lastBuildDate>Mon, 05 Jun 2017 08:46:57 GMT</lastBuildDate><atom:link href="http://localhost:2368/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Vue.js的小学生笔记]]></title><description><![CDATA[<h3 id="">引入</h3>
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:media="http://search.yahoo.com/mrss/"><channel><title><![CDATA[江矿宝宝的博客.]]></title><description><![CDATA[Just be nice, always think twice!]]></description><link>http://localhost:2368/</link><generator>Ghost 0.11</generator><lastBuildDate>Thu, 21 Sep 2017 08:12:09 GMT</lastBuildDate><atom:link href="http://localhost:2368/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[吼啊! Vue2.4组件间通信新姿势]]></title><description><![CDATA[<p>Vue应用在组件化之后，通常存在着 父子组件、兄弟组件、跨级组件 等组件关系，那么组件之间如何进行通信；Vue2.4提供了两种新的组件通讯方法。</p>
 
-<p>本地还是网络导入都行</p>
-
-<pre><code class="language-http">&lt;script src='https://unpkg.com/vue@2.1.10/dist/vue.js'&gt;&lt;/script&gt;  
-</code></pre>
-
-<h3 id="">数据绑定</h3>
-
-<p>实现数据绑定的几个步骤</p>
+<p>在 Vue 中，父子组件的关系可以总结为 props down、events up。</p>
 
 <ul>
-<li>创建vuejs实例</li>
-<li>划分vuejs势力范围</li>
-<li>向势力范围填充数据</li>
+<li>父子组件通信 ：父组件通过 props 向下传递数据给子组件</li>
+<li><p>子父组件通信 ：子组件通过 events 给父组件发送消息</p>
+
+<ul><li>使用 $on(eventName) 监听事件 </li>
+<li>使用 $emit(eventName) 触发事件</li></ul></li>
+<li><p>非父子组件通信 ：使用一个空的 Vue 实例作为中央事件总线</p></li>
 </ul>
 
-<pre><code class="language-http">&lt;div id="demo"&gt;  
-&lt;!--vuejs中的变量格式--&gt;  
-        &lt;h1&gt;Hello {{msg}}&lt;/h1&gt;
-&lt;/div&gt;  
-&lt;script&gt;  
-&lt;!--创建vue对象--&gt;  
-new</code></pre>]]></description><link>http://localhost:2368/vuejs-newbie/</link><guid isPermaLink="false">3ed3b882-efd0-4232-8a71-c7c66cb51aec</guid><dc:creator><![CDATA[江矿宝宝.]]></dc:creator><pubDate>Sat, 27 May 2017 10:30:18 GMT</pubDate><content:encoded><![CDATA[<h3 id="">引入</h3>
+<p>在Vue 2.4 版本引入了组件通讯的新方式。</p>
 
-<p>本地还是网络导入都行</p>
+<h4 id="1sync">1. 重新引入 .sync 修饰符</h4>
 
-<pre><code class="language-http">&lt;script src='https://unpkg.com/vue@2.1.10/dist/vue.js'&gt;&lt;/script&gt;  
-</code></pre>
+<p>熟悉 Vue1.x 的朋友一定对 .sync</p>]]></description><link>http://localhost:2368/vue-component-transmit/</link><guid isPermaLink="false">2ea992d0-7e99-4436-9f18-95b3c7674f35</guid><dc:creator><![CDATA[江矿宝宝.]]></dc:creator><pubDate>Thu, 17 Aug 2017 08:09:00 GMT</pubDate><content:encoded><![CDATA[<p>Vue应用在组件化之后，通常存在着 父子组件、兄弟组件、跨级组件 等组件关系，那么组件之间如何进行通信；Vue2.4提供了两种新的组件通讯方法。</p>
 
-<h3 id="">数据绑定</h3>
-
-<p>实现数据绑定的几个步骤</p>
+<p>在 Vue 中，父子组件的关系可以总结为 props down、events up。</p>
 
 <ul>
-<li>创建vuejs实例</li>
-<li>划分vuejs势力范围</li>
-<li>向势力范围填充数据</li>
+<li>父子组件通信 ：父组件通过 props 向下传递数据给子组件</li>
+<li><p>子父组件通信 ：子组件通过 events 给父组件发送消息</p>
+
+<ul><li>使用 $on(eventName) 监听事件 </li>
+<li>使用 $emit(eventName) 触发事件</li></ul></li>
+<li><p>非父子组件通信 ：使用一个空的 Vue 实例作为中央事件总线</p></li>
 </ul>
 
-<pre><code class="language-http">&lt;div id="demo"&gt;  
-&lt;!--vuejs中的变量格式--&gt;  
-        &lt;h1&gt;Hello {{msg}}&lt;/h1&gt;
-&lt;/div&gt;  
+<p>在Vue 2.4 版本引入了组件通讯的新方式。</p>
+
+<h4 id="1sync">1. 重新引入 .sync 修饰符</h4>
+
+<p>熟悉 Vue1.x 的朋友一定对 .sync 修饰器并不陌生。在Vue1.x 中我们可能会需要对一个 prop 进行『双向绑定』。当一个 子组件 改变了一个 prop的值时，这个变化也会 同步到父组件中 所绑定的值。</p>
+
+<p>因为它破坏了『单向数据流』的假设， .sync 在2.0版本被移除，引起了广泛的讨论。在2.3.0版本 .sync 又回来了，不过与1.x不同。</p>
+
+<p>这次只是原有语法的语法糖(syntax sugar)包装而成，其背后实现原理是，在组件上自动扩充一个额外的 v-on 监听器：</p>
+
+<p>代码如下：</p>
+
+<pre><code class="language-html">&lt;comp:foo.sync="bar"&gt;&lt;/comp&gt;  
+</code></pre>
+
+<p>会被扩充为：</p>
+
+<pre><code class="language-html">&lt;child:bar="foo"@update:bar="e =&gt; foo = e"&gt;  
+</code></pre>
+
+<p>对于子组件，如果想要更新 foo 的值，则需要显式地触发一个事件，而不是直接修改 prop：</p>
+
+<pre><code class="language-js">this.$emit('update:bar', newValue)  
+</code></pre>
+
+<h4 id="2dattrsdlisteners">2. $attrs 与 $listeners</h4>
+
+<p>多级组件嵌套需要传递数据时，通常使用的方法是通过vuex。如果仅仅是传递数据，而不做中间处理，使用 vuex 处理，未免有点杀鸡用牛刀。Vue 2.4 版本提供了另一种方法，使用 v-bind=”$attrs”, 将父组件中不被认为 props特性绑定的属性传入子组件中，通常配合 interitAttrs 选项一起使用。</p>
+
+<ul>
+<li>2.1 interitAttrs</li>
+</ul>
+
+<p>在版本 2.4 之前，默认情况下父作用域的不被作为props特性绑定的属性，将会作为普通的 HTML 属性，应用在跟元素上。</p>
+
+<pre><code class="language-html"> // parent.vue
+&lt;template&gt;  
+    &lt;child-commpent:foo="f":boo="b"&gt;&lt;/child-comment&gt;
+&lt;/template&gt;
+
 &lt;script&gt;  
-&lt;!--创建vue对象--&gt;  
-new Vue({  
-&lt;!--el指定为#demo的dom对象--&gt;  
-  el:'#demo',
-&lt;!--msg变量赋值为haha--&gt;  
-  data:{
-    msg:'haha'
+const childComment = ()=&gt; import('./childCom.vue')  
+export default {  
+    data () {
+      return {
+        f: 'Hello world!'
+        b: 'Hello Vue!'
+      }  
     }
-  })
+}
 &lt;/script&gt;  
 </code></pre>
 
-<h3 id="">双向绑定</h3>
+<pre><code class="language-html">// childComment.vue
+&lt;template&gt;  
+    &lt;div&gt;{{ foo }}&lt;div&gt;
+&lt;/template&gt;
 
-<p>vuejs通过<code>v-model</code>属性实现表单控件元素的双向绑定，只能用于<code>input、select、textarea、components</code></p>
-
-<pre><code class="language-http">&lt;div id="demo"&gt;  
-&lt;!--vuejs中的变量格式--&gt;  
-        &lt;h1&gt;屠龙宝刀,{{msg}}&lt;/h1&gt;
-        &lt;input type="text" v-model="msg"&gt;
-&lt;/div&gt;  
 &lt;script&gt;  
-&lt;!--创建vue对象--&gt;  
-new Vue({  
-&lt;!--el指定为#demo的dom对象--&gt;  
-  el:'#demo',
-&lt;!--msg变量赋值--&gt;  
-  data:{
-    msg:'点击就送'
-    }
-  })
+export default {  
+    props: ['foo'] //父作用域的boo不被作为props绑定
+}
 &lt;/script&gt;  
 </code></pre>
 
-<p>你会看到在输入框输完文字后，<code>{{msg}}</code>里面的文字也会跟着变，即所谓的双向绑定。</p>
+<p>//boo会作为普通的 HTML 属性，应用在跟元素上。</p>
 
-<h3 id="">内容绑定</h3>
+<pre><code class="language-html">&lt;div boo="Hello Vue!"&gt;Hello world!&lt;/div&gt;  
+</code></pre>
 
-<p>vuejs通过<code>v-text</code>属性实现整个标签的内容绑定</p>
+<p>html
+设置 interitAttrs 为 false，之后，不会应用到跟元素上。</p>
 
-<p>实际上和引用vue变量的效果是一样的，来看实例</p>
+<pre><code class="language-html">// childCom.vue
+&lt;template&gt;  
+    &lt;div&gt;{{ foo }}&lt;/div&gt;
+&lt;/template&gt;
 
-<pre><code class="language-http">&lt;div id="demo"&gt;  
-&lt;!--vuejs中的变量格式--&gt;  
-        &lt;div&gt;{{msg}}&lt;/div&gt;
-        &lt;div v-text='haha'&gt;&lt;/div&gt;
-        &lt;input type="text" v-model="haha"&gt;
-&lt;/div&gt;  
 &lt;script&gt;  
-&lt;!--创建vue对象--&gt;  
-new Vue({  
-&lt;!--el指定为#demo的dom对象--&gt;  
-  el:'#demo',
-&lt;!--msg变量赋值为haha--&gt;  
-  data:{
-    msg:'v-text',
-    haha:'wtf',
-    }
-  })
+  export default {
+    props: ['foo'],
+    inheritAttrs: false
+  }
 &lt;/script&gt;  
 </code></pre>
 
-<p>可以看到原来的div内并没有文本，但<code>v-text</code>会实现整个标签的内容绑定</p>]]></content:encoded></item><item><title><![CDATA[AngularJS动态加载Controller]]></title><description><![CDATA[<p>AngularJS原生并不支持动态加载Controller的方法，但是却提供注册Controller的方法。接下来就来看下如何实现动态加载Controller。</p>
+<p>//boo会作为普通的 HTML 属性，应用在跟元素上。</p>
+
+<pre><code class="language-html">&lt;div&gt;Hello world!&lt;/div&gt;  
+</code></pre>
+
+<ul>
+<li>2.2 $attrs, $listeners</li>
+</ul>
+
+<p>在Vue 2.4 版本,配合 interitAttrs选项， 父组件中未被props(v-on)绑定的属性(事件) 可以在子组件中，通过 $attrs ， $listeners 获取。</p>
+
+<pre><code class="language-html">// demo.vue
+  &lt;template&gt;
+    &lt;div&gt;
+      &lt;child-com:foo="foo":boo="boo":coo="coo":doo="doo"&gt;&lt;/child-com&gt;
+    &lt;/div&gt;
+  &lt;/tempalte&gt;
+  &lt;script&gt;
+  const childCom = ()=&gt; import('./childCom1.vue')
+  export default {
+    data () {
+      return {
+        foo: 'Hello World!',
+        boo: 'Hello Javascript!',
+        coo: 'Hello Vue',
+        doo: 'Last'
+      }
+    },
+    components: { childCom }
+  }
+  &lt;/script&gt;
+</code></pre>
+
+<pre><code class="language-html">// childCom1.vue
+&lt;template&gt;  
+  &lt;div&gt;
+    &lt;p&gt;foo: {{ foo }}&lt;/p&gt;
+    &lt;p&gt;attrs: {{ $attrs }}&lt;/p&gt;
+    &lt;child-com2v-bind="$attrs"&gt;&lt;/child-com2&gt;
+  &lt;/div&gt;
+&lt;/template&gt;  
+&lt;script&gt;  
+const childCom2 = ()=&gt; import('./childCom2.vue')  
+export default {  
+  props: ['foo'],  // foo作为props属性绑定
+  inheritAttrs: false,
+  created () {
+    console.log(this.$attrs) // { boo: 'Hello Javascript!', coo: 'Hello Vue', doo: 'Last' }
+  }
+}
+&lt;/script&gt;  
+</code></pre>
+
+<pre><code class="language-html">// childCom2.vue
+&lt;template&gt;  
+  &lt;div&gt;
+   &lt;p&gt;boo: {{ boo }}&lt;/p&gt;
+   &lt;p&gt;attrs: {{ $attrs }}&lt;/p&gt;
+   &lt;child-com3v-bind="$attrs"&gt;&lt;/child-com3&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;  
+const childCom3 = ()=&gt; import('./childCom3.vue')  
+export default {  
+  props: ['boo'] // boo作为props属性绑定
+  inheritAttrs: false,
+  created () {
+    console.log(this.$attrs) // { coo: 'Hello Vue', doo: 'Last' }
+  }
+}
+&lt;/script&gt;  
+</code></pre>
+
+<h4 id="">小结</h4>
+
+<p>在Vue2.0被移除的 .sync 被重新加入到2.4版本，不同的是需要显式地触发一个事件，而不是直接修改 prop。
+Vue2.4提供了 $attrs , $listeners 来传递数据与事件，跨级组件之间的通讯变得更简单。</p>]]></content:encoded></item><item><title><![CDATA[Vuex 学习总结]]></title><description><![CDATA[<p>对于很多新手来说，只是阅读文档是不好消化，我的建议是看看 vuex 的实例，通过研究实例来学习vuex。这样就会好理解多了。如果还是不能理解，最好办法就是先把store 的四个属性：state， getters, mutations, actions 记下来，然后再分析四个属性的特点，什么地方会用到，是怎样连接在一起的？通过这样问自己问题来进行学习。</p>
+
+<p>简单来说，vuex 就是使用一个 store 对象来包含所有的应用层级状态，也就是数据的来源。当然如果应用比较庞大，我们可以将 store 模块化，也就是每个模块都有自己的 store。一个 store 有四个属性：state, getters, mutations, actions。</p>
+
+<h4 id="1state">1、State</h4>
+
+<p>state 上存放的，说的简单一些就是变量，也就是所谓的状态。没有使用 state 的时候，我们都是直接在 data 中进行初始化的，</p>]]></description><link>http://localhost:2368/vuex-summary/</link><guid isPermaLink="false">05067534-6cc0-442e-b8ac-a38e0ff762df</guid><dc:creator><![CDATA[江矿宝宝.]]></dc:creator><pubDate>Sat, 15 Jul 2017 07:48:00 GMT</pubDate><content:encoded><![CDATA[<p>对于很多新手来说，只是阅读文档是不好消化，我的建议是看看 vuex 的实例，通过研究实例来学习vuex。这样就会好理解多了。如果还是不能理解，最好办法就是先把store 的四个属性：state， getters, mutations, actions 记下来，然后再分析四个属性的特点，什么地方会用到，是怎样连接在一起的？通过这样问自己问题来进行学习。</p>
+
+<p>简单来说，vuex 就是使用一个 store 对象来包含所有的应用层级状态，也就是数据的来源。当然如果应用比较庞大，我们可以将 store 模块化，也就是每个模块都有自己的 store。一个 store 有四个属性：state, getters, mutations, actions。</p>
+
+<h4 id="1state">1、State</h4>
+
+<p>state 上存放的，说的简单一些就是变量，也就是所谓的状态。没有使用 state 的时候，我们都是直接在 data 中进行初始化的，但是有了 state 之后，我们就把 data 上的数据转移到 state 上去了。当一个组件需要获取多个状态时候，将这些状态都声明为计算属性会有些重复和冗余。为了解决这个问题，我们可以使用 mapState 辅助函数帮助我们生成计算属性，让你少按几次键：</p>
+
+<p>其实就是把 state 上保存的变量转移到计算属性上。当映射的计算属性的名称与 state 的子节点名称相同时，我们也可以给 mapState 传一个字符串数组。</p>
+
+<pre><code class="language-js">computed: mapState([  
+  // 映射 this.count 为 store.state.count
+  'count'
+])
+</code></pre>
+
+<p>为了更好地理解这个函数的作用，我们可以看看它的源代码。
+可以看到，mapstate 即可以接受对象，也可以接受数组。最终返回的是一个对象。并且 res[key] 的值都是来于 store 里的，红色那条代码就是。这样就把两个不相关的属性连接起来了,这也是映射。其他几个辅助函数也是类似的。</p>
+
+<h4 id="2getters">2、Getters</h4>
+
+<p>getters上简单来说就是存放一些公共函数供组件调用。getters 会暴露为 store.getters 对象，也就是说可以通过 store .getters[属性]来进行相应的调用。mapGetters 辅助函数仅仅是将 store 中的 getters 映射到局部计算属性，其实也就是从 getters 中获取对应的属性，跟解构类似。具体如下图这样我们就可以将 getters 中的 evenOrOdd 属性值传给对应组件中的 evenOrOdd 上。Getters 接受 state 作为其第一个参数，Getters 也可以接受其他 getters 作为第二个参数。</p>
+
+<h4 id="3mutations">3、Mutations</h4>
+
+<p>mutations 与事件类似，更改 Vuex 的 store 中的状态的唯一方法是提交 mutation。所以 mutations 上存放的一般就是我们要改变 state 的一些方法。</p>
+
+<pre><code class="language-js">const store = new Vuex.Store({  
+  state: {
+    count: 1
+  },
+  mutations: {
+    increment (state) {
+      // 变更状态
+      state.count++
+    }
+  }
+})
+</code></pre>
+
+<p>我们不能直接调用一个 mutation handler。 这个选项更像是事件注册 ：“当触发一个类型为 increment 的 mutation 时，调用此函数 。”要唤醒一个 mutation handler，你需要以相应的 type 调用 store.commit 方法：</p>
+
+<pre><code class="language-js">store.commit('increment')  
+</code></pre>
+
+<p>当 mutation 事件类型比较多的时候，我们可以使用常量替代 mutation 事件类型。同时把这些常量放在单独的文件中可以让我们的代码合作者对整个 app 包含的 mutation 一目了然：
+一条重要的原则就是要记住 mutation 必须是同步函数 。</p>
+
+<h4 id="4actions">4、Actions</h4>
+
+<p>前面说了， mutation 像事件注册，需要相应的触发条件。而 Action 就那个管理触发条件的。
+Action 类似于 mutation，不同在于：Action 提交的是 mutation，而不是直接变更状态。Action 可以包含任意异步操作。  </p>
+
+<pre><code class="language-js">actions: {  
+    increment (context) {
+      context.commit('increment')
+    }
+  }
+</code></pre>
+
+<p>Action 函数接受一个与 store 实例具有相同方法和属性的 context 对象，因此你可以调用 context.commit 提交一个 mutation，或者通过 context.state 和 context.getters 来获取 state 和 getters。</p>
+
+<p>实践中，我们会经常会用到 ES2015 的 参数解构 来简化代码（特别是我们需要调用 commit 很多次的时候）</p>
+
+<pre><code class="language-js">actions: {  
+  increment ({ commit }) {
+    commit('increment')
+  }
+}
+</code></pre>
+
+<p>还记得我们前面说过 mutation 像事件类型吗？因此需要我们给定某个动作来进行触发。而这就是分发 action。Action 通过 store.dispatch 方法触发：</p>
+
+<pre><code class="language-js">store.dispatch('increment')  
+</code></pre>
+
+<p>此外，我们还可以在我们可以在 action 内部执行 异步 操作：</p>
+
+<pre><code class="language-js">actions: {  
+  incrementAsync ({ commit }) {
+    setTimeout(() =&gt; {
+      commit('increment')
+    }, 1000)
+  }
+}
+</code></pre>
+
+<p>你在组件中使用<code>this.$store.dispatch('xxx')</code> 分发 action，或者使用<code>mapActions</code>辅助函数将组件的 methods 映射为<code>store.dispatch</code>调用（需要先在根节点注入 store ）：</p>
+
+<pre><code class="language-js">import { mapActions } from 'vuex'  
+export default {  
+  // ...
+  methods: {
+    ...mapActions([
+      'increment' // 映射 this.increment() 为 this.$store.dispatch('increment')
+    ]),
+    ...mapActions({
+      add: 'increment' // 映射 this.add() 为 this.$store.dispatch('increment')
+    })
+  }
+}
+</code></pre>
+
+<p>这句话意思其实是，当你使用了 <code>mapActions</code>， 你就不需要再次使用 <code>this.$store.dispatch('xxx')</code>，当你没使用的话，你可以需要手动去分法。
+什么时候用大家要根据情况而定的。</p>]]></content:encoded></item><item><title><![CDATA[Vue用$emit与$on来进行兄弟组件之间的通信]]></title><description><![CDATA[<pre><code class="language-html">&lt;template&gt;  
+  &lt;div id="app"&gt;
+    &lt;dom-a&gt;&lt;/dom-a&gt;   
+    &lt;dom-b&gt;&lt;/dom-b&gt;   
+    &lt;dom-c&gt;&lt;/dom-c&gt;   
+  &lt;/div&gt;
+&lt;/template&gt;  
+</code></pre>
+
+<pre><code class="language-js">  &lt;script&gt;
+  var Event = new Vue();
+
+  //组件A
+  var A = {
+    template: `
+      &lt;div&gt;
+        &lt;span&gt;我是A组件的数据-&</code></pre>]]></description><link>http://localhost:2368/vue-emit-on/</link><guid isPermaLink="false">2682fb59-655b-4fa1-b1b3-cbf652038c44</guid><dc:creator><![CDATA[江矿宝宝.]]></dc:creator><pubDate>Sat, 01 Jul 2017 09:38:00 GMT</pubDate><content:encoded><![CDATA[<pre><code class="language-html">&lt;template&gt;  
+  &lt;div id="app"&gt;
+    &lt;dom-a&gt;&lt;/dom-a&gt;   
+    &lt;dom-b&gt;&lt;/dom-b&gt;   
+    &lt;dom-c&gt;&lt;/dom-c&gt;   
+  &lt;/div&gt;
+&lt;/template&gt;  
+</code></pre>
+
+<pre><code class="language-js">  &lt;script&gt;
+  var Event = new Vue();
+
+  //组件A
+  var A = {
+    template: `
+      &lt;div&gt;
+        &lt;span&gt;我是A组件的数据-&gt;{{a}}&lt;/span&gt;
+        &lt;input type="button" value="把A数据传给C" @click="send"&gt;
+      &lt;/div&gt;
+    `,
+    methods: {
+      send () {
+        Event.$emit("a-msg", this.a);
+      }
+    },
+    data () {
+      return {
+        a: "我是a组件中数据"
+      }
+    }
+  };
+  //组件B
+  var B = {
+    template: `
+      &lt;div&gt;
+        &lt;span&gt;我是B组件的数据-&gt;{{a}}&lt;/span&gt;
+        &lt;input type="button" value="把B数据传给C" @click = "send"&gt;
+      &lt;/div&gt;
+    `,
+    methods: {
+      send () {
+        Event.$emit("b-msg", this.a);
+      }
+    },
+    data () {
+      return {
+        a: "我是b组件中数据"
+      }
+    }
+  };
+  //组件C
+  var C = {
+    template: `
+      &lt;div&gt;
+        &lt;h3&gt;我是C组件&lt;/h3&gt;
+        &lt;span&gt;接收过来A的数据为: {{a}}&lt;/span&gt;
+        &lt;br&gt;
+        &lt;span&gt;接收过来B的数据为: {{b}}&lt;/span&gt;
+      &lt;/div&gt;
+    `,
+    mounted () {
+      //接收A组件的数据
+      Event.$on("a-msg", function (a) {
+        this.a = a;
+      }.bind(this));
+
+      //接收B组件的数据
+      Event.$on("b-msg", function (a) {
+        this.b = a;
+      }.bind(this));
+    },
+    data () {
+      return {
+        a: "",
+        b: ""
+      }
+    }
+  };
+  window.onload = function () {
+    new Vue({
+      el: "#app",
+      components: {
+        "dom-a": A,
+        "dom-b": B,
+        "dom-c": C
+      }
+    });
+  };
+  &lt;/script&gt;
+</code></pre>
+
+<p>Vue用$emit与$on来进行跨页面之间的数据传输通信 <br>
+on和emit的事件必须是在一个公共的实例上，才能触发。  </p>
+
+<pre><code class="language-js">import Vue from 'vue'
+
+export var bus = new Vue()  
+App.vue里created方法里定义事件  
+import { bus } from 'bus.js'
+
+created () {  
+  bus.$on('tip', (text) =&gt; {
+    alert(text)
+  })
+}
+Test.vue组件内调用  
+import { bus } from 'bus.js'  
+bus.$emit('tip', '123')  
+</code></pre>]]></content:encoded></item><item><title><![CDATA[Vue组件($children,$refs,$parent)的使用]]></title><description><![CDATA[<p>如果项目很大，组件很多，怎么样才能准确的、快速的寻找到我们想要的组件了？？</p>
+
+<h4 id="1drefs">1、$refs</h4>
+
+<p>首先你的给子组件做标记。</p>
+
+<pre><code class="language-html">&lt;firstchild ref="one"&gt;&lt;/firstchild&gt;  
+</code></pre>
+
+<p>然后在父组件中，通过this.$refs.one就可以访问了这个自组件了，包括访问自组件的data里面的数据，调用它的函数</p>
+
+<h4 id="2dchildren">2、$children</h4>
+
+<p>他返回的是一个组件集合，如果你能清楚的知道子组件的顺序，你也可以使用下标来操作；</p>
+
+<pre><code class="language-js">for(let i=0;i&lt;this.$children.length;i++){  
+       console.log(this.$children[i].msg); //输出子组件的msg数据；
+ }
+</code></pre>
+
+<p>接下来就来一个点的demo</p>
+
+<p>首先定义一个父组件：parentcomponent，</p>
+
+<p>在父组件中我又是使用了两个自组件（假如有一百个自组件） [明确一点，组件只能有一个根节点</p>]]></description><link>http://localhost:2368/vue-children-refs-parent/</link><guid isPermaLink="false">1687d7fb-e06a-4cd6-bab7-522277dde419</guid><dc:creator><![CDATA[江矿宝宝.]]></dc:creator><pubDate>Mon, 29 May 2017 09:00:00 GMT</pubDate><content:encoded><![CDATA[<p>如果项目很大，组件很多，怎么样才能准确的、快速的寻找到我们想要的组件了？？</p>
+
+<h4 id="1drefs">1、$refs</h4>
+
+<p>首先你的给子组件做标记。</p>
+
+<pre><code class="language-html">&lt;firstchild ref="one"&gt;&lt;/firstchild&gt;  
+</code></pre>
+
+<p>然后在父组件中，通过this.$refs.one就可以访问了这个自组件了，包括访问自组件的data里面的数据，调用它的函数</p>
+
+<h4 id="2dchildren">2、$children</h4>
+
+<p>他返回的是一个组件集合，如果你能清楚的知道子组件的顺序，你也可以使用下标来操作；</p>
+
+<pre><code class="language-js">for(let i=0;i&lt;this.$children.length;i++){  
+       console.log(this.$children[i].msg); //输出子组件的msg数据；
+ }
+</code></pre>
+
+<p>接下来就来一个点的demo</p>
+
+<p>首先定义一个父组件：parentcomponent，</p>
+
+<p>在父组件中我又是使用了两个自组件（假如有一百个自组件） [明确一点，组件只能有一个根节点 ]，根节点是啥，我不知道。。。。。。</p>
+
+<pre><code class="language-html">&lt;template id="parentcomponent"&gt;  
+    &lt;div &gt;
+        &lt;p&gt;this is a parent-component&lt;/p&gt;
+        &lt;firstchild  ref="f1"&gt;&lt;/firstchild&gt;
+        &lt;secondchild ref="f2"&gt;&lt;/secondchild&gt;
+        &lt;button @click='show_child_of_parents'&gt;show child msg&lt;/button&gt;
+    &lt;/div&gt;
+&lt;/template&gt;  
+</code></pre>
+
+<p>分别给出两个字组件的定义：（第2个使用的是template,第1个是script）</p>
+
+<pre><code class="language-html">&lt;script type="text/x-template" id="childOne"&gt;  
+    &lt;div&gt;
+        &lt;p&gt;this is first child&lt;/p&gt;
+
+        //使用stop阻止默认事件（vue的事件处理机制）
+        &lt;button @click.stop='getParent'&gt;get parent msg&lt;/button&gt;
+    &lt;/div&gt;
+&lt;/script&gt;
+
+&lt;template id="childSec"&gt;  
+    &lt;div&gt;
+        &lt;p&gt;this is second child&lt;/p&gt;
+    &lt;/div&gt;
+&lt;/template&gt;  
+</code></pre>
+
+<p>组件模板定义好了，就是用：</p>
+
+<ul>
+<li>挂在元素：</li>
+</ul>
+
+<pre><code class="language-js">&lt;script&gt;  
+    new Vue({
+        el:"#app",
+        data:{},
+        components:{
+            "parent-component":{
+                template:'#parentcomponent', 
+                data(){
+                    return{msg:'这是父组件中的内容'}                    
+                },
+                methods:{
+                    show_child_of_parents(){
+                        //children方式访问自组件
+　　　　　　　　　　　　　　 for(let i=0;i&lt;this.$children.length;i++){
+                                console.log(this.$children[i].msg);
+                        }
+　　　　　　　　　　　　　　　//通过$ref打标记，访问子组件　
+                        console.log(this.$refs.f1.msg);
+ 　　　　　　　　　　　　　　this.$refs.f1.getParent();
+                    },                                    
+                },    
+　　　　　　　　　　     
+                components:{
+                    'firstchild':{
+                        template:'#childOne',
+                        data(){
+                            return {msg:'这是第一个子组件'};
+                        },
+                        methods:{
+                            getParent(){
+                                let a=1;
+                                console.log(a);
+                                alert(this.$parent.msg);
+
+                            }
+                        },
+                    },
+
+                    'secondchild':{
+                        template:'#childSec',
+                        data(){
+                            return {msg:"这是第二个组件"};
+                        }
+                    }
+
+                }
+
+            }
+        }
+
+    });
+
+&lt;/script&gt;  
+</code></pre>
+
+<ul>
+<li>使用父组件了</li>
+</ul>
+
+<pre><code class="language-html">    &lt;body&gt;
+        &lt;p&gt;&lt;strong&gt;可以通过$refs访问父组件的子组件&lt;/strong&gt;&lt;/p&gt;
+        &lt;div id="app"&gt;
+            &lt;parent-component&gt;&lt;/parent-component&gt;
+        &lt;/div&gt;
+    &lt;/body&gt;
+</code></pre>
+
+<h4 id="">小结</h4>
+
+<ul>
+<li><p>组件只能一个根节点</p></li>
+<li><p>可以在自组件中使用this.$parent.属性值，或者函数</p></li>
+<li><p>在父组件中可以使用this.$refs.组件的标记访问子组件，或者this.$children[i].属性访问子组件</p></li>
+<li><p>你需要注意this的指向</p></li>
+</ul>]]></content:encoded></item><item><title><![CDATA[webpack+vue项目中常用ES6语法总结]]></title><description><![CDATA[<h3 id="babel">Babel</h3>
+
+<p>ES6标准虽然已经发布了，但是很多浏览器环境都还不支持，webpack是通过Babel这个转码器将ES6代码转为ES5，从而在现有环境执行。babel是在webpack的配置文件webpack.config.js的module参数中的loaders中配置，如下：  </p>
+
+<pre><code class="language-js">module.exports = {  
+    ...
+    module: {
+        loaders: [
+        {
+            test: /\.js$/,
+            loader: 'babel',
+            exclude: /node_modules/
+        },
+        ...
+        ]
+    }
+}
+</code></pre>
+
+<p>配置完成后还需要安装”babel-loader”模块</p>
+
+<pre><code class="language-js">npm i babel-loader -D  
+</code></pre>
+
+<p>然后webpack就可以对用了ES6语法的js文件进行转码了。下面总结一些常用到的ES6语法。</p>
+
+<h3 id="letconst">let和const命令</h3>
+
+<ul>
+<li>let命令</li>
+</ul>
+
+<p>ES6中let命令用来声明变量，用法类似于var，但是let所声明的变量是局部变量，只在let命令所在的代码块内有效。所以在for循环中很适合用let变量做计数器。 <br>
+let变量不会像var变量那样会进行变量提升，变量一定要在声明后使用，否则会报错。 <br>
+只要块级作用域内存在let命令，它所声明的所有变量都绑定这个作业域，不收外部变量的影响，即形成了一个封闭的作用域。
+let不允许在相同作用域内重复声明同一个变量。可以看出，let变量实际上为JavaScript新增了块级作用域</p>
+
+<ul>
+<li>const命令</li>
+</ul>
+
+<p>const声明一个只读的常量，一旦声明，值就不能改变。</p>]]></description><link>http://localhost:2368/webpack-vue-es6/</link><guid isPermaLink="false">cfec3ed8-4933-4a85-a47d-debc2796436b</guid><dc:creator><![CDATA[江矿宝宝.]]></dc:creator><pubDate>Sat, 27 May 2017 02:46:00 GMT</pubDate><content:encoded><![CDATA[<h3 id="babel">Babel</h3>
+
+<p>ES6标准虽然已经发布了，但是很多浏览器环境都还不支持，webpack是通过Babel这个转码器将ES6代码转为ES5，从而在现有环境执行。babel是在webpack的配置文件webpack.config.js的module参数中的loaders中配置，如下：  </p>
+
+<pre><code class="language-js">module.exports = {  
+    ...
+    module: {
+        loaders: [
+        {
+            test: /\.js$/,
+            loader: 'babel',
+            exclude: /node_modules/
+        },
+        ...
+        ]
+    }
+}
+</code></pre>
+
+<p>配置完成后还需要安装”babel-loader”模块</p>
+
+<pre><code class="language-js">npm i babel-loader -D  
+</code></pre>
+
+<p>然后webpack就可以对用了ES6语法的js文件进行转码了。下面总结一些常用到的ES6语法。</p>
+
+<h3 id="letconst">let和const命令</h3>
+
+<ul>
+<li>let命令</li>
+</ul>
+
+<p>ES6中let命令用来声明变量，用法类似于var，但是let所声明的变量是局部变量，只在let命令所在的代码块内有效。所以在for循环中很适合用let变量做计数器。 <br>
+let变量不会像var变量那样会进行变量提升，变量一定要在声明后使用，否则会报错。 <br>
+只要块级作用域内存在let命令，它所声明的所有变量都绑定这个作业域，不收外部变量的影响，即形成了一个封闭的作用域。
+let不允许在相同作用域内重复声明同一个变量。可以看出，let变量实际上为JavaScript新增了块级作用域</p>
+
+<ul>
+<li>const命令</li>
+</ul>
+
+<p>const声明一个只读的常量，一旦声明，值就不能改变。所以，const一旦声明就必须立即初始化，不能只声明不初始化。 <br>
+const作用域和let命令相同，只在声明所在的块级作用域中有效。const命令声明的常量也是不提升，同样存在暂时性死区，只能在声明的位置后面使用。</p>
+
+<h3 id="">函数的扩展</h3>
+
+<ul>
+<li>函数参数的默认值</li>
+</ul>
+
+<p>在ES6之前不能直接为函数的参数指定默认值，只能采用变通的方法。ES6允许为函数参数设置默认值，直接写在参数定义的后面。</p>
+
+<pre><code class="language-js">function log(x, y='World') {  
+    console.log(x, y);
+}
+log('Hello')  
+</code></pre>
+
+<ul>
+<li>参数默认值的位置</li>
+</ul>
+
+<p>通常定义了默认值的参数应该是函数的尾参数，如果是非尾部的参数设置默认值，实际上这个参数是没法省略的。除非显式输入undefined。</p>
+
+<ul>
+<li>箭头函数</li>
+</ul>
+
+<p>ES6允许使用“箭头”（=>）定义函数。</p>
+
+<pre><code class="language-js">var f = v =&gt; v;  
+</code></pre>
+
+<p>上述函数等同于：</p>
+
+<pre><code class="language-js">var f = function(v) {  
+    return v;
+};
+</code></pre>
+
+<p>若箭头函数不需要参数或者需要多于一个参数，就使用一个圆括号代表参数部分。</p>
+
+<pre><code class="language-js">var f = () =&gt; 5;  
+// 等同于
+var f = function() {  
+    return 5;
+}
+</code></pre>
+
+<pre><code class="language-js">var sum = (num1, num2) =&gt; num1 + num2;  
+// 等同于
+var sum = function(num1, num2) {  
+    return num1 + num2;
+}
+</code></pre>
+
+<p>若箭头函数的代码部分多于一条语句，就要使用大括号将他们括起来，并且使用return语句返回。</p>
+
+<pre><code class="language-js">var sum = (num1, num2) =&gt; { return num1 + num2; }  
+</code></pre>
+
+<h4 id="">使用注意点</h4>
+
+<p>函数体内的this对象，就是定义时所在的对象，而不是使用时所在的对象。
+不可当做构造函数，不可以使用new命令，否则会抛出错误。
+不可使用arguments对象，该对象在函数体内不存在，可以用Rest参数代替。</p>
+
+<h3 id="module">Module</h3>
+
+<p>ES6之前，JavaScript一直没有模块（module）体系，ES6在语言规格的层面上，实现了模块功能，完全可以取代现有的CommonJS和AMD规范，成为浏览器和服务器通用的模块解决方案。 <br>
+ES6模块不是对象，而是通过export命令显式指定输出的代码，输入时采用静态命令的形式。  </p>
+
+<pre><code class="language-js">import {stat, exists, readFile} from 'fs';  
+</code></pre>
+
+<p>上面代码就是从fs模块加载3个方法，其他方法不加载。这种加载成为“编译时加载”。ES6可以在编译时就完成模块加载，效率要比CommonJS模块的加载方式高。</p>
+
+<h3 id="export">export命令</h3>
+
+<p>模块功能主要由两个命令构成，export和import。export命令用于规定模块的对外接口，import命令用于输入其他模块提供的功能。
+一个模块就是一个独立的文件。该文件内部的所有变量，外部无法获取。如果你希望外部能够读取模块内部的某个变量，就必须使用export关键字输出该变量。</p>
+
+<pre><code class="language-js">export var firstName = 'Michael';  
+export var lastName = 'Jackson';  
+export var year = 1958;  
+</code></pre>
+
+<p>还可以如下写：</p>
+
+<pre><code class="language-js">var firstName = 'Michael';  
+var lastName = 'Jackson';  
+var year = 1958;  
+export {firstName, lastName, year};  
+</code></pre>
+
+<p>export除了输出变量通用可以输出函数或者类，export输出的变量还可以用as关键字重命名。  </p>
+
+<pre><code class="language-js">function v1() { ... }  
+function v2() { ... }  
+export {  
+  v1 as streamV1,
+  v2 as streamV2,
+  v2 as streamLatestVersion
+};
+</code></pre>
+
+<h3 id="import">import命令</h3>
+
+<p>使用export命令定义了模块的对外接口以后，其他JS文件就可以通过import命令加载这个模块（文件）。用法上面已经有介绍，如果想为输入的变量重命名，使用as关键字。</p>
+
+<pre><code class="language-js">import { lastName as surname } from './profile';  
+</code></pre>]]></content:encoded></item><item><title><![CDATA[AngularJS动态加载Controller]]></title><description><![CDATA[<p>AngularJS原生并不支持动态加载Controller的方法，但是却提供注册Controller的方法。接下来就来看下如何实现动态加载Controller。</p>
 
 <!-- more -->
 
@@ -2145,766 +2815,4 @@ require(['selector'], function(query) {
 <ul>
 <li>使用baseUrl来配置模块根目录，baseUrl可以是绝对路径也可以是相对路径</li>
 <li>使用define定义一个函数类型模块，RequireJS的模块可以是JS对象，函数或其它任何类型（CommonJS/SeaJS则只能是JS对象）</li>
-</ul>]]></content:encoded></item><item><title><![CDATA[Node.js(3) 模块]]></title><description><![CDATA[<p>当我们制作一个模块时，我们可能会写一个构造函数（因为在浏览器写构造函数时我们经常会这么做）。</p>
-
-<p>如代码：</p>
-
-<pre><code class="language-js">function sayHello() {  
-    this.say = function () {  
-        console.log('hello');  
-    }  
-}  
-exports.Hello = sayHello;  
-</code></pre>
-
-<p>在这里，我们有一个构造函数sayHello，函数里有一个方法say，输出hello。
-然后导出的是sayHello这个构造函数。我们在另外一个文件中调用它。
-代码这么写：</p>
-
-<pre><code class="language-js">var hello = require('./test').Hello;    //调用刚才写的那个模块  
-var m = new hello();  
-m.say();  
-</code></pre>
-
-<p>第一行表示我们调用刚才写的那个模块。
-注意，这个时候和之前不同（之前是直接require模块即可），这里需要添加一个Hello。原因在于require表示导入的是一个整体（即有多个exports导出的方法），这里我们只需要其中的Hello方法（即对应原模块中的sayHello这个构造函数）；</p>
-
-<p>当然，也可以写为require('./test')，在下面的代码，把hello改为hello.</p>]]></description><link>http://localhost:2368/nodejs-3/</link><guid isPermaLink="false">fd415422-b9c7-4e66-803c-897d8f28f560</guid><dc:creator><![CDATA[江矿宝宝.]]></dc:creator><pubDate>Mon, 03 Oct 2016 08:59:00 GMT</pubDate><content:encoded><![CDATA[<p>当我们制作一个模块时，我们可能会写一个构造函数（因为在浏览器写构造函数时我们经常会这么做）。</p>
-
-<p>如代码：</p>
-
-<pre><code class="language-js">function sayHello() {  
-    this.say = function () {  
-        console.log('hello');  
-    }  
-}  
-exports.Hello = sayHello;  
-</code></pre>
-
-<p>在这里，我们有一个构造函数sayHello，函数里有一个方法say，输出hello。
-然后导出的是sayHello这个构造函数。我们在另外一个文件中调用它。
-代码这么写：</p>
-
-<pre><code class="language-js">var hello = require('./test').Hello;    //调用刚才写的那个模块  
-var m = new hello();  
-m.say();  
-</code></pre>
-
-<p>第一行表示我们调用刚才写的那个模块。
-注意，这个时候和之前不同（之前是直接require模块即可），这里需要添加一个Hello。原因在于require表示导入的是一个整体（即有多个exports导出的方法），这里我们只需要其中的Hello方法（即对应原模块中的sayHello这个构造函数）；</p>
-
-<p>当然，也可以写为require('./test')，在下面的代码，把hello改为hello.Hello即可。</p>
-
-<p>第二行代码表示生成一个这个构造函数的实例（还记得js里如何调用构造函数么？构造函数是不能直接调用其方法的）；</p>
-
-<p>第三行代码表示调用这个实例的say方法（即模块中的this.say=的那个函数）；</p>
-
-<p>这个流程是：
-请求模块<mark>>生成函数的实例</mark>>调用函数的方法</p>
-
-<p>我们也可以在导出的时候，用另一种方法：</p>
-
-<pre><code class="language-js">module.exports = sayHello;  
-</code></pre>
-
-<p>然后调用这个模块</p>
-
-<pre><code class="language-js">var hello = require('./test');    //调用刚才导入的那个文件  
-m = new hello();  
-m.say();  
-</code></pre>
-
-<p>这个时候hello就是这个函数，然后生成一个实例，调用其方法。</p>
-
-<p>但我觉得有个潜在问题，这个模块里只能有这一个函数（不是很确定）。我验证结果如下：
-修改之前的模块：</p>
-
-<pre><code class="language-js">function sayHello() {  
-    this.say = function () {  
-        console.log('hello');  
-    }  
-}  
-function say() {  
-    console.log("say");  
-}  
-module.exports = sayHello;  
-exports.say = say;  
-</code></pre>
-
-<p>调用其的模块：</p>
-
-<pre><code class="language-js">var hello = require('./test');    //调用刚才导入的那个文件  
-console.log(hello.say)  
-</code></pre>
-
-<p>显示是undefined，而正常情况下（删除module.exports = sayHello;这一行）应该显示：
-<img src="http://img.blog.csdn.net/20160612154252163" alt="">
-经过查询，这种用法的作用在于，假如我们只想将一个对象封装到模块中，就这么用。</p>
-
-<p>另外，不可以直接对exports进行赋值以替代（module.exports这种用法）。
-按照说明，这个变量会在模块执行结束后被释放，但module.exports不会。</p>]]></content:encoded></item><item><title><![CDATA[RequireJS入门(一)]]></title><description><![CDATA[<p>RequireJS会让你以不同于往常的方式去写JavaScript。你将不再使用script标签在HTML中引入JS文件，以及不用通过script标签顺序去管理依赖关系。 <br>
-当然也不会有阻塞（blocking）的情况发生。好，以一个简单示例开始。</p>
-
-<p>新建一个目录，结构如下
-<img src="http://pic002.cnblogs.com/images/2012/114013/2012052217445846.png" alt=""></p>
-
-<p>目录r1下有index.html、jquery-1.7.2.js、main.js、require.js。require.js和jquery-1.7.2.js去各自官网下载即可。</p>
-
-<h2 id="indexhtml">index.html如下</h2>
-
-<pre><code class="language-html">&lt;!doctype html&gt;  
-&lt;html&gt;  
-    &lt;head&gt;
-        &lt;title&gt;requirejs入门（一）&lt;/title&gt;
-        &lt;meta charset="utf-8"&gt;</code></pre>]]></description><link>http://localhost:2368/requirejs-1/</link><guid isPermaLink="false">4a74d902-81cd-455f-9d7f-4ad0036ff32b</guid><dc:creator><![CDATA[江矿宝宝.]]></dc:creator><pubDate>Mon, 03 Oct 2016 07:54:00 GMT</pubDate><content:encoded><![CDATA[<p>RequireJS会让你以不同于往常的方式去写JavaScript。你将不再使用script标签在HTML中引入JS文件，以及不用通过script标签顺序去管理依赖关系。 <br>
-当然也不会有阻塞（blocking）的情况发生。好，以一个简单示例开始。</p>
-
-<p>新建一个目录，结构如下
-<img src="http://pic002.cnblogs.com/images/2012/114013/2012052217445846.png" alt=""></p>
-
-<p>目录r1下有index.html、jquery-1.7.2.js、main.js、require.js。require.js和jquery-1.7.2.js去各自官网下载即可。</p>
-
-<h2 id="indexhtml">index.html如下</h2>
-
-<pre><code class="language-html">&lt;!doctype html&gt;  
-&lt;html&gt;  
-    &lt;head&gt;
-        &lt;title&gt;requirejs入门（一）&lt;/title&gt;
-        &lt;meta charset="utf-8"&gt;
-        &lt;script data-main="main" src="require.js"&gt;&lt;/script&gt;
-    &lt;/head&gt;
-    &lt;body&gt;
-
-    &lt;/body&gt;
-&lt;/html&gt;  
-</code></pre>
-
-<p>使用requirejs很简单，只需要在head中通过script标签引入它（实际上除了require.js，其它文件模块都不再使用script标签引入）。
-细心的同学会发现script标签上了多了一个自定义属性：data-main="main"，等号右边的main指的main.js。当然可以使用任意的名称。这个main指主模块或入口模块，好比c或java的主函数main。</p>
-
-<h2 id="mainjs">main.js如下</h2>
-
-<pre><code class="language-js">require.config({  
-    paths: {
-        jquery: 'jquery-1.7.2'
-    }
-});
-
-require(['jquery'], function($) {  
-    alert($().jquery);
-});
-</code></pre>
-
-<p>main.js中就两个函数调用require.config和require。</p>
-
-<p>require.config用来配置一些参数，它将影响到requirejs库的一些行为。</p>
-
-<p>require.config的参数是一个JS对象，常用的配置有baseUrl，paths等。</p>
-
-<p>这里配置了paths参数，使用模块名“jquery”，其实际文件路径jquery-1.7.2.js（后缀.js可以省略）。</p>
-
-<p>我们知道jQuery从1.7后开始支持AMD规范，即如果jQuery作为一个AMD模块运行时，它的模块名是“jquery”。注意“jquery”是固定的，不能写“jQuery”或其它。</p>
-
-<p>注：如果文件名“jquery-1.7.2.js”改为“jquery.js”就不必配置paths参数了。</p>
-
-<h2 id="jqueryamd">jQuery中的支持AMD代码如下</h2>
-
-<pre><code class="language-js">if ( typeof define === "function" &amp;&amp; define.amd &amp;&amp; define.amd.jQuery ) {  
-    define( "jquery", [], function () { return jQuery; } );
-}
-</code></pre>
-
-<p>我们知道jQuery最终向外暴露的是全局的jQuery和 $。如下</p>
-
-<pre><code class="language-js">// Expose jQuery to the global object
-window.jQuery = window.$ = jQuery;  
-</code></pre>
-
-<p>如果将jQuery应用在模块化开发时，其实可以不使用全局的，即可以不暴露出来。需要用到jQuery时使用require函数即可，</p>
-
-<p>这里require函数的第一个参数是数组，数组中存放的是模块名（字符串类型），数组中的模块与回调函数的参数一一对应。这里的例子则只有一个模块“jquery”。</p>
-
-<p>把目录r1放到apache或其它web服务器上，访问index.html。</p>
-
-<h2 id="">网络请求如下</h2>
-
-<p><img src="http://pic002.cnblogs.com/images/2012/114013/2012052217462496.png" alt=""></p>
-
-<p>我们看到除了require.js外main.js和jquery-1.7.2.js也请求下来了。而它们正是通过requirejs请求的。</p>]]></content:encoded></item><item><title><![CDATA[Node.js(1) 封装,调用,执行,访问路径,http,函数编程,等待函数,事件监听]]></title><description><![CDATA[<h3 id="1">1.如何封装一个模块；</h3>
-
-首先，我们建立一个js文件，例如命名为test.js；
-然后在里面写一个函数，函数名任意；
-然后通过exports.变量名，将函数赋值给这个变量；
-如代码：
-<!-- more -->  
-
-<pre><code class="language-js">function test(){    //请注意这个函数名  
-    console.log("1");
-}
-exports.testBegin= test;   //等号后面的test，指的是上面的函数名。等号前面的testBegin，是调用时的函数名（注意区别）  
-</code></pre>
-
-<p>这个test.js的文件就写完了，这是一个模块，他的效果是调用该函数后，输出1；
-另外，不要问我这个exports是什么，我暂时也不知道。</p>
-
-<h2 id="2">2.如何调用一个模块</h2>
-
-<p>在封装模块的前提下，我们新建一个文件，例如a.js，来调用之前封装的test.js模块；
-方法是：</p>
-
-<pre><code class="language-js">var test = require("./test");   //调用该模块  
-test.testBegin(</code></pre>]]></description><link>http://localhost:2368/nodejs-1/</link><guid isPermaLink="false">6b162fc0-d956-497e-801f-94f1f23e0b46</guid><dc:creator><![CDATA[江矿宝宝.]]></dc:creator><pubDate>Sat, 01 Oct 2016 07:53:00 GMT</pubDate><content:encoded><![CDATA[<h3 id="1">1.如何封装一个模块；</h3>
-
-首先，我们建立一个js文件，例如命名为test.js；
-然后在里面写一个函数，函数名任意；
-然后通过exports.变量名，将函数赋值给这个变量；
-如代码：
-<!-- more -->  
-
-<pre><code class="language-js">function test(){    //请注意这个函数名  
-    console.log("1");
-}
-exports.testBegin= test;   //等号后面的test，指的是上面的函数名。等号前面的testBegin，是调用时的函数名（注意区别）  
-</code></pre>
-
-<p>这个test.js的文件就写完了，这是一个模块，他的效果是调用该函数后，输出1；
-另外，不要问我这个exports是什么，我暂时也不知道。</p>
-
-<h2 id="2">2.如何调用一个模块</h2>
-
-<p>在封装模块的前提下，我们新建一个文件，例如a.js，来调用之前封装的test.js模块；
-方法是：</p>
-
-<pre><code class="language-js">var test = require("./test");   //调用该模块  
-test.testBegin();   //调用该模块的方法（注意方法名是test.js中exports后面的变量名）；  
-</code></pre>
-
-<p>注意调用时的方法名，并非是test.js中的函数名test；</p>
-
-<h3 id="3nodejs">3.如何执行一个Node.js的文件</h3>
-
-<p>我们现在需要执行a.js这个调用了封装模块的文件了，执行他的方法，和执行普通的node.js的文件的方法并没有什么不同；
-在a.js这个文件的目录下，打开命令行。windows是shift＋鼠标右键；
-像下面这样输入即可：
-然后将输出1，感觉执行执行Python文件那样</p>
-
-<h3 id="4">4.获得访问者想要访问的路径</h3>
-
-<p><img src="http://img.blog.csdn.net/20160602214711294" alt="">
-首先上图，其中pathname指的是路径；而query指的是请求之类的东西（暂时不关心）；
-假如我们想要获得pathname（即字符串“start”），我们该怎么办呢？
-方法：
-* ①首先，需要获取访问者需要访问的路径，方法是通过http的方法createServer
-具体来说：
-我们先require一个http模块：</p>
-
-<pre><code class="language-js">var http = require("http");  
-</code></pre>
-
-<p>然后调用其方法，创建一个服务器：</p>
-
-<pre><code class="language-js">http.createServer(onRequest).listen(8888);  
-</code></pre>
-
-<p>注意，这个方法监听的是8888端口，其参数是一个函数；</p>
-
-<p>然后我们书写这个函数的内容：</p>
-
-<pre><code class="language-js">function onRequest(request, response) {  
-    console.log(request.url);
-}
-</code></pre>
-
-<p>这个函数的第一个参数request是用户访问的一些东西，我们需要的是其url变量；假设我们访问地址是这样的：
-<code>http://127.0.0.1:8888/index/loading?start</code>
-请注意红色部分，那么服务器在console.log输出的是</p>
-
-<pre><code>/index/loading?start
-</code></pre>
-
-<ul>
-<li>②我们下来要对这个url做点什么了；
-虽然直接对上面那个参数进行操纵也可以，但这太笨了，让我们来require一个新的模块url</li>
-</ul>
-
-<pre><code class="language-js">var url = require("url");  
-</code></pre>
-
-<ul>
-<li>③调用这个新模块的方法parse，将第一步获得的url地址，作为其参数，再调用其方法pathname，就可以获得我们想要的东西了；
-具体而言，需要这么一段代码：</li>
-</ul>
-
-<pre><code class="language-js">var pathname = url.parse(request.url).pathname;  
-</code></pre>
-
-<p>这个pathname就是我们需要的东西了；</p>
-
-<p>把所有代码综合起来，是这样的：</p>
-
-<pre><code class="language-js">var http = require("http");  
-var url = require("url");  
-function onRequest(request, response) {  
-    var pathname = url.parse(request.url).pathname;
-    console.log("Request for " + pathname + " recived.");
-    response.writeHead(200, {"Content-type": "text/plain"});
-    response.write("Hello word!");
-    response.end();
-}
-http.createServer(onRequest).listen(8888);  
-console.log("Server has started!");  
-</code></pre>
-
-<p>然后运行之：</p>
-
-<p>我们随便访问一个本地的地址：
-<code>http://127.0.0.1:8888/index/loading?start</code></p>
-
-<p>发现，/index/loding这部分被正常的显示出来了。
-另外，favicon.ico是该网站的图标，据说很多服务器是会默认读取的；</p>
-
-<p>假如我们直接访问：<code>http://127.0.0.1:8888</code>，显示是这样的
-<img src="http://img.blog.csdn.net/20160602214745169" alt=""></p>
-
-<h3 id="5http">5.关于http</h3>
-
-<p>我们之前有了这么一段代码（已delete掉无关部分）：</p>
-
-<pre><code class="language-js">var http = require("http");  
-function onRequest(request, response) {  
-    response.writeHead(200, {"Content-type": "text/plain"});
-    response.write("Hello word!");
-    response.end();
-}
-http.createServer(onRequest).listen(8888);  
-</code></pre>
-
-<p>其中，http调用了NodeJs自带的一个模块“http”，而这个模块是一个服务器模块；
-而createServer是这个模块的方法，效果是返回一个对象，而这个对象有一个listen的方法；
-当然，由于你和我，也许都是新手，因此我们尚没有搞清楚这个到底是怎么运作的；但如果有一定经验的话，可以猜到，这个listen是监听，监听的是8888端口；如果去掉这部分会怎么样？经过测试，服务器并没有运行，如图：</p>
-
-<p>而onRequest函数呢，从名字可以猜到，这个函数的效果是“当请求的时候做些什么”，我们来看其函数：</p>
-
-<pre><code class="language-js">function onRequest(request, response) {  
-    response.writeHead(200);
-    response.write("Hello word!");
-    response.end();
-}
-</code></pre>
-
-<p>这个函数有两个参数：request和response，顾名思义，请求和响应。
-request请求指用户访问的时候，相关的信息； <br>
-response指服务器的响应，会做些什么；这个函数的三个方法，都是response相关的；</p>
-
-<ul>
-<li><p>第一个：response.writeHead方法，具体来说，就是HTTP响应报文的头行；
-这个指HTTP通信的响应报文中的头部分，如果没有基础的话，暂时不需要关心，写200即可，这里的200，是约定俗称的请求成功时的返回；
-具体搜：
-<code>response.writeHead(statusCode,[reasonPhrase], [headers])</code></p></li>
-<li><p>第二个：response.write方法，具体来说，是HTTP响应报文；
-简单理解，负责发送正文中的一部分，可以同时发送多个不一样的；
-在上面搜：
-<code>response.write(chunk,encoding='utf8')</code></p></li>
-<li><p>第三个：response.end方法，具体来说每一个响应的结束，必须要调用这个方法，然后服务器会认为这条信息已经发送完毕了。</p></li>
-</ul>
-
-<p>综合效果来说，当我们访问：<code>http://127.0.0.1:8888/</code>时，浏览器会出现：
-<code>Hello world!</code></p>
-
-<h3 id="6">6.函数式编程</h3>
-
-<p>所谓函数式编程，简单的理解，就是将函数作为参数传递；
-目前有四个文件：
-<code>index.js</code></p>
-
-<pre><code class="language-js">var server = require("./server");   //调用该模块  
-var router = require("./router");  
-var requestHandlers = require("./requestHandlers");
-
-var handle = {};  
-handle["/"] = requestHandlers.start;  
-handle["/start"] = requestHandlers.start;  
-handle["/upload"] = requestHandlers.upload;
-
-server.start(router.route, handle);   //调用该模块的方法（注意方法名是test.js中exports后面的变量名）  
-</code></pre>
-
-<p><code>server.js</code></p>
-
-<pre><code class="language-js">var http = require("http");  
-var url = require("url");  
-function start(route, handle) {  
-    var count = 0;
-
-    function onRequest(request, response) {
-        console.log(count++ + "#:");
-        var pathname = url.parse(request.url).pathname;
-        console.log("Request for " + pathname + " recived.");
-
-        route(handle, pathname);    //来源于上面的start的参数
-
-        response.writeHead(200);
-        response.write("Hello word!");
-        response.end();
-    }
-
-    http.createServer(onRequest).listen(8888);
-    console.log("Server has started!");
-}
-exports.start = start;  
-</code></pre>
-
-<p><code>router.js</code></p>
-
-<pre><code class="language-js">function route(handle, pathname) {  
-    console.log("About to route a request for " + pathname);
-    if (typeof handle[pathname] === 'function') {
-        handle[pathname]();
-    } else {
-        console.log("No request handler found for " + pathname);
-    }
-}
-
-exports.route = route;  
-</code></pre>
-
-<p><code>requestHandler.js</code></p>
-
-<pre><code class="language-js">function start() {  
-    console.log("Request handler 'start' was called");
-}
-
-function upload() {  
-    console.log("Request handler 'upload' was called");
-}
-
-exports.start = start;  
-exports.upload = upload;  
-</code></pre>
-
-<p>分析：
-* ①首先看index.js，他调用了3个模块，然后声明了一个空的对象，然后给这个对象声明了几个不同的变量（准确的说是函数变量），他们分别对应requestHandlers这个模块的不同函数；</p>
-
-<p>调用server这个模块的start方法，传两个参数，分别是router模块的route方法和对象handle（包含3个函数变量）；</p>
-
-<ul>
-<li>②由于调用了server模块的start方法，因此我们来看server模块；
-在server模块中，调用了两个模块，分别是http和url，这两个都是NodeJs自带的，具体里面的内容就不一一分析了（前面已经说明过了）。</li>
-</ul>
-
-<p>在servre模块的start函数（也是index.js调用的方法），有两个参数，第一个参数是route函数（来源于router模块），第二个参数是一个对象（来源于index.js）。</p>
-
-<p>而在start函数中，调用了其第一个参数（route函数），由于这个参数是函数，因此运行它，给其两个参数，分别是handle（来源于index.js的对象）和pathname（来源于当前模块，是用户请求的路径）；</p>
-
-<p>因此接下来我们看router模块的route函数，记得，这个函数传递了一个对象和一个路径；</p>
-
-<ul>
-<li>③在router模块中，传递了两个参数，并进行了一次判断；
-判断的逻辑是这样的，第一个参数（是一个对象），其加上下标后的值，如果是类型是函数，那么执行这个函数；如果不是函数，提示没找到该句柄；</li>
-</ul>
-
-<p>请注意，为什么说这个对象加上下标是函数呢，原因在于index中声明的这个对象，而这个对象的三个带下标的变量都是函数；</p>
-
-<p>而这三个被执行函数来源于哪呢？来源于index里加载的模块requestHandlers，那么最后让我们来看看这个模块；</p>
-
-<ul>
-<li>④在这个模块里，只有两个函数，分别是start和upload；
-这两个函数输出不同的内容（一个关键字是start，另一个关键字是upload）；
-请回想之前的下标，下标分为三个，分别是空（/），start下标（/start），和upload下标（/upload），因此当用户访问根目录、start目录、和upload目录时，调用对应的方法，而若访问其他目录（包括start目录的子目录等时，提示错误——来源于router模块）；
-<img src="http://img.blog.csdn.net/20160602214830419" alt="">
-现在回顾这种模式是怎么实现的：
-<img src="http://img.blog.csdn.net/20160602214835576" alt=""></li>
-</ul>
-
-<h3 id="7">7.等待函数</h3>
-
-<pre><code class="language-js">function sleep(milliSeconds) {  
-    var startTime = new Date().getTime();
-    while (new Date() &lt; startTime + milliSeconds);  //等待参数的时间
-}
-</code></pre>
-
-<p>传的参数是毫秒，在这个时间前，无法执行下一句代码，类似C++的Sleep()函数</p>
-
-<h3 id="8">8.返回的两种格式</h3>
-
-<pre><code class="language-js">response.writeHead(200, {"Content-Type": "text/html"});  
-response.write(content);  
-response.end();  
-</code></pre>
-
-<p>其中，writeHead里面的第二个参数，有多种格式，分别是：
-application/xml 、 text/xml、text/html、text/plain <br>
-经查：
-text/html是html格式的正文 <br>
-text/plain是无格式正文 <br>
-text/xml忽略xml头所指定编码格式而默认采用us-ascii编码 <br>
-application/xml会根据xml头指定的编码格式来编码： <br>
-简单来说，html就是返回一个html，plain就是无格式的，写什么就是什么，xml就是一个xml文件；</p>
-
-<h3 id="9">9.关于事件监听</h3>
-
-<p>之前说到有</p>
-
-<pre><code class="language-js">function onRequest(request, response)  
-</code></pre>
-
-<p>这样一个回调函数，其中request是请求，response是回应；
-根据推测，每次request的，都会触发至少一个data，一个end事件，因此应该监听这两个事件。（并且只有接受到data之后，才会接收到end事件）；
-我们之前是不监听的，只要有请求，就直接执行某个函数，而监听表示只有这些事件触发后，我们才会执行某一段代码。
-因此我们这么写：</p>
-
-<pre><code class="language-js">var postData = "";  
-request.setEncoding("utf8");  
-request.addListener("data", function (postDataChunk) {      //data事件  
-    postData += postDataChunk;
-    console.log("Received POST data chunk " + postDataChunk + ".");
-    console.log("————————");
-})
-request.addListener("end", function () {  
-    route(handle, pathname, response, postData);
-})
-</code></pre>
-
-<p>表示监听的编码类型为UTF8，监听data事件，把内容加起来，监听end事件，把加起来的内容发送出去。
-直到end事件触发时，才会执行之前写的route函数（也就是那个写回复的函数）。</p>
-
-<p>PS： <br>
-根据我的测试，如果data事件注释掉，end事件会无法执行，准确的说，是无法访问任何url的。
-但是，如果不注释掉，只是普通的访问的话，可是又不会触发data监听事件里面的console.log代码，很奇怪； 
-另外，注释掉end事件，留着data事件，也会卡住； </p>]]></content:encoded></item><item><title><![CDATA[Webpack 入门及实践]]></title><description><![CDATA[<p>React自发布以来吸引了越来越多的开发者，React开发和模块管理的主流工具webpack也被大家所熟知。那么webpack有哪些优势，可以成为最主流的React开发工具呢？本文和大家一起探讨一下。</p>
-
-<h1 id="webpack">webpack是什么？</h1>
-
-<p>web开发中常用到的静态资源主要有JavaScript、CSS、图片、Jade等文件，webpack中将静态资源文件称之为模块。webpack是一个模块打包工具，其可以兼容多种js书写规范，且可以处理模块间的依赖关系，具有更强大的js模块化的功能。 官方网站中用下图清晰的描述了webpack采用不同的loader加载不同的资源文件，打包生成多个js文件，也可以根据设置生成独立的图片、css文件等。</p>
-
-<h1 id="whywebpack">why webpack？</h1>
-
-<p>在以往的开发过程中，经常会遇到以下三种情况：</p>
-
-<ul>
-<li>项目中资源多样性和依赖性 - js、css、png、less、jade等 为了方便开发，我们经常会使用不同的语法来编写文档，用less、sass、jade等会提高开发效率，但同时我们需要借助gulp或grunt来编写任务编译文件或对图片进行压缩等。</li>
-<li>js模块规范复杂化 - AMD、CommonJS、UMD、ES6等 requireJS主要用来处理AMD规范的js文件，若使用CommonJS规范的js库文件，需进行AMD规范的封装，才能正常使用。而browserify主要处理CommonJS规范的文件，其他规范也需要进行转化。近期ES6的兴起，前面两种打包工具已经不能满足我们的需求了。</li></ul>]]></description><link>http://localhost:2368/webpack-basic/</link><guid isPermaLink="false">38fd4ed8-145b-4817-bcbd-2f4bb14d9228</guid><dc:creator><![CDATA[江矿宝宝.]]></dc:creator><pubDate>Tue, 13 Sep 2016 09:46:00 GMT</pubDate><content:encoded><![CDATA[<p>React自发布以来吸引了越来越多的开发者，React开发和模块管理的主流工具webpack也被大家所熟知。那么webpack有哪些优势，可以成为最主流的React开发工具呢？本文和大家一起探讨一下。</p>
-
-<h1 id="webpack">webpack是什么？</h1>
-
-<p>web开发中常用到的静态资源主要有JavaScript、CSS、图片、Jade等文件，webpack中将静态资源文件称之为模块。webpack是一个模块打包工具，其可以兼容多种js书写规范，且可以处理模块间的依赖关系，具有更强大的js模块化的功能。 官方网站中用下图清晰的描述了webpack采用不同的loader加载不同的资源文件，打包生成多个js文件，也可以根据设置生成独立的图片、css文件等。</p>
-
-<h1 id="whywebpack">why webpack？</h1>
-
-<p>在以往的开发过程中，经常会遇到以下三种情况：</p>
-
-<ul>
-<li>项目中资源多样性和依赖性 - js、css、png、less、jade等 为了方便开发，我们经常会使用不同的语法来编写文档，用less、sass、jade等会提高开发效率，但同时我们需要借助gulp或grunt来编写任务编译文件或对图片进行压缩等。</li>
-<li>js模块规范复杂化 - AMD、CommonJS、UMD、ES6等 requireJS主要用来处理AMD规范的js文件，若使用CommonJS规范的js库文件，需进行AMD规范的封装，才能正常使用。而browserify主要处理CommonJS规范的文件，其他规范也需要进行转化。近期ES6的兴起，前面两种打包工具已经不能满足我们的需求了。</li>
-<li>开发与线上文件不一致性（打包压缩造成影响）</li>
-</ul>
-
-<p>webpack可以很好地解决上面的问题，它具有Grunt、Gulp对于静态资源自动化构建的能力，是一个出色的前端自动化构建工具、模块化工具、资源管理工具。</p>
-
-<h1 id="webpack">webpack 特性</h1>
-
-<p>webpack具有requireJs和browserify的功能，但仍有很多自己的新特性：</p>
-
-<ol>
-<li>对 CommonJS 、 AMD 、ES6的语法做了兼容  </li>
-<li>对js、css、图片等资源文件都支持打包  </li>
-<li>串联式模块加载器以及插件机制，让其具有更好的灵活性和扩展性，例如提供对CoffeeScript、ES6的支持  </li>
-<li>有独立的配置文件webpack.config.js  </li>
-<li>可以将代码切割成不同的chunk，实现按需加载，降低了初始化时间  </li>
-<li>支持 SourceUrls 和 SourceMaps，易于调试  </li>
-<li>具有强大的Plugin接口，大多是内部插件，使用起来比较灵活  </li>
-<li>webpack 使用异步 IO 并具有多级缓存。这使得 webpack 很快且在增量编译上更加快</li>
-</ol>
-
-<h1 id="webpack">webpack 安装及使用</h1>
-
-<p>webpack 可以作为全局的npm模块安装，也可以在当前项目中安装。</p>
-
-<pre><code class="language-js">npm install -g webpack  
-</code></pre>
-
-<pre><code class="language-js">npm install --save-dev webpack  
-</code></pre>
-
-<p>webpack的使用通常有三种方式：</p>
-
-<ul>
-<li>命令行使用：webpack <entry.js> <result.js> 其中entry.js是入口文件，result.js是打包后的输出文件</result.js></entry.js></li>
-<li>node.js API使用：</li>
-</ul>
-
-<pre><code class="language-js">var webpack = require('webpack');  
-webpack({  
-//configuration
-}, function(err, stats){});
-</code></pre>
-
-<p>默认使用当前目录的webpack.config.js作为配置文件。如果要指定另外的配置文件，可以执行：webpack --config webpack.custom.config.js</p>
-
-<h1 id="webpack">webpack 常用命令</h1>
-
-<p>webpack的使用和browserify有些类似，下面列举几个常用命令：</p>
-
-<ul>
-<li><code>webpack</code> 最基本的启动webpack命令</li>
-<li><code>webpack -w</code> 提供watch方法，实时进行打包更新</li>
-<li><code>webpack -p</code> 对打包后的文件进行压缩</li>
-<li><code>webpack -d</code> 提供SourceMaps，方便调试</li>
-<li><code>webpack --colors</code> 输出结果带彩色，比如：会用红色显示耗时较长的步骤</li>
-<li><code>webpack --profile</code> 输出性能数据，可以看到每一步的耗时</li>
-<li><code>webpack --display-modules</code> 默认情况下 node_modules 下的模块会被隐藏，加上这个参数可以显示这些被隐藏的模块
-前面的四个命令比较基础，使用频率会比较大，后面的命令主要是用来定位打包时间较长的原因，方便改进配置文件，提高打包效率。</li>
-</ul>
-
-<h1 id="webpack">webpack 配置文件</h1>
-
-<p>项目中静态资源文件较多，使用配置文件进行打包会方便很多。最简单的Webpack配置文件webpack.config.js如下所示：</p>
-
-<pre><code class="language-js">module.exports = {  
-  entry:[
-    './entry.js',
-    ...
-  ],
-  output: {
-    path: __dirname + '/output/',
-    publicPath: "/output/",
-    filename: 'result.js'
-  }
-};
-</code></pre>
-
-<ul>
-<li>其中entry参数定义了打包后的入口文件，数组中的所有文件会打包生成一个filename文件</li>
-<li>output参数定义了输出文件的位置及名字，其中参数path是指文件的绝对路径，publicPath是指访问路径，filename是指输出的文件名。</li>
-</ul>
-
-<p>开发中需要将多个页面的公用模块独立打包，从而可以利用浏览器缓存机制来提高页面加载效率，减少页面初次加载时间，只有当某功能被用到时，才去动态的加载。这就需要使用webpack中的CommonsChunkPlugin插件。具体配置如下：</p>
-
-<pre><code class="language-js">var CommonsChunkPlugin = require("webpack/lib/optimize/CommonsChunkPlugin");  
-module.exports = {  
-  entry: { a: "./a", b: "./b" },
-  output: { filename: "[name].js" },
-  plugins: [ new CommonsChunkPlugin("common.js") ]
-}
-</code></pre>
-
-<p>在文件中根据下面的方式引用即可。</p>
-
-<pre><code class="language-html">&lt;script src="common.js"&gt;&lt;/script&gt;  
-&lt;script src="a.js"&gt;&lt;/script&gt;  
-&lt;script src="b.js"&gt;&lt;/script&gt;  
-</code></pre>
-
-<h1 id="webpack">webpack 模块加载器</h1>
-
-<p>在webpack中JavaScript，CSS，LESS，TypeScript，JSX，CoffeeScript，图片等静态文件都是模块，不同模块的加载是通过模块加载器（webpack-loader）来统一管理的。loaders之间是可以串联的，一个加载器的输出可以作为下一个加载器的输入，最终返回到JavaScript上。loader的配置可以写在配置文件中，通过正则表达式的方式对文件进行匹配，具体可参见下面的示例：</p>
-
-<pre><code class="language-js">module: {  
-    loaders: [{
-        test: /\.less/,
-        loader:  'style-loader!css-loader!less-loader'
-    }, {
-      test: /\.(png|jpg)$/,
-      loader: 'url-loader?limit=10000&amp;name=build/[name].[ext]'
-    }]
-}
-</code></pre>
-
-<p>loader也支持在js文件中通过require的方式进行加载，只需要在require资源path的前面指定loader，用！来串联不同的loader和资源即可。</p>
-
-<pre><code class="language-js">require("style!css!less!./mystyles.less");  
-</code></pre>
-
-<h1 id="css">css文件独立打包</h1>
-
-<p>在webpack中编写js文件时，可以通过require的方式引入其他的静态资源，可通过loader对文件自动解析并打包文件。通常会将js文件打包合并，css文件会在页面的header中嵌入style的方式载入页面。但开发过程中我们并不想将样式打在脚本中，最好可以独立生成css文件，以外链的形式加载。这时extract-text-webpack-plugin插件可以帮我们达到想要的效果。需要使用npm的方式加载插件，然后参见下面的配置，就可以将js中的css文件提取，并以指定的文件名来进行加载。</p>
-
-<pre><code class="language-js">npm install extract-text-webpack-plugin –save-dev  
-</code></pre>
-
-<pre><code class="language-js">plugins: [  
-    new ExtractTextPlugin('styles.css')
-]
-</code></pre>
-
-<h1 id="">图片打包</h1>
-
-<p>webpack中对于图片的处理，可以通过url-loader来实现图片的压缩。  </p>
-
-<pre><code class="language-js">div.img{  
-    background: url(../image/xxx.jpg)
-}
-
-//或者
-var img = document.createElement("img");  
-img.src = require("../image/xxx.jpg");  
-document.body.appendChild(img);  
-</code></pre>
-
-<p>针对上面的两种使用方式，loader可以自动识别并处理。根据loader中的设置，webpack会将小于指点大小的文件转化成 base64 格式的 dataUrl，其他图片会做适当的压缩并存放在指定目录中。</p>
-
-<pre><code class="language-js">module: {  
-    {
-      test: /\.(png|jpg)$/,
-      loader: 'url-loader?limit=10000&amp;name=build/[name].[ext]'
-    }]
-}
-</code></pre>
-
-<p>对于上面的配置，如果图片资源小于10kb就会转化成 base64 格式的 dataUrl，其他的图片会存放在build/文件夹下。</p>
-
-<h1 id="webpackdevserver">webpack-dev-server</h1>
-
-<p>webpack除了可以对模块进行打包，还提供了一个开发服务器。它的特点是：</p>
-
-<ul>
-<li>基于Node.js Express框架的轻量开发服务器</li>
-<li>静态资源Web服务器</li>
-<li>开发中会监听文件的变化在内存中实时打包</li>
-</ul>
-
-<p>webpack-dev-server需要单独安装，命令如下：</p>
-
-<pre><code class="language-js">npm install -g webpack-dev-server  
-</code></pre>
-
-<p>可以使用webpack-dev-server直接启动，也可以增加参数来获取更多的功能，具体配置可以参见<a href="http://webpack.github.io/docs/webpack-dev-server.html">官方文档</a>。默认启动端口8080，通过localhost:8080/webpack-dev-server/可以访问页面，文件修改后保存时会在页面头部看到sever的状态变化，并且会进行热替换，实现页面的自动刷新。</p>
-
-<h1 id="">双服务器模式</h1>
-
-<p>项目开发中，仅有一台静态服务器是不能满足需求的，我们需要另启一台web服务器，且将静态服务器集成到web服务器中，就可以使用webpack的打包和加载功能。我们只需要修改一下配置文件就可以实现服务器的集成。</p>
-
-<pre><code class="language-js"> entry: [
-    './src/page/main.js',
-    'webpack/hot/dev-server',
-    'webpack-dev-server/client?http://127.0.0.1:8080'
-  ]
-  output: {
-    path: __dirname,
-    filename: '[name].js',
-    publicPath: "http://127.0.0.1:8080/assets/"
-  }
-  plugins: [
-    new webpack.HotModuleReplacementPlugin()
-  ]
-</code></pre>
-
-<p>如果在开发中启动两个服务器并不是一个很好地选择，webpack提供了一个中间件webpack-dev-middleware，但其只能在生产环境中使用，可以实现在内存中实时打包生成虚拟文件，供浏览器访问以及调试。使用方式如下：</p>
-
-<pre><code class="language-js">var webpackDevMiddleware = require("webpack-dev-middleware");  
-var webpack = require("webpack");
-
-var compiler = webpack({  
-    // configuration
-    output: { path: '/' }
-});
-
-app.use(webpackDevMiddleware(compiler, {  
-    // options
-}));
-</code></pre>
-
-<h1 id="ps">PS</h1>
-
-<p>通过上面的介绍，基本涵盖了webpack的各个特性及简单的使用方法。最近出了个<code>hjs-webpack</code>，可以简化webpack中复杂的配置项，只需要安装开发中所需的loader，无需再module中配置，即可正确使用。有兴趣的同学可以尝试一下。</p>]]></content:encoded></item></channel></rss>
+</ul>]]></content:encoded></item></channel></rss>
