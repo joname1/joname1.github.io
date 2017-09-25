@@ -5,68 +5,14 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>JavaScript ES6核心特性概述</title>
-    <meta name="description" content=",江矿,江矿宝宝,joname,joname.liangtan,前端,伪前端,js,jquery,javascript,开发者,攻城狮,码农,挖煤,挖矿,煤厂,矿厂,极客,编程,代码,开源,IT网站,Developer,Programmer,Coder,Geek,html,html5,css,css3,Front-end,Front-end Developer,FE,FEer" />
+    <meta name="description" content=",江矿,江矿宝宝,joname,joname.liangtan,前端,伪前端,前台端菜,js,jquery,javascript,开发者,攻城狮,码农,挖煤,挖矿,煤厂,矿厂,极客,编程,代码,开源,IT网站,Developer,Programmer,Coder,Geek,html,html5,css,css3,Front-end,Front-end Developer,FE,FEer" />
     <meta name="HandheldFriendly" content="True" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="shortcut icon" href="../assets/favicon.png?v=bd2081a8bc">
-    <link href="../assets/css/all.min.css?v=bd2081a8bc" rel="stylesheet">
+    <link rel="shortcut icon" href="../assets/favicon.png?v=491be1a66e">
+    <link href="../assets/css/all.min.css?v=491be1a66e" rel="stylesheet">
     <link href="https://fonts.css.network/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" rel="stylesheet">
     <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
-    <link href="https://joe-10005639.cossh.myqcloud.com/prism.css" rel="stylesheet"> <link rel="canonical" href="index.html" />
-    <meta name="referrer" content="no-referrer-when-downgrade" />
-    
-    <meta property="og:site_name" content="江矿宝宝的博客." />
-    <meta property="og:type" content="article" />
-    <meta property="og:title" content="JavaScript ES6核心特性概述" />
-    <meta property="og:description" content="JavaScript在过去几年里发生了很大的变化。这里有12个新功能，您可以学习使用它们！ JavaScript历史 新增加的语言称为ECMAScript 6。它也称为ES6或ES2015 +。 自从 1995年提出的JavaScript构想以来，发展进展非常缓慢。每隔几年新增一次。1997年以来 ECMAScript 一直作为JavaScript实现的基础，引导JavaScript 发展。它已经发布了好几个版本，如ES3，ES5，ES6等。   ECMAScript与JavaScript的关系：      ECMA-262标准的描述如下：“ ECMAScript 可以为不同种类的宿主环境提供核心的脚本编程能力，因此核心的脚本语言时与任何特定的宿主环境分开进行规定的。”简单地说，ECMAScript描述了以下内容：语法、类型、语句、关键字、保留字、运算符、对象等。      ECMAScript是JavaScript的一个重要标准，但它并不是JavaScript唯一的部分，当然，也不是唯一被标准化的部分。比如在WEB前端开发中，Web浏览器对于ECMAScript来说是一个宿主环境，但它并不是唯一的宿主环境。事实上，还有不计其数的其他各种环境(例如目前很火的Node.js   )。一个完整的JavaScript实现是由以下3个不同部分组成的：核心(ECMAScript)、文档对象模型(DOM)" />
-    <meta property="og:url" content="http://localhost:2368/javascript-es6/" />
-    <meta property="article:published_time" content="2016-10-10T07:58:00.000Z" />
-    <meta property="article:modified_time" content="2017-05-25T08:22:11.000Z" />
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="JavaScript ES6核心特性概述" />
-    <meta name="twitter:description" content="JavaScript在过去几年里发生了很大的变化。这里有12个新功能，您可以学习使用它们！ JavaScript历史 新增加的语言称为ECMAScript 6。它也称为ES6或ES2015 +。 自从 1995年提出的JavaScript构想以来，发展进展非常缓慢。每隔几年新增一次。1997年以来 ECMAScript 一直作为JavaScript实现的基础，引导JavaScript 发展。它已经发布了好几个版本，如ES3，ES5，ES6等。   ECMAScript与JavaScript的关系：      ECMA-262标准的描述如下：“ ECMAScript 可以为不同种类的宿主环境提供核心的脚本编程能力，因此核心的脚本语言时与任何特定的宿主环境分开进行规定的。”简单地说，ECMAScript描述了以下内容：语法、类型、语句、关键字、保留字、运算符、对象等。      ECMAScript是JavaScript的一个重要标准，但它并不是JavaScript唯一的部分，当然，也不是唯一被标准化的部分。比如在WEB前端开发中，Web浏览器对于ECMAScript来说是一个宿主环境，但它并不是唯一的宿主环境。事实上，还有不计其数的其他各种环境(例如目前很火的Node.js   )。一个完整的JavaScript实现是由以下3个不同部分组成的：核心(ECMAScript)、文档对象模型(DOM)" />
-    <meta name="twitter:url" content="http://localhost:2368/javascript-es6/" />
-    <meta name="twitter:label1" content="Written by" />
-    <meta name="twitter:data1" content="江矿宝宝." />
-    
-    <script type="application/ld+json">
-{
-    "@context": "https://schema.org",
-    "@type": "Article",
-    "publisher": {
-        "@type": "Organization",
-        "name": "江矿宝宝的博客.",
-        "logo": "http://localhost:2368/ghost/img/ghosticon.jpg"
-    },
-    "author": {
-        "@type": "Person",
-        "name": "江矿宝宝.",
-        "image": {
-            "@type": "ImageObject",
-            "url": "https://joe-10005639.cossh.myqcloud.com/jkbb.jpg",
-            "width": 600,
-            "height": 600
-        },
-        "url": "http://localhost:2368/author/jkbb/",
-        "sameAs": [
-            "https://joname1.github.io"
-        ],
-        "description": "伪前端攻城狮, 喜欢钻研新技术."
-    },
-    "headline": "JavaScript ES6核心特性概述",
-    "url": "http://localhost:2368/javascript-es6/",
-    "datePublished": "2016-10-10T07:58:00.000Z",
-    "dateModified": "2017-05-25T08:22:11.000Z",
-    "description": "JavaScript在过去几年里发生了很大的变化。这里有12个新功能，您可以学习使用它们！ JavaScript历史 新增加的语言称为ECMAScript 6。它也称为ES6或ES2015 +。 自从 1995年提出的JavaScript构想以来，发展进展非常缓慢。每隔几年新增一次。1997年以来 ECMAScript 一直作为JavaScript实现的基础，引导JavaScript 发展。它已经发布了好几个版本，如ES3，ES5，ES6等。   ECMAScript与JavaScript的关系：      ECMA-262标准的描述如下：“ ECMAScript 可以为不同种类的宿主环境提供核心的脚本编程能力，因此核心的脚本语言时与任何特定的宿主环境分开进行规定的。”简单地说，ECMAScript描述了以下内容：语法、类型、语句、关键字、保留字、运算符、对象等。      ECMAScript是JavaScript的一个重要标准，但它并不是JavaScript唯一的部分，当然，也不是唯一被标准化的部分。比如在WEB前端开发中，Web浏览器对于ECMAScript来说是一个宿主环境，但它并不是唯一的宿主环境。事实上，还有不计其数的其他各种环境(例如目前很火的Node.js   )。一个完整的JavaScript实现是由以下3个不同部分组成的：核心(ECMAScript)、文档对象模型(DOM)",
-    "mainEntityOfPage": {
-        "@type": "WebPage",
-        "@id": "http://localhost:2368"
-    }
-}
-    </script>
-
-    <meta name="generator" content="Ghost 0.11" />
-    <link rel="alternate" type="application/rss+xml" title="江矿宝宝的博客." href="../rss/index.html" />
+    <link href="https://cdn.bootcss.com/prism/1.6.0/themes/prism.css" rel="stylesheet">
 </head>
 
 <body class="post-template nav-closed">
@@ -726,11 +672,11 @@ console.log([...array1, ...array2, ...array3]);
             </section>
             <footer class="post-footer">
                         <figure class="author-image">
-                            <a class="img" style="background-image: url(https://joe-10005639.cossh.myqcloud.com/jkbb.jpg)"><span class="hidden">江矿宝宝.'s Picture</span></a>
+                            <a class="img" style="background-image: url(https://joe-10005639.cossh.myqcloud.com/jkbb.jpg)"></a>
                         </figure>
                         <h4><span>江矿宝宝.</span></h4>
                     <section class="author">
-                            <p>伪前端攻城狮, 喜欢钻研新技术.</p>
+                            <p>前台端菜, 喜欢钻研新技术.</p>
                         <div class="author-meta">
                             <span class="author-location"><i class="fa fa-map-marker" aria-hidden="true"></i> Nanning, GX</span>
                             <span class="author-link"><i class="fa fa-link" aria-hidden="true"></i> <a href="https://joname1.github.io">https://joname1.github.io</a></span>
@@ -763,10 +709,18 @@ console.log([...array1, ...array2, ...array3]);
         </footer>
     </div>
     <script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
-    <script src="https://joe-10005639.cossh.myqcloud.com/prism.js"></script>    
+    <script src="https://cdn.bootcss.com/prism/1.6.0/prism.js"></script>    
     <script src="https://cdn.bootcss.com/fitvids/1.1.0/jquery.fitvids.js"></script>
-    <script src="https://tajs.qq.com/stats?sId=59279948" charset="UTF-8"></script>
-    <script src="../assets/js/index.min.js?v=bd2081a8bc"></script>
+    <script src="../assets/js/index.min.js?v=491be1a66e"></script>
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?2c150e62328876df1f23bb9dafd9444f";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
     
 </body>
 

@@ -5,68 +5,14 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>使用node.js自动更新本地hosts, 实现科学上网.</title>
-    <meta name="description" content=",江矿,江矿宝宝,joname,joname.liangtan,前端,伪前端,js,jquery,javascript,开发者,攻城狮,码农,挖煤,挖矿,煤厂,矿厂,极客,编程,代码,开源,IT网站,Developer,Programmer,Coder,Geek,html,html5,css,css3,Front-end,Front-end Developer,FE,FEer" />
+    <meta name="description" content=",江矿,江矿宝宝,joname,joname.liangtan,前端,伪前端,前台端菜,js,jquery,javascript,开发者,攻城狮,码农,挖煤,挖矿,煤厂,矿厂,极客,编程,代码,开源,IT网站,Developer,Programmer,Coder,Geek,html,html5,css,css3,Front-end,Front-end Developer,FE,FEer" />
     <meta name="HandheldFriendly" content="True" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="shortcut icon" href="../assets/favicon.png?v=bd2081a8bc">
-    <link href="../assets/css/all.min.css?v=bd2081a8bc" rel="stylesheet">
+    <link rel="shortcut icon" href="../assets/favicon.png?v=491be1a66e">
+    <link href="../assets/css/all.min.css?v=491be1a66e" rel="stylesheet">
     <link href="https://fonts.css.network/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" rel="stylesheet">
     <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
-    <link href="https://joe-10005639.cossh.myqcloud.com/prism.css" rel="stylesheet"> <link rel="canonical" href="index.html" />
-    <meta name="referrer" content="no-referrer-when-downgrade" />
-    
-    <meta property="og:site_name" content="江矿宝宝的博客." />
-    <meta property="og:type" content="article" />
-    <meta property="og:title" content="使用node.js自动更新本地hosts, 实现科学上网." />
-    <meta property="og:description" content="现在网上有不少提供google hosts的网址，当我们访问不了google时，就需要复制这个网站提供的hosts到我们本地的hosts，在粘贴前还要在C盘一层一层的找到本地hosts，比较麻烦。 于是我就想能不能通过运行一条命令就能把网站里的hosts自动更新到本地，刚开始想的是用php写的，不过在跟同学聊天的过程中，同学建议使用node来实现这个功能，简单方便，而且我对php的正则表达式也不是很熟，那就用node试试吧。 1. 安装Node 进入官网，下载我们需要的程序包。下载后，双击进行安装。 在现在的node版本中，默认是node和npm一起安装的，不用再单独安装npm了。 安装成功后，使用win+r打开cmd命令窗口，然后输入node -v查看当前node的版本号 输入npm -v查看当前npm的版本号 如果两个都能正确显示出版本号，就说明node和npm已经安装成功了。 使用.msi类型的文件进行能够自动添加node和npm到PATH的环境变量中。 2. 下载需要的模块包 npm是一个node的包管理和分发工具。有了npm，可以很快的找到你想要使用的包，进行下载、安装以及管理已经安装的包。  使用npm进行模块的安装非常的方便：npm install **** 如果想安装成全局的，所有的项目都能使用，可以添加上-g参数，如：npm install -g" />
-    <meta property="og:url" content="http://localhost:2368/nodejs-hosts/" />
-    <meta property="article:published_time" content="2016-09-04T06:53:00.000Z" />
-    <meta property="article:modified_time" content="2017-05-25T08:34:36.000Z" />
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="使用node.js自动更新本地hosts, 实现科学上网." />
-    <meta name="twitter:description" content="现在网上有不少提供google hosts的网址，当我们访问不了google时，就需要复制这个网站提供的hosts到我们本地的hosts，在粘贴前还要在C盘一层一层的找到本地hosts，比较麻烦。 于是我就想能不能通过运行一条命令就能把网站里的hosts自动更新到本地，刚开始想的是用php写的，不过在跟同学聊天的过程中，同学建议使用node来实现这个功能，简单方便，而且我对php的正则表达式也不是很熟，那就用node试试吧。 1. 安装Node 进入官网，下载我们需要的程序包。下载后，双击进行安装。 在现在的node版本中，默认是node和npm一起安装的，不用再单独安装npm了。 安装成功后，使用win+r打开cmd命令窗口，然后输入node -v查看当前node的版本号 输入npm -v查看当前npm的版本号 如果两个都能正确显示出版本号，就说明node和npm已经安装成功了。 使用.msi类型的文件进行能够自动添加node和npm到PATH的环境变量中。 2. 下载需要的模块包 npm是一个node的包管理和分发工具。有了npm，可以很快的找到你想要使用的包，进行下载、安装以及管理已经安装的包。  使用npm进行模块的安装非常的方便：npm install **** 如果想安装成全局的，所有的项目都能使用，可以添加上-g参数，如：npm install -g" />
-    <meta name="twitter:url" content="http://localhost:2368/nodejs-hosts/" />
-    <meta name="twitter:label1" content="Written by" />
-    <meta name="twitter:data1" content="江矿宝宝." />
-    
-    <script type="application/ld+json">
-{
-    "@context": "https://schema.org",
-    "@type": "Article",
-    "publisher": {
-        "@type": "Organization",
-        "name": "江矿宝宝的博客.",
-        "logo": "http://localhost:2368/ghost/img/ghosticon.jpg"
-    },
-    "author": {
-        "@type": "Person",
-        "name": "江矿宝宝.",
-        "image": {
-            "@type": "ImageObject",
-            "url": "https://joe-10005639.cossh.myqcloud.com/jkbb.jpg",
-            "width": 600,
-            "height": 600
-        },
-        "url": "http://localhost:2368/author/jkbb/",
-        "sameAs": [
-            "https://joname1.github.io"
-        ],
-        "description": "伪前端攻城狮, 喜欢钻研新技术."
-    },
-    "headline": "使用node.js自动更新本地hosts, 实现科学上网.",
-    "url": "http://localhost:2368/nodejs-hosts/",
-    "datePublished": "2016-09-04T06:53:00.000Z",
-    "dateModified": "2017-05-25T08:34:36.000Z",
-    "description": "现在网上有不少提供google hosts的网址，当我们访问不了google时，就需要复制这个网站提供的hosts到我们本地的hosts，在粘贴前还要在C盘一层一层的找到本地hosts，比较麻烦。 于是我就想能不能通过运行一条命令就能把网站里的hosts自动更新到本地，刚开始想的是用php写的，不过在跟同学聊天的过程中，同学建议使用node来实现这个功能，简单方便，而且我对php的正则表达式也不是很熟，那就用node试试吧。 1. 安装Node 进入官网，下载我们需要的程序包。下载后，双击进行安装。 在现在的node版本中，默认是node和npm一起安装的，不用再单独安装npm了。 安装成功后，使用win+r打开cmd命令窗口，然后输入node -v查看当前node的版本号 输入npm -v查看当前npm的版本号 如果两个都能正确显示出版本号，就说明node和npm已经安装成功了。 使用.msi类型的文件进行能够自动添加node和npm到PATH的环境变量中。 2. 下载需要的模块包 npm是一个node的包管理和分发工具。有了npm，可以很快的找到你想要使用的包，进行下载、安装以及管理已经安装的包。  使用npm进行模块的安装非常的方便：npm install **** 如果想安装成全局的，所有的项目都能使用，可以添加上-g参数，如：npm install -g",
-    "mainEntityOfPage": {
-        "@type": "WebPage",
-        "@id": "http://localhost:2368"
-    }
-}
-    </script>
-
-    <meta name="generator" content="Ghost 0.11" />
-    <link rel="alternate" type="application/rss+xml" title="江矿宝宝的博客." href="../rss/index.html" />
+    <link href="https://cdn.bootcss.com/prism/1.6.0/themes/prism.css" rel="stylesheet">
 </head>
 
 <body class="post-template nav-closed">
@@ -192,11 +138,11 @@ Google hosts更新网址:  </p>
             </section>
             <footer class="post-footer">
                         <figure class="author-image">
-                            <a class="img" style="background-image: url(https://joe-10005639.cossh.myqcloud.com/jkbb.jpg)"><span class="hidden">江矿宝宝.'s Picture</span></a>
+                            <a class="img" style="background-image: url(https://joe-10005639.cossh.myqcloud.com/jkbb.jpg)"></a>
                         </figure>
                         <h4><span>江矿宝宝.</span></h4>
                     <section class="author">
-                            <p>伪前端攻城狮, 喜欢钻研新技术.</p>
+                            <p>前台端菜, 喜欢钻研新技术.</p>
                         <div class="author-meta">
                             <span class="author-location"><i class="fa fa-map-marker" aria-hidden="true"></i> Nanning, GX</span>
                             <span class="author-link"><i class="fa fa-link" aria-hidden="true"></i> <a href="https://joname1.github.io">https://joname1.github.io</a></span>
@@ -229,10 +175,18 @@ Google hosts更新网址:  </p>
         </footer>
     </div>
     <script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
-    <script src="https://joe-10005639.cossh.myqcloud.com/prism.js"></script>    
+    <script src="https://cdn.bootcss.com/prism/1.6.0/prism.js"></script>    
     <script src="https://cdn.bootcss.com/fitvids/1.1.0/jquery.fitvids.js"></script>
-    <script src="https://tajs.qq.com/stats?sId=59279948" charset="UTF-8"></script>
-    <script src="../assets/js/index.min.js?v=bd2081a8bc"></script>
+    <script src="../assets/js/index.min.js?v=491be1a66e"></script>
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?2c150e62328876df1f23bb9dafd9444f";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
     
 </body>
 

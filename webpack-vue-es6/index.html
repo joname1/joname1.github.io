@@ -5,68 +5,14 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>webpack+vue项目中常用ES6语法总结</title>
-    <meta name="description" content=",江矿,江矿宝宝,joname,joname.liangtan,前端,伪前端,js,jquery,javascript,开发者,攻城狮,码农,挖煤,挖矿,煤厂,矿厂,极客,编程,代码,开源,IT网站,Developer,Programmer,Coder,Geek,html,html5,css,css3,Front-end,Front-end Developer,FE,FEer" />
+    <meta name="description" content=",江矿,江矿宝宝,joname,joname.liangtan,前端,伪前端,前台端菜,js,jquery,javascript,开发者,攻城狮,码农,挖煤,挖矿,煤厂,矿厂,极客,编程,代码,开源,IT网站,Developer,Programmer,Coder,Geek,html,html5,css,css3,Front-end,Front-end Developer,FE,FEer" />
     <meta name="HandheldFriendly" content="True" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="shortcut icon" href="../assets/favicon.png?v=bd2081a8bc">
-    <link href="../assets/css/all.min.css?v=bd2081a8bc" rel="stylesheet">
+    <link rel="shortcut icon" href="../assets/favicon.png?v=491be1a66e">
+    <link href="../assets/css/all.min.css?v=491be1a66e" rel="stylesheet">
     <link href="https://fonts.css.network/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" rel="stylesheet">
     <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
-    <link href="https://joe-10005639.cossh.myqcloud.com/prism.css" rel="stylesheet"> <link rel="canonical" href="index.html" />
-    <meta name="referrer" content="no-referrer-when-downgrade" />
-    
-    <meta property="og:site_name" content="江矿宝宝的博客." />
-    <meta property="og:type" content="article" />
-    <meta property="og:title" content="webpack+vue项目中常用ES6语法总结" />
-    <meta property="og:description" content="Babel ES6标准虽然已经发布了，但是很多浏览器环境都还不支持，webpack是通过Babel这个转码器将ES6代码转为ES5，从而在现有环境执行。babel是在webpack的配置文件webpack.config.js的module参数中的loaders中配置，如下：   module.exports &#x3D; {       ...     module: {         loaders: [         {             test: /\.js$/,             loader: &#x27;babel&#x27;,             exclude: /node_modules/         },         ...         ]     } } 配置完成后还需要安装”babel-loader”模块 npm i babel-loader -D   然后webpack就可以对用了ES6语法的js文件进行转码了。下面总结一些常用到的ES6语法。 let和const命令 let命令 ES6中let命令用来声明变量，用法类似于var，但是let所声明的变量是局部变量，只在let命令所在的代码块内有效。所以在for循环中很适合用let变量做计数器。  let变量不会像var变量那样会进行变量提升，变量一定要在声明后使用，否则会报错。  只要块级作用域内存在let命令，它所声明的所有变量都绑定这个作业域，不收外部变量的影响，即形成了一个封闭的作用域。 let不允许在相同作用域内重复声明同一个变量。可以看出，let变量实际上为JavaScript新增了块级作用域 const命令 const声明一个只读的常量，一旦声明，值就不能改变。" />
-    <meta property="og:url" content="http://localhost:2368/webpack-vue-es6/" />
-    <meta property="article:published_time" content="2017-05-27T02:46:00.000Z" />
-    <meta property="article:modified_time" content="2017-09-21T02:59:04.000Z" />
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="webpack+vue项目中常用ES6语法总结" />
-    <meta name="twitter:description" content="Babel ES6标准虽然已经发布了，但是很多浏览器环境都还不支持，webpack是通过Babel这个转码器将ES6代码转为ES5，从而在现有环境执行。babel是在webpack的配置文件webpack.config.js的module参数中的loaders中配置，如下：   module.exports &#x3D; {       ...     module: {         loaders: [         {             test: /\.js$/,             loader: &#x27;babel&#x27;,             exclude: /node_modules/         },         ...         ]     } } 配置完成后还需要安装”babel-loader”模块 npm i babel-loader -D   然后webpack就可以对用了ES6语法的js文件进行转码了。下面总结一些常用到的ES6语法。 let和const命令 let命令 ES6中let命令用来声明变量，用法类似于var，但是let所声明的变量是局部变量，只在let命令所在的代码块内有效。所以在for循环中很适合用let变量做计数器。  let变量不会像var变量那样会进行变量提升，变量一定要在声明后使用，否则会报错。  只要块级作用域内存在let命令，它所声明的所有变量都绑定这个作业域，不收外部变量的影响，即形成了一个封闭的作用域。 let不允许在相同作用域内重复声明同一个变量。可以看出，let变量实际上为JavaScript新增了块级作用域 const命令 const声明一个只读的常量，一旦声明，值就不能改变。" />
-    <meta name="twitter:url" content="http://localhost:2368/webpack-vue-es6/" />
-    <meta name="twitter:label1" content="Written by" />
-    <meta name="twitter:data1" content="江矿宝宝." />
-    
-    <script type="application/ld+json">
-{
-    "@context": "https://schema.org",
-    "@type": "Article",
-    "publisher": {
-        "@type": "Organization",
-        "name": "江矿宝宝的博客.",
-        "logo": "http://localhost:2368/ghost/img/ghosticon.jpg"
-    },
-    "author": {
-        "@type": "Person",
-        "name": "江矿宝宝.",
-        "image": {
-            "@type": "ImageObject",
-            "url": "https://joe-10005639.cossh.myqcloud.com/jkbb.jpg",
-            "width": 600,
-            "height": 600
-        },
-        "url": "http://localhost:2368/author/jkbb/",
-        "sameAs": [
-            "https://joname1.github.io"
-        ],
-        "description": "伪前端攻城狮, 喜欢钻研新技术."
-    },
-    "headline": "webpack+vue项目中常用ES6语法总结",
-    "url": "http://localhost:2368/webpack-vue-es6/",
-    "datePublished": "2017-05-27T02:46:00.000Z",
-    "dateModified": "2017-09-21T02:59:04.000Z",
-    "description": "Babel ES6标准虽然已经发布了，但是很多浏览器环境都还不支持，webpack是通过Babel这个转码器将ES6代码转为ES5，从而在现有环境执行。babel是在webpack的配置文件webpack.config.js的module参数中的loaders中配置，如下：   module.exports &#x3D; {       ...     module: {         loaders: [         {             test: /\\.js$/,             loader: &#x27;babel&#x27;,             exclude: /node_modules/         },         ...         ]     } } 配置完成后还需要安装”babel-loader”模块 npm i babel-loader -D   然后webpack就可以对用了ES6语法的js文件进行转码了。下面总结一些常用到的ES6语法。 let和const命令 let命令 ES6中let命令用来声明变量，用法类似于var，但是let所声明的变量是局部变量，只在let命令所在的代码块内有效。所以在for循环中很适合用let变量做计数器。  let变量不会像var变量那样会进行变量提升，变量一定要在声明后使用，否则会报错。  只要块级作用域内存在let命令，它所声明的所有变量都绑定这个作业域，不收外部变量的影响，即形成了一个封闭的作用域。 let不允许在相同作用域内重复声明同一个变量。可以看出，let变量实际上为JavaScript新增了块级作用域 const命令 const声明一个只读的常量，一旦声明，值就不能改变。",
-    "mainEntityOfPage": {
-        "@type": "WebPage",
-        "@id": "http://localhost:2368"
-    }
-}
-    </script>
-
-    <meta name="generator" content="Ghost 0.11" />
-    <link rel="alternate" type="application/rss+xml" title="江矿宝宝的博客." href="../rss/index.html" />
+    <link href="https://cdn.bootcss.com/prism/1.6.0/themes/prism.css" rel="stylesheet">
 </head>
 
 <body class="post-template nav-closed">
@@ -243,11 +189,11 @@ export {
             </section>
             <footer class="post-footer">
                         <figure class="author-image">
-                            <a class="img" style="background-image: url(https://joe-10005639.cossh.myqcloud.com/jkbb.jpg)"><span class="hidden">江矿宝宝.'s Picture</span></a>
+                            <a class="img" style="background-image: url(https://joe-10005639.cossh.myqcloud.com/jkbb.jpg)"></a>
                         </figure>
                         <h4><span>江矿宝宝.</span></h4>
                     <section class="author">
-                            <p>伪前端攻城狮, 喜欢钻研新技术.</p>
+                            <p>前台端菜, 喜欢钻研新技术.</p>
                         <div class="author-meta">
                             <span class="author-location"><i class="fa fa-map-marker" aria-hidden="true"></i> Nanning, GX</span>
                             <span class="author-link"><i class="fa fa-link" aria-hidden="true"></i> <a href="https://joname1.github.io">https://joname1.github.io</a></span>
@@ -280,10 +226,18 @@ export {
         </footer>
     </div>
     <script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
-    <script src="https://joe-10005639.cossh.myqcloud.com/prism.js"></script>    
+    <script src="https://cdn.bootcss.com/prism/1.6.0/prism.js"></script>    
     <script src="https://cdn.bootcss.com/fitvids/1.1.0/jquery.fitvids.js"></script>
-    <script src="https://tajs.qq.com/stats?sId=59279948" charset="UTF-8"></script>
-    <script src="../assets/js/index.min.js?v=bd2081a8bc"></script>
+    <script src="../assets/js/index.min.js?v=491be1a66e"></script>
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?2c150e62328876df1f23bb9dafd9444f";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
     
 </body>
 

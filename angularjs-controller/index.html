@@ -5,68 +5,14 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>AngularJS动态加载Controller</title>
-    <meta name="description" content=",江矿,江矿宝宝,joname,joname.liangtan,前端,伪前端,js,jquery,javascript,开发者,攻城狮,码农,挖煤,挖矿,煤厂,矿厂,极客,编程,代码,开源,IT网站,Developer,Programmer,Coder,Geek,html,html5,css,css3,Front-end,Front-end Developer,FE,FEer" />
+    <meta name="description" content=",江矿,江矿宝宝,joname,joname.liangtan,前端,伪前端,前台端菜,js,jquery,javascript,开发者,攻城狮,码农,挖煤,挖矿,煤厂,矿厂,极客,编程,代码,开源,IT网站,Developer,Programmer,Coder,Geek,html,html5,css,css3,Front-end,Front-end Developer,FE,FEer" />
     <meta name="HandheldFriendly" content="True" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="shortcut icon" href="../assets/favicon.png?v=bd2081a8bc">
-    <link href="../assets/css/all.min.css?v=bd2081a8bc" rel="stylesheet">
+    <link rel="shortcut icon" href="../assets/favicon.png?v=491be1a66e">
+    <link href="../assets/css/all.min.css?v=491be1a66e" rel="stylesheet">
     <link href="https://fonts.css.network/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" rel="stylesheet">
     <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
-    <link href="https://joe-10005639.cossh.myqcloud.com/prism.css" rel="stylesheet"> <link rel="canonical" href="index.html" />
-    <meta name="referrer" content="no-referrer-when-downgrade" />
-    
-    <meta property="og:site_name" content="江矿宝宝的博客." />
-    <meta property="og:type" content="article" />
-    <meta property="og:title" content="AngularJS动态加载Controller" />
-    <meta property="og:description" content="AngularJS原生并不支持动态加载Controller的方法，但是却提供注册Controller的方法。接下来就来看下如何实现动态加载Controller。 我们把实现动态加载Controller方法封装到一个通用的模块里面，并命名这个模块为ngCommon。 (function (angular) {&#x27;use strict&#x27;;     var CommonApp &#x3D; angular.module(&#x27;ngCommon&#x27;);     ... })(angular); 接下来我们实现一个动态加载js的方法$require。 /* 记录已加载的js */ var loaded &#x3D; {};   /* 检测是否加载 */ var checkLoaded &#x3D; function (url) {       return !url || !angular.isString(url) || loaded[url]; }; CommonApp.factory(&#x27;$require&#x27;, [&#x27;$document&#x27;, &#x27;$q&#x27;, &#x27;$rootScope&#x27;, function ($document, $q, $rootScope) {       return function (url) {         var" />
-    <meta property="og:url" content="http://localhost:2368/angularjs-controller/" />
-    <meta property="article:published_time" content="2017-05-25T08:24:25.000Z" />
-    <meta property="article:modified_time" content="2017-05-25T08:24:25.000Z" />
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="AngularJS动态加载Controller" />
-    <meta name="twitter:description" content="AngularJS原生并不支持动态加载Controller的方法，但是却提供注册Controller的方法。接下来就来看下如何实现动态加载Controller。 我们把实现动态加载Controller方法封装到一个通用的模块里面，并命名这个模块为ngCommon。 (function (angular) {&#x27;use strict&#x27;;     var CommonApp &#x3D; angular.module(&#x27;ngCommon&#x27;);     ... })(angular); 接下来我们实现一个动态加载js的方法$require。 /* 记录已加载的js */ var loaded &#x3D; {};   /* 检测是否加载 */ var checkLoaded &#x3D; function (url) {       return !url || !angular.isString(url) || loaded[url]; }; CommonApp.factory(&#x27;$require&#x27;, [&#x27;$document&#x27;, &#x27;$q&#x27;, &#x27;$rootScope&#x27;, function ($document, $q, $rootScope) {       return function (url) {         var" />
-    <meta name="twitter:url" content="http://localhost:2368/angularjs-controller/" />
-    <meta name="twitter:label1" content="Written by" />
-    <meta name="twitter:data1" content="江矿宝宝." />
-    
-    <script type="application/ld+json">
-{
-    "@context": "https://schema.org",
-    "@type": "Article",
-    "publisher": {
-        "@type": "Organization",
-        "name": "江矿宝宝的博客.",
-        "logo": "http://localhost:2368/ghost/img/ghosticon.jpg"
-    },
-    "author": {
-        "@type": "Person",
-        "name": "江矿宝宝.",
-        "image": {
-            "@type": "ImageObject",
-            "url": "https://joe-10005639.cossh.myqcloud.com/jkbb.jpg",
-            "width": 600,
-            "height": 600
-        },
-        "url": "http://localhost:2368/author/jkbb/",
-        "sameAs": [
-            "https://joname1.github.io"
-        ],
-        "description": "伪前端攻城狮, 喜欢钻研新技术."
-    },
-    "headline": "AngularJS动态加载Controller",
-    "url": "http://localhost:2368/angularjs-controller/",
-    "datePublished": "2017-05-25T08:24:25.000Z",
-    "dateModified": "2017-05-25T08:24:25.000Z",
-    "description": "AngularJS原生并不支持动态加载Controller的方法，但是却提供注册Controller的方法。接下来就来看下如何实现动态加载Controller。 我们把实现动态加载Controller方法封装到一个通用的模块里面，并命名这个模块为ngCommon。 (function (angular) {&#x27;use strict&#x27;;     var CommonApp &#x3D; angular.module(&#x27;ngCommon&#x27;);     ... })(angular); 接下来我们实现一个动态加载js的方法$require。 /* 记录已加载的js */ var loaded &#x3D; {};   /* 检测是否加载 */ var checkLoaded &#x3D; function (url) {       return !url || !angular.isString(url) || loaded[url]; }; CommonApp.factory(&#x27;$require&#x27;, [&#x27;$document&#x27;, &#x27;$q&#x27;, &#x27;$rootScope&#x27;, function ($document, $q, $rootScope) {       return function (url) {         var",
-    "mainEntityOfPage": {
-        "@type": "WebPage",
-        "@id": "http://localhost:2368"
-    }
-}
-    </script>
-
-    <meta name="generator" content="Ghost 0.11" />
-    <link rel="alternate" type="application/rss+xml" title="江矿宝宝的博客." href="../rss/index.html" />
+    <link href="https://cdn.bootcss.com/prism/1.6.0/themes/prism.css" rel="stylesheet">
 </head>
 
 <body class="post-template nav-closed">
@@ -245,11 +191,11 @@ DemoApp.register.controller('IndexController', ['$scope', '$require', function($
             </section>
             <footer class="post-footer">
                         <figure class="author-image">
-                            <a class="img" style="background-image: url(https://joe-10005639.cossh.myqcloud.com/jkbb.jpg)"><span class="hidden">江矿宝宝.'s Picture</span></a>
+                            <a class="img" style="background-image: url(https://joe-10005639.cossh.myqcloud.com/jkbb.jpg)"></a>
                         </figure>
                         <h4><span>江矿宝宝.</span></h4>
                     <section class="author">
-                            <p>伪前端攻城狮, 喜欢钻研新技术.</p>
+                            <p>前台端菜, 喜欢钻研新技术.</p>
                         <div class="author-meta">
                             <span class="author-location"><i class="fa fa-map-marker" aria-hidden="true"></i> Nanning, GX</span>
                             <span class="author-link"><i class="fa fa-link" aria-hidden="true"></i> <a href="https://joname1.github.io">https://joname1.github.io</a></span>
@@ -282,10 +228,18 @@ DemoApp.register.controller('IndexController', ['$scope', '$require', function($
         </footer>
     </div>
     <script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
-    <script src="https://joe-10005639.cossh.myqcloud.com/prism.js"></script>    
+    <script src="https://cdn.bootcss.com/prism/1.6.0/prism.js"></script>    
     <script src="https://cdn.bootcss.com/fitvids/1.1.0/jquery.fitvids.js"></script>
-    <script src="https://tajs.qq.com/stats?sId=59279948" charset="UTF-8"></script>
-    <script src="../assets/js/index.min.js?v=bd2081a8bc"></script>
+    <script src="../assets/js/index.min.js?v=491be1a66e"></script>
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?2c150e62328876df1f23bb9dafd9444f";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
     
 </body>
 
