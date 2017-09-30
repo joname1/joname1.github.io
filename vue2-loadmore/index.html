@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>基于vue2写的上拉加载更多</title>
+    <meta name="description" content=",江矿,江矿宝宝,joname,joname.liangtan,前端,伪前端,前台端菜,js,jquery,javascript,开发者,攻城狮,码农,挖煤,挖矿,煤厂,矿厂,极客,编程,代码,开源,IT网站,Developer,Programmer,Coder,Geek,html,html5,css,css3,Front-end,Front-end Developer,FE,FEer" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="../assets/favicon.png?v=3fe33f358e">
+    <link href="../assets/css/all.min.css?v=3fe33f358e" rel="stylesheet">
+    <link href="https://fonts.css.network/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/prism/1.6.0/themes/prism.css" rel="stylesheet">
+</head>
+
+<body class="post-template nav-closed">
+    
+    <div class="site-wrapper">
+            <header class="main-header post-head no-cover">
+        <nav class="main-nav  clearfix">
+            <a class="home-button" href="../index.html">Home</a>
+            
+        </nav>
+    </header>
+    <main class="content" role="main">
+        <article class="post">
+            <header class="post-header">
+                <h1 class="post-title">基于vue2写的上拉加载更多</h1>
+                <section class="post-meta">
+                    <time class="post-date">30 Sep 2017</time>
+                    <!-- "" -->
+                </section>
+            </header>
+            <section class="post-content">
+                <p>代码如下:</p>
+
+<pre><code class="language-js">&lt;template&gt;  
+    &lt;div class="loadmore"&gt;
+        &lt;slot&gt;&lt;/slot&gt;
+        &lt;slot name="bottom"&gt;
+        &lt;/slot&gt;
+    &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;style&gt;  
+    .loadmore{
+        width:100%;
+    }
+&lt;/style&gt;
+
+&lt;script&gt;  
+    export default {
+        name: 'loadmore',
+        props: {
+            maxDistance: {
+                type: Number,
+                default: 0
+            },
+            autoFill: {
+                type: Boolean,
+                default: true
+            },
+            distanceIndex: {
+                type: Number,
+                default: 2
+            },
+            bottomPullText: {
+                type: String,
+                default: '上拉刷新'
+            },
+            bottomDropText: {
+                type: String,
+                default: '释放更新'
+            },
+            bottomLoadingText: {
+                type: String,
+                default: '加载中...'
+            },
+            bottomDistance: {
+                type: Number,
+                default: 70
+            },
+            bottomMethod: {
+                type: Function
+            },
+            bottomAllLoaded: {
+                type: Boolean,
+                default: false
+            },
+        },
+        data() {
+            return {
+                // 最下面出现的div的位移
+                translate: 0,
+                // 选择滚动事件的监听对象
+                scrollEventTarget: null,
+                containerFilled: false,
+                bottomText: '',
+                // class类名
+                bottomDropped: false,
+                // 获取监听滚动元素的scrollTop
+                bottomReached: false,
+                // 滑动的方向   down---向下互动；up---向上滑动
+                direction: '',
+                startY: 0,
+                startScrollTop: 0,
+                // 实时的clientY位置
+                currentY: 0,
+                topStatus: '',
+                //  上拉加载的状态    ''     pull: 上拉中
+                bottomStatus: '',
+            };
+        },
+        watch: {
+            // 改变当前加载在状态
+            bottomStatus(val) {
+                this.$emit('bottom-status-change', val);
+                switch (val) {
+                    case 'pull':
+                        this.bottomText = this.bottomPullText;
+                        break;
+                    case 'drop':
+                        this.bottomText = this.bottomDropText;
+                        break;
+                    case 'loading':
+                        this.bottomText = this.bottomLoadingText;
+                        break;
+                }
+            }
+        },
+        methods: {
+            onBottomLoaded() {
+                this.bottomStatus = 'pull';
+                this.bottomDropped = false;
+                this.$nextTick(() =&gt; {
+                    if (this.scrollEventTarget === window) {
+                    document.body.scrollTop += 50;
+                } else {
+                    this.scrollEventTarget.scrollTop += 50;
+                }
+                this.translate = 0;
+            });
+                // 注释
+                if (!this.bottomAllLoaded &amp;&amp; !this.containerFilled) {
+                    this.fillContainer();
+                }
+            },
+
+            getScrollEventTarget(element) {
+                let currentNode = element;
+                while (currentNode &amp;&amp; currentNode.tagName !== 'HTML' &amp;&amp;
+                currentNode.tagName !== 'BODY' &amp;&amp; currentNode.nodeType === 1) {
+                    let overflowY = document.defaultView.getComputedStyle(currentNode).overflowY;
+                    if (overflowY === 'scroll' || overflowY === 'auto') {
+                        return currentNode;
+                    }
+                    currentNode = currentNode.parentNode;
+                }
+                return window;
+            },
+            //  获取scrollTop
+            getScrollTop(element) {
+                if (element === window) {
+                    return Math.max(window.pageYOffset || 0, document.documentElement.scrollTop);
+                } else {
+                    return element.scrollTop;
+                }
+            },
+            bindTouchEvents() {
+                this.$el.addEventListener('touchstart', this.handleTouchStart);
+                this.$el.addEventListener('touchmove', this.handleTouchMove);
+                this.$el.addEventListener('touchend', this.handleTouchEnd);
+            },
+            init() {
+                this.bottomStatus = 'pull';
+                // 选择滚动事件的监听对象
+                this.scrollEventTarget = this.getScrollEventTarget(this.$el);
+                if (typeof this.bottomMethod === 'function') {
+                    // autoFill 属性的实现   注释
+                    this.fillContainer();
+                    // 绑定滑动事件
+                    this.bindTouchEvents();
+                }
+            },
+            //  autoFill 属性的实现   注释
+            fillContainer() {
+                if (this.autoFill) {
+                    this.$nextTick(() =&gt; {
+                        if (this.scrollEventTarget === window) {
+                        this.containerFilled = this.$el.getBoundingClientRect().bottom &gt;=
+                                document.documentElement.getBoundingClientRect().bottom;
+                    } else {
+                        this.containerFilled = this.$el.getBoundingClientRect().bottom &gt;=
+                                this.scrollEventTarget.getBoundingClientRect().bottom;
+                    }
+                    if (!this.containerFilled) {
+                        this.bottomStatus = 'loading';
+                        this.bottomMethod();
+                    }
+                });
+                }
+            },
+            //  获取监听滚动元素的scrollTop
+            checkBottomReached() {
+                if (this.scrollEventTarget === window) {
+                    return document.body.scrollTop + document.documentElement.clientHeight &gt;= document.body.scrollHeight;
+                } else {
+                    // getBoundingClientRect用于获得页面中某个元素的左，上，右和下分别相对浏览器视窗的位置。 right是指元素右边界距窗口最左边的距离，bottom是指元素下边界距窗口最上面的距离。
+                    return this.$el.getBoundingClientRect().bottom &lt;= this.scrollEventTarget.getBoundingClientRect().bottom + 1;
+                }
+            },
+            // ontouchstart 事件
+            handleTouchStart(event) {
+                // 获取起点的y坐标
+                this.startY = event.touches[0].clientY;
+                this.startScrollTop = this.getScrollTop(this.scrollEventTarget);
+                this.bottomReached = false;
+                if (this.bottomStatus !== 'loading') {
+                    this.bottomStatus = 'pull';
+                    this.bottomDropped = false;
+                }
+            },
+            // ontouchmove事件
+            handleTouchMove(event) {
+                if (this.startY &lt; this.$el.getBoundingClientRect().top &amp;&amp; this.startY &gt; this.$el.getBoundingClientRect().bottom) {
+                    // 没有在需要滚动的范围内滚动，不再监听scroll
+                    return;
+                }
+                // 实时的clientY位置
+                this.currentY = event.touches[0].clientY;
+                //  distance 移动位置和开始位置的差值        distanceIndex---
+                let distance = (this.currentY - this.startY) / this.distanceIndex;
+                // 根据 distance 判断滑动的方向  并赋予变量   direction  down---向下互动；up---向上滑动
+                this.direction = distance &gt; 0 ? 'down' : 'up';
+                if (this.direction === 'up') {
+                    // 获取监听滚动元素的scrollTop
+                    this.bottomReached = this.bottomReached || this.checkBottomReached();
+                }
+                if (typeof this.bottomMethod === 'function' &amp;&amp; this.direction === 'up' &amp;&amp;
+                        this.bottomReached &amp;&amp; this.bottomStatus !== 'loading' &amp;&amp; !this.bottomAllLoaded) {
+                    // 有加载函数，是向上拉，有滚动距离，不是正在加载ajax，没有加载到最后一页
+                    event.preventDefault();
+                    event.stopPropagation();
+                    if (this.maxDistance &gt; 0) {
+                        this.translate = Math.abs(distance) &lt;= this.maxDistance
+                                ? this.getScrollTop(this.scrollEventTarget) - this.startScrollTop + distance : this.translate;
+                    } else {
+                        this.translate = this.getScrollTop(this.scrollEventTarget) - this.startScrollTop + distance;
+                    }
+                    if (this.translate &gt; 0) {
+                        this.translate = 0;
+                    }
+                    this.bottomStatus = -this.translate &gt;= this.bottomDistance ? 'drop' : 'pull';
+                }
+            },
+            // ontouchend事件
+            handleTouchEnd() {
+                if (this.direction === 'up' &amp;&amp; this.bottomReached &amp;&amp; this.translate &lt; 0) {
+                    this.bottomDropped = true;
+                    this.bottomReached = false;
+                    if (this.bottomStatus === 'drop') {
+                        this.translate = '-50';
+                        this.bottomStatus = 'loading';
+                        this.bottomMethod();
+                    } else {
+                        this.translate = '0';
+                        this.bottomStatus = 'pull';
+                    }
+                }
+                this.direction = '';
+            }
+        },
+        mounted() {
+            this.init();
+        }
+    };
+&lt;/script&gt;  
+</code></pre>
+
+<p>建议抽出来放到common目录下，然后哪个页面需要，就在哪个页面import即可, 然后在引入他的页面写法如下：</p>
+
+<pre><code class="language-js">&lt;template&gt;  
+  &lt;section class="finan"&gt;
+    &lt;!-- 上拉加载更多 --&gt;
+    &lt;load-more
+    :bottom-method="loadBottom"
+    :bottom-all-loaded="allLoaded"
+    :bottomPullText='bottomText'
+    :auto-fill="false"
+    @bottom-status-change="handleBottomChange"
+    ref="loadmore"&gt;
+        &lt;div&gt;
+      这里写你需要的另外的模块
+        &lt;/div&gt;
+        &lt;div v-show="loading" slot="bottom" class="loading"&gt; 这个div是为让上拉加载的时候显示一张加载的gif图
+          &lt;img src="./../../assets/main/uploading.gif"&gt;
+        &lt;/div&gt;
+    &lt;/load-more&gt;
+  &lt;/section&gt;
+&lt;/template&gt;  
+</code></pre>
+
+<p>然后在data里和methods设置如下：</p>
+
+<pre><code class="language-js">export default {  
+        name: 'FinancialGroup',
+        props:{
+
+        },
+        data () {
+            return {
+                //  上拉加载数据
+                scrollHeight: 0,
+                scrollTop: 0,
+                containerHeight: 0,
+                loading: false,
+                allLoaded: false,
+                bottomText: '上拉加载更多...',
+                bottomStatus: '',
+                pageNo: 1,
+                totalCount: '',
+            }
+        },
+        methods: {
+        /* 下拉加载 */
+        _scroll: function(ev) {
+            ev = ev || event;
+            this.scrollHeight = this.$refs.innerScroll.scrollHeight;
+            this.scrollTop = this.$refs.innerScroll.scrollTop;
+            this.containerHeight = this.$refs.innerScroll.offsetHeight;
+        },
+        loadBottom: function() {
+            this.loading = true;
+            this.pageNo += 1;   // 每次更迭加载的页数
+            if (this.pageNo == this.totalGetCount) {
+                // 当allLoaded = true时上拉加载停止
+                this.loading = false;
+                this.allLoaded = true;
+            }
+            api.commonApi(后台接口，请求参数) 这个api是封装的axios有不懂的可以看vue2+vuex+axios那篇文章
+                    .then(res =&gt; {
+                setTimeout(() =&gt; {
+               要使用的后台返回的数据写在setTimeout里面
+                  this.$nextTick(() =&gt; {
+                    this.loading = false;
+                  })
+            }, 1000)
+         });
+        },
+        handleBottomChange(status) {
+            this.bottomStatus = status;
+        },
+    }
+</code></pre>
+            </section>
+            <footer class="post-footer">
+                        <figure class="author-image">
+                            <a class="img" style="background-image: url(https://joe-10005639.cossh.myqcloud.com/jkbb.jpg)"></a>
+                        </figure>
+                        <h4><span>江矿宝宝.</span></h4>
+                    <section class="author">
+                            <p>前台端菜, 喜欢钻研新技术.</p>
+                        <div class="author-meta">
+                            <span class="author-location"><i class="fa fa-map-marker" aria-hidden="true"></i> Nanning, GX</span>
+                            <span class="author-link"><i class="fa fa-link" aria-hidden="true"></i> <a href="https://joname1.github.io">https://joname1.github.io</a></span>
+                        </div>
+                    </section>
+                <section class="share">
+                    <a href="https://github.com/joname1" target="_blank">
+                        <i class="iconfont i-github"></i>
+                    </a>
+                    <a href="https://twitter.com/im_joname" target="_blank">
+                        <i class="iconfont i-twitter"></i>
+                    </a>
+                    <a href="https://www.zhihu.com/people/joname-liangtan" target="_blank">
+                        <i class="iconfont i-zhihu"></i>
+                    </a>
+                    <a href="mailto:joname.liangtan@gmail.com" target="_blank">
+                        <i class="iconfont i-email"></i>
+                    </a>
+                </section>
+                <div id="totop">
+                    <a><i class="fa fa-chevron-circle-up" aria-hidden="true"></i></a>
+                </div>
+            </footer>
+        </article>
+    </main>
+
+
+        <footer class="site-footer clearfix">
+            <section class="poweredby">2017 &copy; Made with <i class="fa fa-heart"></i> using &lt;ghost/&gt;</section>
+        </footer>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/prism/1.6.0/prism.js"></script>    
+    <script src="https://cdn.bootcss.com/fitvids/1.1.0/jquery.fitvids.js"></script>
+    <script src="../assets/js/index.min.js?v=3fe33f358e"></script>
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?2c150e62328876df1f23bb9dafd9444f";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+    
+</body>
+
+</html>
