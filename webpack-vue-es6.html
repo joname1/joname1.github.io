@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=1, minimum-scale=1, maximum-scale=1">
+<meta name="renderer" content="webkit">
+<meta name="google" value="notranslate">
+<meta name="robots" content="index,follow">
+<link rel="shortcut icon" href="/favicon.png?v=198964">
+<link rel="apple-itouch-icon" href="/favicon.png?v=198964">
+<link href="/bundle/index.css" rel="stylesheet">
+<link href="https://fonts.css.network/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400"  rel="stylesheet">
+<link href="https://cdn.bootcss.com/prism/1.6.0/themes/prism.css" rel="stylesheet">
+<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
+<script>
+    var timeSinceLang = {year: ' years ago',month: ' months ago',day: ' days ago',hour: ' hours ago',minute: ' minutes ago',second: ' seconds ago'};var root = '';
+</script>
+    <meta name="keywords" content="Webpack,ES6,Vue,">
+    <meta name="description" content="webpack&#43;vue项目中常用ES6语法总结">
+    <meta name="author" content="江矿宝宝.">
+    <title>webpack&#43;vue项目中常用ES6语法总结</title>
+    <link href="/bundle/iconfont.css" rel="stylesheet">
+</head>
+
+<body>
+    <article class="container">
+        <header class="header-wrap asset" style="background-image: url(https://joe-10005639.cossh.myqcloud.com/bg.jpg);">
+  <nav class="main-nav">
+    <ul class="menu vertical">
+        <li class="menu-item"><a href="/">Home</a></li>
+        <li class="menu-item"><a href="/archive.html">Archive</a></li>
+        <li class="menu-item"><a href="/tag.html">Tag</a></li>
+        <li class="menu-item"><a href="/atom.xml">RSS</a></li>
+    </ul>
+  </nav>
+  <div class="vertical">
+    <div class="header-wrap-content inner">
+      <h3 class="title">Stay before every beautiful thoughts.</h3>
+      <h3 class="subtitle">Just be nice, always think twice!</h3>
+    </div>
+  </div>
+  <a class="scroll-down icon-arrow-left" href="#content" data-offset="-45"><span class="hidden">Scroll Down</span></a>
+</header>
+
+        <article class="main article">
+            <h1 class="title">webpack&#43;vue项目中常用ES6语法总结</h1>
+            <section class="info">
+                <span class="avatar" style="background-image: url(https://joe-10005639.cossh.myqcloud.com/jkbb.jpg);"></span> <a class="name" href="javascript:;">江矿宝宝.</a> 
+                <span class="date" data-time="1496376000"><span class="from"></span></span>
+                
+                <span class="tags"><a class="tages" href="/tag/Webpack/index.html">Webpack</a><a class="tages" href="/tag/ES6/index.html">ES6</a><a class="tages" href="/tag/Vue/index.html">Vue</a></span>
+            </section>
+            <article class="content"><h3>Babel</h3>
+
+<p>ES6标准虽然已经发布了，但是很多浏览器环境都还不支持，webpack是通过Babel这个转码器将ES6代码转为ES5，从而在现有环境执行。babel是在webpack的配置文件webpack.config.js的module参数中的loaders中配置，如下：</p>
+
+<pre><code class="language-js">module.exports = {
+	...
+	module: {
+		loaders: [
+		{
+			test: /\.js$/,
+			loader: 'babel',
+			exclude: /node_modules/
+		},
+		...
+		]
+	}
+}
+</code></pre>
+
+<p>配置完成后还需要安装”babel-loader”模块</p>
+
+<pre><code class="language-js">npm i babel-loader -D
+</code></pre>
+
+<p>然后webpack就可以对用了ES6语法的js文件进行转码了。下面总结一些常用到的ES6语法。</p>
+
+<h3>let和const命令</h3>
+
+<ul>
+<li>let命令</li>
+</ul>
+
+<p>ES6中let命令用来声明变量，用法类似于var，但是let所声明的变量是局部变量，只在let命令所在的代码块内有效。所以在for循环中很适合用let变量做计数器。
+let变量不会像var变量那样会进行变量提升，变量一定要在声明后使用，否则会报错。
+只要块级作用域内存在let命令，它所声明的所有变量都绑定这个作业域，不收外部变量的影响，即形成了一个封闭的作用域。
+let不允许在相同作用域内重复声明同一个变量。可以看出，let变量实际上为JavaScript新增了块级作用域</p>
+
+<ul>
+<li>const命令</li>
+</ul>
+
+<p>const声明一个只读的常量，一旦声明，值就不能改变。所以，const一旦声明就必须立即初始化，不能只声明不初始化。
+const作用域和let命令相同，只在声明所在的块级作用域中有效。const命令声明的常量也是不提升，同样存在暂时性死区，只能在声明的位置后面使用。</p>
+
+<h3>函数的扩展</h3>
+
+<ul>
+<li>函数参数的默认值</li>
+</ul>
+
+<p>在ES6之前不能直接为函数的参数指定默认值，只能采用变通的方法。ES6允许为函数参数设置默认值，直接写在参数定义的后面。</p>
+
+<pre><code class="language-js">function log(x, y='World') {
+	console.log(x, y);
+}
+log('Hello')
+</code></pre>
+
+<ul>
+<li>参数默认值的位置</li>
+</ul>
+
+<p>通常定义了默认值的参数应该是函数的尾参数，如果是非尾部的参数设置默认值，实际上这个参数是没法省略的。除非显式输入undefined。</p>
+
+<ul>
+<li>箭头函数</li>
+</ul>
+
+<p>ES6允许使用“箭头”（=&gt;）定义函数。</p>
+
+<pre><code class="language-js">var f = v =&gt; v;
+</code></pre>
+
+<p>上述函数等同于：</p>
+
+<pre><code class="language-js">var f = function(v) {
+	return v;
+};
+</code></pre>
+
+<p>若箭头函数不需要参数或者需要多于一个参数，就使用一个圆括号代表参数部分。</p>
+
+<pre><code class="language-js">var f = () =&gt; 5;
+// 等同于
+var f = function() {
+	return 5;
+}
+</code></pre>
+
+<pre><code class="language-js">var sum = (num1, num2) =&gt; num1 + num2;
+// 等同于
+var sum = function(num1, num2) {
+	return num1 + num2;
+}
+</code></pre>
+
+<p>若箭头函数的代码部分多于一条语句，就要使用大括号将他们括起来，并且使用return语句返回。</p>
+
+<pre><code class="language-js">var sum = (num1, num2) =&gt; { return num1 + num2; }
+</code></pre>
+
+<h4>使用注意点</h4>
+
+<p>函数体内的this对象，就是定义时所在的对象，而不是使用时所在的对象。
+不可当做构造函数，不可以使用new命令，否则会抛出错误。
+不可使用arguments对象，该对象在函数体内不存在，可以用Rest参数代替。</p>
+
+<h3>Module</h3>
+
+<p>ES6之前，JavaScript一直没有模块（module）体系，ES6在语言规格的层面上，实现了模块功能，完全可以取代现有的CommonJS和AMD规范，成为浏览器和服务器通用的模块解决方案。
+ES6模块不是对象，而是通过export命令显式指定输出的代码，输入时采用静态命令的形式。</p>
+
+<pre><code class="language-js">import {stat, exists, readFile} from 'fs';
+</code></pre>
+
+<p>上面代码就是从fs模块加载3个方法，其他方法不加载。这种加载成为“编译时加载”。ES6可以在编译时就完成模块加载，效率要比CommonJS模块的加载方式高。</p>
+
+<h3>export命令</h3>
+
+<p>模块功能主要由两个命令构成，export和import。export命令用于规定模块的对外接口，import命令用于输入其他模块提供的功能。
+一个模块就是一个独立的文件。该文件内部的所有变量，外部无法获取。如果你希望外部能够读取模块内部的某个变量，就必须使用export关键字输出该变量。</p>
+
+<pre><code class="language-js">export var firstName = 'Michael';
+export var lastName = 'Jackson';
+export var year = 1958;
+</code></pre>
+
+<p>还可以如下写：</p>
+
+<pre><code class="language-js">var firstName = 'Michael';
+var lastName = 'Jackson';
+var year = 1958;
+export {firstName, lastName, year};
+</code></pre>
+
+<p>export除了输出变量通用可以输出函数或者类，export输出的变量还可以用as关键字重命名。</p>
+
+<pre><code class="language-js">function v1() { ... }
+function v2() { ... }
+export {
+  v1 as streamV1,
+  v2 as streamV2,
+  v2 as streamLatestVersion
+};
+</code></pre>
+
+<h3>import命令</h3>
+
+<p>使用export命令定义了模块的对外接口以后，其他JS文件就可以通过import命令加载这个模块（文件）。用法上面已经有介绍，如果想为输入的变量重命名，使用as关键字。</p>
+
+<pre><code class="language-js">import { lastName as surname } from './profile';
+</code></pre>
+</article>
+            <section class="author">
+                
+                <div class="avatar" style="background-image: url(https://joe-10005639.cossh.myqcloud.com/jkbb.jpg);"></div>
+                <a class="name" href="javascript:;">江矿宝宝.</a>
+                <div class="intro">前(台)端(菜), 喜欢钻研新技术.</div>
+            </section>
+            <section class="social">
+                    <a href="https://github.com/joname1" target="_blank">
+                        <i class="iconfont i-github"></i>
+                    </a>
+                    <a href="https://twitter.com/im_joname" target="_blank">
+                        <i class="iconfont i-twitter"></i>
+                    </a>
+                    <a href="https://www.zhihu.com/people/joname-liangtan" target="_blank">
+                        <i class="iconfont i-zhihu"></i>
+                    </a>
+                    <a href="javascript:alert('am9uYW1lLmxpYW5ndGFuQGdtYWlsLmNvbQ')" target="_blank">
+                        <i class="iconfont i-email"></i>
+                    </a>
+                </section>
+            
+        </article>
+    </article>
+    <footer class="footer clearfix">
+    <span class="copyright">
+        <script>
+            document.write(new Date().getFullYear());
+        </script> &copy; Made with <i class="fa fa-heart"></i> using &ltjoname/&gt
+    </span>
+    
+</footer>
+
+    <script src="/bundle/index.js"></script>
+    <script src="https://cdn.bootcss.com/prism/1.6.0/prism.js"></script>
+</body>
+
+</html>

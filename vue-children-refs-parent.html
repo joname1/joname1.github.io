@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=1, minimum-scale=1, maximum-scale=1">
+<meta name="renderer" content="webkit">
+<meta name="google" value="notranslate">
+<meta name="robots" content="index,follow">
+<link rel="shortcut icon" href="/favicon.png?v=198964">
+<link rel="apple-itouch-icon" href="/favicon.png?v=198964">
+<link href="/bundle/index.css" rel="stylesheet">
+<link href="https://fonts.css.network/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400"  rel="stylesheet">
+<link href="https://cdn.bootcss.com/prism/1.6.0/themes/prism.css" rel="stylesheet">
+<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
+<script>
+    var timeSinceLang = {year: ' years ago',month: ' months ago',day: ' days ago',hour: ' hours ago',minute: ' minutes ago',second: ' seconds ago'};var root = '';
+</script>
+    <meta name="keywords" content="Vue,">
+    <meta name="description" content="Vue组件($children,$refs,$parent)的使用">
+    <meta name="author" content="江矿宝宝.">
+    <title>Vue组件($children,$refs,$parent)的使用</title>
+    <link href="/bundle/iconfont.css" rel="stylesheet">
+</head>
+
+<body>
+    <article class="container">
+        <header class="header-wrap asset" style="background-image: url(https://joe-10005639.cossh.myqcloud.com/bg.jpg);">
+  <nav class="main-nav">
+    <ul class="menu vertical">
+        <li class="menu-item"><a href="/">Home</a></li>
+        <li class="menu-item"><a href="/archive.html">Archive</a></li>
+        <li class="menu-item"><a href="/tag.html">Tag</a></li>
+        <li class="menu-item"><a href="/atom.xml">RSS</a></li>
+    </ul>
+  </nav>
+  <div class="vertical">
+    <div class="header-wrap-content inner">
+      <h3 class="title">Stay before every beautiful thoughts.</h3>
+      <h3 class="subtitle">Just be nice, always think twice!</h3>
+    </div>
+  </div>
+  <a class="scroll-down icon-arrow-left" href="#content" data-offset="-45"><span class="hidden">Scroll Down</span></a>
+</header>
+
+        <article class="main article">
+            <h1 class="title">Vue组件($children,$refs,$parent)的使用</h1>
+            <section class="info">
+                <span class="avatar" style="background-image: url(https://joe-10005639.cossh.myqcloud.com/jkbb.jpg);"></span> <a class="name" href="javascript:;">江矿宝宝.</a> 
+                <span class="date" data-time="1499918400"><span class="from"></span></span>
+                
+                <span class="tags"><a class="tages" href="/tag/Vue/index.html">Vue</a></span>
+            </section>
+            <article class="content"><p>如果项目很大，组件很多，怎么样才能准确的、快速的寻找到我们想要的组件了？？</p>
+
+<h4>1、$refs</h4>
+
+<p>首先你的给子组件做标记。</p>
+
+<pre><code class="language-html">&lt;firstchild ref=&quot;one&quot;&gt;&lt;/firstchild&gt;
+</code></pre>
+
+<p>然后在父组件中，通过this.$refs.one就可以访问了这个自组件了，包括访问自组件的data里面的数据，调用它的函数</p>
+
+<h4>2、$children</h4>
+
+<p>他返回的是一个组件集合，如果你能清楚的知道子组件的顺序，你也可以使用下标来操作；</p>
+
+<pre><code class="language-js">for(let i=0;i&lt;this.$children.length;i++){
+       console.log(this.$children[i].msg); //输出子组件的msg数据；
+ }
+</code></pre>
+
+<p>接下来就来一个点的demo</p>
+
+<p>首先定义一个父组件：parentcomponent，</p>
+
+<p>在父组件中我又是使用了两个自组件（假如有一百个自组件） [明确一点，组件只能有一个根节点 ]，根节点是啥，我不知道。。。。。。</p>
+
+<pre><code class="language-html">&lt;template id=&quot;parentcomponent&quot;&gt;
+    &lt;div &gt;
+        &lt;p&gt;this is a parent-component&lt;/p&gt;
+        &lt;firstchild  ref=&quot;f1&quot;&gt;&lt;/firstchild&gt;
+        &lt;secondchild ref=&quot;f2&quot;&gt;&lt;/secondchild&gt;
+        &lt;button @click='show_child_of_parents'&gt;show child msg&lt;/button&gt;
+    &lt;/div&gt;
+&lt;/template&gt;
+</code></pre>
+
+<p>分别给出两个字组件的定义：（第2个使用的是template,第1个是script）</p>
+
+<pre><code class="language-html">&lt;script type=&quot;text/x-template&quot; id=&quot;childOne&quot;&gt;
+    &lt;div&gt;
+        &lt;p&gt;this is first child&lt;/p&gt;
+      
+        //使用stop阻止默认事件（vue的事件处理机制）
+        &lt;button @click.stop='getParent'&gt;get parent msg&lt;/button&gt;
+    &lt;/div&gt;
+&lt;/script&gt;
+
+&lt;template id=&quot;childSec&quot;&gt;
+    &lt;div&gt;
+        &lt;p&gt;this is second child&lt;/p&gt;
+    &lt;/div&gt;
+&lt;/template&gt;
+</code></pre>
+
+<p>组件模板定义好了，就是用：</p>
+
+<ul>
+<li>挂在元素：</li>
+</ul>
+
+<pre><code class="language-js">&lt;script&gt;
+    new Vue({
+        el:&quot;#app&quot;,
+        data:{},
+        components:{
+            &quot;parent-component&quot;:{
+                template:'#parentcomponent', 
+                data(){
+                    return{msg:'这是父组件中的内容'}                    
+                },
+                methods:{
+                    show_child_of_parents(){
+                        //children方式访问自组件
+　　　　　　　　　　　　　　 for(let i=0;i&lt;this.$children.length;i++){
+                                console.log(this.$children[i].msg);
+                        }
+　　　　　　　　　　　　　　　//通过$ref打标记，访问子组件　
+                        console.log(this.$refs.f1.msg);
+ 　　　　　　　　　　　　　　this.$refs.f1.getParent();
+                    },                                    
+                },    
+　　　　　　　　　　     
+                components:{
+                    'firstchild':{
+                        template:'#childOne',
+                        data(){
+                            return {msg:'这是第一个子组件'};
+                        },
+                        methods:{
+                            getParent(){
+                                let a=1;
+                                console.log(a);
+                                alert(this.$parent.msg);
+                                
+                            }
+                        },
+                    },
+                    
+                    'secondchild':{
+                        template:'#childSec',
+                        data(){
+                            return {msg:&quot;这是第二个组件&quot;};
+                        }
+                    }
+                    
+                }
+                                
+            }
+        }
+        
+    });
+
+&lt;/script&gt;
+</code></pre>
+
+<ul>
+<li>使用父组件了</li>
+</ul>
+
+<pre><code class="language-html">    &lt;body&gt;
+        &lt;p&gt;&lt;strong&gt;可以通过$refs访问父组件的子组件&lt;/strong&gt;&lt;/p&gt;
+        &lt;div id=&quot;app&quot;&gt;
+            &lt;parent-component&gt;&lt;/parent-component&gt;
+        &lt;/div&gt;
+    &lt;/body&gt;
+</code></pre>
+
+<h4>小结</h4>
+
+<ul>
+<li><p>组件只能一个根节点</p></li>
+
+<li><p>可以在自组件中使用this.$parent.属性值，或者函数</p></li>
+
+<li><p>在父组件中可以使用this.$refs.组件的标记访问子组件，或者this.$children[i].属性访问子组件</p></li>
+
+<li><p>你需要注意this的指向</p></li>
+</ul>
+</article>
+            <section class="author">
+                
+                <div class="avatar" style="background-image: url(https://joe-10005639.cossh.myqcloud.com/jkbb.jpg);"></div>
+                <a class="name" href="javascript:;">江矿宝宝.</a>
+                <div class="intro">前(台)端(菜), 喜欢钻研新技术.</div>
+            </section>
+            <section class="social">
+                    <a href="https://github.com/joname1" target="_blank">
+                        <i class="iconfont i-github"></i>
+                    </a>
+                    <a href="https://twitter.com/im_joname" target="_blank">
+                        <i class="iconfont i-twitter"></i>
+                    </a>
+                    <a href="https://www.zhihu.com/people/joname-liangtan" target="_blank">
+                        <i class="iconfont i-zhihu"></i>
+                    </a>
+                    <a href="javascript:alert('am9uYW1lLmxpYW5ndGFuQGdtYWlsLmNvbQ')" target="_blank">
+                        <i class="iconfont i-email"></i>
+                    </a>
+                </section>
+            
+        </article>
+    </article>
+    <footer class="footer clearfix">
+    <span class="copyright">
+        <script>
+            document.write(new Date().getFullYear());
+        </script> &copy; Made with <i class="fa fa-heart"></i> using &ltjoname/&gt
+    </span>
+    
+</footer>
+
+    <script src="/bundle/index.js"></script>
+    <script src="https://cdn.bootcss.com/prism/1.6.0/prism.js"></script>
+</body>
+
+</html>
