@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?><feed xmlns="http://www.w3.org/2005/Atom">
+  <title>江矿宝宝的博客.</title>
+  <id>https://joname1.github.io</id>
+  <updated>2017-11-03T08:56:54+08:00</updated>
+  <subtitle>Just be nice, always think twice!</subtitle>
+  <link href="https://joname1.github.io"></link>
+  <author>
+    <name>江矿宝宝的博客.</name>
+  </author>
+  <entry>
+    <title>基于Vue2写的上拉加载更多</title>
+    <updated>2017-10-26T12:00:00+08:00</updated>
+    <id>tag:joname1.github.io,2017-10-26:/vue2-loadmore.html</id>
+    <content type="html"></content>
+    <link href="https://joname1.github.io/vue2-loadmore.html"></link>
+    <author>
+      <name>江矿宝宝.</name>
+    </author>
+  </entry>
+  <entry>
+    <title>吼啊! Vue2.4组件间通信新姿势</title>
+    <updated>2017-10-13T12:00:00+08:00</updated>
+    <id>tag:joname1.github.io,2017-10-13:/vue-component-transmit.html</id>
+    <content type="html">&lt;p&gt;Vue应用在组件化之后，通常存在着 父子组件、兄弟组件、跨级组件等组件关系，那么组件之间如何进行通信；Vue2.4提供了两种新的组件通讯方法。&lt;/p&gt;&#xA;</content>
+    <link href="https://joname1.github.io/vue-component-transmit.html"></link>
+    <author>
+      <name>江矿宝宝.</name>
+    </author>
+  </entry>
+  <entry>
+    <title>Vuex 学习总结</title>
+    <updated>2017-09-11T12:00:00+08:00</updated>
+    <id>tag:joname1.github.io,2017-09-11:/vuex-summary.html</id>
+    <content type="html">&lt;p&gt;对于很多新手来说，只是阅读文档是不好消化，我的建议是看看 vuex的实例，通过研究实例来学习vuex。这样就会好理解多了。如果还是不能理解，最好办法就是先把store 的四个属性：state， getters, mutations, actions。&lt;/p&gt;&#xA;</content>
+    <link href="https://joname1.github.io/vuex-summary.html"></link>
+    <author>
+      <name>江矿宝宝.</name>
+    </author>
+  </entry>
+  <entry>
+    <title>Vue用$emit与$on来进行兄弟组件之间的通信</title>
+    <updated>2017-08-23T12:00:00+08:00</updated>
+    <id>tag:joname1.github.io,2017-08-23:/vue-emit-on.html</id>
+    <content type="html"></content>
+    <link href="https://joname1.github.io/vue-emit-on.html"></link>
+    <author>
+      <name>江矿宝宝.</name>
+    </author>
+  </entry>
+  <entry>
+    <title>Vue组件($children,$refs,$parent)的使用</title>
+    <updated>2017-07-13T12:00:00+08:00</updated>
+    <id>tag:joname1.github.io,2017-07-13:/vue-children-refs-parent.html</id>
+    <content type="html">&lt;p&gt;如果项目很大，组件很多，怎么样才能准确的、快速的寻找到我们想要的组件了？？&lt;/p&gt;&#xA;</content>
+    <link href="https://joname1.github.io/vue-children-refs-parent.html"></link>
+    <author>
+      <name>江矿宝宝.</name>
+    </author>
+  </entry>
+</feed>
