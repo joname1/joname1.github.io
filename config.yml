@@ -1,0 +1,29 @@
+site:
+    title: "江矿宝宝的博客."
+    subtitle: "Just be nice, always think twice!"
+    limit: 5
+    theme: ikuyo
+    lang: en
+    url: "https://joname1.github.io"
+    # comment: username
+    # logo: "-/images/avatar.png"
+    # link: "{category}/{year}/{month}/{day}/{title}.html"
+    # root: "/blog"
+
+authors:
+    me:
+        name: "江矿宝宝."
+        intro: "前(台)端(菜), 喜欢钻研新技术."
+        avatar: "https://joe-10005639.cossh.myqcloud.com/jkbb.jpg"
+
+build:
+    output: "docs"
+    port: 8000
+    # Copied files to public folder when build
+    copy:
+        - "source/images"
+    # Excuted command when use 'ink publish'
+    publish: |
+        git add .
+        git commit -m "update"
+        git push origin bl0g
