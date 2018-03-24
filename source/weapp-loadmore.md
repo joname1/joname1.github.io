@@ -10,11 +10,14 @@ preview: 微信小程序开发中遇到的坑, 总有些坑你得一个一个的
 
 ---
 > 首先说一下我遇到的需求。
-有一个商品列表页，当列表滚动到底部时，继续往上拉，加载更多商品，里面的数据都是后端返回的，接口情况大致如下。
->> xxx.com/?limit=xxx&offset=xxx
->>> limit是控制每次上拉刷新的数量，offset是控制从当前商品开始往下加载。
 
-### 实现原理
+> 有一个商品列表页，当列表滚动到底部时，继续往上拉，加载更多商品，里面的数据都是后端返回的，接口情况大致如下：
+
+> www.xxx.com/?``limit``=xxx&``offset``=xxx
+
+> ``limit``是控制每次上拉刷新的数量，``offset``是控制从当前商品开始往下加载。
+
+# 实现原理
 当第一次访问接口时，传递2个必备参数（即limit和offset参数），后台返回数据过来，在请求成功的回调函数中，取出数据，渲染到视图层，并把Toast在列表显示出来；当判断返回的数据长度为0时，则没有数据可取，并把“没有更多了”显示出来。
 当用户已经滚动到列表底部（这里使用到小程序提供的onReachBottom事件），当每次触发onReachBottom事件，offset就会增加，再把2个必备参数（第2次加载，需要返回数据的个数）给后台，后台把其余的数据返回给前台，前台在原来数据的基础上往下增加新的商品数据。
 
@@ -34,20 +37,19 @@ preview: 微信小程序开发中遇到的坑, 总有些坑你得一个一个的
     let that = this;
     let prolistAdd = that.data.proList;
 
-    wx.showToast({         //在请求成功过程中，弹出Toast。
+    wx.showLoading({         //滚动到底部，弹出Loading。
       title: '拼命加载中..',
-      icon: 'loading',
       duration: 5000
     })
 
     wx.request({
-      url: www.xxx.com,
+      url: 'www.xxx.com',
       data: {
         limit: that.data.orgin_limit,
         offset: that.data.orgin_offset
       },
       success: function (res) {
-        wx.hideToast();  //当请求完毕时，隐藏Toast。
+        wx.hideLoading();  //当请求成功时，隐藏Loading。
         that.setData({
           proList: prolistAdd.concat(res.data.objects), //在原来数据的基础上，增加新加载的商品数据并渲染到视图层。
           orgin_offset: that.data.orgin_offset + 6  //当每次触发上拉事件，offset就会在原数值上增加6。
@@ -55,7 +57,7 @@ preview: 微信小程序开发中遇到的坑, 总有些坑你得一个一个的
         if (res.data.objects.length == 0) {  //当判断返回的数据长度为0，则没有数据可取，并把“没有更多了”显示出来。
             wx.showToast({
               title: '没有更多了',
-              icon: 'success',
+              icon: 'none',
               duration: 3000
             })
         }

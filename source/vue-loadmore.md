@@ -1,13 +1,14 @@
-title: 基于Vue2写的上拉加载更多
+title: 基于Vue写的上拉加载更多
 date: 2017-10-26 11:23:54 +0800
 update: 2017-10-26 12:00:00 +0800
 author: me
 tags:
     - Vue
-preview: 世界上本有坑, 踩得人多了就习惯了。
+preview: 菩提本无树，明镜亦非台，本来无一物，何处惹尘埃。世上本有坑, 踩得多了也就释然了。
 
 ---
-代码如下:
+Talk is cheap, show your code: 
+
 ```js
 <template>
     <div class="loadmore">
@@ -310,8 +311,7 @@ export default {
                 this.loading = false;
                 this.allLoaded = true;
             }
-            api.commonApi(后台接口，请求参数) 这个api是封装的axios有不懂的可以看vue2+vuex+axios那篇文章
-                    .then(res => {
+            api.commonApi.then(res => {
                 setTimeout(() => {
  	          要使用的后台返回的数据写在setTimeout里面
                   this.$nextTick(() => {
