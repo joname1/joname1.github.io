@@ -24,8 +24,11 @@ preview: 使用弹性盒子的意义是在任何尺寸的屏幕上改变其和�
 > 指定了内部元素是如何在 flex 容器中布局的，定义了主轴的方向(正方向或反方向)。
 
 row：默认，保持原布局不变，按照横轴方向布局，即从左(main start)到右(main end)
+
 row-reverse：按照横方向布局，置换横默认方向，即从右(main end)到左(main start)
+
 column： 按照纵轴默认方向布局，即从上(cross start)到下(cross end)
+
 column-reverse：按照纵轴方向布局，置换纵轴默认方向，即从下(cross start)到上(cross end)
 
 ![](https://sfault-image.b0.upaiyun.com/622/085/622085148-58c24de3a0d99_articlex)
@@ -36,9 +39,11 @@ column-reverse：按照纵轴方向布局，置换纵轴默认方向，即从下
 
 > 指定 flex 元素单行显示还是多行显示 。如果允许换行，这个属性允许你控制行的堆叠方向
 
-nowrap： 默认，单行显示，假如宽度溢出，则自动压缩相应元素的宽度（压缩比例与flex-shrink相关），保持单行
-wrap： 多行显示，假如宽度溢出，自动换行
-wrap-reverse：多行显示，置换侧轴的方向
+nowrap： 默认，单行显示，假如宽度溢出，则自动压缩相应元素的宽度（压缩比例与flex-shrink相关），保持单行。
+
+wrap： 多行显示，假如宽度溢出，自动换行。
+
+wrap-reverse：多行显示，置换侧轴的方向。
 
 ![](https://sfault-image.b0.upaiyun.com/363/850/3638502166-58c24eef71680_articlex)
 
@@ -57,9 +62,13 @@ wrap-reverse：多行显示，置换侧轴的方向
 > 属性定义弹性元素在主轴方向的排列
 
 flex-start： 默认值，按照主轴方向进行排列
+
 flex-end： 置换主轴方向进行排列
+
 center： 向中点居中排列
+
 space-between： 在主轴上均匀分配弹性元素。相邻元素间距离相同。每行第一个元素与行首对齐，每行最后一个元素与行尾对齐。
+
 space-around：在主轴上均匀分配弹性元素。相邻元素间距离相同。每行第一个元素到行首的距离和每行最后一个元素到行尾的距离将会是相邻元素之间距离的一半。
 
 ![](https://sfault-image.b0.upaiyun.com/348/615/3486154553-58c24f36cebc7_articlex)
@@ -69,9 +78,13 @@ space-around：在主轴上均匀分配弹性元素。相邻元素间距离相�
 > 属性定义了弹性元素在侧轴方向的排列
 
 flex-start： 默认值，按照侧轴方向排列
+
 flex-end： 置换侧轴方向进行排列，主轴不变
+
 center： 向中点居中排列
+
 baseline： 所有元素向基线对齐。侧轴起点到元素基线距离最大的元素将会于侧轴起点对齐以确定基线(不是很明白，MDN上面的解释)
+
 stretch：拉伸弹性元素，填充侧轴空间
 
 ![](https://sfault-image.b0.upaiyun.com/262/251/2622514220-58c24f56a61c0_articlex)
@@ -81,10 +94,15 @@ stretch：拉伸弹性元素，填充侧轴空间
 > 属性定义了当弹性元素超过一行时，元素在纵轴上的排列方式
 
 flex-start： 默认值，紧贴前一行，第一行紧贴边缘，与主轴排列方式有关
+
 flex-end： 置换侧轴方向进行排列，紧贴前一行
+
 center： 向中点居中排列，紧贴前一行
+
 space-between： 所有行在容器中平均分布。相邻两行间距相等。容器的垂直轴起点边和终点边分别与第一行和最后一行的边对齐
+
 space-around：所有行在容器中平均分布，相邻两行间距相等。容器的垂直轴起点边和终点边分别与第一行和最后一行的距离是相邻两行间距的一半
+
 stretch：平均分配侧轴空间，相邻行间距相等
 
 ![](https://sfault-image.b0.upaiyun.com/174/364/1743644599-58c24f6beed1f_articlex)
