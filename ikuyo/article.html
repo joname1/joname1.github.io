@@ -8,6 +8,8 @@
     <meta name="author" content="{{.Author.Name}}">
     <title>{{.Title}}</title>
     <link href="{{.Site.Root}}/bundle/iconfont.css" rel="stylesheet">
+    <script src="https://joe-10005639.cossh.myqcloud.com/av.min.js"></script>
+    <script src='https://joe-10005639.cossh.myqcloud.com/valine.min.js'></script>
 </head>
 
 <body>
@@ -44,6 +46,8 @@
                         <i class="iconfont i-email"></i>
                     </a>
                 </section>
+
+                <div id="comment"></div>
             <!--<section class="recommend">
                     {{if .Prev}}
                     <section class="nav prev{{if .Next}} more{{end}}">
@@ -64,7 +68,7 @@
         </article>
     </article>
     {{template "footer" .}}
-    <script src="{{.Site.Root}}/bundle/index.min.js"></script>
+    <script src="https://joe-10005639.cossh.myqcloud.com/index.min.js"></script>
     <script src="https://cdn.bootcss.com/prism/1.13.0/prism.min.js"></script>
     <script src="https://tajs.qq.com/stats?sId=59279948" charset="UTF-8"></script>
 </body>
