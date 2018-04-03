@@ -1,7 +1,7 @@
 site:
-    title: "江矿宝宝的博客."
+    title: "江矿叔叔的博客."
     subtitle: "Just be nice, always think twice!"
-    limit: 5
+    limit: 6
     theme: ikuyo
     lang: en
     url: "https://joname1.github.io"
@@ -12,7 +12,7 @@ site:
 
 authors:
     me:
-        name: "江矿宝宝."
+        name: "江矿叔叔."
         intro: "前(台)端(菜), 喜欢钻研新技术."
         avatar: "https://joe-10005639.cossh.myqcloud.com/jkbb.jpg"
 
