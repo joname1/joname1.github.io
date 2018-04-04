@@ -1,0 +1,28 @@
+language: go
+
+# S: Build Lifecycle
+install:
+  - go get github.com/InkProject/ink
+  # - ink build $GOPATH/src/github.com/InkProject/ink/template
+  - ink build
+# before_script
+
+script:
+  - cd ./docs
+  - git init
+  - git config user.name "joname1"
+  - git config user.email "274158741@qq.com"
+  - git add .
+  - git commit -m "`curl -s https://whatthecommit.com/index.txt`"
+  - git push --force --quiet "https://${GH_TOKEN}@${GH_REF}" master:master
+
+# after-script:
+# E: Build Lifecycle
+
+branches:
+  only:
+    - ink
+env:
+  global:
+    - GH_REF: github.com/joname1/joname1.github.io
+
