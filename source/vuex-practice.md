@@ -1,4 +1,4 @@
-title: Vuex 存值 及 取值 的操作
+title: Vuex存值、取值的操作
 date: 2017-09-13 11:23:54 +0800
 update: 2017-09-13 14:00:00 +0800
 author: me
@@ -7,29 +7,27 @@ tags:
     - Vuex
 preview: 每天都要进步一点点。
 
---
-
+---
 ## 传值
 
 ```js
 // 定义参数
 let params = {
-  workItemId: workItemId,
-  flowInstId: flowInstId,
-  itemStatus: itemStatus,
+  workItemId: 1,
+  flowInstId: 21,
+  itemStatus: false,
   type: type,
   srcId: srcId
 }
 // 保存参数
-this.$store.dispatch('approvalConfirmParams', params);
+this.$store.dispatch('approvalParams', params);
 ```
 
 * index.js
 
 ```js
-// 引入 vue
+
 import Vue from 'vue'
-// 引入 vuex
 import Vuex from 'vuex'
 
 import actions from './actions'
@@ -37,7 +35,6 @@ import mutations from './mutations'
 
 Vue.use(Vuex);
 
-// 导出
 export default new Vuex.Store({
   modules:{
     mutations
@@ -134,6 +131,10 @@ export default {
 
 ## PS
 
-dispatch：含有异步操作，例如向后台提交数据，写法： this.$store.dispatch('mutations方法名',值)
+* dispatch
 
-commit：同步操作，写法：this.$store.commit('mutations方法名',值)
+异步操作，例如向后台提交数据，写法：**this.$store.dispatch('mutations_name', val)**
+
+* commit
+
+同步操作，写法：**this.$store.commit('mutations_name', val)**
