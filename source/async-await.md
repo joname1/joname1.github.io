@@ -46,7 +46,6 @@ getUserByPromise();
 Promise 的方式虽然解决了 callback hell，但是这种方式充满了 Promise的 then() 方法，如果处理流程复杂的话，整段代码将充满 then。语义化不明显，代码流程不能很好的表示执行流程。
 
 * Generator 方式
-
 ```js
 function* fetchUserByGenerator() {
     const user = yield fetchUser();
@@ -56,7 +55,6 @@ function* fetchUserByGenerator() {
 const g = fetchUserByGenerator();
 const result = g.next().value;
 result.then((v) => {
-    console.log(v);
 }, (error) => {
     console.log(error);
 })
