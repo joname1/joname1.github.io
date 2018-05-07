@@ -1,9 +1,10 @@
-title: node.js学习笔记(1)
+title: node.js学习笔记(1) - Express
 date: 2018-04-21 18:23:54 +0800
 update: 2018-04-21 19:00:00 +0800
 author: me
 tags:
     - Node
+    - Express
 preview: 引入模块等不作记录。从 Buffer 章节开始记录笔记。
 
 ---

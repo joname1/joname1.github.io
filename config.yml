@@ -1,10 +1,10 @@
 site:
-    title: "江矿先生的博客."
+    title: "江矿先森的博客."
     subtitle: "Just be nice, always think twice!"
     limit: 6
     theme: ikuyo
     lang: en
-    url: "https://joname1.github.io"
+    url: "https://jk.js.org"
     # comment: username
     # logo: "-/images/avatar.png"
     # link: "{category}/{year}/{month}/{day}/{title}.html"
@@ -12,7 +12,7 @@ site:
 
 authors:
     me:
-        name: "江矿先生、"
+        name: "江矿先森."
         intro: "前(台)端(菜), 喜欢钻研新技术."
         avatar: "https://joe-10005639.cossh.myqcloud.com/jkbb.jpg"
 
