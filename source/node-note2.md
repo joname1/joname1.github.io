@@ -1,15 +1,15 @@
-title: node.js学习笔记(2) - Koa
+title: node.js学习笔记(2) - Koa2中间件
 date: 2018-05-06 10:23:54 +0800
 update: 2018-05-06 11:00:00 +0800
 author: me
 tags:
     - Node
     - Koa2
-preview: Koa -- 基于 Node.js 平台的下一代 web 开发框架。环境搭建什么的就不啰嗦了，直接从middleware开始记录笔记。
+preview: Koa2 -- 基于 Node.js 平台的下一代 web 开发框架。环境搭建什么的就不啰嗦了，直接从middleware开始记录笔记。
 
 ---
 # middleware(中间件)
-> 正是因为中间件的扩展性才使得 `Koa` 的代码简单灵活。
+> 正是因为中间件的扩展性才使得 `Koa2`的代码简单灵活。
 
 
 在 `app.js` 中，有这样一段代码：
@@ -22,7 +22,7 @@ app.use(async (ctx, next)=>{
 })
 ```
 
-它的作用是：每收到一个 `http` 请求，`Koa` 都会调用通过 `app.use()` 注册的 `async` 函数，同时为该函数传入 `ctx` 和 `next` 两个参数。而这个 `async` 函数就是我们所说的中间件。
+它的作用是：每收到一个 `http` 请求，`Koa2`都会调用通过 `app.use()` 注册的 `async` 函数，同时为该函数传入 `ctx` 和 `next` 两个参数。而这个 `async` 函数就是我们所说的中间件。
 
 下面我们简单介绍一下传入中间件的两个参数。
 
@@ -30,10 +30,10 @@ app.use(async (ctx, next)=>{
 
 ## ctx
 
-`ctx` 作为上下文使用，包含了基本的 `ctx.request` 和 `ctx.response`。另外，还对 `Koa` 内部对一些常用的属性或者方法做了代理操作，使得我们可以直接通过 `ctx` 获取。比如，`ctx.request.url` 可以写成 `ctx.url`。
+`ctx` 作为上下文使用，包含了基本的 `ctx.request` 和 `ctx.response`。另外，还对 `Koa2`内部对一些常用的属性或者方法做了代理操作，使得我们可以直接通过 `ctx` 获取。比如，`ctx.request.url` 可以写成 `ctx.url`。
 
 
-除此之外，`Koa` 还约定了一个中间件的存储空间 `ctx.state`。通过 `state` 可以存储一些数据，比如用户数据，版本信息等。如果你使用 `webpack` 打包的话，可以使用中间件，将加载资源的方法作为 `ctx.state` 的属性传入到 `view` 层，方便获取资源路径。
+除此之外，`Koa2`还约定了一个中间件的存储空间 `ctx.state`。通过 `state` 可以存储一些数据，比如用户数据，版本信息等。如果你使用 `webpack` 打包的话，可以使用中间件，将加载资源的方法作为 `ctx.state` 的属性传入到 `view` 层，方便获取资源路径。
 
 
 ## next
@@ -47,8 +47,7 @@ app.use(async (ctx, next)=>{
 我们重写 `app.js` 来解释下中间件的流转过程：
 
 ```js
-// 按照官方示例
-const Koa = require('koa')
+import Koa from 'koa'
 const app = new Koa()
 
 // 记录执行的时间
@@ -115,7 +114,7 @@ server is running at http://localhost:3000
 修改 `app.js` 如下，我们去掉了第三个中间件里面的 `await`：
 
 ```js
-const Koa = require('koa')
+import Koa from 'koa'
 const app = new Koa()
 
 // 记录执行的时间

@@ -1,0 +1,315 @@
+title: node.js学习笔记(3) - Koa2路由
+date: 2018-05-08 10:23:54 +0800
+update: 2018-05-08 11:00:00 +0800
+author: me
+tags:
+    - Node
+    - Koa2
+preview: Koa2 -- 基于 Node.js 平台的下一代 web 开发框架。路由 koa-router 。
+
+---
+路由是用于描述 `URL` 与处理函数之间的对应关系的。比如用户访问 `http://localhost:3000/`，那么浏览器就会显示 `index` 页面的内容，如果用户访问的是 `http://localhost:3000/home`，那么浏览器应该显示 `home` 页面的内容。
+
+
+要实现上述功能，如果不借助 `koa-router` 或者其他路由中间件，我们自己去处理路由，那么写法可能如下所示：
+
+```js
+import Koa from 'koa';
+const app = new Koa();
+
+app.use(async (ctx, next) => {
+    if (ctx.request.path === '/') {
+        ctx.response.body = '<h1>index page</h1>';
+    } else {
+        await next();
+    }
+});
+app.use(async (ctx, next) => {
+    if (ctx.request.path === '/home') {
+        ctx.response.body = '<h1>home page</h1>';
+    } else {
+        await next();
+    }
+});
+app.use(async (ctx, next) => {
+    if (ctx.request.path === '/404') {
+        ctx.response.body = '<h1>404 Not Found</h1>';
+    } else {
+        await next();
+    }
+});
+
+app.listen(3000, ()=>{
+  console.log('server is running at http://localhost:3000')
+})
+```
+
+
+把上述代码复制并覆盖到 `app.js` 中，然后执行以下命令启动 `node` 程序:
+
+```js
+node app.js
+```
+
+
+启动之后在浏览器中分别访问 `http://localhost:3000/`、`http://localhost:3000/home`、`http://localhost:3000/404` 就能看到相应的页面了。
+
+
+上述 `app.js` 的代码中，由 `async` 标记的函数称为『异步函数』，在异步函数中，可以用 `await` 调用另一个异步函数，`async` 和 `await` 这两个关键字将在 ES7 中引入。参数 `ctx` 是由 `koa2` 传入的，我们可以通过它来访问 `request` 和 `response`，`next` 是 `koa2` 传入的将要处理的下一个异步函数。
+
+**注意：** 由于 `node` 在 `v7.6.0` 中才支持 `async` 和 `await`，所以在运行 `app.js` 之前请确保 node 版本正确，或者使用一些第三方的 `async` 库来支持。
+
+
+这样的写法能够处理简单的应用，但是，一旦要处理的 `URL` 多起来的话就会显得特别笨重。所以我们可以借助 `koa-router` 来更简单的实现这一功能。
+下面来介绍一下如何正确的使用 `koa-router`。
+
+
+## 安装 koa-router
+
+通过 `npm` 命令直接安装：
+
+```
+npm i koa-router -S
+```
+
+`-S` 或者 `--save` 是为了安装完成之后能够在 `package.json` 的 `dependencies` 中保留 `koa-router`，以便于下次只需要执行 `npm i` 或者 `npm install` 就能够安装所有需要的依赖包。
+
+
+## 基本使用方法
+
+如果要在 `app.js` 中使用 `koa-router` 来处理 `URL`，可以通过以下代码来实现：
+
+```js
+import Koa from 'koa'
+const router = require('koa-router')() // 注意: 返回的是函数
+const app = new Koa()
+
+ // 添加路由
+ router.get('/', async (ctx, next) => {
+    ctx.response.body = `<h1>index page</h1>`
+})
+
+router.get('/home', async (ctx, next) => {
+    ctx.response.body = '<h1>HOME page</h1>'
+})
+
+router.get('/404', async (ctx, next) => {
+    ctx.response.body = '<h1>404 Not Found</h1>'
+})
+
+ // 调用路由中间件
+ app.use(router.routes())
+
+app.listen(3000, ()=>{
+  console.log('server is running at http://localhost:3000')
+})
+```
+
+
+运行 `app.js`:
+
+```js
+node app.js
+```
+
+
+执行完上面的操作之后，我们在浏览器中访问 `http://localhost:3000/`：
+
+![](https://joe-10005639.cossh.myqcloud.com/blog/index.png)
+
+
+在浏览器中访问 `http://localhost:3000/home`：
+
+![](https://joe-10005639.cossh.myqcloud.com/blog/home.png)
+
+
+在浏览器中访问 `http://localhost:3000/404`：
+
+![](https://joe-10005639.cossh.myqcloud.com/blog/404.png)
+
+
+通过上面的例子，我们可以看到和之前不使用 `koa-router` 的显示效果是一样的。不过使用了 `koa-router` 之后，代码稍微简化了一些，而且少了 `if` 判断，还有省略了 `await next()`（因为没有其他中间件需要执行，所以这里就先省略了）。
+
+
+当然，除了 `GET` 方法，`koa-router` 也支持处理其他的请求方法，比如：
+
+```js
+router
+  .get('/', async (ctx, next) => {
+    ctx.body = 'Hello World!';
+  })
+  .post('/users', async (ctx, next) => {
+    // ...
+  })
+  .put('/users/:id', async (ctx, next) => {
+    // ...
+  })
+  .del('/users/:id', async (ctx, next) => {
+    // ...
+  })
+  .all('/users/:id', async (ctx, next) => {
+    // ...
+  });
+```
+
+
+在任意http请求中，遵从 `RESTful` 规范，可以把 `GET`、`POST`、`PUT`、`DELETE` 类型的请求分别对应 `查`，`增`，`改`，`删`，这里 `router` 的方法也一一对应。通常我们使用 `GET` 来查询和获取数据，使用 `POST` 来更新资源。`PUT` 和 `DELETE` 使用比较少，但是如果你们团队采用 `RESTful架构`，就比较推荐使用了。我们注意到，上述代码中还有一个`all` 方法。`all` 方法通常用于匹配一组路由或者全部路由从而做一些统一设置和处理，也可以处理不确定客户端发送的请求方法类型的情况。
+
+
+举个例子，假设客户端使用 `jQuery` 来开发，有如下几个 `ajax` 请求：
+
+```js
+// 优先匹配和 router.get 方法中 url 规则一样的请求，如果匹配不到的话就匹配和 router.all 方法中 url 规则一样的请求。
+$.ajax({
+  method: "GET",
+  url: "www.xxx.com",
+  data: { name: "John" }
+}).done(function( msg ) {
+  // do something
+});
+
+// 优先匹配和 router.post 方法中 url 规则一样的请求，如果匹配不到的话就匹配和 router.all 方法中 url 规则一样的请求。
+$.ajax({
+  method: "POST",
+  url: "www.xxx.com",
+  data: { name: "John" }
+}).done(function( msg ) {
+  // do something
+});
+```
+
+
+上面例子中两个方法最主要的区别就是 `ajax` 中 `method` 的值，`method` 的值和 `router` 的方法一一对应。
+<br/>
+再举一个使用`all`方法的例子，假设我们要为所有请求设置跨域头，可以通过如下代码实现：
+
+```js
+router.all('/*', async (ctx, next) => {
+  // *代表允许来自所有域名请求
+  ctx.set("Access-Control-Allow-Origin", "*");
+  // 其他一些设置...
+  await next();
+});
+```
+这段代码表示对于所有请求，允许来自所有域名。这是一种很危险的做法，在真实项目中一定不能这么做。
+
+
+`*` 号是一种通配符，表示匹配任意 `URL`。这里的返回是一种简化的写法，真实开发中，我们肯定要去读取 `HTML` 文件或者其他模板文件的内容，再响应请求。关于这部分的内容后面的章节中会详细介绍。
+
+另外，如果一条路由在`all`方法和其他方法中同时命中，只有执行了`await next()`，那么这条路由会在`all`方法和其他方法中都会起作用，举个例子，看如下代码：
+
+```js
+import Koa from 'koa'
+const router = require('koa-router')()
+const app = new Koa()
+
+// 添加路由
+router.get('/', async (ctx, next) => {
+  ctx.response.body = `<h1>index page</h1>`
+  await next();
+})
+router.all('/', async (ctx, next) => {
+  console.log('match "all" method')
+  await next();
+});
+// 调用路由中间件
+app.use(router.routes())
+
+app.listen(3000, ()=>{
+  console.log('server is running at http://localhost:3000')
+})
+```
+执行这段代码，我们不仅能够访问`http://localhost:3000`看到`“index page”`，也能够在控制台中看到`“'match "all" method'”`，说明路由"/"不仅执行了`get`方法的回调，也执行了`all`方法的回调函数。但是，如果我们把`get`方法中的`await next()`去掉，那么就不会命中`all`方法的路由规则，也不会执行`all`方法的回调函数了。因为说到底，对路由的处理也是一种中间件，如果不执行`await next()`把控制权交给下一个中间件，那么后面的路由就不会再执行了。
+## 其他特性
+
+
+### 命名路由
+
+在开发过程中我们能够很方便的生成路由 `URL`：
+
+```js
+router.get('user', '/users/:id', function (ctx, next) {
+  // ...
+});
+
+router.url('user', 3);
+// => 生成路由 "/users/3"
+
+router.url('user', { id: 3 });
+// => 生成路由 "/users/3"
+
+router.use(function (ctx, next) {
+  // 重定向到路由名称为 “sign-in” 的页面
+  ctx.redirect(ctx.router.url('sign-in'));
+})
+```
+
+`router.url` 方法方便我们在代码中根据路由名称和参数(可选)去生成具体的 `URL`，而不用采用字符串拼接的方式去生成 `URL` 了。
+
+
+### 多中间件
+
+`koa-router` 也支持单个路由多中间件的处理。通过这个特性，我们能够为一个路由添加特殊的中间件处理。也可以把一个路由要做的事情拆分成多个步骤去实现，当路由处理函数中有异步操作时，这种写法的可读性和可维护性更高。比如下面的示例代码所示：
+
+```js
+router.get(
+  '/users/:id',
+  function (ctx, next) {
+    return User.findOne(ctx.params.id).then(function(user) {
+      // 首先读取用户的信息，异步操作
+      ctx.user = user;
+      next();
+    });
+  },
+  function (ctx) {
+    console.log(ctx.user);
+    // 在这个中间件中再对用户信息做一些处理
+    // => { id: 17, name: "Alex" }
+  }
+);
+```
+
+
+### 嵌套路由
+
+我们可以在应用中定义多个路由，然后把这些路由组合起来用，这样便于我们管理多个路由，也简化了路由的写法。
+
+```js
+let forums = new Router();
+let posts = new Router();
+
+posts.get('/', function (ctx, next) {...});
+posts.get('/:pid', function (ctx, next) {...});
+forums.use('/forums/:fid/posts', posts.routes(), posts.allowedMethods());
+
+// 可以匹配到的路由为 "/forums/123/posts" 或者 "/forums/123/posts/123"
+app.use(forums.routes());
+```
+
+
+### 路由前缀
+
+通过 `prefix` 这个参数，我们可以为一组路由添加统一的前缀，和嵌套路由类似，也方便我们管理路由和简化路由的写法。不同的是，前缀是一个固定的字符串，不能添加动态参数。
+
+```js
+let router = new Router({
+  prefix: '/users'
+});
+
+router.get('/', ...); // 匹配路由 "/users"
+router.get('/:id', ...); // 匹配路由 "/users/:id"
+```
+
+
+### URL 参数
+
+`koa-router` 也支持参数，参数会被添加到 `ctx.params` 中。参数可以是一个正则表达式，这个功能的实现是通过 `path-to-regexp` 来实现的。原理是把 `URL` 字符串转化成正则对象，然后再进行正则匹配，之前的例子中的 `*` 通配符就是一种正则表达式。
+
+```js
+router.get('/:category/:title', function (ctx, next) {
+  console.log(ctx.params);
+  // => { category: 'programming', title: 'how-to-node' }
+});
+```
+
+通过上面的例子可以看出，我们可以通过 `ctx.params` 去访问路由中的参数，使得我们能够对参数做一些处理后再执行后续的代码。

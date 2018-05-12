@@ -4,6 +4,7 @@ copy:
     - favicon.png
     - robots.txt
     - CNAME
+    - README.md
 # I18n Support
 lang:
     bg1:
