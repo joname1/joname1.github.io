@@ -13,7 +13,7 @@ script:
   - git config user.name "joname1"
   - git config user.email "274158741@qq.com"
   - git add .
-  - git commit -m "`curl -s https://whatthecommit.com/index.txt`"
+  - git commit -m "`curl -s http://whatthecommit.com/index.txt`"
   - git push --force --quiet "https://${GH_TOKEN}@${GH_REF}" master:master
 
 # after-script:

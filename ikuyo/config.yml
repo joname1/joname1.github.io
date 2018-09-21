@@ -8,15 +8,15 @@ copy:
 # I18n Support
 lang:
     bg1:
-        en: "https://joe-10005639.cossh.myqcloud.com/bg.jpg"
-        zh: "https://joe-10005639.cossh.myqcloud.com/bg.jpg"
-        ru: "https://joe-10005639.cossh.myqcloud.com/bg.jpg"
-        ja: "https://joe-10005639.cossh.myqcloud.com/bg.jpg"
+        en: "http://pfem6f3z7.bkt.clouddn.com/bg.jpg"
+        zh: "http://pfem6f3z7.bkt.clouddn.com/bg.jpg"
+        ru: "http://pfem6f3z7.bkt.clouddn.com/bg.jpg"
+        ja: "http://pfem6f3z7.bkt.clouddn.com/bg.jpg"
     bg2:
-        en: "https://joe-10005639.cossh.myqcloud.com/bg.jpg"
-        zh: "https://joe-10005639.cossh.myqcloud.com/bg.jpg"
-        ru: "https://joe-10005639.cossh.myqcloud.com/bg.jpg"
-        ja: "https://joe-10005639.cossh.myqcloud.com/bg.jpg"
+        en: "http://pfem6f3z7.bkt.clouddn.com/bg.jpg"
+        zh: "http://pfem6f3z7.bkt.clouddn.com/bg.jpg"
+        ru: "http://pfem6f3z7.bkt.clouddn.com/bg.jpg"
+        ja: "http://pfem6f3z7.bkt.clouddn.com/bg.jpg"
     archive:
         en: Archive
         zh: 归档
