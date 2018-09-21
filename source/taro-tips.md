@@ -7,7 +7,7 @@ tags:
 preview: 电商项目中商品详情页，加入购物车或者下单时可以选择商品属性的弹出框，通过设置view的平移动画，达到从底部弹出的样式。
 
 ---
-##wxml
+## WXML
 ```html
     <!-- 屏幕背景变暗的背景 -->
     <view class="dialog_screen" bindtap="hideModal" wx:if="{{showModalStatus}}"></view>
@@ -17,7 +17,7 @@ preview: 电商项目中商品详情页，加入购物车或者下单时可以�
     </view>
 ```
 
-## js
+## JS
 ```js
 //显示对话框
   showModal:() => {
@@ -61,7 +61,7 @@ preview: 电商项目中商品详情页，加入购物车或者下单时可以�
   }
 ```
 
-#css
+## CSS
 ```css
 /* 使屏幕变暗 */
 .dialog_screen {
