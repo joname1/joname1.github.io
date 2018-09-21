@@ -3,14 +3,14 @@ date: 2018-06-21 11:23:54 +0800
 update: 2018-06-21 14:00:00 +0800
 author: me
 tags:
-    - ES8
+    - Weapp
 preview: 电商项目中商品详情页，加入购物车或者下单时可以选择商品属性的弹出框，通过设置view的平移动画，达到从底部弹出的样式。
 
 ---
 ##wxml
 ```html
     <!-- 屏幕背景变暗的背景 -->
-    <view class="commodity_screen" bindtap="hideModal" wx:if="{{showModalStatus}}"></view>
+    <view class="dialog_screen" bindtap="hideModal" wx:if="{{showModalStatus}}"></view>
     <!--弹出框  -->
     <view animation="{{animationData}}" class="dialog_box" wx:if="{{showModalStatus}}">
       xxxxxxxxxxxx //这个写弹出的内容
@@ -21,7 +21,7 @@ preview: 电商项目中商品详情页，加入购物车或者下单时可以�
 ```js
 //显示对话框
   showModal:() => {
-    var animation = wx.createAnimation({
+    let animation = wx.createAnimation({
       duration: 150,
       timingFunction: "linear",
       delay: 0
@@ -41,7 +41,7 @@ preview: 电商项目中商品详情页，加入购物车或者下单时可以�
   },
   //隐藏对话框
   hideModal:() => {
-    var animation = wx.createAnimation({
+    let animation = wx.createAnimation({
       duration: 150,
       timingFunction: "linear",
       delay: 0
@@ -64,7 +64,7 @@ preview: 电商项目中商品详情页，加入购物车或者下单时可以�
 #css
 ```css
 /* 使屏幕变暗 */
-.commodity_screen {
+.dialog_screen {
   width: 100%;
   height: 100%;
   position: fixed;

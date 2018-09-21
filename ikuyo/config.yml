@@ -8,15 +8,15 @@ copy:
 # I18n Support
 lang:
     bg1:
-        en: "http://pfem6f3z7.bkt.clouddn.com/bg.jpg"
-        zh: "http://pfem6f3z7.bkt.clouddn.com/bg.jpg"
-        ru: "http://pfem6f3z7.bkt.clouddn.com/bg.jpg"
-        ja: "http://pfem6f3z7.bkt.clouddn.com/bg.jpg"
+        en: "./bundle/bg.jpg"
+        zh: "./bundle/bg.jpg"
+        ru: "./bundle/bg.jpg"
+        ja: "./bundle/bg.jpg"
     bg2:
-        en: "http://pfem6f3z7.bkt.clouddn.com/bg.jpg"
-        zh: "http://pfem6f3z7.bkt.clouddn.com/bg.jpg"
-        ru: "http://pfem6f3z7.bkt.clouddn.com/bg.jpg"
-        ja: "http://pfem6f3z7.bkt.clouddn.com/bg.jpg"
+        en: "./bundle/bg.jpg"
+        zh: "./bundle/bg.jpg"
+        ru: "./bundle/bg.jpg"
+        ja: "./bundle/bg.jpg"
     archive:
         en: Archive
         zh: 归档

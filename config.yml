@@ -14,7 +14,7 @@ authors:
     me:
         name: "江矿先森."
         intro: "前(台)端(菜), 喜欢钻研新技术."
-        avatar: "http://pfem6f3z7.bkt.clouddn.com/jkbbs.jpg"
+        avatar: "./bundle/jkbb.jpg"
 
 build:
     output: "docs"

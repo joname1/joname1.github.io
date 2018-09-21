@@ -9,8 +9,7 @@
     <title>{{.Title}}</title>
     <link href="{{.Site.Root}}/bundle/iconfont.css" rel="stylesheet">
     <link href="{{.Site.Root}}/bundle/reward.css" rel="stylesheet">
-    <script src="http://pfem6f3z7.bkt.clouddn.com/av.min.js"></script>
-    <script src='http://pfem6f3z7.bkt.clouddn.com/valine.min.js'></script>
+    <script src='{{.Site.Root}}/bundle/valine.min.js'></script>
 </head>
 
 <body>
@@ -51,8 +50,8 @@
                 <div class="reward">
                   <div class="reward-button">赏
                     <span class="reward-code">
-                        <span class="alipay-code"> <img class="alipay-img wdp-appear" src="http://pfem6f3z7.bkt.clouddn.com/alipay.jpg"><b>支付宝扫码</b> </span>
-                        <span class="wechat-code"> <img class="wechat-img wdp-appear" src="http://pfem6f3z7.bkt.clouddn.com/wxpay.jpg"><b>微信扫码</b> </span>
+                        <span class="alipay-code"> <img class="alipay-img wdp-appear" src="{{.Site.Root}}/bundle/alipay.jpg"><b>支付宝扫码</b> </span>
+                        <span class="wechat-code"> <img class="wechat-img wdp-appear" src="{{.Site.Root}}/bundle/wxpay.jpg"><b>微信扫码</b> </span>
                   </div>
                   <p class="reward-notice">如果文章对你有帮助, 点击上方按钮请我喝杯咖啡吧 :p</p>
                 </div>
@@ -78,7 +77,7 @@
         </article>
     </article>
     {{template "footer" .}}
-    <script src="http://pfem6f3z7.bkt.clouddn.com/index.min.js"></script>
+    <script src="{{.Site.Root}}/bundle/index.min.js"></script>
     <script src="https://cdn.bootcss.com/prism/1.13.0/prism.min.js"></script>
     <script src="https://tajs.qq.com/stats?sId=59279948" charset="UTF-8"></script>
     <script>
@@ -86,7 +85,7 @@
         el: '#comment',
         appId: 'jnCxgrLfxzf5aeWnhldmpset-gzGzoHsz',
         appKey: 'gEclatgmn0rmGbgoFi1OuA00',
-        placeholder: 'ヾﾉ≧∀≦)o来啊, 快活啊!',
+        placeholder: 'ヾﾉ≧∀≦)o来啊, 快活啊, 反正有大把时光!',
         path: window.location.pathname,
         avatar: 'retro',
         pageSize: 10,
