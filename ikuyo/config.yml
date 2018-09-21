@@ -8,15 +8,15 @@ copy:
 # I18n Support
 lang:
     bg1:
-        en: "./bundle/bg.jpg"
-        zh: "./bundle/bg.jpg"
-        ru: "./bundle/bg.jpg"
-        ja: "./bundle/bg.jpg"
+        en: "https://wx2.sinaimg.cn/large/005zWjpngy1fvhl1x5s94j31e00oqgnc.jpg"
+        zh: "https://wx2.sinaimg.cn/large/005zWjpngy1fvhl1x5s94j31e00oqgnc.jpg"
+        ru: "https://wx2.sinaimg.cn/large/005zWjpngy1fvhl1x5s94j31e00oqgnc.jpg"
+        ja: "https://wx2.sinaimg.cn/large/005zWjpngy1fvhl1x5s94j31e00oqgnc.jpg"
     bg2:
-        en: "./bundle/bg.jpg"
-        zh: "./bundle/bg.jpg"
-        ru: "./bundle/bg.jpg"
-        ja: "./bundle/bg.jpg"
+        en: "https://wx2.sinaimg.cn/large/005zWjpngy1fvhl1x5s94j31e00oqgnc.jpg"
+        zh: "https://wx2.sinaimg.cn/large/005zWjpngy1fvhl1x5s94j31e00oqgnc.jpg"
+        ru: "https://wx2.sinaimg.cn/large/005zWjpngy1fvhl1x5s94j31e00oqgnc.jpg"
+        ja: "https://wx2.sinaimg.cn/large/005zWjpngy1fvhl1x5s94j31e00oqgnc.jpg"
     archive:
         en: Archive
         zh: 归档
