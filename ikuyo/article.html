@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    {{template "head" .}}
+    <meta name="keywords" content="{{range .Tags}}{{.}},{{end}}">
+    <meta name="description" content="{{.Title}}">
+    <meta name="author" content="{{.Author.Name}}">
+    <title>{{.Title}}</title>
+    <link href="{{.Site.Root}}/bundle/iconfont.css" rel="stylesheet">
+    <link href="{{.Site.Root}}/bundle/reward.css" rel="stylesheet">
+    <script src="http://pfem6f3z7.bkt.clouddn.com/av.min.js"></script>
+    <script src='http://pfem6f3z7.bkt.clouddn.com/valine.min.js'></script>
+</head>
+
+<body>
+    <article class="container">
+        {{template "headerasset" .}}
+        <article class="main article">
+            <h1 class="title">{{.Title}}</h1>
+            <section class="info">
+                {{if .Author.Avatar}}<span class="avatar" style="background-image: url({{.Author.Avatar}});"></span>{{end}} {{if .Author.Name}}<a class="name" href="javascript:;">{{.Author.Name}}</a>{{end}} {{if .Update}}
+                <span class="date" data-time="{{.Update}}"><span class="from"></span></span>
+                {{else}}
+                <span class="date" data-time="{{.Date}}"><span class="from"></span></span>
+                {{end}}
+                <span class="tags">{{range .Tags}}<a class="tages" href="{{$.Site.Root}}/tag/{{.}}/index.html">{{.}}</a>{{end}}</span>
+            </section>
+            <article class="content">{{.Content}}</article>
+            <section class="author">
+                {{if .Author.Avatar}}
+                <div class="avatar" style="background-image: url({{.Author.Avatar}});"></div>{{end}}
+                <a class="name" href="javascript:;">{{.Author.Name}}</a>
+                <div class="intro">{{.Author.Intro}}</div>
+            </section>
+            <section class="social">
+                    <a href="https://github.com/joname1" target="_blank">
+                        <i class="iconfont i-github"></i>
+                    </a>
+                    <a href="javascript:alert('你电脑中了不知名的病毒, 并抛出了警告 atob(“d3hJZDogam9uYW1lLmxpYW5ndGFu”)')" target="_blank">
+                        <i class="iconfont i-wechat"></i>
+                    </a>
+                    <a href="https://www.zhihu.com/people/joname-liangtan" target="_blank">
+                        <i class="iconfont i-zhihu"></i>
+                    </a>
+                    <a href="javascript:alert('对方不想跟你讲话, 并向你扔来一段乱码 atob(“am9uYW1lLmxpYW5ndGFuQGdtYWlsLmNvbQ”)')" target="_blank">
+                        <i class="iconfont i-email"></i>
+                    </a>
+                </section>
+
+                <div class="reward">
+                  <div class="reward-button">赏
+                    <span class="reward-code">
+                        <span class="alipay-code"> <img class="alipay-img wdp-appear" src="http://pfem6f3z7.bkt.clouddn.com/alipay.jpg"><b>支付宝扫码</b> </span>
+                        <span class="wechat-code"> <img class="wechat-img wdp-appear" src="http://pfem6f3z7.bkt.clouddn.com/wxpay.jpg"><b>微信扫码</b> </span>
+                  </div>
+                  <p class="reward-notice">如果文章对你有帮助, 点击上方按钮请我喝杯咖啡吧 :p</p>
+                </div>
+
+                <div id="comment"></div>
+            <!--<section class="recommend">
+                    {{if .Prev}}
+                    <section class="nav prev{{if .Next}} more{{end}}">
+                        <div class="head">{{i18n "prev_reading"}}</div>
+                        <a class="link" href="{{.Site.Root}}/{{.Prev.Link}}">{{.Prev.Title}}</a>
+                        <a class="link" href="{{.Site.Root}}/{{.Prev.Link}}">{{i18n "prev_reading"}}</a>
+                    </section>
+                    {{end}}
+                    {{if .Next}}
+                    <section class="nav next{{if .Prev}} more{{end}}">
+                        <div class="head">{{i18n "next_reading"}}</div>
+                        <a class="link" href="{{.Site.Root}}/{{.Next.Link}}">{{.Next.Title}}</a>
+                         <a class="link" href="{{.Site.Root}}/{{.Next.Link}}">{{i18n "next_reading"}}</a>
+                    </section>
+                    {{end}}
+                </section>
+                {{template "comment" .}}-->
+        </article>
+    </article>
+    {{template "footer" .}}
+    <script src="http://pfem6f3z7.bkt.clouddn.com/index.min.js"></script>
+    <script src="https://cdn.bootcss.com/prism/1.13.0/prism.min.js"></script>
+    <script src="https://tajs.qq.com/stats?sId=59279948" charset="UTF-8"></script>
+    <script>
+    new Valine({
+        el: '#comment',
+        appId: 'jnCxgrLfxzf5aeWnhldmpset-gzGzoHsz',
+        appKey: 'gEclatgmn0rmGbgoFi1OuA00',
+        placeholder: 'ヾﾉ≧∀≦)o来啊, 快活啊!',
+        path: window.location.pathname,
+        avatar: 'retro',
+        pageSize: 10,
+        guest_info: ['nick','mail'],
+        lang: 'en'
+    })
+    </script>
+</body>
+
+</html>

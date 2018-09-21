@@ -1,0 +1,29 @@
+site:
+    title: "江矿先森的博客."
+    subtitle: "Just be nice, always think twice!"
+    limit: 6
+    theme: ikuyo
+    lang: en
+    url: "https://jk.js.org"
+    # comment: username
+    # logo: "-/images/avatar.png"
+    # link: "{category}/{year}/{month}/{day}/{title}.html"
+    # root: "/blog"
+
+authors:
+    me:
+        name: "江矿先森."
+        intro: "前(台)端(菜), 喜欢钻研新技术."
+        avatar: "http://pfem6f3z7.bkt.clouddn.com/jkbbs.jpg"
+
+build:
+    output: "docs"
+    port: 8000
+    # Copied files to public folder when build
+    copy:
+        - "source/images"
+    # Excuted command when use 'ink publish'
+    publish: |
+        git add .
+        git commit -m "update"
+        git push origin bl0g
