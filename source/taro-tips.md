@@ -1,6 +1,6 @@
 title: taro奥特曼变身前指北
-date: 2018-08-16 11:23:54 +0800
-update: 2018-08-16 14:00:00 +0800
+date: 2018-09-11 11:23:54 +0800
+update: 2018-09-11 14:00:00 +0800
 author: me
 tags:
     - taro
@@ -16,13 +16,15 @@ preview: 成功安装 Taro 后，进行开发前，我们有必要了解一下 T
 
 ### Taro 与 React 的差异
 由于微信小程序的限制，React 中某些写法和特性在 Taro 中还未能实现，后续将会逐渐完善。
-截止到发稿前，Taro 的最新版本为1.0，因此以下讲解默认版本为1.0
 
 ``暂不支持在 render() 之外的方法定义 JSX``
+
 由于微信小程序的 template 不能动态传值和传入函数，Taro 暂时也没办法支持在类方法中定义 JSX。
+
 - 规则详情
 以下代码会被 ESLint 提示警告，同时在 Taro（小程序端）也不会有效：
-```jsx 
+
+```js
 class App extends Component {
   _render() {
     return <View />
@@ -41,9 +43,11 @@ class App extends Component {
   }
 }
 ```
+
 - 解决方案
 在 render 方法中定义。
-```jsx
+
+```js
 class App extends Component {
 
   render () {
@@ -63,7 +67,8 @@ class App extends Component {
 ### 不能在包含 JSX 元素的 map 循环中使用 if 表达式
 - 规则详情
 以下代码会被 ESLint 提示警告，同时在 Taro（小程序端）也不会有效：
-```jsx
+
+```js
 products.map((number) => {
   let element = null
   const isOdd = number % 2
@@ -73,8 +78,10 @@ products.map((number) => {
   return element
 })
 ```
+
 以下代码不会被警告，在 Taro 任意端中能够运行：
-```jsx
+
+```js
 products.map((number) => {
   let isOdd = false
   if (number % 2) {
@@ -83,9 +90,11 @@ products.map((number) => {
   return isOdd && <Custom />
 })
 ```
-``解决方案`
+
+- 解决方案
 尽量在 map 循环中使用条件表达式或逻辑表达式。
-```jsx
+
+```js
 products.map((number) => {
   const isOdd = number % 2
   return isOdd ? <Custom /> : null
@@ -102,7 +111,8 @@ Taro 在小程序端实际上把 JSX 转换成了字符串模板，而一个原�
 
 - 规则详情
 以下代码会被 ESLint 提示警告，同时在 Taro（小程序端）也不会有效：
-```jsx
+
+```js
 test.push(<View />)
 
 numbers.forEach(numbers => {
@@ -119,16 +129,20 @@ components.find(component => {
 
 components.some(component => component.constructor.__proto__ === <View />.constructor)
 ```
+
 以下代码不会被警告，在 Taro 任意端中能够运行：
-```jsx
+
+```js
 numbers.filter(Boolean).map((number) => {
   const element = <View />
   return <View />
 })
 ```
+
 - 解决方案
 先处理好需要遍历的数组，然后再用处理好的数组调用 map 方法。
-```jsx
+
+```js
 numbers.filter(isOdd).map((number) => <View />)
 
 for (let index = 0; index < array.length; index++) {
@@ -143,15 +157,18 @@ const element = array.map(item => {
 ### 不能在 JSX 参数中使用匿名函数
 - 规则详情
 以下代码会被 ESLint 提示警告，同时在 Taro（小程序端）也不会有效：
-```jsx
+
+```js
 <View onClick={() => this.handleClick()} />
 <View onClick={(e) => this.handleClick(e)} />
 <View onClick={() => ({})} />
 <View onClick={function () {}} />
 <View onClick={function (e) {this.handleClick(e)}} />
 ```
+
 以下代码不会被警告，在 Taro 任意端中能够运行：
-```jsx
+
+```js
 <View onClick={this.hanldeClick} />
 <View onClick={this.props.hanldeClick} />
 <View onClick={this.hanldeClick.bind(this)} />
@@ -159,7 +176,8 @@ const element = array.map(item => {
 ```
 - 解决方案
 使用 bind 或 类参数绑定函数。
-```jsx
+
+```js
 <View onClick={this.props.hanldeClick.bind(this)} />
 ```
 
@@ -168,20 +186,24 @@ const element = array.map(item => {
 
 - 规则详情
 以下代码会被 ESLint 提示警告，同时在 Taro（小程序端）也不会有效：
-```jsx
+
+```js
 <View {...this.props} />
 <View {...props} />
 <Custom {...props} />
 ```
+
 以下代码不会被警告，在 Taro 任意端中能够运行：
-```jsx
+
+```js
 const { id, ...rest } = obj
 const [ head, ...tail]  = array
 const obj = { id, ...rest }
 ```
 - 解决方案
 开发者自行赋值
-```jsx
+
+```js
 render () {
     const { id, title } = obj
     return <View id={id} title={title} />
@@ -193,12 +215,14 @@ render () {
 
 - 规则详情
 以下代码会被 ESLint 提示警告，同时在 Taro（小程序端）也不会有效：
-```jsx
+
+```js
 <Custom child={<View />} />
 <Custom child={() => <View />} />
 <Custom child={function () { <View /> }} />
 <Custom child={ary.map(a => <View />)} />
 ```
+
 - 解决方案
 通过 props 传值在 JSX 模板中预先判定显示内容，或通过 props.children 来嵌套子组件
 
@@ -207,7 +231,8 @@ render () {
 
 - 规则详情
 以下代码会被 ESLint 提示警告，同时在 Taro（小程序端）也不会有效：
-```jsx
+
+```js
 function Test () {
   return <View />
 }
@@ -225,7 +250,8 @@ const Test = function () {
 }
 ```
 以下代码不会被警告，在 Taro 任意端中能够运行：
-```jsx
+
+```js
 class App extends Component {
   render () {
     return (
