@@ -2,7 +2,7 @@ language: go
 
 # S: Build Lifecycle
 install:
-  - go get github.com/InkProject/ink
+  - go get github.com/joname1/ink
   # - ink build $GOPATH/src/github.com/InkProject/ink/template
   - ink build
 # before_script
