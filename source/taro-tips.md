@@ -22,10 +22,9 @@ preview: 成功安装 Taro 后，进行开发前，我们有必要了解一下 T
 由于微信小程序的 template 不能动态传值和传入函数，Taro 暂时也没办法支持在类方法中定义 JSX。
 
 - 规则详情
-
 以下代码会被 ESLint 提示警告，同时在 Taro（小程序端）也不会有效：
 
-```js
+```jsx
 class App extends Component {
   _render() {
     return <View />
@@ -46,10 +45,9 @@ class App extends Component {
 ```
 
 - 解决方案
-
 在 render 方法中定义。
 
-```js
+```jsx
 class App extends Component {
 
   render () {
@@ -67,11 +65,11 @@ class App extends Component {
 ```
 
 ### 不能在包含 JSX 元素的 map 循环中使用 if 表达式
-- 规则详情
 
+- 规则详情
 以下代码会被 ESLint 提示警告，同时在 Taro（小程序端）也不会有效：
 
-```js
+```jsx
 products.map((number) => {
   let element = null
   const isOdd = number % 2
@@ -84,7 +82,7 @@ products.map((number) => {
 
 以下代码不会被警告，在 Taro 任意端中能够运行：
 
-```js
+```jsx
 products.map((number) => {
   let isOdd = false
   if (number % 2) {
@@ -95,10 +93,9 @@ products.map((number) => {
 ```
 
 - 解决方案
-
 尽量在 map 循环中使用条件表达式或逻辑表达式。
 
-```js
+```jsx
 products.map((number) => {
   const isOdd = number % 2
   return isOdd ? <Custom /> : null
@@ -114,10 +111,9 @@ products.map((number) => {
 Taro 在小程序端实际上把 JSX 转换成了字符串模板，而一个原生 JSX 表达式实际上是一个 React/Nerv 元素(react-element)的构造器，因此在原生 JSX 中你可以随意地一组 React 元素进行操作。但在 Taro 中你只能使用 map 方法，Taro 转换成小程序中 wx:for。
 
 - 规则详情
-
 以下代码会被 ESLint 提示警告，同时在 Taro（小程序端）也不会有效：
 
-```js
+```jsx
 test.push(<View />)
 
 numbers.forEach(numbers => {
@@ -137,7 +133,7 @@ components.some(component => component.constructor.__proto__ === <View />.constr
 
 以下代码不会被警告，在 Taro 任意端中能够运行：
 
-```js
+```jsx
 numbers.filter(Boolean).map((number) => {
   const element = <View />
   return <View />
@@ -145,10 +141,9 @@ numbers.filter(Boolean).map((number) => {
 ```
 
 - 解决方案
-
 先处理好需要遍历的数组，然后再用处理好的数组调用 map 方法。
 
-```js
+```jsx
 numbers.filter(isOdd).map((number) => <View />)
 
 for (let index = 0; index < array.length; index++) {
@@ -161,11 +156,11 @@ const element = array.map(item => {
 ```
 
 ### 不能在 JSX 参数中使用匿名函数
-- 规则详情
 
+- 规则详情
 以下代码会被 ESLint 提示警告，同时在 Taro（小程序端）也不会有效：
 
-```js
+```jsx
 <View onClick={() => this.handleClick()} />
 <View onClick={(e) => this.handleClick(e)} />
 <View onClick={() => ({})} />
@@ -175,17 +170,17 @@ const element = array.map(item => {
 
 以下代码不会被警告，在 Taro 任意端中能够运行：
 
-```js
+```jsx
 <View onClick={this.hanldeClick} />
 <View onClick={this.props.hanldeClick} />
 <View onClick={this.hanldeClick.bind(this)} />
 <View onClick={this.props.hanldeClick.bind(this)} />
 ```
-- 解决方案
 
+- 解决方案
 使用 bind 或 类参数绑定函数。
 
-```js
+```jsx
 <View onClick={this.props.hanldeClick.bind(this)} />
 ```
 
@@ -193,10 +188,9 @@ const element = array.map(item => {
 微信小程序组件要求每一个传入组件的参数都必须预先设定好，而对象展开符则是动态传入不固定数量的参数。所以 Taro 没有办法支持该功能。
 
 - 规则详情
-
 以下代码会被 ESLint 提示警告，同时在 Taro（小程序端）也不会有效：
 
-```js
+```jsx
 <View {...this.props} />
 <View {...props} />
 <Custom {...props} />
@@ -204,16 +198,16 @@ const element = array.map(item => {
 
 以下代码不会被警告，在 Taro 任意端中能够运行：
 
-```js
+```jsx
 const { id, ...rest } = obj
 const [ head, ...tail]  = array
 const obj = { id, ...rest }
 ```
-- 解决方案
 
+- 解决方案
 开发者自行赋值
 
-```js
+```jsx
 render () {
     const { id, title } = obj
     return <View id={id} title={title} />
@@ -224,10 +218,9 @@ render () {
 由于微信小程序内置的组件化的系统不能通过属性（props） 传函数，而 props 传递函数可以说 React 体系的根基之一，我们只能自己实现了一套组件化系统。而自制的组件化系统则不能使用内置组件化的 slot 功能。两权相害取其轻，我们暂时只能不支持该功能。
 
 - 规则详情
-
 以下代码会被 ESLint 提示警告，同时在 Taro（小程序端）也不会有效：
 
-```js
+```jsx
 <Custom child={<View />} />
 <Custom child={() => <View />} />
 <Custom child={function () { <View /> }} />
@@ -235,17 +228,15 @@ render () {
 ```
 
 - 解决方案
-
 通过 props 传值在 JSX 模板中预先判定显示内容，或通过 props.children 来嵌套子组件
 
 ### 不支持无状态组件（stateless component)
 由于微信的 template 能力有限，不支持动态传值和函数，Taro 暂时只支持一个文件只定义一个组件。为了避免开发者疑惑，暂时不支持定义 stateless component。
 
 - 规则详情
-
 以下代码会被 ESLint 提示警告，同时在 Taro（小程序端）也不会有效：
 
-```js
+```jsx
 function Test () {
   return <View />
 }
@@ -264,7 +255,7 @@ const Test = function () {
 ```
 以下代码不会被警告，在 Taro 任意端中能够运行：
 
-```js
+```jsx
 class App extends Component {
   render () {
     return (
@@ -274,5 +265,4 @@ class App extends Component {
 }
 ```
 - 解决方案
-
 使用 class 定义组件。
