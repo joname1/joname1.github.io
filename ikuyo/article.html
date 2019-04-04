@@ -34,31 +34,31 @@
                 <div class="intro">{{.Author.Intro}}</div>
             </section>
             <section class="social">
-                    <a href="https://github.com/joname1" target="_blank">
-                        <i class="iconfont i-github"></i>
-                    </a>
-                    <a href="javascript:alert('你电脑中了不知名的病毒, 并抛出了警告 atob(“d3hJZDogam9uYW1lLmxpYW5ndGFu”)')" target="_blank">
-                        <i class="iconfont i-wechat"></i>
-                    </a>
-                    <a href="https://www.zhihu.com/people/joname-liangtan" target="_blank">
-                        <i class="iconfont i-zhihu"></i>
-                    </a>
-                    <a href="javascript:alert('对方不想跟你讲话, 并向你扔来一段乱码 atob(“am9uYW1lLmxpYW5ndGFuQGdtYWlsLmNvbQ”)')" target="_blank">
-                        <i class="iconfont i-email"></i>
-                    </a>
-                </section>
+                <a href="https://github.com/joname1" target="_blank">
+                    <i class="iconfont i-github"></i>
+                </a>
+                <a href="javascript:alert('你电脑中了不知名的病毒, 并抛出了警告 atob(“d3hJZDogam9uYW1lLmxpYW5ndGFu”)')" target="_blank">
+                    <i class="iconfont i-wechat"></i>
+                </a>
+                <a href="https://www.zhihu.com/people/joname-liangtan" target="_blank">
+                    <i class="iconfont i-zhihu"></i>
+                </a>
+                <a href="javascript:alert('对方不想跟你讲话, 并向你扔来一段乱码 atob(“am9uYW1lLmxpYW5ndGFuQGdtYWlsLmNvbQ”)')" target="_blank">
+                    <i class="iconfont i-email"></i>
+                </a>
+            </section>
 
-                <div class="reward">
-                  <div class="reward-button">赏
+            <div class="reward">
+                <div class="reward-button">赏
                     <span class="reward-code">
                         <span class="alipay-code"> <img class="alipay-img wdp-appear" src="https://wx2.sinaimg.cn/large/005zWjpngy1fvhl48b7w6j30jb0jc74u.jpg"><b>支付宝扫码</b> </span>
-                        <span class="wechat-code"> <img class="wechat-img wdp-appear" src="https://wx2.sinaimg.cn/large/005zWjpngy1fvhl4933gbj30jc0jbdgk.jpg
+                    <span class="wechat-code"> <img class="wechat-img wdp-appear" src="https://wx2.sinaimg.cn/large/005zWjpngy1fvhl4933gbj30jc0jbdgk.jpg
                             "><b>微信扫码</b> </span>
-                  </div>
-                  <p class="reward-notice">如果文章对你有帮助, 点击上方按钮请我喝杯咖啡吧 :p</p>
                 </div>
+                <p class="reward-notice">如果文章对你有帮助, 点击上方按钮请我喝杯奶茶吧 :p</p>
+            </div>
 
-                <div id="comment"></div>
+            <div id="comment"></div>
             <!--<section class="recommend">
                     {{if .Prev}}
                     <section class="nav prev{{if .Next}} more{{end}}">
@@ -80,20 +80,20 @@
     </article>
     {{template "footer" .}}
     <script src="{{.Site.Root}}/bundle/index.min.js"></script>
-    <script src="https://cdn.bootcss.com/prism/1.13.0/prism.min.js"></script>
+    <script src="https://cdn.staticfile.org/prism/1.16.0/prism.min.js"></script>
     <script src="https://tajs.qq.com/stats?sId=59279948" charset="UTF-8"></script>
     <script>
-    new Valine({
-        el: '#comment',
-        appId: 'jnCxgrLfxzf5aeWnhldmpset-gzGzoHsz',
-        appKey: 'gEclatgmn0rmGbgoFi1OuA00',
-        placeholder: 'ヾﾉ≧∀≦)o来啊, 快活啊, 反正有大把时光!',
-        path: window.location.pathname,
-        avatar: 'retro',
-        pageSize: 10,
-        guest_info: ['nick','mail'],
-        lang: 'en'
-    })
+        new Valine({
+            el: '#comment',
+            appId: 'jnCxgrLfxzf5aeWnhldmpset-gzGzoHsz',
+            appKey: 'gEclatgmn0rmGbgoFi1OuA00',
+            placeholder: 'ヾﾉ≧∀≦)o来啊, 快活啊, 反正有大把时光!',
+            path: window.location.pathname,
+            avatar: 'retro',
+            pageSize: 10,
+            guest_info: ['nick', 'mail'],
+            lang: 'en'
+        });
     </script>
 </body>
 
