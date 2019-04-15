@@ -12,7 +12,7 @@
 <link href="https://cdn.staticfile.org/prism/1.16.0/themes/prism.min.css" rel="stylesheet">
 <link href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 <script>
-    var timeSinceLang = {
+    let timeSinceLang = {
         year: ' years ago',
         month: ' months ago',
         day: ' days ago',
@@ -20,5 +20,10 @@
         minute: ' minutes ago',
         second: ' seconds ago'
     };
-    var root = '';
+    let root = '';
+
+    let date = document.getElementById('date');
+    let times = date.getAttribute('data-time');
+    let normalize = new Date(times * 1000);
+    timeNormalize.innerHTML = normalize.toLocaleString();
 </script>
