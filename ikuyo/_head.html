@@ -23,7 +23,7 @@
     let root = '';
 
     let date = document.getElementById('date');
-    let times = date.getAttribute('data-time');
+    let times = date.dataset.times;
     let normalize = new Date(times * 1000);
     timeNormalize.innerHTML = normalize.toLocaleString();
 </script>
