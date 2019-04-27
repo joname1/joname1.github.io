@@ -19,11 +19,9 @@
         <article class="main article">
             <h1 class="title">{{.Title}}</h1>
             <section class="info">
-                {{if .Author.Avatar}}<span class="avatar" style="background-image: url({{.Author.Avatar}});"></span>{{end}} {{if .Author.Name}}<a class="name" href="javascript:;">{{.Author.Name}}</a>{{end}} {{if .Update}}
-                <span class="date"><script>document.write(new Date({{.Update}} * 1000).toLocaleString());</script></span>
-                {{else}}
-                <span class="date"><script>document.write(new Date({{.Date}} * 1000).toLocaleString());</script></span>
-                {{end}}
+                {{if .Author.Avatar}}<span class="avatar"></span>{{end}} {{if .Author.Name}}<a class="name" href="javascript:;">{{.Author.Name}}</a>{{end}} {{if .Update}}
+                <span class="date"><script>document.write(new Date({{.Update}} * 1000).toLocaleString());</script></span> {{else}}
+                <span class="date"><script>document.write(new Date({{.Date}} * 1000).toLocaleString());</script></span> {{end}}
                 <span class="tags">{{range .Tags}}<a class="tages" href="{{$.Site.Root}}/tag/{{.}}/index.html">{{.}}</a>{{end}}</span>
             </section>
             <article class="content">{{.Content}}</article>
@@ -51,9 +49,13 @@
             <div class="reward">
                 <div class="reward-button">赏
                     <span class="reward-code">
-                        <span class="alipay-code"> <img class="alipay-img wdp-appear" src="https://wx2.sinaimg.cn/large/005zWjpngy1fvhl48b7w6j30jb0jc74u.jpg"><b>支付宝扫码</b> </span>
-                    <span class="wechat-code"> <img class="wechat-img wdp-appear" src="https://wx2.sinaimg.cn/large/005zWjpngy1fvhl4933gbj30jc0jbdgk.jpg
-                            "><b>微信扫码</b> </span>
+                        <span class="alipay-code">
+                            <img class="alipay-img wdp-appear" src="{{.Author.Alipay}}"><b>支付宝扫码</b>
+                        </span>
+                    <span class="wechat-code">
+                            <img class="wechat-img wdp-appear" src="{{.Author.Wechatpay}}"><b>微信扫码</b>
+                        </span>
+                    </span>
                 </div>
                 <p class="reward-notice">如果文章对你有帮助, 点击上方按钮请我喝杯奶茶吧 :p</p>
             </div>
