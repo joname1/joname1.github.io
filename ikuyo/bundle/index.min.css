@@ -803,10 +803,6 @@ table.plain tbody>tr:nth-child(odd)>th {
     border-radius: 5px
 }
 
-.main.page .article-list {
-    margin-top: 75pt
-}
-
 .main.page .article-list .searched {
     background-color: #9eabb3;
     color: #fff
@@ -941,15 +937,6 @@ table.plain tbody>tr:nth-child(odd)>th {
     position: relative;
     height: 50px;
     font-size: 14px
-}
-
-.main.page .page-nav .next:after,
-.main.page .page-nav .prev:before {
-    content: "";
-    width: 3px;
-    height: 3px;
-    display: block;
-    margin-top: 5px
 }
 
 .main.page .page-nav a {
@@ -1421,12 +1408,13 @@ table.plain tbody>tr:nth-child(odd)>th {
     position: relative;
     display: table;
     width: 100%;
-    height: 100vh;
+    height: 40vh;
     margin-bottom: 5rem;
     background-color: #222;
     background-position: 50%;
     background-attachment: fixed;
-    overflow: hidden
+    background-attachment: scroll;
+    overflow: hidden;
 }
 
 .header-wrap a {
@@ -1483,7 +1471,7 @@ table.plain tbody>tr:nth-child(odd)>th {
     opacity: 1;
     font-size: 14px;
     color: #fff;
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
     line-height: 35px;
     white-space: nowrap;
     border-radius: 3px;
