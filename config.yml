@@ -1,7 +1,7 @@
 site:
     title: "江矿先森的博客."
     subtitle: "Just be nice, always think twice!"
-    limit: 6
+    limit: 5
     theme: ikuyo
     lang: en
     url: "https://jk.js.org"
@@ -13,7 +13,7 @@ site:
 authors:
     me:
         name: "江矿先森."
-        intro: "前(台)端(菜), 喜欢钻研新技术."
+        intro: "前(台)端(菜), 喜欢瞎折腾新技术、数码产品."
         avatar: "https://wx3.sinaimg.cn/large/0060lm7Tly1fvhklejizqj30go0godhm.jpg"
         alipay: "https://wx3.sinaimg.cn/large/005zWjpngy1fvhl48b7w6j30jb0jc74u.jpg"
         wechatpay: "https://wx3.sinaimg.cn/large/005zWjpngy1fvhl4933gbj30jc0jbdgk.jpg"
