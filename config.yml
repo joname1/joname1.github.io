@@ -15,8 +15,6 @@ authors:
         name: "江矿先森."
         intro: "前(台)端(菜), 喜欢瞎折腾新技术、数码产品."
         avatar: "https://file.globalupload.io/huXNVPY3Sp.jpg"
-        alipay: "https://wx3.sinaimg.cn/large/005zWjpngy1fvhl48b7w6j30jb0jc74u.jpg"
-        wechatpay: "https://wx3.sinaimg.cn/large/005zWjpngy1fvhl4933gbj30jc0jbdgk.jpg"
 
 build:
     output: "docs"
