@@ -7,12 +7,12 @@ copy:
     - README.md
 # I18n Support
 lang:
-    bg1:
+    bg2:
         en: "https://file.globalupload.io/fjg278E1wP.jpg"
         zh: "https://file.globalupload.io/fjg278E1wP.jpg"
         ru: "https://file.globalupload.io/fjg278E1wP.jpg"
         ja: "https://file.globalupload.io/fjg278E1wP.jpg"
-    bg2:
+    bg1:
         en: "https://file.globalupload.io/sNMgC514Y8.jpg"
         zh: "https://file.globalupload.io/sNMgC514Y8.jpg"
         ru: "https://file.globalupload.io/sNMgC514Y8.jpg"

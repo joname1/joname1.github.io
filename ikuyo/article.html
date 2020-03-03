@@ -20,8 +20,8 @@
             <h1 class="title">{{.Title}}</h1>
             <section class="info">
                 {{if .Author.Avatar}}<span class="avatar" style="background-image: url({{.Author.Avatar}});"></span>{{end}} {{if .Author.Name}}<a class="name" href="javascript:;">{{.Author.Name}}</a>{{end}} {{if .Update}}
-                <span class="date"><script>document.write(new Date({{.Update}} * 1000).toLocaleString());</script></span> {{else}}
-                <span class="date"><script>document.write(new Date({{.Date}} * 1000).toLocaleString());</script></span> {{end}}
+                <span class="date"><script>document.write({{.Date}})</script></span> {{else}}
+                <span class="date"><script>document.write({{.Date}})</script></span> {{end}}
                 <span class="tags">{{range .Tags}}<a class="tages" href="{{$.Site.Root}}/tag/{{.}}/index.html">{{.}}</a>{{end}}</span>
             </section>
             <article class="content">{{.Content}}</article>
@@ -50,10 +50,10 @@
                 <div class="reward-button">赏
                     <span class="reward-code">
                         <span class="alipay-code">
-                            <img class="alipay-img wdp-appear" src="https://file.globalupload.io/32MgipcUBD.jpg"><b>支付宝扫码</b>
+                            <img class="alipay-img wdp-appear" src="{{.Author.Alipay}}"><b>支付宝扫码</b>
                         </span>
                     <span class="wechat-code">
-                            <img class="wechat-img wdp-appear" src="https://file.globalupload.io/UWyOXx0Gea.jpg"><b>微信扫码</b>
+                            <img class="wechat-img wdp-appear" src="{{.Author.Wechatpay}}"><b>微信扫码</b>
                         </span>
                     </span>
                 </div>
@@ -84,19 +84,6 @@
     <script src="{{.Site.Root}}/bundle/index.min.js"></script>
     <script src="https://cdn.staticfile.org/prism/1.16.0/prism.min.js"></script>
     <script src="https://tajs.qq.com/stats?sId=59279948" charset="UTF-8"></script>
-    <script>
-        new Valine({
-            el: '#comment',
-            appId: 'jnCxgrLfxzf5aeWnhldmpset-gzGzoHsz',
-            appKey: 'gEclatgmn0rmGbgoFi1OuA00',
-            placeholder: 'ヾﾉ≧∀≦)o来啊, 快活啊, 反正有大把时光!!',
-            path: window.location.pathname,
-            avatar: 'retro',
-            pageSize: 10,
-            guest_info: ['nick', 'mail'],
-            lang: 'en'
-        });
-    </script>
 </body>
 
 </html>
