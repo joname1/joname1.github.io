@@ -43,12 +43,12 @@ lang:
         ru: обновлено
         ja: 更新
     prev_page:
-        en: Prev Page
+        en: Prev
         zh: 上一页
         ru: Назад
         ja: 前のページ
     next_page:
-        en: Next Page
+        en: Next
         zh: 下一页
         ru: Далее
         ja: 次のページ
