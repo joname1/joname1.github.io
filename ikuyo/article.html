@@ -3,8 +3,8 @@
 
 <head>
     {{template "head" .}}
-    <meta name="keywords" content="{{range .Tags}}{{.}},{{end}}">
-    <meta name="description" content="{{.Title}}">
+    <meta name="keywords" content="{{.Title}},{{range .Tags}}{{.}},{{end}}">
+    <meta name="description" content="{{.Title}},{{range .Tags}}{{.}},{{end}}">
     <meta name="author" content="{{.Author.Name}}">
     <title>{{.Title}}</title>
     <link href="{{.Site.Root}}/bundle/iconfont.css" rel="stylesheet">
