@@ -10,3 +10,6 @@
 <link href="https://fonts.loli.net/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" rel="stylesheet">
 <link href="https://cdn.staticfile.org/prism/1.16.0/themes/prism.min.css" rel="stylesheet">
 <link href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<script>
+    function ensureDate(e){return"object"!=typeof e&&(e=new Date(e)),e}function dateFormat(e,t){void 0===t&&(t=e,e=ensureDate());let n={M:(e=ensureDate(e)).getMonth()+1,d:e.getDate(),h:e.getHours(),m:e.getMinutes(),s:e.getSeconds(),q:Math.floor((e.getMonth()+3)/3),S:e.getMilliseconds()},r=new RegExp("([yMdhmsqS])+","g");return t=t.replace(r,function(t,r){let u=n[r];if(void 0!==u)return t.length>1&&(u=(u="0"+u).substring(u.length-2)),u;if("y"===r){return(e.getFullYear()+"").substring(4-t.length)}return t})}
+</script>
