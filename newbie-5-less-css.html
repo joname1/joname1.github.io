@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=1, minimum-scale=1, maximum-scale=1">
+<meta name="referrer" content="never">
+<meta name="robots" content="index,follow">
+<link rel="shortcut icon" href="/favicon.png?v=198964">
+<link rel="apple-itouch-icon" href="/favicon.png?v=198964">
+<link href="/bundle/index.min.css" rel="stylesheet">
+<link href="https://fonts.loli.net/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" rel="stylesheet">
+<link href="https://cdn.staticfile.org/prism/1.16.0/themes/prism.min.css" rel="stylesheet">
+<link href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<script>
+    function ensureDate(e){return"object"!=typeof e&&(e=new Date(e)),e}function dateFormat(e,t){void 0===t&&(t=e,e=ensureDate());let n={M:(e=ensureDate(e)).getMonth()+1,d:e.getDate(),h:e.getHours(),m:e.getMinutes(),s:e.getSeconds(),q:Math.floor((e.getMonth()+3)/3),S:e.getMilliseconds()},r=new RegExp("([yMdhmsqS])+","g");return t=t.replace(r,function(t,r){let u=n[r];if(void 0!==u)return t.length>1&&(u=(u="0"+u).substring(u.length-2)),u;if("y"===r){return(e.getFullYear()+"").substring(4-t.length)}return t})}
+</script>
+    <meta name="keywords" content="新手必须掌握5个LESS CSS,Less,CSS,">
+    <meta name="description" content="新手必须掌握5个LESS CSS,Less,CSS,">
+    <meta name="author" content="江矿先森.">
+    <title>新手必须掌握5个LESS CSS</title>
+    <link href="/bundle/iconfont.css" rel="stylesheet">
+    <link href="/bundle/reward.css" rel="stylesheet">
+    <script src='/bundle/av.min.js'></script>
+    <script src='/bundle/valine.min.js'></script>
+</head>
+
+<body>
+    <article class="container">
+        <header class="header-wrap asset">
+    <nav class="main-nav">
+        <ul class="menu vertical naive">
+            <li class="menu-item"><a href="/">Home</a></li>
+            <li class="menu-item"><a href="/archive.html">Archive</a></li>
+            <li class="menu-item"><a href="/tag.html">Tag</a></li>
+            
+            <li class="menu-item"><a href="/atom.xml">RSS</a></li>
+        </ul>
+    </nav>
+    <div class="bgs" style="background-image: url(https://inews.gtimg.com/newsapp_ls/0/12470316442/0);"></div>
+    <div class="vertical">
+        <div class="header-wrap-content inner">
+            <h3 class="title">Stay before every beautiful thoughts.</h3>
+            <h3 class="subtitle">Just be nice, always think twice!</h3>
+        </div>
+    </div>
+</header>
+        <article class="main article">
+            <h1 class="title">新手必须掌握5个LESS CSS</h1>
+            <section class="info">
+                <span class="avatar" style="background-image: url(https://inews.gtimg.com/newsapp_ls/0/12470321024/0);"></span> <a class="name" href="javascript:;">江矿先森.</a> 
+                <span class="date"><script>document.write(dateFormat( 1443687834 *1000, 'yyyy-MM-dd'))</script></span> 
+                <span class="tags"><a class="tages" href="/tag/Less/index.html">Less</a><a class="tages" href="/tag/CSS/index.html">CSS</a></span>
+            </section>
+            <article class="content"><p>LESS, Sass 和其他 CSS 预处理器是一种超棒的方法用来扩展 CSS功能，使之更适合程序员。
+你可以使用变量、函数、混合、继承等多种编程常用方法来编写 CSS，以更少的代码完成更多的样式。
+学习这些工具最好的方法是通过各种实例快速入门，今天我们向你介绍 10 个非常有用的使用 Less CSS 的实例。</p>
+
+<h1>1、变量</h1>
+
+<p>变量允许我们单独定义一系列通用的样式，然后在需要的时候去调用。所以在做全局样式调整的时候我们可能只需要修改几行代码就可以了。</p>
+
+<pre><code class="language-css">  // LESS
+
+@color: #4D926F;
+
+#header {
+  color: @color;
+}
+h2 {
+  color: @color;
+}
+</code></pre>
+
+<p>/* 生成的 CSS */</p>
+
+<pre><code class="language-css">#header {
+  color: #4D926F;
+}
+h2 {
+  color: #4D926F;
+}
+</code></pre>
+
+<h1>2、混合</h1>
+
+<p>混合可以将一个定义好的class A轻松的引入到另一个class B中，从而简单实现class B继承class A中的所有属性。我们还可以带参数地调用，就像使用函数一样。</p>
+
+<pre><code class="language-css">// LESS
+
+.rounded-corners (@radius: 5px) {
+  border-radius: @radius;
+  -webkit-border-radius: @radius;
+  -moz-border-radius: @radius;
+}
+
+#header {
+  .rounded-corners;
+}
+#footer {
+  .rounded-corners(10px);
+}
+</code></pre>
+
+<p>/* 生成的 CSS */</p>
+
+<pre><code class="language-css">#header {
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+}
+#footer {
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+}
+</code></pre>
+
+<h1>3、嵌套规则</h1>
+
+<p>我们可以在一个选择器中嵌套另一个选择器来实现继承，这样很大程度减少了代码量，并且代码看起来更加的清晰。</p>
+
+<pre><code class="language-css">// LESS
+
+#header {
+  h1 {
+    font-size: 26px;
+    font-weight: bold;
+  }
+  p { font-size: 12px;
+    a { text-decoration: none;
+      &amp;:hover { border-width: 1px }
+    }
+  }
+}
+</code></pre>
+
+<p>/* 生成的 CSS */</p>
+
+<pre><code class="language-css">#header h1 {
+  font-size: 26px;
+  font-weight: bold;
+}
+#header p {
+  font-size: 12px;
+}
+#header p a {
+  text-decoration: none;
+}
+#header p a:hover {
+  border-width: 1px;
+}
+</code></pre>
+
+<h1>4、函数 &amp; 运算</h1>
+
+<p>运算提供了加，减，乘，除操作；我们可以做属性值和颜色的运算，这样就可以实现属性值之间的复杂关系。LESS中的函数一一映射了JavaScript代码，如果你愿意的话可以操作属性值。</p>
+
+<pre><code class="language-css">// LESS
+
+@the-border: 1px;
+@base-color: #111;
+@red:        #842210;
+
+#header {
+  color: @base-color * 3;
+  border-left: @the-border;
+  border-right: @the-border * 2;
+}
+#footer { 
+  color: @base-color + #003300;
+  border-color: desaturate(@red, 10%);
+}
+</code></pre>
+
+<p>/* 生成的 CSS */</p>
+
+<pre><code class="language-css">#header {
+  color: #333;
+  border-left: 1px;
+  border-right: 2px;
+}
+#footer { 
+  color: #114411;
+  border-color: #7d2717;
+}
+</code></pre>
+
+<h1>5、圆角</h1>
+
+<p>CSS3 一个非常基本的新属性可以快速的生产圆角效果，如上图所示。要使用 CSS3 的圆角效果我们必须针对不同的浏览器定义各自的前缀，而如果使用了 LESS 就可以不用那么麻烦。
+* 简单的圆角半径
+我的第一个 LESS 代码是我最简单的 LESS 代码之一，我需要设置圆角的半径，而且我希望使用一个变量来调整这个半径大小。
+下面代码使用 mixin 技术，通过定义 .border-radius 并接收一个 radius 参数，该参数默认值是 5px，你可以在多个地方重复使用该 mixin 方法：</p>
+
+<pre><code class="language-css">/* Mixin */
+.border-radius (@radius: 5px) {
+    -webkit-border-radius: @radius;
+    -moz-border-radius: @radius;
+    border-radius: @radius;
+}
+ 
+/* Implementation */
+#somediv {
+    .border-radius(20px);
+}
+</code></pre>
+
+<p>将这个 less 编译成 css 后的结果是：</p>
+
+<pre><code class="language-css">/* Compiled CSS */
+#somediv {
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+}
+</code></pre>
+
+<ul>
+<li>四角的半径定制
+如果你希望用户可自由定制四个角的半径，那么我们需要对上面代码做下改进。
+使用4个变量分别代表四个边角的半径大小：</li>
+</ul>
+
+<pre><code class="language-css">/* Mixin */
+.border-radius-custom (@topleft: 5px, @topright: 5px, @bottomleft: 5px, @bottomright: 5px) {
+    -webkit-border-radius: @topleft @topright @bottomright @bottomleft;
+    -moz-border-radius: @topleft @topright @bottomright @bottomleft;
+    border-radius: @topleft @topright @bottomright @bottomleft;
+}
+ 
+/* Implementation */
+#somediv {
+    .border-radius-custom(20px, 20px, 0px, 0px);
+}
+</code></pre>
+
+<p>编译后的 CSS</p>
+
+<pre><code class="language-css">/* Compiled CSS */
+#somediv {
+  -webkit-border-radius: 20px 20px 0px 0px;
+  -moz-border-radius: 20px 20px 0px 0px;
+  border-radius: 20px 20px 0px 0px;
+}
+</code></pre>
+</article>
+            <section class="author">
+                
+                <div class="avatar" style="background-image: url(https://inews.gtimg.com/newsapp_ls/0/12470321024/0);"></div>
+                <a class="name" href="javascript:;">江矿先森.</a>
+                <div class="intro">前(台)端(菜), 喜欢瞎折腾新技术、数码产品.</div>
+            </section>
+            <section class="social">
+                <a href="https://github.com/joname1" target="_blank">
+                    <i class="iconfont i-github"></i>
+                </a>
+                <a href="javascript:alert('你电脑中了不知名的病毒, 并抛出了警告 atob(“d3hJZDogam9uYW1lLmxpYW5ndGFu”)')" target="_blank">
+                    <i class="iconfont i-wechat"></i>
+                </a>
+                <a href="https://www.zhihu.com/people/joname-liangtan" target="_blank">
+                    <i class="iconfont i-zhihu"></i>
+                </a>
+                <a href="javascript:alert('对方不想跟你讲话, 并向你扔来一段乱码 atob(“am9uYW1lLmxpYW5ndGFuQGdtYWlsLmNvbQ”)')" target="_blank">
+                    <i class="iconfont i-email"></i>
+                </a>
+            </section>
+
+            <div class="reward">
+                <div class="reward-button">赏
+                    <span class="reward-code">
+                        <span class="alipay-code">
+                            <img class="alipay-img wdp-appear" src="https://inews.gtimg.com/newsapp_ls/0/12470324395/0"><b>支付宝扫码</b>
+                        </span>
+                    <span class="wechat-code">
+                            <img class="wechat-img wdp-appear" src="https://inews.gtimg.com/newsapp_ls/0/12470322844/0"><b>微信扫码</b>
+                        </span>
+                    </span>
+                </div>
+                
+                <p class="reward-notice">如果文章对你有帮助, 扫上方二维码请我喝杯奶茶吧 :p</p>
+            </div>
+
+            <div id="comment"></div>
+            
+        </article>
+    </article>
+    <footer class="footer clearfix">
+    <span class="copyright">
+        <script>
+            document.write(new Date().getFullYear());
+        </script> <i class="fa fa-copyright"></i> Made with <i class="fa fa-heart"></i> using &ltjoname /&gt
+        <span id="runtime_span"></span>
+    </span>
+</footer>
+    <script src="/bundle/index.min.js"></script>
+    <script src="https://cdn.staticfile.org/prism/1.16.0/prism.min.js"></script>
+    <script>
+        new Valine({el: '#comment',appId: 'jnCxgrLfxzf5aeWnhldmpset-gzGzoHsz',appKey: 'gEclatgmn0rmGbgoFi1OuA00',placeholder: 'ヾﾉ≧∀≦)o来啊, 快活啊, 反正有大把时光!!',path: window.location.pathname,avatar: 'retro',pageSize: 10,guest_info: ['nick', 'mail'],lang: 'en'});
+    </script>
+</body>
+
+</html>

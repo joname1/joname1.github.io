@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=1, minimum-scale=1, maximum-scale=1">
+<meta name="referrer" content="never">
+<meta name="robots" content="index,follow">
+<link rel="shortcut icon" href="/favicon.png?v=198964">
+<link rel="apple-itouch-icon" href="/favicon.png?v=198964">
+<link href="/bundle/index.min.css" rel="stylesheet">
+<link href="https://fonts.loli.net/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" rel="stylesheet">
+<link href="https://cdn.staticfile.org/prism/1.16.0/themes/prism.min.css" rel="stylesheet">
+<link href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<script>
+    function ensureDate(e){return"object"!=typeof e&&(e=new Date(e)),e}function dateFormat(e,t){void 0===t&&(t=e,e=ensureDate());let n={M:(e=ensureDate(e)).getMonth()+1,d:e.getDate(),h:e.getHours(),m:e.getMinutes(),s:e.getSeconds(),q:Math.floor((e.getMonth()+3)/3),S:e.getMilliseconds()},r=new RegExp("([yMdhmsqS])+","g");return t=t.replace(r,function(t,r){let u=n[r];if(void 0!==u)return t.length>1&&(u=(u="0"+u).substring(u.length-2)),u;if("y"===r){return(e.getFullYear()+"").substring(4-t.length)}return t})}
+</script>
+    <meta name="keywords" content="Vue自定义Loading、Toast组件,Vue,">
+    <meta name="description" content="Vue自定义Loading、Toast组件,Vue,">
+    <meta name="author" content="江矿先森.">
+    <title>Vue自定义Loading、Toast组件</title>
+    <link href="/bundle/iconfont.css" rel="stylesheet">
+    <link href="/bundle/reward.css" rel="stylesheet">
+    <script src='/bundle/av.min.js'></script>
+    <script src='/bundle/valine.min.js'></script>
+</head>
+
+<body>
+    <article class="container">
+        <header class="header-wrap asset">
+    <nav class="main-nav">
+        <ul class="menu vertical naive">
+            <li class="menu-item"><a href="/">Home</a></li>
+            <li class="menu-item"><a href="/archive.html">Archive</a></li>
+            <li class="menu-item"><a href="/tag.html">Tag</a></li>
+            
+            <li class="menu-item"><a href="/atom.xml">RSS</a></li>
+        </ul>
+    </nav>
+    <div class="bgs" style="background-image: url(https://inews.gtimg.com/newsapp_ls/0/12470316442/0);"></div>
+    <div class="vertical">
+        <div class="header-wrap-content inner">
+            <h3 class="title">Stay before every beautiful thoughts.</h3>
+            <h3 class="subtitle">Just be nice, always think twice!</h3>
+        </div>
+    </div>
+</header>
+        <article class="main article">
+            <h1 class="title">Vue自定义Loading、Toast组件</h1>
+            <section class="info">
+                <span class="avatar" style="background-image: url(https://inews.gtimg.com/newsapp_ls/0/12470321024/0);"></span> <a class="name" href="javascript:;">江矿先森.</a> 
+                <span class="date"><script>document.write(dateFormat( 1512444234 *1000, 'yyyy-MM-dd'))</script></span> 
+                <span class="tags"><a class="tages" href="/tag/Vue/index.html">Vue</a></span>
+            </section>
+            <article class="content"><p>因项目登录界面用到Loading和Toast, 网上逛了一圈, 全是一整套组件, 有些东西又用不上, 太冗余了, 无奈自己撸个。</p>
+
+<h3>定义js和css</h3>
+
+<ul>
+<li>JS</li>
+</ul>
+
+<pre><code class="language-js">var Toast = {};
+var showToast = false,
+  showLoad = false,
+  toastVM = null,
+  loadNode = null;
+
+Toast.install = function (Vue, options) {
+  var opt = {
+    defaultType: 'bottom',
+    duration: '2500',
+    wordWrap: false
+  };
+  for (var property in options) {
+    opt[property] = options[property];
+  }
+
+  Vue.prototype.$toast = function (tips, type) {
+    var curType = type ? type : opt.defaultType;
+    var wordWrap = opt.wordWrap ? 'lx-word-wrap' : '';
+    var style = opt.width ? 'style=&quot;width: ' + opt.width + '&quot;' : '';
+    var tmp = '&lt;div v-show=&quot;show&quot; :class=&quot;type&quot; class=&quot;lx-toast ' + wordWrap + '&quot; ' + style + '&gt;{{tip}}&lt;/div&gt;';
+
+    if (showToast) {
+      return;
+    }
+    if (!toastVM) {
+      var toastTpl = Vue.extend({
+        data: function () {
+          return {
+            show: showToast,
+            tip: tips,
+            type: 'lx-toast-' + curType
+          }
+        },
+        template: tmp
+      });
+      toastVM = new toastTpl()
+      var tpl = toastVM.$mount().$el;
+      document.body.appendChild(tpl);
+    }
+    toastVM.type = 'lx-toast-' + curType;
+    toastVM.tip = tips;
+    toastVM.show = showToast = true;
+
+    setTimeout(function () {
+      toastVM.show = showToast = false;
+    }, opt.duration)
+  };
+
+  ['bottom', 'center', 'top'].forEach(function (type) {
+    Vue.prototype.$toast[type] = function (tips) {
+      return Vue.prototype.$toast(tips, type)
+    }
+  });
+
+  Vue.prototype.$loading = function (tips, type) {
+    if (type == 'close') {
+      loadNode.show = showLoad = false;
+    } else {
+      if (showLoad) {
+        return;
+      }
+      var loadTpl = Vue.extend({
+        data: function () {
+          return {
+            show: showLoad
+          }
+        },
+        template: '&lt;div v-show=&quot;show&quot; class=&quot;lx-load-mark&quot;&gt;&lt;div class=&quot;lx-load-box&quot;&gt;&lt;div class=&quot;lx-loading&quot;&gt;&lt;div class=&quot;loading loading_0&quot;&gt;&lt;/div&gt;&lt;div class=&quot;loading loading_1&quot;&gt;&lt;/div&gt;&lt;div class=&quot;loading loading_2&quot;&gt;&lt;/div&gt;&lt;div class=&quot;loading loading_3&quot;&gt;&lt;/div&gt;&lt;div class=&quot;loading loading_4&quot;&gt;&lt;/div&gt;&lt;div class=&quot;loading loading_5&quot;&gt;&lt;/div&gt;&lt;div class=&quot;loading loading_6&quot;&gt;&lt;/div&gt;&lt;div class=&quot;loading loading_7&quot;&gt;&lt;/div&gt;&lt;div class=&quot;loading loading_8&quot;&gt;&lt;/div&gt;&lt;div class=&quot;loading loading_9&quot;&gt;&lt;/div&gt;&lt;div class=&quot;loading loading_10&quot;&gt;&lt;/div&gt;&lt;div class=&quot;loading loading_11&quot;&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;lx-load-content&quot;&gt;' + tips + '&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;'
+      });
+      loadNode = new loadTpl();
+      var tpl = loadNode.$mount().$el;
+      document.body.appendChild(tpl);
+      loadNode.show = showLoad = true;
+    }
+  };
+
+  ['open', 'close'].forEach(function (type) {
+    Vue.prototype.$loading[type] = function (tips) {
+      return Vue.prototype.$loading(tips, type)
+    }
+  });
+}
+
+module.exports = Toast;
+</code></pre>
+
+<ul>
+<li>CSS</li>
+</ul>
+
+<pre><code class="language-css">.lx-toast {position:fixed;bottom:100px;left:50%;box-sizing:border-box;max-width:80%;height:40px;line-height:20px;padding:10px 20px;transform:translateX(-50%);-webkit-transform:translateX(-50%);text-align:center;z-index:9999;font-size:14px;color:#fff;border-radius:5px;background:rgba(0,0,0,0.7);animation:show-toast .5s;-webkit-animation:show-toast .5s;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.lx-toast.lx-word-wrap {width:80%;white-space:inherit;height:auto;}
+.lx-toast.lx-toast-top {top:50px;bottom:inherit;}
+.lx-toast.lx-toast-center {top:50%;margin-top:-20px;bottom:inherit;}
+@keyframes show-toast {from {opacity:0;transform:translate(-50%,-10px);-webkit-transform:translate(-50%,-10px);}
+to {opacity:1;transform:translate(-50%,0);-webkit-transform:translate(-50%,0);}
+}
+.lx-load-mark {position:fixed;left:0;top:0;width:100%;height:100%;z-index:9999;}
+.lx-load-box {position:fixed;z-index:3;width:7.6em;min-height:7.6em;top:180px;left:50%;margin-left:-3.8em;background:rgba(0,0,0,0.7);text-align:center;border-radius:5px;color:#FFFFFF;}
+.lx-load-content {margin-top:64%;font-size:14px;}
+.lx-loading {position:absolute;width:0px;left:50%;top:38%;}
+.loading {position:absolute;top:-1px;opacity:0.25;}
+.loading:before {content:&quot; &quot;;position:absolute;width:9.14px;height:3.08px;background:#d1d1d5;box-shadow:rgba(0,0,0,0.0980392) 0px 0px 1px;border-radius:1px;-webkit-transform-origin:left 50% 0px;transform-origin:left 50% 0px;}
+.loading_0 {-webkit-animation:opacity-0 1.25s linear infinite;animation:opacity-0 1.25s linear infinite;}
+.loading_0:before {-webkit-transform:rotate(0deg) translate(7.92px,0px);transform:rotate(0deg) translate(7.92px,0px);}
+.loading_1 {-webkit-animation:opacity-1 1.25s linear infinite;animation:opacity-1 1.25s linear infinite;}
+.loading_1:before {-webkit-transform:rotate(30deg) translate(7.92px,0px);transform:rotate(30deg) translate(7.92px,0px);}
+.loading_2 {-webkit-animation:opacity-2 1.25s linear infinite;animation:opacity-2 1.25s linear infinite;}
+.loading_2:before {-webkit-transform:rotate(60deg) translate(7.92px,0px);transform:rotate(60deg) translate(7.92px,0px);}
+.loading_3 {-webkit-animation:opacity-3 1.25s linear infinite;animation:opacity-3 1.25s linear infinite;}
+.loading_3:before {-webkit-transform:rotate(90deg) translate(7.92px,0px);transform:rotate(90deg) translate(7.92px,0px);}
+.loading_4 {-webkit-animation:opacity-4 1.25s linear infinite;animation:opacity-4 1.25s linear infinite;}
+.loading_4:before {-webkit-transform:rotate(120deg) translate(7.92px,0px);transform:rotate(120deg) translate(7.92px,0px);}
+.loading_5 {-webkit-animation:opacity-5 1.25s linear infinite;animation:opacity-5 1.25s linear infinite;}
+.loading_5:before {-webkit-transform:rotate(150deg) translate(7.92px,0px);transform:rotate(150deg) translate(7.92px,0px);}
+.loading_6 {-webkit-animation:opacity-6 1.25s linear infinite;animation:opacity-6 1.25s linear infinite;}
+.loading_6:before {-webkit-transform:rotate(180deg) translate(7.92px,0px);transform:rotate(180deg) translate(7.92px,0px);}
+.loading_7 {-webkit-animation:opacity-7 1.25s linear infinite;animation:opacity-7 1.25s linear infinite;}
+.loading_7:before {-webkit-transform:rotate(210deg) translate(7.92px,0px);transform:rotate(210deg) translate(7.92px,0px);}
+.loading_8 {-webkit-animation:opacity-8 1.25s linear infinite;animation:opacity-8 1.25s linear infinite;}
+.loading_8:before {-webkit-transform:rotate(240deg) translate(7.92px,0px);transform:rotate(240deg) translate(7.92px,0px);}
+.loading_9 {-webkit-animation:opacity-9 1.25s linear infinite;animation:opacity-9 1.25s linear infinite;}
+.loading_9:before {-webkit-transform:rotate(270deg) translate(7.92px,0px);transform:rotate(270deg) translate(7.92px,0px);}
+.loading_10 {-webkit-animation:opacity-10 1.25s linear infinite;animation:opacity-10 1.25s linear infinite;}
+.loading_10:before {-webkit-transform:rotate(300deg) translate(7.92px,0px);transform:rotate(300deg) translate(7.92px,0px);}
+.loading_11 {-webkit-animation:opacity-11 1.25s linear infinite;animation:opacity-11 1.25s linear infinite;}
+.loading_11:before {-webkit-transform:rotate(330deg) translate(7.92px,0px);transform:rotate(330deg) translate(7.92px,0px);}
+@-webkit-keyframes opacity-0 {0% {opacity:0.25;}
+0.01% {opacity:0.25;}
+0.02% {opacity:1;}
+60.01% {opacity:0.25;}
+100% {opacity:0.25;}
+}
+@-webkit-keyframes opacity-1 {0% {opacity:0.25;}
+8.34333% {opacity:0.25;}
+8.35333% {opacity:1;}
+68.3433% {opacity:0.25;}
+100% {opacity:0.25;}
+}
+@-webkit-keyframes opacity-2 {0% {opacity:0.25;}
+16.6767% {opacity:0.25;}
+16.6867% {opacity:1;}
+76.6767% {opacity:0.25;}
+100% {opacity:0.25;}
+}
+@-webkit-keyframes opacity-3 {0% {opacity:0.25;}
+25.01% {opacity:0.25;}
+25.02% {opacity:1;}
+85.01% {opacity:0.25;}
+100% {opacity:0.25;}
+}
+@-webkit-keyframes opacity-4 {0% {opacity:0.25;}
+33.3433% {opacity:0.25;}
+33.3533% {opacity:1;}
+93.3433% {opacity:0.25;}
+100% {opacity:0.25;}
+}
+@-webkit-keyframes opacity-5 {0% {opacity:0.270958333333333;}
+41.6767% {opacity:0.25;}
+41.6867% {opacity:1;}
+1.67667% {opacity:0.25;}
+100% {opacity:0.270958333333333;}
+}
+@-webkit-keyframes opacity-6 {0% {opacity:0.375125;}
+50.01% {opacity:0.25;}
+50.02% {opacity:1;}
+10.01% {opacity:0.25;}
+100% {opacity:0.375125;}
+}
+@-webkit-keyframes opacity-7 {0% {opacity:0.479291666666667;}
+58.3433% {opacity:0.25;}
+58.3533% {opacity:1;}
+18.3433% {opacity:0.25;}
+100% {opacity:0.479291666666667;}
+}
+@-webkit-keyframes opacity-8 {0% {opacity:0.583458333333333;}
+66.6767% {opacity:0.25;}
+66.6867% {opacity:1;}
+26.6767% {opacity:0.25;}
+100% {opacity:0.583458333333333;}
+}
+@-webkit-keyframes opacity-9 {0% {opacity:0.687625;}
+75.01% {opacity:0.25;}
+75.02% {opacity:1;}
+35.01% {opacity:0.25;}
+100% {opacity:0.687625;}
+}
+@-webkit-keyframes opacity-10 {0% {opacity:0.791791666666667;}
+83.3433% {opacity:0.25;}
+83.3533% {opacity:1;}
+43.3433% {opacity:0.25;}
+100% {opacity:0.791791666666667;}
+}
+@-webkit-keyframes opacity-11 {0% {opacity:0.895958333333333;}
+91.6767% {opacity:0.25;}
+91.6867% {opacity:1;}
+51.6767% {opacity:0.25;}
+100% {opacity:0.895958333333333;}
+}
+</code></pre>
+
+<h3>Main.js引入Toast</h3>
+
+<pre><code class="language-js">import './components/Toast/toast.css';
+import Toast from './components/Toast/toast.js';
+
+Vue.use(Toast);
+</code></pre>
+
+<h3>页面调用</h3>
+
+<pre><code class="language-js">this.$toast.top('要显示内容'); //在顶部显示
+</code></pre>
+
+<pre><code class="language-js">this.$toast.center('要显示内容'); //在中部显示
+</code></pre>
+
+<pre><code class="language-js">this.$toast.bottom('要显示内容'); //在低部显示(默认在底部显示)
+</code></pre>
+
+<pre><code class="language-js">this.$loading('要显示内容'); //显示Loading
+</code></pre>
+
+<pre><code class="language-js">this.$loading.close(); //关闭Loading
+</code></pre>
+</article>
+            <section class="author">
+                
+                <div class="avatar" style="background-image: url(https://inews.gtimg.com/newsapp_ls/0/12470321024/0);"></div>
+                <a class="name" href="javascript:;">江矿先森.</a>
+                <div class="intro">前(台)端(菜), 喜欢瞎折腾新技术、数码产品.</div>
+            </section>
+            <section class="social">
+                <a href="https://github.com/joname1" target="_blank">
+                    <i class="iconfont i-github"></i>
+                </a>
+                <a href="javascript:alert('你电脑中了不知名的病毒, 并抛出了警告 atob(“d3hJZDogam9uYW1lLmxpYW5ndGFu”)')" target="_blank">
+                    <i class="iconfont i-wechat"></i>
+                </a>
+                <a href="https://www.zhihu.com/people/joname-liangtan" target="_blank">
+                    <i class="iconfont i-zhihu"></i>
+                </a>
+                <a href="javascript:alert('对方不想跟你讲话, 并向你扔来一段乱码 atob(“am9uYW1lLmxpYW5ndGFuQGdtYWlsLmNvbQ”)')" target="_blank">
+                    <i class="iconfont i-email"></i>
+                </a>
+            </section>
+
+            <div class="reward">
+                <div class="reward-button">赏
+                    <span class="reward-code">
+                        <span class="alipay-code">
+                            <img class="alipay-img wdp-appear" src="https://inews.gtimg.com/newsapp_ls/0/12470324395/0"><b>支付宝扫码</b>
+                        </span>
+                    <span class="wechat-code">
+                            <img class="wechat-img wdp-appear" src="https://inews.gtimg.com/newsapp_ls/0/12470322844/0"><b>微信扫码</b>
+                        </span>
+                    </span>
+                </div>
+                
+                <p class="reward-notice">如果文章对你有帮助, 扫上方二维码请我喝杯奶茶吧 :p</p>
+            </div>
+
+            <div id="comment"></div>
+            
+        </article>
+    </article>
+    <footer class="footer clearfix">
+    <span class="copyright">
+        <script>
+            document.write(new Date().getFullYear());
+        </script> <i class="fa fa-copyright"></i> Made with <i class="fa fa-heart"></i> using &ltjoname /&gt
+        <span id="runtime_span"></span>
+    </span>
+</footer>
+    <script src="/bundle/index.min.js"></script>
+    <script src="https://cdn.staticfile.org/prism/1.16.0/prism.min.js"></script>
+    <script>
+        new Valine({el: '#comment',appId: 'jnCxgrLfxzf5aeWnhldmpset-gzGzoHsz',appKey: 'gEclatgmn0rmGbgoFi1OuA00',placeholder: 'ヾﾉ≧∀≦)o来啊, 快活啊, 反正有大把时光!!',path: window.location.pathname,avatar: 'retro',pageSize: 10,guest_info: ['nick', 'mail'],lang: 'en'});
+    </script>
+</body>
+
+</html>

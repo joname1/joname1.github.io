@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=1, minimum-scale=1, maximum-scale=1">
+<meta name="referrer" content="never">
+<meta name="robots" content="index,follow">
+<link rel="shortcut icon" href="/favicon.png?v=198964">
+<link rel="apple-itouch-icon" href="/favicon.png?v=198964">
+<link href="/bundle/index.min.css" rel="stylesheet">
+<link href="https://fonts.loli.net/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" rel="stylesheet">
+<link href="https://cdn.staticfile.org/prism/1.16.0/themes/prism.min.css" rel="stylesheet">
+<link href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<script>
+    function ensureDate(e){return"object"!=typeof e&&(e=new Date(e)),e}function dateFormat(e,t){void 0===t&&(t=e,e=ensureDate());let n={M:(e=ensureDate(e)).getMonth()+1,d:e.getDate(),h:e.getHours(),m:e.getMinutes(),s:e.getSeconds(),q:Math.floor((e.getMonth()+3)/3),S:e.getMilliseconds()},r=new RegExp("([yMdhmsqS])+","g");return t=t.replace(r,function(t,r){let u=n[r];if(void 0!==u)return t.length>1&&(u=(u="0"+u).substring(u.length-2)),u;if("y"===r){return(e.getFullYear()+"").substring(4-t.length)}return t})}
+</script>
+    <meta name="keywords" content="基于Vue写的上拉加载更多,Vue,">
+    <meta name="description" content="基于Vue写的上拉加载更多,Vue,">
+    <meta name="author" content="江矿先森.">
+    <title>基于Vue写的上拉加载更多</title>
+    <link href="/bundle/iconfont.css" rel="stylesheet">
+    <link href="/bundle/reward.css" rel="stylesheet">
+    <script src='/bundle/av.min.js'></script>
+    <script src='/bundle/valine.min.js'></script>
+</head>
+
+<body>
+    <article class="container">
+        <header class="header-wrap asset">
+    <nav class="main-nav">
+        <ul class="menu vertical naive">
+            <li class="menu-item"><a href="/">Home</a></li>
+            <li class="menu-item"><a href="/archive.html">Archive</a></li>
+            <li class="menu-item"><a href="/tag.html">Tag</a></li>
+            
+            <li class="menu-item"><a href="/atom.xml">RSS</a></li>
+        </ul>
+    </nav>
+    <div class="bgs" style="background-image: url(https://inews.gtimg.com/newsapp_ls/0/12470316442/0);"></div>
+    <div class="vertical">
+        <div class="header-wrap-content inner">
+            <h3 class="title">Stay before every beautiful thoughts.</h3>
+            <h3 class="subtitle">Just be nice, always think twice!</h3>
+        </div>
+    </div>
+</header>
+        <article class="main article">
+            <h1 class="title">基于Vue写的上拉加载更多</h1>
+            <section class="info">
+                <span class="avatar" style="background-image: url(https://inews.gtimg.com/newsapp_ls/0/12470321024/0);"></span> <a class="name" href="javascript:;">江矿先森.</a> 
+                <span class="date"><script>document.write(dateFormat( 1508988234 *1000, 'yyyy-MM-dd'))</script></span> 
+                <span class="tags"><a class="tages" href="/tag/Vue/index.html">Vue</a></span>
+            </section>
+            <article class="content"><p>Talk is cheap, show your code:</p>
+
+<pre><code class="language-js">&lt;template&gt;
+    &lt;div class=&quot;loadmore&quot;&gt;
+        &lt;slot&gt;&lt;/slot&gt;
+        &lt;slot name=&quot;bottom&quot;&gt;
+        &lt;/slot&gt;
+    &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;style&gt;
+    .loadmore{
+        width:100%;
+    }
+&lt;/style&gt;
+
+&lt;script&gt;
+    export default {
+        name: 'loadmore',
+        props: {
+            maxDistance: {
+                type: Number,
+                default: 0
+            },
+            autoFill: {
+                type: Boolean,
+                default: true
+            },
+            distanceIndex: {
+                type: Number,
+                default: 2
+            },
+            bottomPullText: {
+                type: String,
+                default: '上拉刷新'
+            },
+            bottomDropText: {
+                type: String,
+                default: '释放更新'
+            },
+            bottomLoadingText: {
+                type: String,
+                default: '加载中...'
+            },
+            bottomDistance: {
+                type: Number,
+                default: 70
+            },
+            bottomMethod: {
+                type: Function
+            },
+            bottomAllLoaded: {
+                type: Boolean,
+                default: false
+            },
+        },
+        data() {
+            return {
+                // 最下面出现的div的位移
+                translate: 0,
+                // 选择滚动事件的监听对象
+                scrollEventTarget: null,
+                containerFilled: false,
+                bottomText: '',
+                // class类名
+                bottomDropped: false,
+                // 获取监听滚动元素的scrollTop
+                bottomReached: false,
+                // 滑动的方向   down---向下互动；up---向上滑动
+                direction: '',
+                startY: 0,
+                startScrollTop: 0,
+                // 实时的clientY位置
+                currentY: 0,
+                topStatus: '',
+                //  上拉加载的状态    ''     pull: 上拉中
+                bottomStatus: '',
+            };
+        },
+        watch: {
+            // 改变当前加载在状态
+            bottomStatus(val) {
+                this.$emit('bottom-status-change', val);
+                switch (val) {
+                    case 'pull':
+                        this.bottomText = this.bottomPullText;
+                        break;
+                    case 'drop':
+                        this.bottomText = this.bottomDropText;
+                        break;
+                    case 'loading':
+                        this.bottomText = this.bottomLoadingText;
+                        break;
+                }
+            }
+        },
+        methods: {
+            onBottomLoaded() {
+                this.bottomStatus = 'pull';
+                this.bottomDropped = false;
+                this.$nextTick(() =&gt; {
+                    if (this.scrollEventTarget === window) {
+                    document.body.scrollTop += 50;
+                } else {
+                    this.scrollEventTarget.scrollTop += 50;
+                }
+                this.translate = 0;
+            });
+                // 注释
+                if (!this.bottomAllLoaded &amp;&amp; !this.containerFilled) {
+                    this.fillContainer();
+                }
+            },
+
+            getScrollEventTarget(element) {
+                let currentNode = element;
+                while (currentNode &amp;&amp; currentNode.tagName !== 'HTML' &amp;&amp;
+                currentNode.tagName !== 'BODY' &amp;&amp; currentNode.nodeType === 1) {
+                    let overflowY = document.defaultView.getComputedStyle(currentNode).overflowY;
+                    if (overflowY === 'scroll' || overflowY === 'auto') {
+                        return currentNode;
+                    }
+                    currentNode = currentNode.parentNode;
+                }
+                return window;
+            },
+            //  获取scrollTop
+            getScrollTop(element) {
+                if (element === window) {
+                    return Math.max(window.pageYOffset || 0, document.documentElement.scrollTop);
+                } else {
+                    return element.scrollTop;
+                }
+            },
+            bindTouchEvents() {
+                this.$el.addEventListener('touchstart', this.handleTouchStart);
+                this.$el.addEventListener('touchmove', this.handleTouchMove);
+                this.$el.addEventListener('touchend', this.handleTouchEnd);
+            },
+            init() {
+                this.bottomStatus = 'pull';
+                // 选择滚动事件的监听对象
+                this.scrollEventTarget = this.getScrollEventTarget(this.$el);
+                if (typeof this.bottomMethod === 'function') {
+                    // autoFill 属性的实现   注释
+                    this.fillContainer();
+                    // 绑定滑动事件
+                    this.bindTouchEvents();
+                }
+            },
+            //  autoFill 属性的实现   注释
+            fillContainer() {
+                if (this.autoFill) {
+                    this.$nextTick(() =&gt; {
+                        if (this.scrollEventTarget === window) {
+                        this.containerFilled = this.$el.getBoundingClientRect().bottom &gt;=
+                                document.documentElement.getBoundingClientRect().bottom;
+                    } else {
+                        this.containerFilled = this.$el.getBoundingClientRect().bottom &gt;=
+                                this.scrollEventTarget.getBoundingClientRect().bottom;
+                    }
+                    if (!this.containerFilled) {
+                        this.bottomStatus = 'loading';
+                        this.bottomMethod();
+                    }
+                });
+                }
+            },
+            //  获取监听滚动元素的scrollTop
+            checkBottomReached() {
+                if (this.scrollEventTarget === window) {
+                    return document.body.scrollTop + document.documentElement.clientHeight &gt;= document.body.scrollHeight;
+                } else {
+                    // getBoundingClientRect用于获得页面中某个元素的左，上，右和下分别相对浏览器视窗的位置。 right是指元素右边界距窗口最左边的距离，bottom是指元素下边界距窗口最上面的距离。
+                    return this.$el.getBoundingClientRect().bottom &lt;= this.scrollEventTarget.getBoundingClientRect().bottom + 1;
+                }
+            },
+            // ontouchstart 事件
+            handleTouchStart(event) {
+                // 获取起点的y坐标
+                this.startY = event.touches[0].clientY;
+                this.startScrollTop = this.getScrollTop(this.scrollEventTarget);
+                this.bottomReached = false;
+                if (this.bottomStatus !== 'loading') {
+                    this.bottomStatus = 'pull';
+                    this.bottomDropped = false;
+                }
+            },
+            // ontouchmove事件
+            handleTouchMove(event) {
+                if (this.startY &lt; this.$el.getBoundingClientRect().top &amp;&amp; this.startY &gt; this.$el.getBoundingClientRect().bottom) {
+                    // 没有在需要滚动的范围内滚动，不再监听scroll
+                    return;
+                }
+                // 实时的clientY位置
+                this.currentY = event.touches[0].clientY;
+                //  distance 移动位置和开始位置的差值        distanceIndex---
+                let distance = (this.currentY - this.startY) / this.distanceIndex;
+                // 根据 distance 判断滑动的方向  并赋予变量   direction  down---向下互动；up---向上滑动
+                this.direction = distance &gt; 0 ? 'down' : 'up';
+                if (this.direction === 'up') {
+                    // 获取监听滚动元素的scrollTop
+                    this.bottomReached = this.bottomReached || this.checkBottomReached();
+                }
+                if (typeof this.bottomMethod === 'function' &amp;&amp; this.direction === 'up' &amp;&amp;
+                        this.bottomReached &amp;&amp; this.bottomStatus !== 'loading' &amp;&amp; !this.bottomAllLoaded) {
+                    // 有加载函数，是向上拉，有滚动距离，不是正在加载ajax，没有加载到最后一页
+                    event.preventDefault();
+                    event.stopPropagation();
+                    if (this.maxDistance &gt; 0) {
+                        this.translate = Math.abs(distance) &lt;= this.maxDistance
+                                ? this.getScrollTop(this.scrollEventTarget) - this.startScrollTop + distance : this.translate;
+                    } else {
+                        this.translate = this.getScrollTop(this.scrollEventTarget) - this.startScrollTop + distance;
+                    }
+                    if (this.translate &gt; 0) {
+                        this.translate = 0;
+                    }
+                    this.bottomStatus = -this.translate &gt;= this.bottomDistance ? 'drop' : 'pull';
+                }
+            },
+            // ontouchend事件
+            handleTouchEnd() {
+                if (this.direction === 'up' &amp;&amp; this.bottomReached &amp;&amp; this.translate &lt; 0) {
+                    this.bottomDropped = true;
+                    this.bottomReached = false;
+                    if (this.bottomStatus === 'drop') {
+                        this.translate = '-50';
+                        this.bottomStatus = 'loading';
+                        this.bottomMethod();
+                    } else {
+                        this.translate = '0';
+                        this.bottomStatus = 'pull';
+                    }
+                }
+                this.direction = '';
+            }
+        },
+        mounted() {
+            this.init();
+        }
+    };
+&lt;/script&gt;
+</code></pre>
+
+<p>建议抽出来放到common目录下，然后哪个页面需要，就在哪个页面import即可, 然后在引入他的页面写法如下：</p>
+
+<pre><code class="language-js">&lt;template&gt;
+  &lt;section class=&quot;finan&quot;&gt;
+    &lt;!-- 上拉加载更多 --&gt;
+    &lt;load-more
+    :bottom-method=&quot;loadBottom&quot;
+    :bottom-all-loaded=&quot;allLoaded&quot;
+    :bottomPullText='bottomText'
+    :auto-fill=&quot;false&quot;
+    @bottom-status-change=&quot;handleBottomChange&quot;
+    ref=&quot;loadmore&quot;&gt;
+        &lt;div&gt;
+	  这里写你需要的另外的模块
+        &lt;/div&gt;
+        &lt;div v-show=&quot;loading&quot; slot=&quot;bottom&quot; class=&quot;loading&quot;&gt; 这个div是为让上拉加载的时候显示一张加载的gif图
+          &lt;img src=&quot;./../../assets/main/uploading.gif&quot;&gt;
+        &lt;/div&gt;
+    &lt;/load-more&gt;
+  &lt;/section&gt;
+&lt;/template&gt;
+</code></pre>
+
+<p>然后在data里和methods设置如下：</p>
+
+<pre><code class="language-js">export default {
+        name: 'FinancialGroup',
+        props:{
+		
+        },
+        data () {
+            return {
+                //  上拉加载数据
+                scrollHeight: 0,
+                scrollTop: 0,
+                containerHeight: 0,
+                loading: false,
+                allLoaded: false,
+                bottomText: '上拉加载更多...',
+                bottomStatus: '',
+                pageNo: 1,
+                totalCount: '',
+            }
+        },
+        methods: {
+        /* 下拉加载 */
+        _scroll: function(ev) {
+            ev = ev || event;
+            this.scrollHeight = this.$refs.innerScroll.scrollHeight;
+            this.scrollTop = this.$refs.innerScroll.scrollTop;
+            this.containerHeight = this.$refs.innerScroll.offsetHeight;
+        },
+        loadBottom: function() {
+            this.loading = true;
+            this.pageNo += 1;   // 每次更迭加载的页数
+            if (this.pageNo == this.totalGetCount) {
+                // 当allLoaded = true时上拉加载停止
+                this.loading = false;
+                this.allLoaded = true;
+            }
+            api.commonApi.then(res =&gt; {
+                setTimeout(() =&gt; {
+ 	          要使用的后台返回的数据写在setTimeout里面
+                  this.$nextTick(() =&gt; {
+                    this.loading = false;
+            	  })
+            }, 1000)
+         });
+        },
+        handleBottomChange(status) {
+            this.bottomStatus = status;
+        },
+    }
+</code></pre>
+</article>
+            <section class="author">
+                
+                <div class="avatar" style="background-image: url(https://inews.gtimg.com/newsapp_ls/0/12470321024/0);"></div>
+                <a class="name" href="javascript:;">江矿先森.</a>
+                <div class="intro">前(台)端(菜), 喜欢瞎折腾新技术、数码产品.</div>
+            </section>
+            <section class="social">
+                <a href="https://github.com/joname1" target="_blank">
+                    <i class="iconfont i-github"></i>
+                </a>
+                <a href="javascript:alert('你电脑中了不知名的病毒, 并抛出了警告 atob(“d3hJZDogam9uYW1lLmxpYW5ndGFu”)')" target="_blank">
+                    <i class="iconfont i-wechat"></i>
+                </a>
+                <a href="https://www.zhihu.com/people/joname-liangtan" target="_blank">
+                    <i class="iconfont i-zhihu"></i>
+                </a>
+                <a href="javascript:alert('对方不想跟你讲话, 并向你扔来一段乱码 atob(“am9uYW1lLmxpYW5ndGFuQGdtYWlsLmNvbQ”)')" target="_blank">
+                    <i class="iconfont i-email"></i>
+                </a>
+            </section>
+
+            <div class="reward">
+                <div class="reward-button">赏
+                    <span class="reward-code">
+                        <span class="alipay-code">
+                            <img class="alipay-img wdp-appear" src="https://inews.gtimg.com/newsapp_ls/0/12470324395/0"><b>支付宝扫码</b>
+                        </span>
+                    <span class="wechat-code">
+                            <img class="wechat-img wdp-appear" src="https://inews.gtimg.com/newsapp_ls/0/12470322844/0"><b>微信扫码</b>
+                        </span>
+                    </span>
+                </div>
+                
+                <p class="reward-notice">如果文章对你有帮助, 扫上方二维码请我喝杯奶茶吧 :p</p>
+            </div>
+
+            <div id="comment"></div>
+            
+        </article>
+    </article>
+    <footer class="footer clearfix">
+    <span class="copyright">
+        <script>
+            document.write(new Date().getFullYear());
+        </script> <i class="fa fa-copyright"></i> Made with <i class="fa fa-heart"></i> using &ltjoname /&gt
+        <span id="runtime_span"></span>
+    </span>
+</footer>
+    <script src="/bundle/index.min.js"></script>
+    <script src="https://cdn.staticfile.org/prism/1.16.0/prism.min.js"></script>
+    <script>
+        new Valine({el: '#comment',appId: 'jnCxgrLfxzf5aeWnhldmpset-gzGzoHsz',appKey: 'gEclatgmn0rmGbgoFi1OuA00',placeholder: 'ヾﾉ≧∀≦)o来啊, 快活啊, 反正有大把时光!!',path: window.location.pathname,avatar: 'retro',pageSize: 10,guest_info: ['nick', 'mail'],lang: 'en'});
+    </script>
+</body>
+
+</html>

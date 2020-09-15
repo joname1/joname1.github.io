@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=1, minimum-scale=1, maximum-scale=1">
+<meta name="referrer" content="never">
+<meta name="robots" content="index,follow">
+<link rel="shortcut icon" href="/favicon.png?v=198964">
+<link rel="apple-itouch-icon" href="/favicon.png?v=198964">
+<link href="/bundle/index.min.css" rel="stylesheet">
+<link href="https://fonts.loli.net/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" rel="stylesheet">
+<link href="https://cdn.staticfile.org/prism/1.16.0/themes/prism.min.css" rel="stylesheet">
+<link href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<script>
+    function ensureDate(e){return"object"!=typeof e&&(e=new Date(e)),e}function dateFormat(e,t){void 0===t&&(t=e,e=ensureDate());let n={M:(e=ensureDate(e)).getMonth()+1,d:e.getDate(),h:e.getHours(),m:e.getMinutes(),s:e.getSeconds(),q:Math.floor((e.getMonth()+3)/3),S:e.getMilliseconds()},r=new RegExp("([yMdhmsqS])+","g");return t=t.replace(r,function(t,r){let u=n[r];if(void 0!==u)return t.length>1&&(u=(u="0"+u).substring(u.length-2)),u;if("y"===r){return(e.getFullYear()+"").substring(4-t.length)}return t})}
+</script>
+    <meta name="keywords" content="node.js学习笔记(3) - Koa2路由,Node,Koa2,">
+    <meta name="description" content="node.js学习笔记(3) - Koa2路由,Node,Koa2,">
+    <meta name="author" content="江矿先森.">
+    <title>node.js学习笔记(3) - Koa2路由</title>
+    <link href="/bundle/iconfont.css" rel="stylesheet">
+    <link href="/bundle/reward.css" rel="stylesheet">
+    <script src='/bundle/av.min.js'></script>
+    <script src='/bundle/valine.min.js'></script>
+</head>
+
+<body>
+    <article class="container">
+        <header class="header-wrap asset">
+    <nav class="main-nav">
+        <ul class="menu vertical naive">
+            <li class="menu-item"><a href="/">Home</a></li>
+            <li class="menu-item"><a href="/archive.html">Archive</a></li>
+            <li class="menu-item"><a href="/tag.html">Tag</a></li>
+            
+            <li class="menu-item"><a href="/atom.xml">RSS</a></li>
+        </ul>
+    </nav>
+    <div class="bgs" style="background-image: url(https://inews.gtimg.com/newsapp_ls/0/12470316442/0);"></div>
+    <div class="vertical">
+        <div class="header-wrap-content inner">
+            <h3 class="title">Stay before every beautiful thoughts.</h3>
+            <h3 class="subtitle">Just be nice, always think twice!</h3>
+        </div>
+    </div>
+</header>
+        <article class="main article">
+            <h1 class="title">node.js学习笔记(3) - Koa2路由</h1>
+            <section class="info">
+                <span class="avatar" style="background-image: url(https://inews.gtimg.com/newsapp_ls/0/12470321024/0);"></span> <a class="name" href="javascript:;">江矿先森.</a> 
+                <span class="date"><script>document.write(dateFormat( 1525746234 *1000, 'yyyy-MM-dd'))</script></span> 
+                <span class="tags"><a class="tages" href="/tag/Node/index.html">Node</a><a class="tages" href="/tag/Koa2/index.html">Koa2</a></span>
+            </section>
+            <article class="content"><p>路由是用于描述 <code>URL</code> 与处理函数之间的对应关系的。比如用户访问 <code>http://localhost:3000/</code>，那么浏览器就会显示 <code>index</code> 页面的内容，如果用户访问的是 <code>http://localhost:3000/home</code>，那么浏览器应该显示 <code>home</code> 页面的内容。</p>
+
+<p>要实现上述功能，如果不借助 <code>koa-router</code> 或者其他路由中间件，我们自己去处理路由，那么写法可能如下所示：</p>
+
+<pre><code class="language-js">import Koa from 'koa';
+const app = new Koa();
+
+app.use(async (ctx, next) =&gt; {
+    if (ctx.request.path === '/') {
+        ctx.response.body = '&lt;h1&gt;index page&lt;/h1&gt;';
+    } else {
+        await next();
+    }
+});
+app.use(async (ctx, next) =&gt; {
+    if (ctx.request.path === '/home') {
+        ctx.response.body = '&lt;h1&gt;home page&lt;/h1&gt;';
+    } else {
+        await next();
+    }
+});
+app.use(async (ctx, next) =&gt; {
+    if (ctx.request.path === '/404') {
+        ctx.response.body = '&lt;h1&gt;404 Not Found&lt;/h1&gt;';
+    } else {
+        await next();
+    }
+});
+
+app.listen(3000, ()=&gt;{
+  console.log('server is running at http://localhost:3000')
+})
+</code></pre>
+
+<p>把上述代码复制并覆盖到 <code>app.js</code> 中，然后执行以下命令启动 <code>node</code> 程序:</p>
+
+<pre><code class="language-js">node app.js
+</code></pre>
+
+<p>启动之后在浏览器中分别访问 <code>http://localhost:3000/</code>、<code>http://localhost:3000/home</code>、<code>http://localhost:3000/404</code> 就能看到相应的页面了。</p>
+
+<p>上述 <code>app.js</code> 的代码中，由 <code>async</code> 标记的函数称为『异步函数』，在异步函数中，可以用 <code>await</code> 调用另一个异步函数，<code>async</code> 和 <code>await</code> 这两个关键字将在 ES7 中引入。参数 <code>ctx</code> 是由 <code>koa2</code> 传入的，我们可以通过它来访问 <code>request</code> 和 <code>response</code>，<code>next</code> 是 <code>koa2</code> 传入的将要处理的下一个异步函数。</p>
+
+<p><strong>注意：</strong> 由于 <code>node</code> 在 <code>v7.6.0</code> 中才支持 <code>async</code> 和 <code>await</code>，所以在运行 <code>app.js</code> 之前请确保 node 版本正确，或者使用一些第三方的 <code>async</code> 库来支持。</p>
+
+<p>这样的写法能够处理简单的应用，但是，一旦要处理的 <code>URL</code> 多起来的话就会显得特别笨重。所以我们可以借助 <code>koa-router</code> 来更简单的实现这一功能。
+下面来介绍一下如何正确的使用 <code>koa-router</code>。</p>
+
+<h2>安装 koa-router</h2>
+
+<p>通过 <code>npm</code> 命令直接安装：</p>
+
+<pre><code>npm i koa-router -S
+</code></pre>
+
+<p><code>-S</code> 或者 <code>--save</code> 是为了安装完成之后能够在 <code>package.json</code> 的 <code>dependencies</code> 中保留 <code>koa-router</code>，以便于下次只需要执行 <code>npm i</code> 或者 <code>npm install</code> 就能够安装所有需要的依赖包。</p>
+
+<h2>基本使用方法</h2>
+
+<p>如果要在 <code>app.js</code> 中使用 <code>koa-router</code> 来处理 <code>URL</code>，可以通过以下代码来实现：</p>
+
+<pre><code class="language-js">import Koa from 'koa'
+const router = require('koa-router')() // 注意: 返回的是函数
+const app = new Koa()
+
+ // 添加路由
+ router.get('/', async (ctx, next) =&gt; {
+    ctx.response.body = `&lt;h1&gt;index page&lt;/h1&gt;`
+})
+
+router.get('/home', async (ctx, next) =&gt; {
+    ctx.response.body = '&lt;h1&gt;HOME page&lt;/h1&gt;'
+})
+
+router.get('/404', async (ctx, next) =&gt; {
+    ctx.response.body = '&lt;h1&gt;404 Not Found&lt;/h1&gt;'
+})
+
+ // 调用路由中间件
+ app.use(router.routes())
+
+app.listen(3000, ()=&gt;{
+  console.log('server is running at http://localhost:3000')
+})
+</code></pre>
+
+<p>运行 <code>app.js</code>:</p>
+
+<pre><code class="language-js">node app.js
+</code></pre>
+
+<p>执行完上面的操作之后，我们在浏览器中访问 <code>http://localhost:3000/</code>：</p>
+
+<p><img src="data:image/gif;base64,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" data-src="https://joe-10005639.cossh.myqcloud.com/blog/index.png" alt="" /></p>
+
+<p>在浏览器中访问 <code>http://localhost:3000/home</code>：</p>
+
+<p><img src="data:image/gif;base64,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" data-src="https://joe-10005639.cossh.myqcloud.com/blog/home.png" alt="" /></p>
+
+<p>在浏览器中访问 <code>http://localhost:3000/404</code>：</p>
+
+<p><img src="data:image/gif;base64,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" data-src="https://joe-10005639.cossh.myqcloud.com/blog/404.png" alt="" /></p>
+
+<p>通过上面的例子，我们可以看到和之前不使用 <code>koa-router</code> 的显示效果是一样的。不过使用了 <code>koa-router</code> 之后，代码稍微简化了一些，而且少了 <code>if</code> 判断，还有省略了 <code>await next()</code>（因为没有其他中间件需要执行，所以这里就先省略了）。</p>
+
+<p>当然，除了 <code>GET</code> 方法，<code>koa-router</code> 也支持处理其他的请求方法，比如：</p>
+
+<pre><code class="language-js">router
+  .get('/', async (ctx, next) =&gt; {
+    ctx.body = 'Hello World!';
+  })
+  .post('/users', async (ctx, next) =&gt; {
+    // ...
+  })
+  .put('/users/:id', async (ctx, next) =&gt; {
+    // ...
+  })
+  .del('/users/:id', async (ctx, next) =&gt; {
+    // ...
+  })
+  .all('/users/:id', async (ctx, next) =&gt; {
+    // ...
+  });
+</code></pre>
+
+<p>在任意http请求中，遵从 <code>RESTful</code> 规范，可以把 <code>GET</code>、<code>POST</code>、<code>PUT</code>、<code>DELETE</code> 类型的请求分别对应 <code>查</code>，<code>增</code>，<code>改</code>，<code>删</code>，这里 <code>router</code> 的方法也一一对应。通常我们使用 <code>GET</code> 来查询和获取数据，使用 <code>POST</code> 来更新资源。<code>PUT</code> 和 <code>DELETE</code> 使用比较少，但是如果你们团队采用 <code>RESTful架构</code>，就比较推荐使用了。我们注意到，上述代码中还有一个<code>all</code> 方法。<code>all</code> 方法通常用于匹配一组路由或者全部路由从而做一些统一设置和处理，也可以处理不确定客户端发送的请求方法类型的情况。</p>
+
+<p>举个例子，假设客户端使用 <code>jQuery</code> 来开发，有如下几个 <code>ajax</code> 请求：</p>
+
+<pre><code class="language-js">// 优先匹配和 router.get 方法中 url 规则一样的请求，如果匹配不到的话就匹配和 router.all 方法中 url 规则一样的请求。
+$.ajax({
+  method: &quot;GET&quot;,
+  url: &quot;www.xxx.com&quot;,
+  data: { name: &quot;John&quot; }
+}).done(function( msg ) {
+  // do something
+});
+
+// 优先匹配和 router.post 方法中 url 规则一样的请求，如果匹配不到的话就匹配和 router.all 方法中 url 规则一样的请求。
+$.ajax({
+  method: &quot;POST&quot;,
+  url: &quot;www.xxx.com&quot;,
+  data: { name: &quot;John&quot; }
+}).done(function( msg ) {
+  // do something
+});
+</code></pre>
+
+<p>上面例子中两个方法最主要的区别就是 <code>ajax</code> 中 <code>method</code> 的值，<code>method</code> 的值和 <code>router</code> 的方法一一对应。
+<br/>
+再举一个使用<code>all</code>方法的例子，假设我们要为所有请求设置跨域头，可以通过如下代码实现：</p>
+
+<pre><code class="language-js">router.all('/*', async (ctx, next) =&gt; {
+  // *代表允许来自所有域名请求
+  ctx.set(&quot;Access-Control-Allow-Origin&quot;, &quot;*&quot;);
+  // 其他一些设置...
+  await next();
+});
+</code></pre>
+
+<p>这段代码表示对于所有请求，允许来自所有域名。这是一种很危险的做法，在真实项目中一定不能这么做。</p>
+
+<p><code>*</code> 号是一种通配符，表示匹配任意 <code>URL</code>。这里的返回是一种简化的写法，真实开发中，我们肯定要去读取 <code>HTML</code> 文件或者其他模板文件的内容，再响应请求。关于这部分的内容后面的章节中会详细介绍。</p>
+
+<p>另外，如果一条路由在<code>all</code>方法和其他方法中同时命中，只有执行了<code>await next()</code>，那么这条路由会在<code>all</code>方法和其他方法中都会起作用，举个例子，看如下代码：</p>
+
+<pre><code class="language-js">import Koa from 'koa'
+const router = require('koa-router')()
+const app = new Koa()
+
+// 添加路由
+router.get('/', async (ctx, next) =&gt; {
+  ctx.response.body = `&lt;h1&gt;index page&lt;/h1&gt;`
+  await next();
+})
+router.all('/', async (ctx, next) =&gt; {
+  console.log('match &quot;all&quot; method')
+  await next();
+});
+// 调用路由中间件
+app.use(router.routes())
+
+app.listen(3000, ()=&gt;{
+  console.log('server is running at http://localhost:3000')
+})
+</code></pre>
+
+<p>执行这段代码，我们不仅能够访问<code>http://localhost:3000</code>看到<code>“index page”</code>，也能够在控制台中看到<code>“'match &quot;all&quot; method'”</code>，说明路由&rdquo;/&ldquo;不仅执行了<code>get</code>方法的回调，也执行了<code>all</code>方法的回调函数。但是，如果我们把<code>get</code>方法中的<code>await next()</code>去掉，那么就不会命中<code>all</code>方法的路由规则，也不会执行<code>all</code>方法的回调函数了。因为说到底，对路由的处理也是一种中间件，如果不执行<code>await next()</code>把控制权交给下一个中间件，那么后面的路由就不会再执行了。</p>
+
+<h2>其他特性</h2>
+
+<h3>命名路由</h3>
+
+<p>在开发过程中我们能够很方便的生成路由 <code>URL</code>：</p>
+
+<pre><code class="language-js">router.get('user', '/users/:id', function (ctx, next) {
+  // ...
+});
+
+router.url('user', 3);
+// =&gt; 生成路由 &quot;/users/3&quot;
+
+router.url('user', { id: 3 });
+// =&gt; 生成路由 &quot;/users/3&quot;
+
+router.use(function (ctx, next) {
+  // 重定向到路由名称为 “sign-in” 的页面
+  ctx.redirect(ctx.router.url('sign-in'));
+})
+</code></pre>
+
+<p><code>router.url</code> 方法方便我们在代码中根据路由名称和参数(可选)去生成具体的 <code>URL</code>，而不用采用字符串拼接的方式去生成 <code>URL</code> 了。</p>
+
+<h3>多中间件</h3>
+
+<p><code>koa-router</code> 也支持单个路由多中间件的处理。通过这个特性，我们能够为一个路由添加特殊的中间件处理。也可以把一个路由要做的事情拆分成多个步骤去实现，当路由处理函数中有异步操作时，这种写法的可读性和可维护性更高。比如下面的示例代码所示：</p>
+
+<pre><code class="language-js">router.get(
+  '/users/:id',
+  function (ctx, next) {
+    return User.findOne(ctx.params.id).then(function(user) {
+      // 首先读取用户的信息，异步操作
+      ctx.user = user;
+      next();
+    });
+  },
+  function (ctx) {
+    console.log(ctx.user);
+    // 在这个中间件中再对用户信息做一些处理
+    // =&gt; { id: 17, name: &quot;Alex&quot; }
+  }
+);
+</code></pre>
+
+<h3>嵌套路由</h3>
+
+<p>我们可以在应用中定义多个路由，然后把这些路由组合起来用，这样便于我们管理多个路由，也简化了路由的写法。</p>
+
+<pre><code class="language-js">let forums = new Router();
+let posts = new Router();
+
+posts.get('/', function (ctx, next) {...});
+posts.get('/:pid', function (ctx, next) {...});
+forums.use('/forums/:fid/posts', posts.routes(), posts.allowedMethods());
+
+// 可以匹配到的路由为 &quot;/forums/123/posts&quot; 或者 &quot;/forums/123/posts/123&quot;
+app.use(forums.routes());
+</code></pre>
+
+<h3>路由前缀</h3>
+
+<p>通过 <code>prefix</code> 这个参数，我们可以为一组路由添加统一的前缀，和嵌套路由类似，也方便我们管理路由和简化路由的写法。不同的是，前缀是一个固定的字符串，不能添加动态参数。</p>
+
+<pre><code class="language-js">let router = new Router({
+  prefix: '/users'
+});
+
+router.get('/', ...); // 匹配路由 &quot;/users&quot;
+router.get('/:id', ...); // 匹配路由 &quot;/users/:id&quot;
+</code></pre>
+
+<h3>URL 参数</h3>
+
+<p><code>koa-router</code> 也支持参数，参数会被添加到 <code>ctx.params</code> 中。参数可以是一个正则表达式，这个功能的实现是通过 <code>path-to-regexp</code> 来实现的。原理是把 <code>URL</code> 字符串转化成正则对象，然后再进行正则匹配，之前的例子中的 <code>*</code> 通配符就是一种正则表达式。</p>
+
+<pre><code class="language-js">router.get('/:category/:title', function (ctx, next) {
+  console.log(ctx.params);
+  // =&gt; { category: 'programming', title: 'how-to-node' }
+});
+</code></pre>
+
+<p>通过上面的例子可以看出，我们可以通过 <code>ctx.params</code> 去访问路由中的参数，使得我们能够对参数做一些处理后再执行后续的代码。</p>
+</article>
+            <section class="author">
+                
+                <div class="avatar" style="background-image: url(https://inews.gtimg.com/newsapp_ls/0/12470321024/0);"></div>
+                <a class="name" href="javascript:;">江矿先森.</a>
+                <div class="intro">前(台)端(菜), 喜欢瞎折腾新技术、数码产品.</div>
+            </section>
+            <section class="social">
+                <a href="https://github.com/joname1" target="_blank">
+                    <i class="iconfont i-github"></i>
+                </a>
+                <a href="javascript:alert('你电脑中了不知名的病毒, 并抛出了警告 atob(“d3hJZDogam9uYW1lLmxpYW5ndGFu”)')" target="_blank">
+                    <i class="iconfont i-wechat"></i>
+                </a>
+                <a href="https://www.zhihu.com/people/joname-liangtan" target="_blank">
+                    <i class="iconfont i-zhihu"></i>
+                </a>
+                <a href="javascript:alert('对方不想跟你讲话, 并向你扔来一段乱码 atob(“am9uYW1lLmxpYW5ndGFuQGdtYWlsLmNvbQ”)')" target="_blank">
+                    <i class="iconfont i-email"></i>
+                </a>
+            </section>
+
+            <div class="reward">
+                <div class="reward-button">赏
+                    <span class="reward-code">
+                        <span class="alipay-code">
+                            <img class="alipay-img wdp-appear" src="https://inews.gtimg.com/newsapp_ls/0/12470324395/0"><b>支付宝扫码</b>
+                        </span>
+                    <span class="wechat-code">
+                            <img class="wechat-img wdp-appear" src="https://inews.gtimg.com/newsapp_ls/0/12470322844/0"><b>微信扫码</b>
+                        </span>
+                    </span>
+                </div>
+                
+                <p class="reward-notice">如果文章对你有帮助, 扫上方二维码请我喝杯奶茶吧 :p</p>
+            </div>
+
+            <div id="comment"></div>
+            
+        </article>
+    </article>
+    <footer class="footer clearfix">
+    <span class="copyright">
+        <script>
+            document.write(new Date().getFullYear());
+        </script> <i class="fa fa-copyright"></i> Made with <i class="fa fa-heart"></i> using &ltjoname /&gt
+        <span id="runtime_span"></span>
+    </span>
+</footer>
+    <script src="/bundle/index.min.js"></script>
+    <script src="https://cdn.staticfile.org/prism/1.16.0/prism.min.js"></script>
+    <script>
+        new Valine({el: '#comment',appId: 'jnCxgrLfxzf5aeWnhldmpset-gzGzoHsz',appKey: 'gEclatgmn0rmGbgoFi1OuA00',placeholder: 'ヾﾉ≧∀≦)o来啊, 快活啊, 反正有大把时光!!',path: window.location.pathname,avatar: 'retro',pageSize: 10,guest_info: ['nick', 'mail'],lang: 'en'});
+    </script>
+</body>
+
+</html>

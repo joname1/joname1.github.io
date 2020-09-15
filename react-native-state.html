@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=1, minimum-scale=1, maximum-scale=1">
+<meta name="referrer" content="never">
+<meta name="robots" content="index,follow">
+<link rel="shortcut icon" href="/favicon.png?v=198964">
+<link rel="apple-itouch-icon" href="/favicon.png?v=198964">
+<link href="/bundle/index.min.css" rel="stylesheet">
+<link href="https://fonts.loli.net/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" rel="stylesheet">
+<link href="https://cdn.staticfile.org/prism/1.16.0/themes/prism.min.css" rel="stylesheet">
+<link href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<script>
+    function ensureDate(e){return"object"!=typeof e&&(e=new Date(e)),e}function dateFormat(e,t){void 0===t&&(t=e,e=ensureDate());let n={M:(e=ensureDate(e)).getMonth()+1,d:e.getDate(),h:e.getHours(),m:e.getMinutes(),s:e.getSeconds(),q:Math.floor((e.getMonth()+3)/3),S:e.getMilliseconds()},r=new RegExp("([yMdhmsqS])+","g");return t=t.replace(r,function(t,r){let u=n[r];if(void 0!==u)return t.length>1&&(u=(u="0"+u).substring(u.length-2)),u;if("y"===r){return(e.getFullYear()+"").substring(4-t.length)}return t})}
+</script>
+    <meta name="keywords" content="React Native爬坑之路 03 State,React Native,">
+    <meta name="description" content="React Native爬坑之路 03 State,React Native,">
+    <meta name="author" content="江矿先森.">
+    <title>React Native爬坑之路 03 State</title>
+    <link href="/bundle/iconfont.css" rel="stylesheet">
+    <link href="/bundle/reward.css" rel="stylesheet">
+    <script src='/bundle/av.min.js'></script>
+    <script src='/bundle/valine.min.js'></script>
+</head>
+
+<body>
+    <article class="container">
+        <header class="header-wrap asset">
+    <nav class="main-nav">
+        <ul class="menu vertical naive">
+            <li class="menu-item"><a href="/">Home</a></li>
+            <li class="menu-item"><a href="/archive.html">Archive</a></li>
+            <li class="menu-item"><a href="/tag.html">Tag</a></li>
+            
+            <li class="menu-item"><a href="/atom.xml">RSS</a></li>
+        </ul>
+    </nav>
+    <div class="bgs" style="background-image: url(https://inews.gtimg.com/newsapp_ls/0/12470316442/0);"></div>
+    <div class="vertical">
+        <div class="header-wrap-content inner">
+            <h3 class="title">Stay before every beautiful thoughts.</h3>
+            <h3 class="subtitle">Just be nice, always think twice!</h3>
+        </div>
+    </div>
+</header>
+        <article class="main article">
+            <h1 class="title">React Native爬坑之路 03 State</h1>
+            <section class="info">
+                <span class="avatar" style="background-image: url(https://inews.gtimg.com/newsapp_ls/0/12470321024/0);"></span> <a class="name" href="javascript:;">江矿先森.</a> 
+                <span class="date"><script>document.write(dateFormat( 1521948234 *1000, 'yyyy-MM-dd'))</script></span> 
+                <span class="tags"><a class="tages" href="/tag/React%20Native/index.html">React Native</a></span>
+            </section>
+            <article class="content"><p>State的使用方式是在组件的构造函数中初始化State，在合适的地方调用setState方法，首先来看官方的例子，官方给出了一个文字闪烁的效果：</p>
+
+<pre><code class="language-js">class Blink extends Component {
+  constructor(props) {
+      super(props);
+      this.state = {showText: true};//这里设置了一个showText，默认值为true
+      // Toggle the state every second
+      setInterval(() =&gt; {
+        this.setState({ showText: !this.state.showText });
+      }, 1000);//这里是一个定时器，每1s会执行一次，调用定时器中的方法，重新给state赋值，注意this.state.showText是获取当前showText的值，同时需要注意的是调用this.setState()后回自动调用 render() 方法从而实现界面的刷新。
+    }
+    render() {
+      let display = this.state.showText ? this.props.text : ' ';//这里通过showText 的值决定diaplay的值，如果为ture 则显示this.props.text属性的值，否则显示‘ ’，this.props.text为自定义属性，let等同于var；
+      return (
+        &lt;Text&gt;{display}&lt;/Text&gt;
+      );
+    }
+  }
+</code></pre>
+
+<p>在启动组件中使用</p>
+
+<pre><code class="language-js">class BlinkApp extends Component {
+  render() {
+    return (
+      &lt;View&gt;
+        &lt;Blink text='I love to blink' /&gt;
+        &lt;Blink text='Yes blinking is so great' /&gt;
+        &lt;Blink text='Why did they ever take this out of HTML' /&gt;
+        &lt;Blink text='Look at me look at me look at me' /&gt;
+      &lt;/View&gt;
+    );
+  }
+}
+</code></pre>
+</article>
+            <section class="author">
+                
+                <div class="avatar" style="background-image: url(https://inews.gtimg.com/newsapp_ls/0/12470321024/0);"></div>
+                <a class="name" href="javascript:;">江矿先森.</a>
+                <div class="intro">前(台)端(菜), 喜欢瞎折腾新技术、数码产品.</div>
+            </section>
+            <section class="social">
+                <a href="https://github.com/joname1" target="_blank">
+                    <i class="iconfont i-github"></i>
+                </a>
+                <a href="javascript:alert('你电脑中了不知名的病毒, 并抛出了警告 atob(“d3hJZDogam9uYW1lLmxpYW5ndGFu”)')" target="_blank">
+                    <i class="iconfont i-wechat"></i>
+                </a>
+                <a href="https://www.zhihu.com/people/joname-liangtan" target="_blank">
+                    <i class="iconfont i-zhihu"></i>
+                </a>
+                <a href="javascript:alert('对方不想跟你讲话, 并向你扔来一段乱码 atob(“am9uYW1lLmxpYW5ndGFuQGdtYWlsLmNvbQ”)')" target="_blank">
+                    <i class="iconfont i-email"></i>
+                </a>
+            </section>
+
+            <div class="reward">
+                <div class="reward-button">赏
+                    <span class="reward-code">
+                        <span class="alipay-code">
+                            <img class="alipay-img wdp-appear" src="https://inews.gtimg.com/newsapp_ls/0/12470324395/0"><b>支付宝扫码</b>
+                        </span>
+                    <span class="wechat-code">
+                            <img class="wechat-img wdp-appear" src="https://inews.gtimg.com/newsapp_ls/0/12470322844/0"><b>微信扫码</b>
+                        </span>
+                    </span>
+                </div>
+                
+                <p class="reward-notice">如果文章对你有帮助, 扫上方二维码请我喝杯奶茶吧 :p</p>
+            </div>
+
+            <div id="comment"></div>
+            
+        </article>
+    </article>
+    <footer class="footer clearfix">
+    <span class="copyright">
+        <script>
+            document.write(new Date().getFullYear());
+        </script> <i class="fa fa-copyright"></i> Made with <i class="fa fa-heart"></i> using &ltjoname /&gt
+        <span id="runtime_span"></span>
+    </span>
+</footer>
+    <script src="/bundle/index.min.js"></script>
+    <script src="https://cdn.staticfile.org/prism/1.16.0/prism.min.js"></script>
+    <script>
+        new Valine({el: '#comment',appId: 'jnCxgrLfxzf5aeWnhldmpset-gzGzoHsz',appKey: 'gEclatgmn0rmGbgoFi1OuA00',placeholder: 'ヾﾉ≧∀≦)o来啊, 快活啊, 反正有大把时光!!',path: window.location.pathname,avatar: 'retro',pageSize: 10,guest_info: ['nick', 'mail'],lang: 'en'});
+    </script>
+</body>
+
+</html>

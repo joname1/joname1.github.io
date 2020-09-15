@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=1, minimum-scale=1, maximum-scale=1">
+<meta name="referrer" content="never">
+<meta name="robots" content="index,follow">
+<link rel="shortcut icon" href="/favicon.png?v=198964">
+<link rel="apple-itouch-icon" href="/favicon.png?v=198964">
+<link href="/bundle/index.min.css" rel="stylesheet">
+<link href="https://fonts.loli.net/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" rel="stylesheet">
+<link href="https://cdn.staticfile.org/prism/1.16.0/themes/prism.min.css" rel="stylesheet">
+<link href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<script>
+    function ensureDate(e){return"object"!=typeof e&&(e=new Date(e)),e}function dateFormat(e,t){void 0===t&&(t=e,e=ensureDate());let n={M:(e=ensureDate(e)).getMonth()+1,d:e.getDate(),h:e.getHours(),m:e.getMinutes(),s:e.getSeconds(),q:Math.floor((e.getMonth()+3)/3),S:e.getMilliseconds()},r=new RegExp("([yMdhmsqS])+","g");return t=t.replace(r,function(t,r){let u=n[r];if(void 0!==u)return t.length>1&&(u=(u="0"+u).substring(u.length-2)),u;if("y"===r){return(e.getFullYear()+"").substring(4-t.length)}return t})}
+</script>
+    <meta name="keywords" content="React Native爬坑之路 02 Props,React Native,">
+    <meta name="description" content="React Native爬坑之路 02 Props,React Native,">
+    <meta name="author" content="江矿先森.">
+    <title>React Native爬坑之路 02 Props</title>
+    <link href="/bundle/iconfont.css" rel="stylesheet">
+    <link href="/bundle/reward.css" rel="stylesheet">
+    <script src='/bundle/av.min.js'></script>
+    <script src='/bundle/valine.min.js'></script>
+</head>
+
+<body>
+    <article class="container">
+        <header class="header-wrap asset">
+    <nav class="main-nav">
+        <ul class="menu vertical naive">
+            <li class="menu-item"><a href="/">Home</a></li>
+            <li class="menu-item"><a href="/archive.html">Archive</a></li>
+            <li class="menu-item"><a href="/tag.html">Tag</a></li>
+            
+            <li class="menu-item"><a href="/atom.xml">RSS</a></li>
+        </ul>
+    </nav>
+    <div class="bgs" style="background-image: url(https://inews.gtimg.com/newsapp_ls/0/12470316442/0);"></div>
+    <div class="vertical">
+        <div class="header-wrap-content inner">
+            <h3 class="title">Stay before every beautiful thoughts.</h3>
+            <h3 class="subtitle">Just be nice, always think twice!</h3>
+        </div>
+    </div>
+</header>
+        <article class="main article">
+            <h1 class="title">React Native爬坑之路 02 Props</h1>
+            <section class="info">
+                <span class="avatar" style="background-image: url(https://inews.gtimg.com/newsapp_ls/0/12470321024/0);"></span> <a class="name" href="javascript:;">江矿先森.</a> 
+                <span class="date"><script>document.write(dateFormat( 1521775434 *1000, 'yyyy-MM-dd'))</script></span> 
+                <span class="tags"><a class="tages" href="/tag/React%20Native/index.html">React Native</a></span>
+            </section>
+            <article class="content"><p>Props官网的介绍是：</p>
+
+<blockquote>
+<p>Most components can be customized when they are created, with different parameters. These creation parameters are called props.</p>
+</blockquote>
+
+<p>意思是：组件可以在创建时使用不同的参数进行自定义，这些参数就是Props。
+官网给我们举了一个例子：</p>
+
+<pre><code class="language-js">import React, { Component } from 'react';
+import { AppRegistry, Image } from 'react-native';
+
+class Bananas extends Component {
+  render() {
+    return (
+      &lt;Image source={{ uri: 'https://www.x.com/xxoo.jpg'}} style={{width: 10, height: 20}}/&gt;
+    );
+  }
+}
+
+AppRegistry.registerComponent('Bananas', () =&gt; Bananas);
+</code></pre>
+
+<p>source就是Image 这个组件的一个属性，同理 style也是。
+再来看一个button的例子</p>
+
+<pre><code class="language-js">render(){
+  return(
+    &lt;Button
+      onPress={onButtonPress}
+      title=&quot;Press Me&quot;
+      accessibilityLabel=&quot;See an informative alert&quot;
+    /&gt;
+  );
+  }
+</code></pre>
+
+<p>到这里我们应该基本了解了什么是Props吧，在以后实际开发过程中，可以通过API了解各个组件的属性。</p>
+
+<p>以上说的都是已有组件的属性那么我们自定义组件时该如何设置属性呢？官网给的解决办法是：在自定义组件的渲染函数（render）中通过this.props定义你的属性即可。
+还是来看官网的例子（略微修改了一下）</p>
+
+<pre><code class="language-js">class Greeting extends Component {
+  render() {
+    return (
+      &lt;Text&gt;{this.props.name}&lt;/Text&gt;
+    );
+  }
+}
+</code></pre>
+
+<p>我们在Greeting 这个自定义组件的渲染函数中通过<Text>组件定义了一个名为name的属性，注意看name前边的this.props，同时注意this.props.name是被{}包裹起来的。
+如何使用</p>
+
+<pre><code class="language-js">class LotsOfGreetings extends Component {
+  render() {
+    return (
+      &lt;View &gt;
+           &lt;Greeting name='Android'&gt;&lt;/Greeting&gt;
+           &lt;Greeting name='iOS'&gt;&lt;/Greeting&gt;
+           &lt;Greeting name='WindowPhone'&gt;&lt;/Greeting&gt;
+      &lt;/View&gt;
+    );
+  }
+}
+</code></pre>
+
+<p>修改一下Greeting的属性</p>
+
+<pre><code class="language-js">class Greeting extends Component {
+  render() {
+    return (
+      &lt;View&gt;
+        &lt;Text&gt;{this.props.name}&lt;/Text&gt;
+        &lt;Text&gt;{this.props.subname}&lt;/Text&gt;
+      &lt;/View&gt;
+    );
+  }
+}
+
+class LotsOfGreetings extends Component {
+  render() {
+    return (
+      &lt;View &gt;
+           &lt;Greeting name='Android' subname='iOS'&gt;&lt;/Greeting&gt;
+      &lt;/View&gt;
+    );
+  }
+}
+</code></pre>
+
+<p>实现了同样的效果，所以说属性的使用方式还是很灵活的官网其实也说了，实际开发过程中可能需要自定义各种各样的组件，合理使用好组件的属性，从而达到想要的效果。</p>
+</article>
+            <section class="author">
+                
+                <div class="avatar" style="background-image: url(https://inews.gtimg.com/newsapp_ls/0/12470321024/0);"></div>
+                <a class="name" href="javascript:;">江矿先森.</a>
+                <div class="intro">前(台)端(菜), 喜欢瞎折腾新技术、数码产品.</div>
+            </section>
+            <section class="social">
+                <a href="https://github.com/joname1" target="_blank">
+                    <i class="iconfont i-github"></i>
+                </a>
+                <a href="javascript:alert('你电脑中了不知名的病毒, 并抛出了警告 atob(“d3hJZDogam9uYW1lLmxpYW5ndGFu”)')" target="_blank">
+                    <i class="iconfont i-wechat"></i>
+                </a>
+                <a href="https://www.zhihu.com/people/joname-liangtan" target="_blank">
+                    <i class="iconfont i-zhihu"></i>
+                </a>
+                <a href="javascript:alert('对方不想跟你讲话, 并向你扔来一段乱码 atob(“am9uYW1lLmxpYW5ndGFuQGdtYWlsLmNvbQ”)')" target="_blank">
+                    <i class="iconfont i-email"></i>
+                </a>
+            </section>
+
+            <div class="reward">
+                <div class="reward-button">赏
+                    <span class="reward-code">
+                        <span class="alipay-code">
+                            <img class="alipay-img wdp-appear" src="https://inews.gtimg.com/newsapp_ls/0/12470324395/0"><b>支付宝扫码</b>
+                        </span>
+                    <span class="wechat-code">
+                            <img class="wechat-img wdp-appear" src="https://inews.gtimg.com/newsapp_ls/0/12470322844/0"><b>微信扫码</b>
+                        </span>
+                    </span>
+                </div>
+                
+                <p class="reward-notice">如果文章对你有帮助, 扫上方二维码请我喝杯奶茶吧 :p</p>
+            </div>
+
+            <div id="comment"></div>
+            
+        </article>
+    </article>
+    <footer class="footer clearfix">
+    <span class="copyright">
+        <script>
+            document.write(new Date().getFullYear());
+        </script> <i class="fa fa-copyright"></i> Made with <i class="fa fa-heart"></i> using &ltjoname /&gt
+        <span id="runtime_span"></span>
+    </span>
+</footer>
+    <script src="/bundle/index.min.js"></script>
+    <script src="https://cdn.staticfile.org/prism/1.16.0/prism.min.js"></script>
+    <script>
+        new Valine({el: '#comment',appId: 'jnCxgrLfxzf5aeWnhldmpset-gzGzoHsz',appKey: 'gEclatgmn0rmGbgoFi1OuA00',placeholder: 'ヾﾉ≧∀≦)o来啊, 快活啊, 反正有大把时光!!',path: window.location.pathname,avatar: 'retro',pageSize: 10,guest_info: ['nick', 'mail'],lang: 'en'});
+    </script>
+</body>
+
+</html>

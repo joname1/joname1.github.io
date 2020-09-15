@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=1, minimum-scale=1, maximum-scale=1">
+<meta name="referrer" content="never">
+<meta name="robots" content="index,follow">
+<link rel="shortcut icon" href="/favicon.png?v=198964">
+<link rel="apple-itouch-icon" href="/favicon.png?v=198964">
+<link href="/bundle/index.min.css" rel="stylesheet">
+<link href="https://fonts.loli.net/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" rel="stylesheet">
+<link href="https://cdn.staticfile.org/prism/1.16.0/themes/prism.min.css" rel="stylesheet">
+<link href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<script>
+    function ensureDate(e){return"object"!=typeof e&&(e=new Date(e)),e}function dateFormat(e,t){void 0===t&&(t=e,e=ensureDate());let n={M:(e=ensureDate(e)).getMonth()+1,d:e.getDate(),h:e.getHours(),m:e.getMinutes(),s:e.getSeconds(),q:Math.floor((e.getMonth()+3)/3),S:e.getMilliseconds()},r=new RegExp("([yMdhmsqS])+","g");return t=t.replace(r,function(t,r){let u=n[r];if(void 0!==u)return t.length>1&&(u=(u="0"+u).substring(u.length-2)),u;if("y"===r){return(e.getFullYear()+"").substring(4-t.length)}return t})}
+</script>
+    <meta name="keywords" content="Vue组件之间通信,Vue,">
+    <meta name="description" content="Vue组件之间通信,Vue,">
+    <meta name="author" content="江矿先森.">
+    <title>Vue组件之间通信</title>
+    <link href="/bundle/iconfont.css" rel="stylesheet">
+    <link href="/bundle/reward.css" rel="stylesheet">
+    <script src='/bundle/av.min.js'></script>
+    <script src='/bundle/valine.min.js'></script>
+</head>
+
+<body>
+    <article class="container">
+        <header class="header-wrap asset">
+    <nav class="main-nav">
+        <ul class="menu vertical naive">
+            <li class="menu-item"><a href="/">Home</a></li>
+            <li class="menu-item"><a href="/archive.html">Archive</a></li>
+            <li class="menu-item"><a href="/tag.html">Tag</a></li>
+            
+            <li class="menu-item"><a href="/atom.xml">RSS</a></li>
+        </ul>
+    </nav>
+    <div class="bgs" style="background-image: url(https://inews.gtimg.com/newsapp_ls/0/12470316442/0);"></div>
+    <div class="vertical">
+        <div class="header-wrap-content inner">
+            <h3 class="title">Stay before every beautiful thoughts.</h3>
+            <h3 class="subtitle">Just be nice, always think twice!</h3>
+        </div>
+    </div>
+</header>
+        <article class="main article">
+            <h1 class="title">Vue组件之间通信</h1>
+            <section class="info">
+                <span class="avatar" style="background-image: url(https://inews.gtimg.com/newsapp_ls/0/12470321024/0);"></span> <a class="name" href="javascript:;">江矿先森.</a> 
+                <span class="date"><script>document.write(dateFormat( 1503570234 *1000, 'yyyy-MM-dd'))</script></span> 
+                <span class="tags"><a class="tages" href="/tag/Vue/index.html">Vue</a></span>
+            </section>
+            <article class="content"><h3>父组件与子组件</h3>
+
+<p>在vue中，父子组件的关系可以总结为 prop 向下传递，事件向上传递。父组件通过 prop 给子组件下发数据，子组件通过事件给父组件发送消息。</p>
+
+<p>父组件</p>
+
+<pre><code class="language-vue">&lt;template&gt; 
+     &lt;div class=&quot;components-bus-container&quot;&gt;
+        &lt;children-one :fatherDataOne=&quot;fatherDataOne&quot;&gt;&lt;/children-one&gt;
+     &lt;/div&gt; 
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+    data() {
+        return {
+            fatherDataOne: '',
+        };
+    },
+}
+&lt;/script&gt;
+</code></pre>
+
+<p>子组件</p>
+
+<pre><code class="language-vue">&lt;template&gt;
+    &lt;div class=&quot;children-one-content&quot;&gt;
+        &lt;div&gt;{{fatherDataOne}}&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+    data() {
+    },
+    props: ['fatherDataOne']
+}
+&lt;/script&gt;
+</code></pre>
+
+<p><code>:fatherDataOne</code>为数据绑定写法，可以灵活的进行数据设置，如果直接绑定数据，写成<code>fatherDataOne=&quot;someData&quot;</code>即可</p>
+
+<h3>子组件与父组件通信</h3>
+
+<p>对于子组件将数据传给父组件，是通过<code>$emit</code>事件来实现的，在图中也可以体现，具体实现如下：
+子组件</p>
+
+<pre><code class="language-vue">&lt;template&gt;
+    &lt;div class=&quot;children-one-content&quot;&gt;
+        &lt;div&gt;{{fatherDataOne}}&lt;/div&gt;
+        &lt;div @click=&quot;tellParent&quot;&gt;点击传递数据&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+    data() {
+    },
+    props: ['fatherDataOne']，
+    methods: {
+        tellParent() {
+          this.$emit('listenOne', 'from childrenOne');
+        }
+    }
+}
+&lt;/script&gt;
+</code></pre>
+
+<p>父组件</p>
+
+<pre><code class="language-vue">&lt;template&gt; 
+     &lt;div class=&quot;components-bus-container&quot;&gt;
+        &lt;children-one :fatherDataOne=&quot;fatherDataOne&quot; @listenOne='getCompomentOne'&gt;&lt;/children-one&gt;
+     &lt;/div&gt; 
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+  data() {
+      return {
+          fatherDataOne: '',
+      };
+  },
+  methods: {
+    getCompomentOne(param) {
+      console.log(param);
+    }
+  }
+}
+&lt;/script&gt;
+</code></pre>
+
+<p>在父组件中绑定一个<code>listenOne</code>的事件，然后给这个事件添加<code>getCompomentOne</code>方法，当子组件children-one通过点击事件<code>tellParent</code>触发<code>listenOne</code>的时候，父组件里面的<code>getCompomentOne</code>方法就会执行，并且数据通过参数的形式传递给父组件，从而实现通信的功能。</p>
+
+<h3>同级组件间通信</h3>
+
+<p>对于同级间组件进行通信处理的方法是，新建一个Vue实例作为事件总线，具体实现如下：
+1.需要进行通信的同级组件引入<code>event.js</code></p>
+
+<pre><code class="language-javascript">	import Vue from 'vue'; 
+	let bus = new Vue(); 
+	export default bus; 
+</code></pre>
+
+<p>2.组件<code>children-one</code>通过点击事件<code>sendMsgToTwo</code>触发<code>dataFromOne</code>
+children-one</p>
+
+<pre><code class="language-vue">&lt;template&gt;
+    &lt;div class=&quot;children-one-content&quot;&gt;
+        &lt;div&gt;{{fatherDataOne}}&lt;/div&gt;
+        &lt;div @click=&quot;tellParent&quot;&gt;点击向父组件通信&lt;/div&gt;
+        &lt;div @click=&quot;tellChildTwo&quot;&gt;点击向子组件2通信&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+import bus from 'path/event'
+export default {
+  data() {
+  },
+  props: ['fatherDataOne']，
+  methods: {
+    tellParent() {
+      this.$emit('listenOne', 'from childrenOne');
+    },
+    tellChildTwo() {
+      bus.$emit('dataFromOne', 'dataFromOne');
+    }
+  }
+}
+&lt;/script&gt;
+</code></pre>
+
+<p>3.组件<code>children-two</code>中监听事件 <code>dataFromOne</code>
+children-two</p>
+
+<pre><code class="language-vue">&lt;template&gt;
+    &lt;div class=&quot;children-two-content&quot;&gt;
+    &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+import bus from 'path/event'
+export default {
+  data() {
+  },
+  methods: {
+    getMsgFromOne() {
+      bus.$on('dataFromOne', data =&gt; {
+        console.log(data);
+      });
+    }
+  },
+  mounted() {
+    this.getMsgFromOne();
+  }
+}
+&lt;/script&gt;
+</code></pre>
+
+<p>当<code>children-one</code>触发<code>dataFromOne</code>时，组件<code>children-two</code>中的监听事件<code>dataFromOne</code>就会被触发，数据通过参数的形式传入，从而实现同级组件间通信。</p>
+
+<h3>扩展</h3>
+
+<h5>1.父组件操作子组件的方法</h5>
+
+<p>利用$refs实现这个功能
+父组件</p>
+
+<pre><code class="language-vue">&lt;children-one :fatherDataOne=&quot;fatherDataOne&quot; @listenOne='getCompomentOne' ref=&quot;childrenOne&quot;&gt;&lt;/children-one&gt;
+</code></pre>
+
+<p>那么就可以通过<code>this.$refs.childrenOne.childenFunction()</code>来操作子组件中的方法。</p>
+
+<h5>2.父组件将数据传给子组件，出现<code>undefined</code>情况</h5>
+
+<p>当父组件传递的数据是异步取值的时候，可能出现首先传过去是空值，然后异步刷新。对于这种情况处理的方法是<code>v-if</code>，当父组件拿到数据后，将其设置为true，从而避免undefined的情况。</p>
+
+<h3>高级用法</h3>
+
+<p>对于一些简单的组件间的通信个人觉得这些方式够用了，如果一个页面涉及到很多的组件，那么也许这种方法不是那么简洁了，这是就需要用到<code>vue</code>中很重要的一个插件了<code>vuex</code>,以下为官网对<code>vuex</code>的介绍：
+<a href="https://vuex.vuejs.org/">vuex</a>是一个专为 Vue.js 应用程序开发的状态管理模式。它采用集中式存储管理应用的所有组件的状态，并以相应的规则保证状态以一种可预测的方式发生变化。Vuex 也集成到 Vue 的官方调试工具 <a href="https://github.com/vuejs/vue-devtools">devtools extension</a>，提供了诸如零配置的 time-travel 调试、状态快照导入导出等高级调试功能。
+如果您不打算开发大型单页应用，使用 Vuex 可能是繁琐冗余的。确实是如此——如果您的应用够简单，您最好不要使用 Vuex。一个简单的 global event bus 就足够您所需了。但是，如果您需要构建是一个中大型单页应用，您很可能会考虑如何更好地在组件外部管理状态，Vuex 将会成为自然而然的选择。</p>
+</article>
+            <section class="author">
+                
+                <div class="avatar" style="background-image: url(https://inews.gtimg.com/newsapp_ls/0/12470321024/0);"></div>
+                <a class="name" href="javascript:;">江矿先森.</a>
+                <div class="intro">前(台)端(菜), 喜欢瞎折腾新技术、数码产品.</div>
+            </section>
+            <section class="social">
+                <a href="https://github.com/joname1" target="_blank">
+                    <i class="iconfont i-github"></i>
+                </a>
+                <a href="javascript:alert('你电脑中了不知名的病毒, 并抛出了警告 atob(“d3hJZDogam9uYW1lLmxpYW5ndGFu”)')" target="_blank">
+                    <i class="iconfont i-wechat"></i>
+                </a>
+                <a href="https://www.zhihu.com/people/joname-liangtan" target="_blank">
+                    <i class="iconfont i-zhihu"></i>
+                </a>
+                <a href="javascript:alert('对方不想跟你讲话, 并向你扔来一段乱码 atob(“am9uYW1lLmxpYW5ndGFuQGdtYWlsLmNvbQ”)')" target="_blank">
+                    <i class="iconfont i-email"></i>
+                </a>
+            </section>
+
+            <div class="reward">
+                <div class="reward-button">赏
+                    <span class="reward-code">
+                        <span class="alipay-code">
+                            <img class="alipay-img wdp-appear" src="https://inews.gtimg.com/newsapp_ls/0/12470324395/0"><b>支付宝扫码</b>
+                        </span>
+                    <span class="wechat-code">
+                            <img class="wechat-img wdp-appear" src="https://inews.gtimg.com/newsapp_ls/0/12470322844/0"><b>微信扫码</b>
+                        </span>
+                    </span>
+                </div>
+                
+                <p class="reward-notice">如果文章对你有帮助, 扫上方二维码请我喝杯奶茶吧 :p</p>
+            </div>
+
+            <div id="comment"></div>
+            
+        </article>
+    </article>
+    <footer class="footer clearfix">
+    <span class="copyright">
+        <script>
+            document.write(new Date().getFullYear());
+        </script> <i class="fa fa-copyright"></i> Made with <i class="fa fa-heart"></i> using &ltjoname /&gt
+        <span id="runtime_span"></span>
+    </span>
+</footer>
+    <script src="/bundle/index.min.js"></script>
+    <script src="https://cdn.staticfile.org/prism/1.16.0/prism.min.js"></script>
+    <script>
+        new Valine({el: '#comment',appId: 'jnCxgrLfxzf5aeWnhldmpset-gzGzoHsz',appKey: 'gEclatgmn0rmGbgoFi1OuA00',placeholder: 'ヾﾉ≧∀≦)o来啊, 快活啊, 反正有大把时光!!',path: window.location.pathname,avatar: 'retro',pageSize: 10,guest_info: ['nick', 'mail'],lang: 'en'});
+    </script>
+</body>
+
+</html>

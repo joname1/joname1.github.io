@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=1, minimum-scale=1, maximum-scale=1">
+<meta name="referrer" content="never">
+<meta name="robots" content="index,follow">
+<link rel="shortcut icon" href="/favicon.png?v=198964">
+<link rel="apple-itouch-icon" href="/favicon.png?v=198964">
+<link href="/bundle/index.min.css" rel="stylesheet">
+<link href="https://fonts.loli.net/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" rel="stylesheet">
+<link href="https://cdn.staticfile.org/prism/1.16.0/themes/prism.min.css" rel="stylesheet">
+<link href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<script>
+    function ensureDate(e){return"object"!=typeof e&&(e=new Date(e)),e}function dateFormat(e,t){void 0===t&&(t=e,e=ensureDate());let n={M:(e=ensureDate(e)).getMonth()+1,d:e.getDate(),h:e.getHours(),m:e.getMinutes(),s:e.getSeconds(),q:Math.floor((e.getMonth()+3)/3),S:e.getMilliseconds()},r=new RegExp("([yMdhmsqS])+","g");return t=t.replace(r,function(t,r){let u=n[r];if(void 0!==u)return t.length>1&&(u=(u="0"+u).substring(u.length-2)),u;if("y"===r){return(e.getFullYear()+"").substring(4-t.length)}return t})}
+</script>
+    <meta name="keywords" content="理(瞎)解(说) async/await,ES8,">
+    <meta name="description" content="理(瞎)解(说) async/await,ES8,">
+    <meta name="author" content="江矿先森.">
+    <title>理(瞎)解(说) async/await</title>
+    <link href="/bundle/iconfont.css" rel="stylesheet">
+    <link href="/bundle/reward.css" rel="stylesheet">
+    <script src='/bundle/av.min.js'></script>
+    <script src='/bundle/valine.min.js'></script>
+</head>
+
+<body>
+    <article class="container">
+        <header class="header-wrap asset">
+    <nav class="main-nav">
+        <ul class="menu vertical naive">
+            <li class="menu-item"><a href="/">Home</a></li>
+            <li class="menu-item"><a href="/archive.html">Archive</a></li>
+            <li class="menu-item"><a href="/tag.html">Tag</a></li>
+            
+            <li class="menu-item"><a href="/atom.xml">RSS</a></li>
+        </ul>
+    </nav>
+    <div class="bgs" style="background-image: url(https://inews.gtimg.com/newsapp_ls/0/12470316442/0);"></div>
+    <div class="vertical">
+        <div class="header-wrap-content inner">
+            <h3 class="title">Stay before every beautiful thoughts.</h3>
+            <h3 class="subtitle">Just be nice, always think twice!</h3>
+        </div>
+    </div>
+</header>
+        <article class="main article">
+            <h1 class="title">理(瞎)解(说) async/await</h1>
+            <section class="info">
+                <span class="avatar" style="background-image: url(https://inews.gtimg.com/newsapp_ls/0/12470321024/0);"></span> <a class="name" href="javascript:;">江矿先森.</a> 
+                <span class="date"><script>document.write(dateFormat( 1515554634 *1000, 'yyyy-MM-dd'))</script></span> 
+                <span class="tags"><a class="tages" href="/tag/ES8/index.html">ES8</a></span>
+            </section>
+            <article class="content"><p>async 函数是 Generator 函数的语法糖。使用 关键字 async 来表示，在函数内部使用 await 来表示异步。
+想较于 Generator，Async 函数的改进在于下面四点：
+* 内置执行器。Generator 函数的执行必须依靠执行器，而 Aysnc 函数自带执行器，调用方式跟普通函数的调用一样
+* 更好的语义。async 和 await 相较于 * 和 yield 更加语义化
+* 更广的适用性。co 模块约定，yield 命令后面只能是 Thunk 函数或 Promise对象。而 async 函数的 await 命令后面则可以是 Promise 或者 原始类型的值（Number，string，boolean，但这时等同于同步操作）
+* 返回值是 Promise。async 函数返回值是 Promise 对象，比 Generator 函数返回的 Iterator 对象方便，可以直接使用 then() 方法进行调用</p>
+
+<h2>Async 与其他异步操作的对比</h2>
+
+<p>先定义一个 Fetch 方法用于获取用户信息：</p>
+
+<pre><code class="language-js">function fetchUser() {
+    return new Promise((resolve, reject) =&gt; {
+        fetch('www.xxx.com')
+        .then((data) =&gt; {
+            resolve(data.json());
+        }, (error) =&gt; {
+            reject(error);
+        })
+    });
+}
+</code></pre>
+
+<ul>
+<li>Promise 方式</li>
+</ul>
+
+<pre><code class="language-js">function getUserByPromise() {
+    fetchUser()
+        .then((data) =&gt; {
+            console.log(data);
+        }, (error) =&gt; {
+            console.log(error);
+        })
+}
+getUserByPromise();
+</code></pre>
+
+<p>Promise 的方式虽然解决了 callback hell，但是这种方式充满了 Promise的 then() 方法，如果处理流程复杂的话，整段代码将充满 then。语义化不明显，代码流程不能很好的表示执行流程。</p>
+
+<ul>
+<li>Generator 方式
+```js
+function* fetchUserByGenerator() {
+const user = yield fetchUser();
+return user;
+}</li>
+</ul>
+
+<p>const g = fetchUserByGenerator();
+const result = g.next().value;
+result.then((v) =&gt; {
+}, (error) =&gt; {
+    console.log(error);
+})</p>
+
+<pre><code>Generator 的方式解决了 Promise 的一些问题，流程更加直观、语义化。但是 Generator 的问题在于，函数的执行需要依靠执行器，每次都需要通过 g.next() 的方式去执行。
+
+* async 方式
+
+```js
+ async function getUserByAsync(){
+     let user = await fetchUser();
+     return user;
+ }
+getUserByAsync()
+.then(v =&gt; console.log(v));
+</code></pre>
+
+<p>async 函数完美的解决了上面两种方式的问题。流程清晰，直观、语义明显。操作异步流程就如同操作同步流程。同时 async 函数自带执行器，执行的时候无需手动加载。</p>
+
+<h2>语法</h2>
+
+<p>async 函数返回一个 Promise 对象</p>
+
+<p>async 函数内部 return 返回的值。会成为 then 方法回调函数的参数。</p>
+
+<pre><code class="language-js">async function  f() {
+    return 'hello world'
+};
+f().then( (v) =&gt; console.log(v)) // hello world
+</code></pre>
+
+<p>如果 async 函数内部抛出异常，则会导致返回的 Promise 对象状态变为 reject 状态。抛出的错误而会被 catch 方法回调函数接收到。</p>
+
+<pre><code class="language-js">async function e(){
+    throw new Error('error');
+}
+e().then(v =&gt; console.log(v))
+.catch( e =&gt; console.log(e));
+</code></pre>
+
+<p>async 函数返回的 Promise 对象，必须等到内部所有的 await 命令的 Promise 对象执行完，才会发生状态改变
+也就是说，只有当 async 函数内部的异步操作都执行完，才会执行 then 方法的回调。</p>
+
+<pre><code class="language-js">const delay = timeout =&gt; new Promise(resolve=&gt; setTimeout(resolve, timeout));
+async function f(){
+    await delay(1000);
+    await delay(2000);
+    await delay(3000);
+    return 'done';
+}
+
+f().then(v =&gt; console.log(v)); // 等待6s后才输出 'done'
+</code></pre>
+
+<p>正常情况下，await 命令后面跟着的是 Promise ，如果不是的话，也会被转换成一个 立即 resolve 的 Promise
+如下面这个例子：</p>
+
+<pre><code class="language-js">async function  f() {
+    return await 1
+};
+f().then( (v) =&gt; console.log(v)) // 1
+</code></pre>
+
+<p>如果返回的是 reject 的状态，则会被 catch 方法捕获。</p>
+
+<h2>Async 函数的错误处理</h2>
+
+<p>async 函数的语法不难，难在错误处理上。
+先来看下面的例子：</p>
+
+<pre><code class="language-js">let a;
+async function f() {
+    await Promise.reject('error');
+    a = await 1; // 这段 await 并没有执行
+}
+f().then(v =&gt; console.log(a));
+</code></pre>
+
+<p>如上面所示，当 async 函数中只要一个 await 出现 reject 状态，则后面的 await 都不会被执行。
+解决办法：可以添加 try/catch。</p>
+
+<pre><code class="language-js">// 正确的写法
+let a;
+async function correct() {
+    try {
+        await Promise.reject('error')
+    } catch (error) {
+        console.log(error);
+    }
+    a = await 1;
+    return a;
+}
+
+correct().then(v =&gt; console.log(a)); // 1
+</code></pre>
+
+<p>如果有多个 await 则可以将其都放在 try/catch 中。</p>
+
+<h2>如何在项目中使用</h2>
+
+<p>依然是通过 babel 来使用。
+只需要设置 presets 为 stage-3 即可。
+安装依赖：</p>
+
+<pre><code class="language-js">npm i babel-preset-es2015 babel-preset-stage-3 babel-runtime babel-plugin-transform-runtime
+</code></pre>
+
+<p>修改.babelrc:</p>
+
+<pre><code class="language-json">&quot;presets&quot;: [&quot;es2015&quot;, &quot;stage-3&quot;],
+&quot;plugins&quot;: [&quot;transform-runtime&quot;]
+</code></pre>
+
+<p>这样就可以在项目中使用 async 函数了。</p>
+</article>
+            <section class="author">
+                
+                <div class="avatar" style="background-image: url(https://inews.gtimg.com/newsapp_ls/0/12470321024/0);"></div>
+                <a class="name" href="javascript:;">江矿先森.</a>
+                <div class="intro">前(台)端(菜), 喜欢瞎折腾新技术、数码产品.</div>
+            </section>
+            <section class="social">
+                <a href="https://github.com/joname1" target="_blank">
+                    <i class="iconfont i-github"></i>
+                </a>
+                <a href="javascript:alert('你电脑中了不知名的病毒, 并抛出了警告 atob(“d3hJZDogam9uYW1lLmxpYW5ndGFu”)')" target="_blank">
+                    <i class="iconfont i-wechat"></i>
+                </a>
+                <a href="https://www.zhihu.com/people/joname-liangtan" target="_blank">
+                    <i class="iconfont i-zhihu"></i>
+                </a>
+                <a href="javascript:alert('对方不想跟你讲话, 并向你扔来一段乱码 atob(“am9uYW1lLmxpYW5ndGFuQGdtYWlsLmNvbQ”)')" target="_blank">
+                    <i class="iconfont i-email"></i>
+                </a>
+            </section>
+
+            <div class="reward">
+                <div class="reward-button">赏
+                    <span class="reward-code">
+                        <span class="alipay-code">
+                            <img class="alipay-img wdp-appear" src="https://inews.gtimg.com/newsapp_ls/0/12470324395/0"><b>支付宝扫码</b>
+                        </span>
+                    <span class="wechat-code">
+                            <img class="wechat-img wdp-appear" src="https://inews.gtimg.com/newsapp_ls/0/12470322844/0"><b>微信扫码</b>
+                        </span>
+                    </span>
+                </div>
+                
+                <p class="reward-notice">如果文章对你有帮助, 扫上方二维码请我喝杯奶茶吧 :p</p>
+            </div>
+
+            <div id="comment"></div>
+            
+        </article>
+    </article>
+    <footer class="footer clearfix">
+    <span class="copyright">
+        <script>
+            document.write(new Date().getFullYear());
+        </script> <i class="fa fa-copyright"></i> Made with <i class="fa fa-heart"></i> using &ltjoname /&gt
+        <span id="runtime_span"></span>
+    </span>
+</footer>
+    <script src="/bundle/index.min.js"></script>
+    <script src="https://cdn.staticfile.org/prism/1.16.0/prism.min.js"></script>
+    <script>
+        new Valine({el: '#comment',appId: 'jnCxgrLfxzf5aeWnhldmpset-gzGzoHsz',appKey: 'gEclatgmn0rmGbgoFi1OuA00',placeholder: 'ヾﾉ≧∀≦)o来啊, 快活啊, 反正有大把时光!!',path: window.location.pathname,avatar: 'retro',pageSize: 10,guest_info: ['nick', 'mail'],lang: 'en'});
+    </script>
+</body>
+
+</html>

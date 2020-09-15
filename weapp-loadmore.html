@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=1, minimum-scale=1, maximum-scale=1">
+<meta name="referrer" content="never">
+<meta name="robots" content="index,follow">
+<link rel="shortcut icon" href="/favicon.png?v=198964">
+<link rel="apple-itouch-icon" href="/favicon.png?v=198964">
+<link href="/bundle/index.min.css" rel="stylesheet">
+<link href="https://fonts.loli.net/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" rel="stylesheet">
+<link href="https://cdn.staticfile.org/prism/1.16.0/themes/prism.min.css" rel="stylesheet">
+<link href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<script>
+    function ensureDate(e){return"object"!=typeof e&&(e=new Date(e)),e}function dateFormat(e,t){void 0===t&&(t=e,e=ensureDate());let n={M:(e=ensureDate(e)).getMonth()+1,d:e.getDate(),h:e.getHours(),m:e.getMinutes(),s:e.getSeconds(),q:Math.floor((e.getMonth()+3)/3),S:e.getMilliseconds()},r=new RegExp("([yMdhmsqS])+","g");return t=t.replace(r,function(t,r){let u=n[r];if(void 0!==u)return t.length>1&&(u=(u="0"+u).substring(u.length-2)),u;if("y"===r){return(e.getFullYear()+"").substring(4-t.length)}return t})}
+</script>
+    <meta name="keywords" content="微信小程序上拉加载更多的思(坑)路,Weapp,ES6,Vueact,">
+    <meta name="description" content="微信小程序上拉加载更多的思(坑)路,Weapp,ES6,Vueact,">
+    <meta name="author" content="江矿先森.">
+    <title>微信小程序上拉加载更多的思(坑)路</title>
+    <link href="/bundle/iconfont.css" rel="stylesheet">
+    <link href="/bundle/reward.css" rel="stylesheet">
+    <script src='/bundle/av.min.js'></script>
+    <script src='/bundle/valine.min.js'></script>
+</head>
+
+<body>
+    <article class="container">
+        <header class="header-wrap asset">
+    <nav class="main-nav">
+        <ul class="menu vertical naive">
+            <li class="menu-item"><a href="/">Home</a></li>
+            <li class="menu-item"><a href="/archive.html">Archive</a></li>
+            <li class="menu-item"><a href="/tag.html">Tag</a></li>
+            
+            <li class="menu-item"><a href="/atom.xml">RSS</a></li>
+        </ul>
+    </nav>
+    <div class="bgs" style="background-image: url(https://inews.gtimg.com/newsapp_ls/0/12470316442/0);"></div>
+    <div class="vertical">
+        <div class="header-wrap-content inner">
+            <h3 class="title">Stay before every beautiful thoughts.</h3>
+            <h3 class="subtitle">Just be nice, always think twice!</h3>
+        </div>
+    </div>
+</header>
+        <article class="main article">
+            <h1 class="title">微信小程序上拉加载更多的思(坑)路</h1>
+            <section class="info">
+                <span class="avatar" style="background-image: url(https://inews.gtimg.com/newsapp_ls/0/12470321024/0);"></span> <a class="name" href="javascript:;">江矿先森.</a> 
+                <span class="date"><script>document.write(dateFormat( 1511087034 *1000, 'yyyy-MM-dd'))</script></span> 
+                <span class="tags"><a class="tages" href="/tag/Weapp/index.html">Weapp</a><a class="tages" href="/tag/ES6/index.html">ES6</a><a class="tages" href="/tag/Vueact/index.html">Vueact</a></span>
+            </section>
+            <article class="content"><blockquote>
+<p>首先说一下我遇到的需求。</p>
+
+<p>有一个商品列表页，当列表滚动到底部时，继续往上拉，加载更多商品，里面的数据都是后端返回的，接口情况大致如下：</p>
+
+<p>www.xxx.com/?<code>limit</code>=xxx&amp;<code>offset</code>=xxx</p>
+
+<p><code>limit</code>是控制每次上拉刷新的数量，<code>offset</code>是控制从当前商品开始往下加载。</p>
+</blockquote>
+
+<h1>实现原理</h1>
+
+<p>当第一次访问接口时，传递2个必备参数（即limit和offset参数），后台返回数据过来，在请求成功的回调函数中，取出数据，渲染到视图层，并把Toast在列表显示出来；当判断返回的数据长度为0时，则没有数据可取，并把“没有更多了”显示出来。
+当用户已经滚动到列表底部（这里使用到小程序提供的onReachBottom事件），当每次触发onReachBottom事件，offset就会增加，再把2个必备参数（第2次加载，需要返回数据的个数）给后台，后台把其余的数据返回给前台，前台在原来数据的基础上往下增加新的商品数据。</p>
+
+<pre><code class="language-js">  Page({
+  	data: {
+  		origin_limit: 6,   //控制每次加载的数量
+  		origin_offset: 0, //先初始化商品起始点
+  		proList: [] //放置返回数据的数组  
+  	｝
+  })
+</code></pre>
+
+<pre><code class="language-js">//下拉加载更多
+  onReachBottom(){
+    let that = this;
+    let prolistAdd = that.data.proList;
+
+    wx.showLoading({         //滚动到底部，弹出Loading。
+      title: '拼命加载中..',
+      duration: 5000
+    })
+
+    wx.request({
+      url: 'www.xxx.com',
+      data: {
+        limit: that.data.orgin_limit,
+        offset: that.data.orgin_offset
+      },
+      success: function (res) {
+        wx.hideLoading();  //当请求成功时，隐藏Loading。
+        that.setData({
+          proList: prolistAdd.concat(res.data.objects), //在原来数据的基础上，增加新加载的商品数据并渲染到视图层。
+          orgin_offset: that.data.orgin_offset + 6  //当每次触发上拉事件，offset就会在原数值上增加6。
+        })
+        if (res.data.objects.length == 0) {  //当判断返回的数据长度为0，则没有数据可取，并把“没有更多了”显示出来。
+            wx.showToast({
+              title: '没有更多了',
+              icon: 'none',
+              duration: 3000
+            })
+        }
+      }
+    })
+  },
+</code></pre>
+
+<pre><code class="language-js">//把下拉加载更多放到onLoad里面即可
+  onLoad: function () {
+    this.onReachBottom();
+  },
+</code></pre>
+</article>
+            <section class="author">
+                
+                <div class="avatar" style="background-image: url(https://inews.gtimg.com/newsapp_ls/0/12470321024/0);"></div>
+                <a class="name" href="javascript:;">江矿先森.</a>
+                <div class="intro">前(台)端(菜), 喜欢瞎折腾新技术、数码产品.</div>
+            </section>
+            <section class="social">
+                <a href="https://github.com/joname1" target="_blank">
+                    <i class="iconfont i-github"></i>
+                </a>
+                <a href="javascript:alert('你电脑中了不知名的病毒, 并抛出了警告 atob(“d3hJZDogam9uYW1lLmxpYW5ndGFu”)')" target="_blank">
+                    <i class="iconfont i-wechat"></i>
+                </a>
+                <a href="https://www.zhihu.com/people/joname-liangtan" target="_blank">
+                    <i class="iconfont i-zhihu"></i>
+                </a>
+                <a href="javascript:alert('对方不想跟你讲话, 并向你扔来一段乱码 atob(“am9uYW1lLmxpYW5ndGFuQGdtYWlsLmNvbQ”)')" target="_blank">
+                    <i class="iconfont i-email"></i>
+                </a>
+            </section>
+
+            <div class="reward">
+                <div class="reward-button">赏
+                    <span class="reward-code">
+                        <span class="alipay-code">
+                            <img class="alipay-img wdp-appear" src="https://inews.gtimg.com/newsapp_ls/0/12470324395/0"><b>支付宝扫码</b>
+                        </span>
+                    <span class="wechat-code">
+                            <img class="wechat-img wdp-appear" src="https://inews.gtimg.com/newsapp_ls/0/12470322844/0"><b>微信扫码</b>
+                        </span>
+                    </span>
+                </div>
+                
+                <p class="reward-notice">如果文章对你有帮助, 扫上方二维码请我喝杯奶茶吧 :p</p>
+            </div>
+
+            <div id="comment"></div>
+            
+        </article>
+    </article>
+    <footer class="footer clearfix">
+    <span class="copyright">
+        <script>
+            document.write(new Date().getFullYear());
+        </script> <i class="fa fa-copyright"></i> Made with <i class="fa fa-heart"></i> using &ltjoname /&gt
+        <span id="runtime_span"></span>
+    </span>
+</footer>
+    <script src="/bundle/index.min.js"></script>
+    <script src="https://cdn.staticfile.org/prism/1.16.0/prism.min.js"></script>
+    <script>
+        new Valine({el: '#comment',appId: 'jnCxgrLfxzf5aeWnhldmpset-gzGzoHsz',appKey: 'gEclatgmn0rmGbgoFi1OuA00',placeholder: 'ヾﾉ≧∀≦)o来啊, 快活啊, 反正有大把时光!!',path: window.location.pathname,avatar: 'retro',pageSize: 10,guest_info: ['nick', 'mail'],lang: 'en'});
+    </script>
+</body>
+
+</html>

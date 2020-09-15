@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=1, minimum-scale=1, maximum-scale=1">
+<meta name="referrer" content="never">
+<meta name="robots" content="index,follow">
+<link rel="shortcut icon" href="/favicon.png?v=198964">
+<link rel="apple-itouch-icon" href="/favicon.png?v=198964">
+<link href="/bundle/index.min.css" rel="stylesheet">
+<link href="https://fonts.loli.net/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" rel="stylesheet">
+<link href="https://cdn.staticfile.org/prism/1.16.0/themes/prism.min.css" rel="stylesheet">
+<link href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<script>
+    function ensureDate(e){return"object"!=typeof e&&(e=new Date(e)),e}function dateFormat(e,t){void 0===t&&(t=e,e=ensureDate());let n={M:(e=ensureDate(e)).getMonth()+1,d:e.getDate(),h:e.getHours(),m:e.getMinutes(),s:e.getSeconds(),q:Math.floor((e.getMonth()+3)/3),S:e.getMilliseconds()},r=new RegExp("([yMdhmsqS])+","g");return t=t.replace(r,function(t,r){let u=n[r];if(void 0!==u)return t.length>1&&(u=(u="0"+u).substring(u.length-2)),u;if("y"===r){return(e.getFullYear()+"").substring(4-t.length)}return t})}
+</script>
+    <meta name="keywords" content="React 组件之间交流,React,">
+    <meta name="description" content="React 组件之间交流,React,">
+    <meta name="author" content="江矿先森.">
+    <title>React 组件之间交流</title>
+    <link href="/bundle/iconfont.css" rel="stylesheet">
+    <link href="/bundle/reward.css" rel="stylesheet">
+    <script src='/bundle/av.min.js'></script>
+    <script src='/bundle/valine.min.js'></script>
+</head>
+
+<body>
+    <article class="container">
+        <header class="header-wrap asset">
+    <nav class="main-nav">
+        <ul class="menu vertical naive">
+            <li class="menu-item"><a href="/">Home</a></li>
+            <li class="menu-item"><a href="/archive.html">Archive</a></li>
+            <li class="menu-item"><a href="/tag.html">Tag</a></li>
+            
+            <li class="menu-item"><a href="/atom.xml">RSS</a></li>
+        </ul>
+    </nav>
+    <div class="bgs" style="background-image: url(https://inews.gtimg.com/newsapp_ls/0/12470316442/0);"></div>
+    <div class="vertical">
+        <div class="header-wrap-content inner">
+            <h3 class="title">Stay before every beautiful thoughts.</h3>
+            <h3 class="subtitle">Just be nice, always think twice!</h3>
+        </div>
+    </div>
+</header>
+        <article class="main article">
+            <h1 class="title">React 组件之间交流</h1>
+            <section class="info">
+                <span class="avatar" style="background-image: url(https://inews.gtimg.com/newsapp_ls/0/12470321024/0);"></span> <a class="name" href="javascript:;">江矿先森.</a> 
+                <span class="date"><script>document.write(dateFormat( 1516443834 *1000, 'yyyy-MM-dd'))</script></span> 
+                <span class="tags"><a class="tages" href="/tag/React/index.html">React</a></span>
+            </section>
+            <article class="content"><p>处理 React 组件之间的交流方式，主要取决于组件之间的关系，然而这些关系的约定人就是你。
+我不会讲太多关于 data-stores、data-adapters 或者 data-helpers 之类的话题。</p>
+
+<p>React 组件之间交流的方式，可以分为以下 3 种：</p>
+
+<ul>
+<li>【父组件】向【子组件】传值；</li>
+<li>【子组件】向【父组件】传值；</li>
+<li>没有任何嵌套关系的组件之间传值（如：兄弟组件之间传值）</li>
+</ul>
+
+<h2>一、【父组件】向【子组件】传值</h2>
+
+<p>这个是相当容易的，在使用 React 开发的过程中经常会使用到，主要是利用 props 来进行交流。例子如下：</p>
+
+<pre><code class="language-js">// 父组件
+var MyContainer = React.createClass({
+    getInitialState: function () {
+        return {
+            checked: true
+        };
+    },
+    render: function() {
+        return (
+            &lt;ToggleButton text=&quot;Toggle me&quot; checked={this.state.checked} /&gt;
+        );
+    }
+});
+
+// 子组件
+var ToggleButton = React.createClass({
+    render: function () {
+        // 从【父组件】获取的值
+        var checked = this.props.checked,
+                text = this.props.text;
+
+        return (
+                &lt;label&gt;{text}: &lt;input type=&quot;checkbox&quot; checked={checked} /&gt;&lt;/label&gt;
+        );
+    }
+});
+</code></pre>
+
+<p>如果组件嵌套层次太深，那么从外到内组件的交流成本就变得很高，通过 props 传递值的优势就不那么明显了。（PS：所以我建议尽可能的减少组件的层次，就像写 HTML 一样，简单清晰的结构更惹人爱）</p>
+
+<pre><code class="language-js">// 父组件
+var MyContainer = React.createClass({
+    render: function() {
+        return (
+            &lt;Intermediate text=&quot;where is my son?&quot; /&gt;
+        );
+    }
+});
+
+// 子组件1：中间嵌套的组件
+var Intermediate = React.createClass({
+    render: function () {
+        return (
+            &lt;Child text={this.props.text} /&gt;
+        );
+    }
+});
+
+// 子组件2：子组件1的子组件
+var Child = React.createClass({
+    render: function () {
+        return (
+            &lt;span&gt;{this.props.text}&lt;/span&gt;
+        );
+    }
+});
+</code></pre>
+
+<h3>二、【子组件】向【父组件】传值</h3>
+
+<p>接下来，【子组件】控制自己的 state 然后告诉【父组件】的点击状态，然后在【父组件】中展示出来。因此，我们添加一个 change 事件来做交互。</p>
+
+<pre><code class="language-js">// 父组件
+var MyContainer = React.createClass({
+    getInitialState: function () {
+        return {
+            checked: false
+        };
+    },
+    onChildChanged: function (newState) {
+        this.setState({
+            checked: newState
+        });
+    },
+    render: function() {
+        var isChecked = this.state.checked ? &quot;yes&quot; : &quot;no&quot;;
+        return (
+            &lt;div&gt;
+                &lt;div&gt;Are you checked: {isChecked}&lt;/div&gt;
+                &lt;ToggleButton text=&quot;Toggle me&quot;
+                    initialChecked={this.state.checked}
+                    callbackParent={this.onChildChanged}
+                    /&gt;
+            &lt;/div&gt;
+        );
+    }
+});
+
+// 子组件
+var ToggleButton = React.createClass({
+    getInitialState: function () {
+        return {
+            checked: this.props.initialChecked
+        };
+    },
+    onTextChange: function () {
+        var newState = !this.state.checked;
+        this.setState({
+            checked: newState
+        });
+        // 这里要注意：setState 是一个异步方法，所以需要操作缓存的当前值
+        this.props.callbackParent(newState);
+    },
+    render: function () {
+        // 从【父组件】获取的值
+        var text = this.props.text;
+        // 组件自身的状态数据
+        var checked = this.state.checked;
+
+        return (
+                &lt;label&gt;{text}: &lt;input type=&quot;checkbox&quot; checked={checked} onChange={this.onTextChange} /&gt;&lt;/label&gt;
+        );
+    }
+});
+</code></pre>
+
+<p><code>这样做其实是依赖 props 来传递事件的引用，并通过回调的方式来实现的，这样实现不是特别好，但是在没有任何工具的情况下也是一种简单的实现方式</code></p>
+
+<p>这里会出现一个我们在之前讨论的问题，就是组件有多层嵌套的情况下，你必须要一次传入回调函数给 props 来实现子组件向父组件传值或者操作。</p>
+
+<h4>Tiny-Tip: React Event System</h4>
+
+<p>在 onChange 事件或者其他 React 事件中，你能够获取以下东西：</p>
+
+<ul>
+<li>【this】：指向你的组件</li>
+<li>【一个参数】：这个参数是一个 React 合成事件，SyntheticEvent。</li>
+</ul>
+
+<p>React 对所有事件的管理都是自己实现的，与我们之前使用的 onclick、onchange 事件不一样。从根本上来说，他们都是绑定到 body 上。
+<code>document.on(&quot;change&quot;, &quot;input[data-reactid=&quot;.0.2&quot;]&quot;, function () {...});</code>
+上面这份代码不是来自于 React，只是打一个比方而已。</p>
+
+<p>如果我没有猜错的话，React 真正处理一个事件的代码如下：</p>
+
+<pre><code class="language-js">var listenTo = ReactBrowserEventEmitter.listenTo;
+...
+function putListener(id, registrationName, listener, transaction) {
+    ...
+    var container = ReactMount.findReactContainerForID(id);
+    if (container) {
+        var doc = container.nodeType === ELEMENT_NODE_TYPE ? container.ownerDocument : container;
+        listenTo(registrationName, doc);
+        }
+    ...
+}
+// 在监听事件的内部，我们能发现如下：
+target.addEventListener(eventType, callback, false);
+</code></pre>
+
+<p><code>多个子组件使用同一个回调的情况</code></p>
+
+<pre><code class="language-js">// 父组件
+var MyContainer = React.createClass({
+    getInitialState: function () {
+        return {
+            totalChecked: 0
+        };
+    },
+    onChildChanged: function (newState) {
+        var newToral = this.state.totalChecked
+            + (newState ? 1 : -1);
+        this.setState({
+            totalChecked: newToral
+        });
+    },
+    render: function() {
+        var totalChecked = this.state.totalChecked;
+        return (
+            &lt;div&gt;
+                &lt;div&gt;How many are checked: {totalChecked}&lt;/div&gt;
+                &lt;ToggleButton text=&quot;Toggle me&quot;
+                    initialChecked={this.state.checked}
+                    callbackParent={this.onChildChanged}
+                    /&gt;
+                &lt;ToggleButton text=&quot;Toggle me too&quot;
+                        initialChecked={this.state.checked}
+                        callbackParent={this.onChildChanged}
+                        /&gt;
+                    &lt;ToggleButton text=&quot;And me&quot;
+                        initialChecked={this.state.checked}
+                        callbackParent={this.onChildChanged}
+                        /&gt;
+            &lt;/div&gt;
+        );
+    }
+});
+
+// 子组件
+var ToggleButton = React.createClass({
+    getInitialState: function () {
+        return {
+            checked: this.props.initialChecked
+        };
+    },
+    onTextChange: function () {
+        var newState = !this.state.checked;
+        this.setState({
+            checked: newState
+        });
+        // 这里要注意：setState 是一个异步方法，所以需要操作缓存的当前值
+        this.props.callbackParent(newState);
+    },
+    render: function () {
+        // 从【父组件】获取的值
+        var text = this.props.text;
+        // 组件自身的状态数据
+        var checked = this.state.checked;
+
+        return (
+                &lt;label&gt;{text}: &lt;input type=&quot;checkbox&quot; checked={checked} onChange={this.onTextChange} /&gt;&lt;/label&gt;
+        );
+    }
+});
+</code></pre>
+
+<p>这是非常容易理解的，在父组件中我们增加了一个【totalChecked】来替代之前例子中的【checked】，当子组件改变的时候，使用同一个子组件的回调函数给父组件返回值。</p>
+
+<h3>三、没有任何嵌套关系的组件之间传值</h3>
+
+<p>如果组件之间没有任何关系，组件嵌套层次比较深（个人认为 2 层以上已经算深了），或者你为了一些组件能够订阅、写入一些信号，不想让组件之间插入一个组件，让两个组件处于独立的关系。对于事件系统，这里有 2 个基本操作步骤：订阅（subscribe）/监听（listen）一个事件通知，并发送（send）/触发（trigger）/发布（publish）/发送（dispatch）一个事件通知那些想要的组件。</p>
+
+<p>下面讲介绍 3 种模式来处理事件，你能点击这里来比较一下它们。</p>
+
+<p>简单总结一下：</p>
+
+<ul>
+<li>Event Emitter/Target/Dispatcher
+特点：需要一个指定的订阅源</li>
+</ul>
+
+<pre><code class="language-js">// to subscribe
+otherObject.addEventListener(‘click’, function() { alert(‘click!’); });
+// to dispatch
+this.dispatchEvent(‘click’);
+</code></pre>
+
+<ul>
+<li>Publish / Subscribe
+特点：触发事件的时候，你不需要指定一个特定的源，因为它是使用一个全局对象来处理事件（其实就是一个全局 广播的方式来处理事件）</li>
+</ul>
+
+<pre><code class="language-js">// to subscribe
+globalBroadcaster.subscribe(‘click’, function() { alert(‘click!’); });
+// to dispatch
+globalBroadcaster.publish(‘click’);
+</code></pre>
+
+<ul>
+<li>Signals
+特点：与Event Emitter/Target/Dispatcher相似，但是你不要使用随机的字符串作为事件触发的引用。触发事件的每一个对象都需要一个确切的名字（就是类似硬编码类的去写事件名字），并且在触发的时候，也必须要指定确切的事件。（看例子吧，很好理解）</li>
+</ul>
+
+<pre><code class="language-js">// to subscribe
+otherObject.clicked.add(function() { alert(‘click’); });
+// to dispatch
+this.clicked.dispatch();
+</code></pre>
+
+<p>如果你只想简单的使用一下，并不需要其他操作，可以用简单的方式来实现：</p>
+
+<pre><code class="language-js">// 简单实现了一下 subscribe 和 dispatch
+var EventEmitter = {
+        _events: {},
+        dispatch: function (event, data) {
+                if (!this._events[event]) { // 没有监听事件
+                    return;
+                }
+                for (var i = 0; i &lt; this._events[event].length; i++) {
+                        this._events[event][i](data);
+                }
+        },
+        subscribe: function (event, callback) {
+            // 创建一个新事件数组
+            if (!this._events[event]) {
+                this._events[event] = [];
+            }
+            this._events[event].push(callback);
+        }
+};
+otherObject.subscribe(&quot;namechanged&quot;, function(data) { alert(data.name); });
+this.dispatch(&quot;namechanged&quot;, { name: &quot;John&quot; });
+</code></pre>
+
+<p>如果你想使用 Publish/Subscribe 模型，可以使用：PubSubJS
+React 团队使用的是：js-signals 它基于 Signals 模式，用起来相当不错。</p>
+
+<h3>Events in React</h3>
+
+<p>使用 React 事件的时候，必须关注下面两个方法：
+* componentDidMount
+* componentWillUnmount
+在处理事件的时候，需要注意：</p>
+
+<p>在 componentDidMount 事件中，如果组件挂载（mounted）完成，再订阅事件；当组件卸载（unmounted）的时候，在 componentWillUnmount 事件中取消事件的订阅。
+（如果不是很清楚可以查阅 React 对生命周期介绍的文档，里面也有描述。原文中介绍的是 componentWillMount 个人认为应该是挂载完成后订阅事件，比如Animation这个就必须挂载，并且不能动态的添加，谨慎点更好）
+因为组件的渲染和销毁是由 React 来控制的，我们不知道怎么引用他们，所以EventEmitter 模式在处理组件的时候用处不大。</p>
+
+<p>pub/sub 模式可以使用，你不需要知道引用。</p>
+
+<p>下面来一个例子：实现有多个 product 组件，点击他们的时候，展示 product 的名字。
+(我在例子中引入了之前推荐的 PubSubJS 库，如果你觉得引入代价太大，也可以手写一个简版，还是比较容易的，很好用哈，大家也可以体验，但是我还是不推荐全局广播的方式)</p>
+
+<pre><code class="language-js">// 定义一个容器
+var ProductList = React.createClass({
+        render: function () {
+            return (
+                &lt;div&gt;
+                    &lt;ProductSelection /&gt;
+                    &lt;Product name=&quot;product 1&quot; /&gt;
+                    &lt;Product name=&quot;product 2&quot; /&gt;
+                    &lt;Product name=&quot;product 3&quot; /&gt;
+                &lt;/div&gt;
+            );
+        }
+});
+// 用于展示点击的产品信息容器
+var ProductSelection = React.createClass({
+    getInitialState: function() {
+        return {
+            selection: &quot;none&quot;
+        };
+    },
+    componentDidMount: function () {
+        this.pubsub_token = PubSub.subscribe(&quot;products&quot;, function (topic, product) {
+            this.setState({
+                selection: product
+            });
+        }.bind(this));
+    },
+    componentWillUnmount: function () {
+        PubSub.unsubscribe(this.pubsub_token);
+    },
+    render: function () {
+        return (
+            &lt;p&gt;You have selected the product : {this.state.selection}&lt;/p&gt;
+        );
+    }
+});
+var Product = React.createClass({
+    onclick: function () {
+        PubSub.publish(&quot;products&quot;, this.props.name);
+    },
+    render: function() {
+        return &lt;div onClick={this.onclick}&gt;{this.props.name}&lt;/div&gt;;
+    }
+});
+</code></pre>
+
+<h3>ES6: yield and js-csp</h3>
+
+<p>ES6 中有一种传递信息的方式，使用生成函数(generators)和 yield 关键字。</p>
+
+<pre><code class="language-js">function* list() {
+        for(var i = 0; i &lt; arguments.length; i++) {
+                yield arguments[i];
+        }
+        return &quot;done.&quot;;
+}
+var o = list(1, 2, 3);
+var cur = o.next;
+while(!cur.done) {
+        cur = o.next();
+        console.log(cur);
+}
+</code></pre>
+
+<p>通常来说，你有一个队列，对象在里面都能找到一个引用，在定义的时候锁住，当发生的时候，立即打开锁执行。js-csp 是一种解决办法，也许以后还会有其他解决办法。</p>
+
+<h3>结尾</h3>
+
+<p>在实际应用中，按照实际要解决的需求选择解决办法。对于小应用程序，你可以使用 props 和回调的方法进行组件之间的数据交换。你可以通过 pub/sub 模式，以避免污染你的组件。在这里，我们不是在谈论数据，只是组件。对于数据的请求、数据的变化等场景，可以使用 Facebook 的 Flux、Relay、GraphQL 来处理，都非常的好用。</p>
+</article>
+            <section class="author">
+                
+                <div class="avatar" style="background-image: url(https://inews.gtimg.com/newsapp_ls/0/12470321024/0);"></div>
+                <a class="name" href="javascript:;">江矿先森.</a>
+                <div class="intro">前(台)端(菜), 喜欢瞎折腾新技术、数码产品.</div>
+            </section>
+            <section class="social">
+                <a href="https://github.com/joname1" target="_blank">
+                    <i class="iconfont i-github"></i>
+                </a>
+                <a href="javascript:alert('你电脑中了不知名的病毒, 并抛出了警告 atob(“d3hJZDogam9uYW1lLmxpYW5ndGFu”)')" target="_blank">
+                    <i class="iconfont i-wechat"></i>
+                </a>
+                <a href="https://www.zhihu.com/people/joname-liangtan" target="_blank">
+                    <i class="iconfont i-zhihu"></i>
+                </a>
+                <a href="javascript:alert('对方不想跟你讲话, 并向你扔来一段乱码 atob(“am9uYW1lLmxpYW5ndGFuQGdtYWlsLmNvbQ”)')" target="_blank">
+                    <i class="iconfont i-email"></i>
+                </a>
+            </section>
+
+            <div class="reward">
+                <div class="reward-button">赏
+                    <span class="reward-code">
+                        <span class="alipay-code">
+                            <img class="alipay-img wdp-appear" src="https://inews.gtimg.com/newsapp_ls/0/12470324395/0"><b>支付宝扫码</b>
+                        </span>
+                    <span class="wechat-code">
+                            <img class="wechat-img wdp-appear" src="https://inews.gtimg.com/newsapp_ls/0/12470322844/0"><b>微信扫码</b>
+                        </span>
+                    </span>
+                </div>
+                
+                <p class="reward-notice">如果文章对你有帮助, 扫上方二维码请我喝杯奶茶吧 :p</p>
+            </div>
+
+            <div id="comment"></div>
+            
+        </article>
+    </article>
+    <footer class="footer clearfix">
+    <span class="copyright">
+        <script>
+            document.write(new Date().getFullYear());
+        </script> <i class="fa fa-copyright"></i> Made with <i class="fa fa-heart"></i> using &ltjoname /&gt
+        <span id="runtime_span"></span>
+    </span>
+</footer>
+    <script src="/bundle/index.min.js"></script>
+    <script src="https://cdn.staticfile.org/prism/1.16.0/prism.min.js"></script>
+    <script>
+        new Valine({el: '#comment',appId: 'jnCxgrLfxzf5aeWnhldmpset-gzGzoHsz',appKey: 'gEclatgmn0rmGbgoFi1OuA00',placeholder: 'ヾﾉ≧∀≦)o来啊, 快活啊, 反正有大把时光!!',path: window.location.pathname,avatar: 'retro',pageSize: 10,guest_info: ['nick', 'mail'],lang: 'en'});
+    </script>
+</body>
+
+</html>

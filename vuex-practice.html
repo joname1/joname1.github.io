@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=1, minimum-scale=1, maximum-scale=1">
+<meta name="referrer" content="never">
+<meta name="robots" content="index,follow">
+<link rel="shortcut icon" href="/favicon.png?v=198964">
+<link rel="apple-itouch-icon" href="/favicon.png?v=198964">
+<link href="/bundle/index.min.css" rel="stylesheet">
+<link href="https://fonts.loli.net/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" rel="stylesheet">
+<link href="https://cdn.staticfile.org/prism/1.16.0/themes/prism.min.css" rel="stylesheet">
+<link href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<script>
+    function ensureDate(e){return"object"!=typeof e&&(e=new Date(e)),e}function dateFormat(e,t){void 0===t&&(t=e,e=ensureDate());let n={M:(e=ensureDate(e)).getMonth()+1,d:e.getDate(),h:e.getHours(),m:e.getMinutes(),s:e.getSeconds(),q:Math.floor((e.getMonth()+3)/3),S:e.getMilliseconds()},r=new RegExp("([yMdhmsqS])+","g");return t=t.replace(r,function(t,r){let u=n[r];if(void 0!==u)return t.length>1&&(u=(u="0"+u).substring(u.length-2)),u;if("y"===r){return(e.getFullYear()+"").substring(4-t.length)}return t})}
+</script>
+    <meta name="keywords" content="Vuex存值、取值的操作,Vue,Vuex,">
+    <meta name="description" content="Vuex存值、取值的操作,Vue,Vuex,">
+    <meta name="author" content="江矿先森.">
+    <title>Vuex存值、取值的操作</title>
+    <link href="/bundle/iconfont.css" rel="stylesheet">
+    <link href="/bundle/reward.css" rel="stylesheet">
+    <script src='/bundle/av.min.js'></script>
+    <script src='/bundle/valine.min.js'></script>
+</head>
+
+<body>
+    <article class="container">
+        <header class="header-wrap asset">
+    <nav class="main-nav">
+        <ul class="menu vertical naive">
+            <li class="menu-item"><a href="/">Home</a></li>
+            <li class="menu-item"><a href="/archive.html">Archive</a></li>
+            <li class="menu-item"><a href="/tag.html">Tag</a></li>
+            
+            <li class="menu-item"><a href="/atom.xml">RSS</a></li>
+        </ul>
+    </nav>
+    <div class="bgs" style="background-image: url(https://inews.gtimg.com/newsapp_ls/0/12470316442/0);"></div>
+    <div class="vertical">
+        <div class="header-wrap-content inner">
+            <h3 class="title">Stay before every beautiful thoughts.</h3>
+            <h3 class="subtitle">Just be nice, always think twice!</h3>
+        </div>
+    </div>
+</header>
+        <article class="main article">
+            <h1 class="title">Vuex存值、取值的操作</h1>
+            <section class="info">
+                <span class="avatar" style="background-image: url(https://inews.gtimg.com/newsapp_ls/0/12470321024/0);"></span> <a class="name" href="javascript:;">江矿先森.</a> 
+                <span class="date"><script>document.write(dateFormat( 1505273034 *1000, 'yyyy-MM-dd'))</script></span> 
+                <span class="tags"><a class="tages" href="/tag/Vue/index.html">Vue</a><a class="tages" href="/tag/Vuex/index.html">Vuex</a></span>
+            </section>
+            <article class="content"><h2>传值</h2>
+
+<pre><code class="language-js">// 定义参数
+let params = {
+  workItemId: 1,
+  flowInstId: 21,
+  itemStatus: false,
+  type: type,
+  srcId: srcId
+}
+// 保存参数
+this.$store.dispatch('approvalParams', params);
+</code></pre>
+
+<ul>
+<li>index.js</li>
+</ul>
+
+<pre><code class="language-js">
+import Vue from 'vue'
+import Vuex from 'vuex'
+
+import actions from './actions'
+import mutations from './mutations'
+
+Vue.use(Vuex);
+
+export default new Vuex.Store({
+  modules:{
+    mutations
+  },
+  actions
+});
+</code></pre>
+
+<ul>
+<li>types.js</li>
+</ul>
+
+<pre><code class="language-js">// 审批历史页请求参数
+export const APPROVAL_HISTORY_PARAMS = 'APPROVAL_HISTORY_PARAMS';
+</code></pre>
+
+<ul>
+<li>actions.js</li>
+</ul>
+
+<pre><code class="language-js">// 引入 状态(类型),用于提交到mutations
+import * as types from './types'
+
+// 导出
+export default {
+  // 保存 请求参数 approvalHistoryParams为上面的&quot;action名&quot;
+  approvalHistoryParams: ({commit}, res) =&gt; {
+    // 此处是触发mutation的 STORE_MOVIE_ID为&quot;mutation名&quot;
+    commit(types.APPROVAL_HISTORY_PARAMS, res);
+  }
+}
+</code></pre>
+
+<ul>
+<li>mutations.js</li>
+</ul>
+
+<pre><code class="language-js">import {
+  APPROVAL_HISTORY_PARAMS // 审批历史参数
+} from './types'
+
+// 引入 getters
+import getters from './getters'
+
+// 定义、初始化数据
+const state = {
+  approvalHistoryParams:{}
+}
+
+// 定义 mutations
+const mutations = {
+  // 匹配actions通过commit传过来的值,并改变state上的属性的值
+  // 审批历史页 请求参数
+  [APPROVAL_HISTORY_PARAMS](state, res){
+    state.approvalHistoryParams = res;   //state.数据名 = data
+  }
+}
+
+// 导出
+export default {
+  state,
+  mutations,
+  getters
+}
+</code></pre>
+
+<ul>
+<li>getters.js</li>
+</ul>
+
+<pre><code class="language-js">// 导出
+export default {
+  // 获取 审批历史参数
+  approvalHistoryParams: (state) =&gt; {
+    return state.approvalHistoryParams;
+  }
+}
+</code></pre>
+
+<h2>取值</h2>
+
+<pre><code class="language-js">import { mapGetters } from 'vuex';
+
+export default {
+  computed: {
+    ...mapGetters([//...函数名 使用对象展开运算符将此对象混入到外部对象中
+      'approvalHistoryParams'
+    ])
+  },
+  methods: {
+    fetchData(){
+      console.log(this.approvalHistoryParams.name);
+    }
+  }
+}
+</code></pre>
+
+<h2>PS</h2>
+
+<ul>
+<li>dispatch</li>
+</ul>
+
+<p>异步操作，例如向后台提交数据，写法：<strong>this.$store.dispatch(&lsquo;mutations_name&rsquo;, val)</strong></p>
+
+<ul>
+<li>commit</li>
+</ul>
+
+<p>同步操作，写法：<strong>this.$store.commit(&lsquo;mutations_name&rsquo;, val)</strong></p>
+</article>
+            <section class="author">
+                
+                <div class="avatar" style="background-image: url(https://inews.gtimg.com/newsapp_ls/0/12470321024/0);"></div>
+                <a class="name" href="javascript:;">江矿先森.</a>
+                <div class="intro">前(台)端(菜), 喜欢瞎折腾新技术、数码产品.</div>
+            </section>
+            <section class="social">
+                <a href="https://github.com/joname1" target="_blank">
+                    <i class="iconfont i-github"></i>
+                </a>
+                <a href="javascript:alert('你电脑中了不知名的病毒, 并抛出了警告 atob(“d3hJZDogam9uYW1lLmxpYW5ndGFu”)')" target="_blank">
+                    <i class="iconfont i-wechat"></i>
+                </a>
+                <a href="https://www.zhihu.com/people/joname-liangtan" target="_blank">
+                    <i class="iconfont i-zhihu"></i>
+                </a>
+                <a href="javascript:alert('对方不想跟你讲话, 并向你扔来一段乱码 atob(“am9uYW1lLmxpYW5ndGFuQGdtYWlsLmNvbQ”)')" target="_blank">
+                    <i class="iconfont i-email"></i>
+                </a>
+            </section>
+
+            <div class="reward">
+                <div class="reward-button">赏
+                    <span class="reward-code">
+                        <span class="alipay-code">
+                            <img class="alipay-img wdp-appear" src="https://inews.gtimg.com/newsapp_ls/0/12470324395/0"><b>支付宝扫码</b>
+                        </span>
+                    <span class="wechat-code">
+                            <img class="wechat-img wdp-appear" src="https://inews.gtimg.com/newsapp_ls/0/12470322844/0"><b>微信扫码</b>
+                        </span>
+                    </span>
+                </div>
+                
+                <p class="reward-notice">如果文章对你有帮助, 扫上方二维码请我喝杯奶茶吧 :p</p>
+            </div>
+
+            <div id="comment"></div>
+            
+        </article>
+    </article>
+    <footer class="footer clearfix">
+    <span class="copyright">
+        <script>
+            document.write(new Date().getFullYear());
+        </script> <i class="fa fa-copyright"></i> Made with <i class="fa fa-heart"></i> using &ltjoname /&gt
+        <span id="runtime_span"></span>
+    </span>
+</footer>
+    <script src="/bundle/index.min.js"></script>
+    <script src="https://cdn.staticfile.org/prism/1.16.0/prism.min.js"></script>
+    <script>
+        new Valine({el: '#comment',appId: 'jnCxgrLfxzf5aeWnhldmpset-gzGzoHsz',appKey: 'gEclatgmn0rmGbgoFi1OuA00',placeholder: 'ヾﾉ≧∀≦)o来啊, 快活啊, 反正有大把时光!!',path: window.location.pathname,avatar: 'retro',pageSize: 10,guest_info: ['nick', 'mail'],lang: 'en'});
+    </script>
+</body>
+
+</html>

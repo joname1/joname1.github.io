@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=1, minimum-scale=1, maximum-scale=1">
+<meta name="referrer" content="never">
+<meta name="robots" content="index,follow">
+<link rel="shortcut icon" href="/favicon.png?v=198964">
+<link rel="apple-itouch-icon" href="/favicon.png?v=198964">
+<link href="/bundle/index.min.css" rel="stylesheet">
+<link href="https://fonts.loli.net/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" rel="stylesheet">
+<link href="https://cdn.staticfile.org/prism/1.16.0/themes/prism.min.css" rel="stylesheet">
+<link href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<script>
+    function ensureDate(e){return"object"!=typeof e&&(e=new Date(e)),e}function dateFormat(e,t){void 0===t&&(t=e,e=ensureDate());let n={M:(e=ensureDate(e)).getMonth()+1,d:e.getDate(),h:e.getHours(),m:e.getMinutes(),s:e.getSeconds(),q:Math.floor((e.getMonth()+3)/3),S:e.getMilliseconds()},r=new RegExp("([yMdhmsqS])+","g");return t=t.replace(r,function(t,r){let u=n[r];if(void 0!==u)return t.length>1&&(u=(u="0"+u).substring(u.length-2)),u;if("y"===r){return(e.getFullYear()+"").substring(4-t.length)}return t})}
+</script>
+    <meta name="keywords" content="Vue.js最佳五招实践,Vue,">
+    <meta name="description" content="Vue.js最佳五招实践,Vue,">
+    <meta name="author" content="江矿先森.">
+    <title>Vue.js最佳五招实践</title>
+    <link href="/bundle/iconfont.css" rel="stylesheet">
+    <link href="/bundle/reward.css" rel="stylesheet">
+    <script src='/bundle/av.min.js'></script>
+    <script src='/bundle/valine.min.js'></script>
+</head>
+
+<body>
+    <article class="container">
+        <header class="header-wrap asset">
+    <nav class="main-nav">
+        <ul class="menu vertical naive">
+            <li class="menu-item"><a href="/">Home</a></li>
+            <li class="menu-item"><a href="/archive.html">Archive</a></li>
+            <li class="menu-item"><a href="/tag.html">Tag</a></li>
+            
+            <li class="menu-item"><a href="/atom.xml">RSS</a></li>
+        </ul>
+    </nav>
+    <div class="bgs" style="background-image: url(https://inews.gtimg.com/newsapp_ls/0/12470316442/0);"></div>
+    <div class="vertical">
+        <div class="header-wrap-content inner">
+            <h3 class="title">Stay before every beautiful thoughts.</h3>
+            <h3 class="subtitle">Just be nice, always think twice!</h3>
+        </div>
+    </div>
+</header>
+        <article class="main article">
+            <h1 class="title">Vue.js最佳五招实践</h1>
+            <section class="info">
+                <span class="avatar" style="background-image: url(https://inews.gtimg.com/newsapp_ls/0/12470321024/0);"></span> <a class="name" href="javascript:;">江矿先森.</a> 
+                <span class="date"><script>document.write(dateFormat( 1513135434 *1000, 'yyyy-MM-dd'))</script></span> 
+                <span class="tags"><a class="tages" href="/tag/Vue/index.html">Vue</a></span>
+            </section>
+            <article class="content"><h2>1. 化繁为简的Watch</h2>
+
+<pre><code class="language-js">created(){
+    this.fetchPostList()
+},
+watch: {
+    searchInputValue(){
+        this.fetchPostList()
+    }
+}
+</code></pre>
+
+<p>组件创建的时候我们获取一次列表，同时监听input框，每当发生变化的时候重新获取一次筛选后的列表这个场景很常见，有没有办法优化一下呢?</p>
+
+<p>招式：
+首先，在watch中，可以直接使用函数的字面量名称；其次，声明 <strong>immediate:true</strong> 表示创建组件时立马执行一次。</p>
+
+<pre><code class="language-js">watch: {
+    searchInputValue:{
+        handler: 'fetchPostList',
+        immediate: true
+    }
+</code></pre>
+
+<h2>2. 一劳永逸的组件注册</h2>
+
+<pre><code class="language-js">import BaseButton from './baseButton'
+import BaseIcon from './baseIcon'
+import BaseInput from './baseInput'
+
+export default {
+  components: {
+    BaseButton,
+    BaseIcon,
+    BaseInput
+  }
+}
+</code></pre>
+
+<pre><code class="language-html">&lt;BaseInput
+  v-model=&quot;searchText&quot;
+  @keydown.enter=&quot;search&quot;
+/&gt;
+&lt;BaseButton @click=&quot;search&quot;&gt;
+  &lt;BaseIcon name=&quot;search&quot;/&gt;
+&lt;/BaseButton&gt;
+</code></pre>
+
+<p>我们写了一堆基础UI组件，然后每次我们需要使用这些组件的时候，都得先import，然后声明components，很繁琐！秉持能偷懒就偷懒的原则，我们要想办法优化！</p>
+
+<p>招式：
+我们需要借助一下神器webpack，使用 require.context() 方法来创建自己的（模块）上下文，从而实现自动动态require组件。这个方法需要3个参数：要搜索的文件夹目录，是否还应该搜索它的子目录，以及一个匹配文件的正则表达式。</p>
+
+<p>我们在components文件夹添加一个叫global.js的文件，在这个文件里借助webpack动态将需要的基础组件统统打包进来。</p>
+
+<pre><code class="language-js">import Vue from 'vue'
+
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1)
+}
+
+const requireComponent = require.context(
+  '.', false, /\.vue$/
+)
+
+requireComponent.keys().forEach(fileName =&gt; {
+  const componentConfig = requireComponent(fileName)
+
+  const componentName = capitalizeFirstLetter(
+    fileName.replace(/^\.\//, '').replace(/\.\w+$/, '')
+  )
+
+  Vue.component(componentName, componentConfig.default || componentConfig)
+})
+</code></pre>
+
+<p>最后我们在main.js中import &lsquo;components/global.js&rsquo;，然后我们就可以随时随地使用这些基础组件，无需手动引入了。</p>
+
+<h2>3. 釜底抽薪的router key</h2>
+
+<p>下面这个场景真的是伤透了很多程序员的心…先默认大家用的是Vue-router来实现路由的控制。
+假设我们在写一个博客网站，需求是从/post-page/a，跳转到/post-page/b。然后我们惊人的发现，页面跳转后数据竟然没更新？！原因是vue-router”智能地”发现这是同一个组件，然后它就决定要复用这个组件，所以你在created函数里写的方法压根就没执行。通常的解决方案是监听$route的变化来初始化数据，如下：</p>
+
+<pre><code class="language-js">data() {
+  return {
+    loading: false,
+    error: null,
+    post: null
+  }
+},
+watch: {
+  '$route': {
+    handler: 'resetData',
+    immediate: true
+  }
+},
+methods: {
+  resetData() {
+    this.loading = false
+    this.error = null
+    this.post = null
+    this.getPost(this.$route.params.id)
+  },
+  getPost(id){
+    ......
+  }
+}
+</code></pre>
+
+<p>bug是解决了，可每次这么写也太不优雅了吧？秉持着能偷懒则偷懒的原则，我们希望代码这样写：</p>
+
+<pre><code class="language-js">data() {
+  return {
+    loading: false,
+    error: null,
+    post: null
+  }
+},
+created () {
+  this.getPost(this.$route.params.id)
+},
+methods () {
+  getPost(postId) {
+    ......
+  }
+}
+</code></pre>
+
+<p>招式：
+那要怎么样才能实现这样的效果呢，答案是给router-view添加一个unique的key，这样即使是公用组件，只要url变化了，就一定会重新创建这个组件。（虽然损失了一丢丢性能，但避免了无限的bug）。同时，注意我将key直接设置为路由的完整路径，一举两得。</p>
+
+<pre><code class="language-js">&lt;router-view :key=&quot;$route.fullpath&quot;&gt;&lt;/router-view&gt;
+</code></pre>
+
+<h2>第四招: 无所不能的render函数</h2>
+
+<p>vue要求每一个组件都只能有一个根元素，当你有多个根元素时，vue就会给你报错</p>
+
+<pre><code class="language-js">&lt;template&gt;
+  &lt;li
+    v-for=&quot;route in routes&quot;
+    :key=&quot;route.name&quot;
+  &gt;
+    &lt;router-link :to=&quot;route&quot;&gt;
+      {{ route.title }}
+    &lt;/router-link&gt;
+  &lt;/li&gt;
+&lt;/template&gt;
+
+
+ ERROR - Component template should contain exactly one root element.
+    If you are using v-if on multiple elements, use v-else-if
+    to chain them instead.
+</code></pre>
+
+<p>招式：
+那有没有办法化解呢，答案是有的，只不过这时候我们需要使用render()函数来创建HTML，而不是template。其实用js来生成html的好处就是极度的灵活功能强大，而且你不需要去学习使用vue的那些功能有限的指令API，比如v-for, v-if。（reactjs就完全丢弃了template）</p>
+
+<pre><code class="language-js">functional: true,
+render(h, { props }) {
+  return props.routes.map(route =&gt;
+    &lt;li key={route.name}&gt;
+      &lt;router-link to={route}&gt;
+        {route.title}
+      &lt;/router-link&gt;
+    &lt;/li&gt;
+  )
+}
+</code></pre>
+
+<h2>5. 无招胜有招的高阶组件</h2>
+
+<p>当我们写组件的时候，通常我们都需要从父组件传递一系列的props到子组件，同时父组件监听子组件emit过来的一系列事件。举例子：</p>
+
+<pre><code class="language-js">//父组件
+&lt;BaseInput
+    :value=&quot;value&quot;
+    label=&quot;密码&quot;
+    placeholder=&quot;请填写密码&quot;
+    @input=&quot;handleInput&quot;
+    @focus=&quot;handleFocus&quot;
+&lt;/BaseInput&gt;
+
+
+//子组件
+&lt;template&gt;
+  &lt;label&gt;
+    {{ label }}
+    &lt;input
+      :value=&quot;value&quot;
+      :placeholder=&quot;placeholder&quot;
+      @focus=$emit('focus', $event)&quot;
+      @input=&quot;$emit('input', $event.target.value)&quot;&gt;
+  &lt;/label&gt;
+&lt;/template&gt;
+</code></pre>
+
+<p>招数：</p>
+
+<ul>
+<li>1.每一个从父组件传到子组件的props,我们都得在子组件的Props中显式的声明才能使用。这样一来，我们的子组件每次都需要申明一大堆props, 而类似placeholer这种dom原生的property我们其实完全可以直接从父传到子，无需声明。方法如下：</li>
+</ul>
+
+<pre><code class="language-js"> &lt;input
+   :value=&quot;value&quot;
+   v-bind=&quot;$attrs&quot;
+   @input=&quot;$emit('input', $event.target.value)&quot;
+ &gt;
+</code></pre>
+
+<p>$attrs包含了父作用域中不作为 prop 被识别 (且获取) 的特性绑定 (class 和 style 除外)。当一个组件没有声明任何 prop 时，这里会包含所有父作用域的绑定，并且可以通过 v-bind=”$attrs” 传入内部组件——在创建更高层次的组件时非常有用。</p>
+
+<ul>
+<li>2.注意到子组件的@focus=$emit(&lsquo;focus&rsquo;, $event)&ldquo;其实什么都没做，只是把event传回给父组件而已，那其实和上面类似，我完全没必要显式地申明：</li>
+</ul>
+
+<pre><code class="language-js">&lt;input
+    :value=&quot;value&quot;
+    v-bind=&quot;$attrs&quot;
+    v-on=&quot;listeners&quot;
+&gt;
+
+computed: {
+  listeners() {
+    return {
+      ...this.$listeners,
+      input: event =&gt;
+        this.$emit('input', event.target.value)
+    }
+  }
+}
+</code></pre>
+
+<p>$listeners包含了父作用域中的 (不含 .native 修饰器的) v-on 事件监听器。它可以通过 v-on=”$listeners” 传入内部组件——在创建更高层次的组件时非常有用。</p>
+
+<ul>
+<li>3.需要注意的是，由于我们input并不是BaseInput这个组件的根节点，而默认情况下父作用域的不被认作 props 的特性绑定将会“回退”且作为普通的 HTML 特性应用在子组件的根元素上。所以我们需要设置inheritAttrs:false，这些默认行为将会被去掉, 以上两点的优化才能成功。</li>
+</ul>
+</article>
+            <section class="author">
+                
+                <div class="avatar" style="background-image: url(https://inews.gtimg.com/newsapp_ls/0/12470321024/0);"></div>
+                <a class="name" href="javascript:;">江矿先森.</a>
+                <div class="intro">前(台)端(菜), 喜欢瞎折腾新技术、数码产品.</div>
+            </section>
+            <section class="social">
+                <a href="https://github.com/joname1" target="_blank">
+                    <i class="iconfont i-github"></i>
+                </a>
+                <a href="javascript:alert('你电脑中了不知名的病毒, 并抛出了警告 atob(“d3hJZDogam9uYW1lLmxpYW5ndGFu”)')" target="_blank">
+                    <i class="iconfont i-wechat"></i>
+                </a>
+                <a href="https://www.zhihu.com/people/joname-liangtan" target="_blank">
+                    <i class="iconfont i-zhihu"></i>
+                </a>
+                <a href="javascript:alert('对方不想跟你讲话, 并向你扔来一段乱码 atob(“am9uYW1lLmxpYW5ndGFuQGdtYWlsLmNvbQ”)')" target="_blank">
+                    <i class="iconfont i-email"></i>
+                </a>
+            </section>
+
+            <div class="reward">
+                <div class="reward-button">赏
+                    <span class="reward-code">
+                        <span class="alipay-code">
+                            <img class="alipay-img wdp-appear" src="https://inews.gtimg.com/newsapp_ls/0/12470324395/0"><b>支付宝扫码</b>
+                        </span>
+                    <span class="wechat-code">
+                            <img class="wechat-img wdp-appear" src="https://inews.gtimg.com/newsapp_ls/0/12470322844/0"><b>微信扫码</b>
+                        </span>
+                    </span>
+                </div>
+                
+                <p class="reward-notice">如果文章对你有帮助, 扫上方二维码请我喝杯奶茶吧 :p</p>
+            </div>
+
+            <div id="comment"></div>
+            
+        </article>
+    </article>
+    <footer class="footer clearfix">
+    <span class="copyright">
+        <script>
+            document.write(new Date().getFullYear());
+        </script> <i class="fa fa-copyright"></i> Made with <i class="fa fa-heart"></i> using &ltjoname /&gt
+        <span id="runtime_span"></span>
+    </span>
+</footer>
+    <script src="/bundle/index.min.js"></script>
+    <script src="https://cdn.staticfile.org/prism/1.16.0/prism.min.js"></script>
+    <script>
+        new Valine({el: '#comment',appId: 'jnCxgrLfxzf5aeWnhldmpset-gzGzoHsz',appKey: 'gEclatgmn0rmGbgoFi1OuA00',placeholder: 'ヾﾉ≧∀≦)o来啊, 快活啊, 反正有大把时光!!',path: window.location.pathname,avatar: 'retro',pageSize: 10,guest_info: ['nick', 'mail'],lang: 'en'});
+    </script>
+</body>
+
+</html>

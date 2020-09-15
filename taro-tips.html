@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=1, minimum-scale=1, maximum-scale=1">
+<meta name="referrer" content="never">
+<meta name="robots" content="index,follow">
+<link rel="shortcut icon" href="/favicon.png?v=198964">
+<link rel="apple-itouch-icon" href="/favicon.png?v=198964">
+<link href="/bundle/index.min.css" rel="stylesheet">
+<link href="https://fonts.loli.net/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" rel="stylesheet">
+<link href="https://cdn.staticfile.org/prism/1.16.0/themes/prism.min.css" rel="stylesheet">
+<link href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<script>
+    function ensureDate(e){return"object"!=typeof e&&(e=new Date(e)),e}function dateFormat(e,t){void 0===t&&(t=e,e=ensureDate());let n={M:(e=ensureDate(e)).getMonth()+1,d:e.getDate(),h:e.getHours(),m:e.getMinutes(),s:e.getSeconds(),q:Math.floor((e.getMonth()+3)/3),S:e.getMilliseconds()},r=new RegExp("([yMdhmsqS])+","g");return t=t.replace(r,function(t,r){let u=n[r];if(void 0!==u)return t.length>1&&(u=(u="0"+u).substring(u.length-2)),u;if("y"===r){return(e.getFullYear()+"").substring(4-t.length)}return t})}
+</script>
+    <meta name="keywords" content="taro奥特曼变身前指北,taro,React,">
+    <meta name="description" content="taro奥特曼变身前指北,taro,React,">
+    <meta name="author" content="江矿先森.">
+    <title>taro奥特曼变身前指北</title>
+    <link href="/bundle/iconfont.css" rel="stylesheet">
+    <link href="/bundle/reward.css" rel="stylesheet">
+    <script src='/bundle/av.min.js'></script>
+    <script src='/bundle/valine.min.js'></script>
+</head>
+
+<body>
+    <article class="container">
+        <header class="header-wrap asset">
+    <nav class="main-nav">
+        <ul class="menu vertical naive">
+            <li class="menu-item"><a href="/">Home</a></li>
+            <li class="menu-item"><a href="/archive.html">Archive</a></li>
+            <li class="menu-item"><a href="/tag.html">Tag</a></li>
+            
+            <li class="menu-item"><a href="/atom.xml">RSS</a></li>
+        </ul>
+    </nav>
+    <div class="bgs" style="background-image: url(https://inews.gtimg.com/newsapp_ls/0/12470316442/0);"></div>
+    <div class="vertical">
+        <div class="header-wrap-content inner">
+            <h3 class="title">Stay before every beautiful thoughts.</h3>
+            <h3 class="subtitle">Just be nice, always think twice!</h3>
+        </div>
+    </div>
+</header>
+        <article class="main article">
+            <h1 class="title">taro奥特曼变身前指北</h1>
+            <section class="info">
+                <span class="avatar" style="background-image: url(https://inews.gtimg.com/newsapp_ls/0/12470321024/0);"></span> <a class="name" href="javascript:;">江矿先森.</a> 
+                <span class="date"><script>document.write(dateFormat( 1536636234 *1000, 'yyyy-MM-dd'))</script></span> 
+                <span class="tags"><a class="tages" href="/tag/taro/index.html">taro</a><a class="tages" href="/tag/React/index.html">React</a></span>
+            </section>
+            <article class="content"><p>若使用微信开发者工具添加项目进行预览，添加的路径为项目根目录下的 dist 文件夹。由于 Taro 编译后的代码已经经过了转义和压缩，因此还需要在<code>设置-项目设置</code>关闭以下设置。</p>
+
+<ul>
+<li>关闭ES6转ES5功能</li>
+<li>关闭上传代码时样式自动补全</li>
+<li>关闭代码压缩上传</li>
+</ul>
+
+<h3>Taro 与 React 的差异</h3>
+
+<p>由于微信小程序的限制，React 中某些写法和特性在 Taro 中还未能实现，后续将会逐渐完善。</p>
+
+<p><code>暂不支持在 render() 之外的方法定义 JSX</code></p>
+
+<p>由于微信小程序的 template 不能动态传值和传入函数，Taro 暂时也没办法支持在类方法中定义 JSX。</p>
+
+<ul>
+<li>规则详情</li>
+</ul>
+
+<p>以下代码会被 ESLint 提示警告，同时在 Taro（小程序端）也不会有效：</p>
+
+<pre><code class="language-js">class App extends Component {
+  _render() {
+    return &lt;View /&gt;
+  }
+}
+
+class App extends Component {
+  renderHeader(showHeader) {
+    return showHeader &amp;&amp; &lt;Header /&gt;
+  }
+}
+
+class App extends Component {
+  renderHeader = (showHeader) =&gt; {
+    return showHeader&amp; &amp; &lt;Header /&gt;
+  }
+}
+</code></pre>
+
+<ul>
+<li>解决方案</li>
+</ul>
+
+<p>在 render 方法中定义。</p>
+
+<pre><code class="language-js">class App extends Component {
+
+  render () {
+    const { showHeader, showMain } = this.state
+    const header = showHeader &amp;&amp; &lt;Header /&gt;
+    const main = showMain &amp;&amp; &lt;Main /&gt;
+    return (
+      &lt;View&gt;
+        {header}
+        {main}
+      &lt;/View&gt;
+    )
+  }
+}
+</code></pre>
+
+<h3>不能在包含 JSX 元素的 map 循环中使用 if 表达式</h3>
+
+<ul>
+<li>规则详情</li>
+</ul>
+
+<p>以下代码会被 ESLint 提示警告，同时在 Taro（小程序端）也不会有效：</p>
+
+<pre><code class="language-js">products.map((number) =&gt; {
+  let element = null
+  const isOdd = number % 2
+  if (isOdd) {
+    element = &lt;Custom /&gt;
+  }
+  return element
+})
+</code></pre>
+
+<p>以下代码不会被警告，在 Taro 任意端中能够运行：</p>
+
+<pre><code class="language-js">products.map((number) =&gt; {
+  let isOdd = false
+  if (number % 2) {
+    isOdd = true
+  }
+  return isOdd &amp;&amp; &lt;Custom /&gt;
+})
+</code></pre>
+
+<ul>
+<li>解决方案</li>
+</ul>
+
+<p>尽量在 map 循环中使用条件表达式或逻辑表达式。</p>
+
+<pre><code class="language-js">products.map((number) =&gt; {
+  const isOdd = number % 2
+  return isOdd ? &lt;Custom /&gt; : null
+})
+
+products.map((number) =&gt; {
+  const isOdd = number % 2
+  return isOdd &amp;&amp; &lt;Custom /&gt;
+})
+</code></pre>
+
+<h3>不能使用 Array#map 之外的方法操作 JSX 数组</h3>
+
+<p>Taro 在小程序端实际上把 JSX 转换成了字符串模板，而一个原生 JSX 表达式实际上是一个 React/Nerv 元素(react-element)的构造器，因此在原生 JSX 中你可以随意地一组 React 元素进行操作。但在 Taro 中你只能使用 map 方法，Taro 转换成小程序中 wx:for。</p>
+
+<ul>
+<li>规则详情</li>
+</ul>
+
+<p>以下代码会被 ESLint 提示警告，同时在 Taro（小程序端）也不会有效：</p>
+
+<pre><code class="language-js">test.push(&lt;View /&gt;)
+
+numbers.forEach(numbers =&gt; {
+  if (someCase) {
+    a = &lt;View /&gt;
+  }
+})
+
+test.shift(&lt;View /&gt;)
+
+components.find(component =&gt; {
+  return component === &lt;View /&gt;
+})
+
+components.some(component =&gt; component.constructor.__proto__ === &lt;View /&gt;.constructor)
+</code></pre>
+
+<p>以下代码不会被警告，在 Taro 任意端中能够运行：</p>
+
+<pre><code class="language-js">numbers.filter(Boolean).map((number) =&gt; {
+  const element = &lt;View /&gt;
+  return &lt;View /&gt;
+})
+</code></pre>
+
+<ul>
+<li>解决方案</li>
+</ul>
+
+<p>先处理好需要遍历的数组，然后再用处理好的数组调用 map 方法。</p>
+
+<pre><code class="language-js">numbers.filter(isOdd).map((number) =&gt; &lt;View /&gt;)
+
+for (let index = 0; index &lt; array.length; index++) {
+  // blah blah	
+}
+
+const element = array.map(item =&gt; {
+  return &lt;View /&gt;
+})
+</code></pre>
+
+<h3>不能在 JSX 参数中使用匿名函数</h3>
+
+<ul>
+<li>规则详情</li>
+</ul>
+
+<p>以下代码会被 ESLint 提示警告，同时在 Taro（小程序端）也不会有效：</p>
+
+<pre><code class="language-js">&lt;View onClick={() =&gt; this.handleClick()} /&gt;
+&lt;View onClick={(e) =&gt; this.handleClick(e)} /&gt;
+&lt;View onClick={() =&gt; ({})} /&gt;
+&lt;View onClick={function () {}} /&gt;
+&lt;View onClick={function (e) {this.handleClick(e)}} /&gt;
+</code></pre>
+
+<p>以下代码不会被警告，在 Taro 任意端中能够运行：</p>
+
+<pre><code class="language-js">&lt;View onClick={this.hanldeClick} /&gt;
+&lt;View onClick={this.props.hanldeClick} /&gt;
+&lt;View onClick={this.hanldeClick.bind(this)} /&gt;
+&lt;View onClick={this.props.hanldeClick.bind(this)} /&gt;
+</code></pre>
+
+<ul>
+<li>解决方案</li>
+</ul>
+
+<p>使用 bind 或 类参数绑定函数。</p>
+
+<pre><code class="language-js">&lt;View onClick={this.props.hanldeClick.bind(this)} /&gt;
+</code></pre>
+
+<h3>不能在 JSX 参数中使用对象展开符</h3>
+
+<p>微信小程序组件要求每一个传入组件的参数都必须预先设定好，而对象展开符则是动态传入不固定数量的参数。所以 Taro 没有办法支持该功能。</p>
+
+<ul>
+<li>规则详情</li>
+</ul>
+
+<p>以下代码会被 ESLint 提示警告，同时在 Taro（小程序端）也不会有效：</p>
+
+<pre><code class="language-js">&lt;View {...this.props} /&gt;
+&lt;View {...props} /&gt;
+&lt;Custom {...props} /&gt;
+</code></pre>
+
+<p>以下代码不会被警告，在 Taro 任意端中能够运行：</p>
+
+<pre><code class="language-js">const { id, ...rest } = obj
+const [ head, ...tail]  = array
+const obj = { id, ...rest }
+</code></pre>
+
+<ul>
+<li>解决方案</li>
+</ul>
+
+<p>开发者自行赋值</p>
+
+<pre><code class="language-js">render () {
+    const { id, title } = obj
+    return &lt;View id={id} title={title} /&gt;
+}
+</code></pre>
+
+<h3>不允许在 JSX 参数(props)中传入 JSX 元素</h3>
+
+<p>由于微信小程序内置的组件化的系统不能通过属性（props） 传函数，而 props 传递函数可以说 React 体系的根基之一，我们只能自己实现了一套组件化系统。而自制的组件化系统则不能使用内置组件化的 slot 功能。两权相害取其轻，我们暂时只能不支持该功能。</p>
+
+<ul>
+<li>规则详情</li>
+</ul>
+
+<p>以下代码会被 ESLint 提示警告，同时在 Taro（小程序端）也不会有效：</p>
+
+<pre><code class="language-js">&lt;Custom child={&lt;View /&gt;} /&gt;
+&lt;Custom child={() =&gt; &lt;View /&gt;} /&gt;
+&lt;Custom child={function () { &lt;View /&gt; }} /&gt;
+&lt;Custom child={ary.map(a =&gt; &lt;View /&gt;)} /&gt;
+</code></pre>
+
+<ul>
+<li>解决方案</li>
+</ul>
+
+<p>通过 props 传值在 JSX 模板中预先判定显示内容，或通过 props.children 来嵌套子组件</p>
+
+<h3>不支持无状态组件（stateless component)</h3>
+
+<p>由于微信的 template 能力有限，不支持动态传值和函数，Taro 暂时只支持一个文件只定义一个组件。为了避免开发者疑惑，暂时不支持定义 stateless component。</p>
+
+<ul>
+<li>规则详情</li>
+</ul>
+
+<p>以下代码会被 ESLint 提示警告，同时在 Taro（小程序端）也不会有效：</p>
+
+<pre><code class="language-js">function Test () {
+  return &lt;View /&gt;
+}
+
+function Test (ary) {
+  return ary.map(() =&gt; &lt;View /&gt;)
+}
+
+const Test = () =&gt; {
+  return &lt;View /&gt;
+}
+
+const Test = function () {
+  return &lt;View /&gt;
+}
+</code></pre>
+
+<p>以下代码不会被警告，在 Taro 任意端中能够运行：</p>
+
+<pre><code class="language-js">class App extends Component {
+  render () {
+    return (
+      &lt;View /&gt;
+    )
+  }
+}
+</code></pre>
+
+<ul>
+<li>解决方案</li>
+</ul>
+
+<p>使用 class 定义组件。</p>
+</article>
+            <section class="author">
+                
+                <div class="avatar" style="background-image: url(https://inews.gtimg.com/newsapp_ls/0/12470321024/0);"></div>
+                <a class="name" href="javascript:;">江矿先森.</a>
+                <div class="intro">前(台)端(菜), 喜欢瞎折腾新技术、数码产品.</div>
+            </section>
+            <section class="social">
+                <a href="https://github.com/joname1" target="_blank">
+                    <i class="iconfont i-github"></i>
+                </a>
+                <a href="javascript:alert('你电脑中了不知名的病毒, 并抛出了警告 atob(“d3hJZDogam9uYW1lLmxpYW5ndGFu”)')" target="_blank">
+                    <i class="iconfont i-wechat"></i>
+                </a>
+                <a href="https://www.zhihu.com/people/joname-liangtan" target="_blank">
+                    <i class="iconfont i-zhihu"></i>
+                </a>
+                <a href="javascript:alert('对方不想跟你讲话, 并向你扔来一段乱码 atob(“am9uYW1lLmxpYW5ndGFuQGdtYWlsLmNvbQ”)')" target="_blank">
+                    <i class="iconfont i-email"></i>
+                </a>
+            </section>
+
+            <div class="reward">
+                <div class="reward-button">赏
+                    <span class="reward-code">
+                        <span class="alipay-code">
+                            <img class="alipay-img wdp-appear" src="https://inews.gtimg.com/newsapp_ls/0/12470324395/0"><b>支付宝扫码</b>
+                        </span>
+                    <span class="wechat-code">
+                            <img class="wechat-img wdp-appear" src="https://inews.gtimg.com/newsapp_ls/0/12470322844/0"><b>微信扫码</b>
+                        </span>
+                    </span>
+                </div>
+                
+                <p class="reward-notice">如果文章对你有帮助, 扫上方二维码请我喝杯奶茶吧 :p</p>
+            </div>
+
+            <div id="comment"></div>
+            
+        </article>
+    </article>
+    <footer class="footer clearfix">
+    <span class="copyright">
+        <script>
+            document.write(new Date().getFullYear());
+        </script> <i class="fa fa-copyright"></i> Made with <i class="fa fa-heart"></i> using &ltjoname /&gt
+        <span id="runtime_span"></span>
+    </span>
+</footer>
+    <script src="/bundle/index.min.js"></script>
+    <script src="https://cdn.staticfile.org/prism/1.16.0/prism.min.js"></script>
+    <script>
+        new Valine({el: '#comment',appId: 'jnCxgrLfxzf5aeWnhldmpset-gzGzoHsz',appKey: 'gEclatgmn0rmGbgoFi1OuA00',placeholder: 'ヾﾉ≧∀≦)o来啊, 快活啊, 反正有大把时光!!',path: window.location.pathname,avatar: 'retro',pageSize: 10,guest_info: ['nick', 'mail'],lang: 'en'});
+    </script>
+</body>
+
+</html>

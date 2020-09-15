@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=1, minimum-scale=1, maximum-scale=1">
+<meta name="referrer" content="never">
+<meta name="robots" content="index,follow">
+<link rel="shortcut icon" href="/favicon.png?v=198964">
+<link rel="apple-itouch-icon" href="/favicon.png?v=198964">
+<link href="/bundle/index.min.css" rel="stylesheet">
+<link href="https://fonts.loli.net/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" rel="stylesheet">
+<link href="https://cdn.staticfile.org/prism/1.16.0/themes/prism.min.css" rel="stylesheet">
+<link href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<script>
+    function ensureDate(e){return"object"!=typeof e&&(e=new Date(e)),e}function dateFormat(e,t){void 0===t&&(t=e,e=ensureDate());let n={M:(e=ensureDate(e)).getMonth()+1,d:e.getDate(),h:e.getHours(),m:e.getMinutes(),s:e.getSeconds(),q:Math.floor((e.getMonth()+3)/3),S:e.getMilliseconds()},r=new RegExp("([yMdhmsqS])+","g");return t=t.replace(r,function(t,r){let u=n[r];if(void 0!==u)return t.length>1&&(u=(u="0"+u).substring(u.length-2)),u;if("y"===r){return(e.getFullYear()+"").substring(4-t.length)}return t})}
+</script>
+    <meta name="keywords" content="使用gulp&#43;babel实时转es6,Gulp,Babel,ES6,">
+    <meta name="description" content="使用gulp&#43;babel实时转es6,Gulp,Babel,ES6,">
+    <meta name="author" content="江矿先森.">
+    <title>使用gulp&#43;babel实时转es6</title>
+    <link href="/bundle/iconfont.css" rel="stylesheet">
+    <link href="/bundle/reward.css" rel="stylesheet">
+    <script src='/bundle/av.min.js'></script>
+    <script src='/bundle/valine.min.js'></script>
+</head>
+
+<body>
+    <article class="container">
+        <header class="header-wrap asset">
+    <nav class="main-nav">
+        <ul class="menu vertical naive">
+            <li class="menu-item"><a href="/">Home</a></li>
+            <li class="menu-item"><a href="/archive.html">Archive</a></li>
+            <li class="menu-item"><a href="/tag.html">Tag</a></li>
+            
+            <li class="menu-item"><a href="/atom.xml">RSS</a></li>
+        </ul>
+    </nav>
+    <div class="bgs" style="background-image: url(https://inews.gtimg.com/newsapp_ls/0/12470316442/0);"></div>
+    <div class="vertical">
+        <div class="header-wrap-content inner">
+            <h3 class="title">Stay before every beautiful thoughts.</h3>
+            <h3 class="subtitle">Just be nice, always think twice!</h3>
+        </div>
+    </div>
+</header>
+        <article class="main article">
+            <h1 class="title">使用gulp&#43;babel实时转es6</h1>
+            <section class="info">
+                <span class="avatar" style="background-image: url(https://inews.gtimg.com/newsapp_ls/0/12470321024/0);"></span> <a class="name" href="javascript:;">江矿先森.</a> 
+                <span class="date"><script>document.write(dateFormat( 1474255434 *1000, 'yyyy-MM-dd'))</script></span> 
+                <span class="tags"><a class="tages" href="/tag/Gulp/index.html">Gulp</a><a class="tages" href="/tag/Babel/index.html">Babel</a><a class="tages" href="/tag/ES6/index.html">ES6</a></span>
+            </section>
+            <article class="content"><h2>1.安装gulp</h2>
+
+<ul>
+<li>npm install gulp</li>
+</ul>
+
+<h2>2.全局安装Babel。</h2>
+
+<ul>
+<li>npm install -g babel-cli</li>
+</ul>
+
+<h2>3.Babel的配置文件是.babelrc</h2>
+
+<p>windows下新建该文件会提示必须键入文件名，解决办法是文件名如下.babelrc.</p>
+
+<h2>4.ES2015转码规则</h2>
+
+<ul>
+<li>npm install &ndash;save-dev babel-preset-es2015</li>
+</ul>
+
+<h2>5.将规则加入到.babelrc文件中</h2>
+
+<pre><code class="language-json">    {  
+        &quot;presets&quot;: [  
+          &quot;es2015&quot;
+        ],  
+        &quot;plugins&quot;: []  
+      }  
+</code></pre>
+
+<h2>6.配置工具</h2>
+
+<ul>
+<li><p>6.1 安装gulp-babel
+  npm install &ndash;save-dev gulp-babel</p></li>
+
+<li><p>6.2 配置gulpfile.js文件</p></li>
+</ul>
+
+<pre><code class="language-js">var gulp = require(&quot;gulp&quot;);  
+var babel = require(&quot;gulp-babel&quot;);  
+
+gulp.task(&quot;default&quot;, function () {  
+  return gulp.src(&quot;src/a.js&quot;)  
+    .pipe(babel())  
+    .pipe(gulp.dest(&quot;lib&quot;));  
+});
+</code></pre>
+
+<ul>
+<li>6.3实时转码
+ 安装gulp-watch
+
+<ul>
+<li>npm install &ndash;save-dev gulp-watch</li>
+</ul></li>
+</ul>
+
+<h5>配置gulpfile文件</h5>
+
+<pre><code class="language-js"> var gulp = require(&quot;gulp&quot;),  
+      babel = require(&quot;gulp-babel&quot;),
+     watch = require(&quot;gulp-watch&quot;);  
+
+ gulp.task(&quot;babeljs&quot;, function () {  
+   return gulp.src(&quot;www/js/*.js&quot;)  
+     .pipe(babel())  
+     .pipe(gulp.dest(&quot;dist/js&quot;));  
+ });  
+ gulp.task(&quot;watch&quot;,function(){
+    gulp.watch('www/js/*.js',['babeljs']);
+ })
+
+ gulp.task('default',['watch','babeljs']);
+</code></pre>
+</article>
+            <section class="author">
+                
+                <div class="avatar" style="background-image: url(https://inews.gtimg.com/newsapp_ls/0/12470321024/0);"></div>
+                <a class="name" href="javascript:;">江矿先森.</a>
+                <div class="intro">前(台)端(菜), 喜欢瞎折腾新技术、数码产品.</div>
+            </section>
+            <section class="social">
+                <a href="https://github.com/joname1" target="_blank">
+                    <i class="iconfont i-github"></i>
+                </a>
+                <a href="javascript:alert('你电脑中了不知名的病毒, 并抛出了警告 atob(“d3hJZDogam9uYW1lLmxpYW5ndGFu”)')" target="_blank">
+                    <i class="iconfont i-wechat"></i>
+                </a>
+                <a href="https://www.zhihu.com/people/joname-liangtan" target="_blank">
+                    <i class="iconfont i-zhihu"></i>
+                </a>
+                <a href="javascript:alert('对方不想跟你讲话, 并向你扔来一段乱码 atob(“am9uYW1lLmxpYW5ndGFuQGdtYWlsLmNvbQ”)')" target="_blank">
+                    <i class="iconfont i-email"></i>
+                </a>
+            </section>
+
+            <div class="reward">
+                <div class="reward-button">赏
+                    <span class="reward-code">
+                        <span class="alipay-code">
+                            <img class="alipay-img wdp-appear" src="https://inews.gtimg.com/newsapp_ls/0/12470324395/0"><b>支付宝扫码</b>
+                        </span>
+                    <span class="wechat-code">
+                            <img class="wechat-img wdp-appear" src="https://inews.gtimg.com/newsapp_ls/0/12470322844/0"><b>微信扫码</b>
+                        </span>
+                    </span>
+                </div>
+                
+                <p class="reward-notice">如果文章对你有帮助, 扫上方二维码请我喝杯奶茶吧 :p</p>
+            </div>
+
+            <div id="comment"></div>
+            
+        </article>
+    </article>
+    <footer class="footer clearfix">
+    <span class="copyright">
+        <script>
+            document.write(new Date().getFullYear());
+        </script> <i class="fa fa-copyright"></i> Made with <i class="fa fa-heart"></i> using &ltjoname /&gt
+        <span id="runtime_span"></span>
+    </span>
+</footer>
+    <script src="/bundle/index.min.js"></script>
+    <script src="https://cdn.staticfile.org/prism/1.16.0/prism.min.js"></script>
+    <script>
+        new Valine({el: '#comment',appId: 'jnCxgrLfxzf5aeWnhldmpset-gzGzoHsz',appKey: 'gEclatgmn0rmGbgoFi1OuA00',placeholder: 'ヾﾉ≧∀≦)o来啊, 快活啊, 反正有大把时光!!',path: window.location.pathname,avatar: 'retro',pageSize: 10,guest_info: ['nick', 'mail'],lang: 'en'});
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=1, minimum-scale=1, maximum-scale=1">
+<meta name="referrer" content="never">
+<meta name="robots" content="index,follow">
+<link rel="shortcut icon" href="/favicon.png?v=198964">
+<link rel="apple-itouch-icon" href="/favicon.png?v=198964">
+<link href="/bundle/index.min.css" rel="stylesheet">
+<link href="https://fonts.loli.net/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" rel="stylesheet">
+<link href="https://cdn.staticfile.org/prism/1.16.0/themes/prism.min.css" rel="stylesheet">
+<link href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<script>
+    function ensureDate(e){return"object"!=typeof e&&(e=new Date(e)),e}function dateFormat(e,t){void 0===t&&(t=e,e=ensureDate());let n={M:(e=ensureDate(e)).getMonth()+1,d:e.getDate(),h:e.getHours(),m:e.getMinutes(),s:e.getSeconds(),q:Math.floor((e.getMonth()+3)/3),S:e.getMilliseconds()},r=new RegExp("([yMdhmsqS])+","g");return t=t.replace(r,function(t,r){let u=n[r];if(void 0!==u)return t.length>1&&(u=(u="0"+u).substring(u.length-2)),u;if("y"===r){return(e.getFullYear()+"").substring(4-t.length)}return t})}
+</script>
+    <meta name="keywords" content="Gulp入门指南,Gulp,">
+    <meta name="description" content="Gulp入门指南,Gulp,">
+    <meta name="author" content="江矿先森.">
+    <title>Gulp入门指南</title>
+    <link href="/bundle/iconfont.css" rel="stylesheet">
+    <link href="/bundle/reward.css" rel="stylesheet">
+    <script src='/bundle/av.min.js'></script>
+    <script src='/bundle/valine.min.js'></script>
+</head>
+
+<body>
+    <article class="container">
+        <header class="header-wrap asset">
+    <nav class="main-nav">
+        <ul class="menu vertical naive">
+            <li class="menu-item"><a href="/">Home</a></li>
+            <li class="menu-item"><a href="/archive.html">Archive</a></li>
+            <li class="menu-item"><a href="/tag.html">Tag</a></li>
+            
+            <li class="menu-item"><a href="/atom.xml">RSS</a></li>
+        </ul>
+    </nav>
+    <div class="bgs" style="background-image: url(https://inews.gtimg.com/newsapp_ls/0/12470316442/0);"></div>
+    <div class="vertical">
+        <div class="header-wrap-content inner">
+            <h3 class="title">Stay before every beautiful thoughts.</h3>
+            <h3 class="subtitle">Just be nice, always think twice!</h3>
+        </div>
+    </div>
+</header>
+        <article class="main article">
+            <h1 class="title">Gulp入门指南</h1>
+            <section class="info">
+                <span class="avatar" style="background-image: url(https://inews.gtimg.com/newsapp_ls/0/12470321024/0);"></span> <a class="name" href="javascript:;">江矿先森.</a> 
+                <span class="date"><script>document.write(dateFormat( 1468034634 *1000, 'yyyy-MM-dd'))</script></span> 
+                <span class="tags"><a class="tages" href="/tag/Gulp/index.html">Gulp</a></span>
+            </section>
+            <article class="content"><p>是时候抛弃繁重的Grunt了。Gulp是一个直观的、配置的、基于流的任务发布系统，而且它更高效。</p>
+
+<p><img src="data:image/gif;base64,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" data-src="http://p1.bpimg.com/567571/0440708ae3690092.jpg" alt="" /></p>
+
+<p>为什么我会感兴趣呢？好问题。Gulp通过配置写代码不仅使得它编写任务简单，而且更加方便阅读和维护。</p>
+
+<p>Gulp运用node.js的流，这使得它构建任务很快，因为没有磁盘文件的读写操作，如果你想了解更多关于流的知识，你可以看看<a href="https://github.com/substack/stream-handbook">这个</a>。Gulp允许你输入源文件，然后在一系列的管道插件中处理，最后输出，不像Grunt你需要为每个插件配置输入和输出。下面就让我们通过一个sass编译的例子来看看Gulp和Grunt的差异吧。</p>
+
+<p><strong>Grunt:</strong></p>
+
+<pre><code class="language-javascript">sass: {
+  dist: {
+    options: {
+      style: 'expanded'
+    },
+    files: {
+      'dist/assets/css/main.css': 'src/styles/main.scss',
+    }
+  }
+},
+
+autoprefixer: {
+  dist: {
+    options: {
+      browsers: [
+        'last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'
+      ]
+    },
+    src: 'dist/assets/css/main.css',
+    dest: 'dist/assets/css/main.css'
+  }
+},
+
+grunt.registerTask('styles', ['sass', 'autoprefixer']);
+</code></pre>
+
+<p>Grunt要求每个插件配置要相互独立、要分别为每个插件配置输入源和输出路径。如，我们在sass插件里面配置了一个输入文件，然后保存输出。接着我们需要配置Autoprefixer的输入为Sass的输出，然后再输出了一个文件。让我们来看看Gulp是怎么做的：</p>
+
+<p><strong>Gulp:</strong></p>
+
+<pre><code class="language-javascript">gulp.task('sass', function() {
+  return gulp.src('src/styles/main.scss')
+    .pipe(sass({ style: 'compressed' }))
+    .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
+    .pipe(gulp.dest('dist/assets/css'))
+});
+</code></pre>
+
+<p>在Gulp中我们只配置一次输入文件，然后依次通过Sass插件处理，再传给<code>Autoprefixer</code>插件处理，然后我们得到输出文件。整个过程没有读取和写入不必要的文件，效率大大提高。</p>
+
+<p>因此，你感兴趣了么？让我们从安装Gulp，创建基本的任务配置文件<code>gulpfile</code>开始吧。</p>
+
+<p><strong>安装gulp</strong></p>
+
+<p>在我们开始配置任务之前，我们先要安装gulp:</p>
+
+<pre><code class="language-bash">npm install gulp -g
+</code></pre>
+
+<p>这样gulp就以全局的方式安装了，你可以在任何node命令行里面调用<code>gulp CLI</code>。然后我们需要在本地的某个项目里面使用<code>gulp</code>。使用<code>cd</code>命令进入到项目目录，运行下面的命令（先确保项目目录存在<code>package.json</code>文件）：</p>
+
+<pre><code class="language-bash">npm install gulp --save-dev
+</code></pre>
+
+<p>这会把gulp安装到本地项目，并且把依赖的包写入到<code>package.json</code>文件的<code>devDependencies</code>里面</p>
+
+<p><strong>安装gulp插件</strong></p>
+
+<p>我们将会安装下列插件来开始我们的任务：</p>
+
+<ul>
+<li>Sass 编译 (<a href="https://github.com/sindresorhus/gulp-ruby-sass">gulp-ruby-sass</a>)</li>
+<li>添加浏览器前缀Autoprefixer(<a href="https://github.com/Metrime/gulp-autoprefixer">gulp-autoprefixer</a>)</li>
+<li>CSS压缩（<a href="https://github.com/jonathanepollack/gulp-minify-css">gulp-minify-css</a>）</li>
+<li>JS语法检查 (<a href="https://github.com/wearefractal/gulp-jshint">gulp-jshint</a>)</li>
+<li>文件合并 (<a href="https://github.com/wearefractal/gulp-concat">gulp-concat</a>)</li>
+<li>JS压Uglify (<a href="https://github.com/terinjokes/gulp-uglify">gulp-uglify</a>)</li>
+<li>图片压缩(<a href="https://github.com/sindresorhus/gulp-imagemin">gulp-imagemin</a>)</li>
+<li>LiveReload (<a href="https://github.com/vohof/gulp-livereload">gulp-livereload</a>)</li>
+<li>图片缓存，只压缩修改过的图片(<a href="https://github.com/jgable/gulp-cache/">gulp-cache</a>)</li>
+<li>修改提醒(<a href="https://github.com/mikaelbr/gulp-notify">gulp-notify</a>)</li>
+<li>文件清理 (<a href="https://www.npmjs.org/package/del">del</a>)</li>
+</ul>
+
+<p>运行下面的命令安装这些插件：</p>
+
+<pre><code class="language-bash">npm install gulp-ruby-sass gulp-autoprefixer gulp-minify-css gulp-jshint gulp-concat gulp-uglify gulp-imagemin gulp-notify gulp-rename gulp-livereload gulp-cache del --save-dev
+</code></pre>
+
+<p>这将会安装所有的依赖插件，并写入到package.json的devDependencies里面。所有的gulp插件列表可以<a href="http://gratimax.net/search-gulp-plugins/">在这里</a>看到。</p>
+
+<p><strong>加载插件</strong></p>
+
+<p>我们需要创建一个<code>gulpfile.js</code>，然后使用这些插件：</p>
+
+<pre><code class="language-javascript">var gulp = require('gulp'),
+    sass = require('gulp-ruby-sass'),
+    autoprefixer = require('gulp-autoprefixer'),
+    minifycss = require('gulp-minify-css'),
+    jshint = require('gulp-jshint'),
+    uglify = require('gulp-uglify'),
+    imagemin = require('gulp-imagemin'),
+    rename = require('gulp-rename'),
+    concat = require('gulp-concat'),
+    notify = require('gulp-notify'),
+    cache = require('gulp-cache'),
+    livereload = require('gulp-livereload'),
+    del = require('del');
+</code></pre>
+
+<p>我们也可以像grunt那样自动加载插件：<a href="https://github.com/jackfranklin/gulp-load-plugins">auto load</a></p>
+
+<p><strong>创建任务</strong></p>
+
+<p><em>编译sass、加前缀、压缩</em></p>
+
+<pre><code class="language-javascript">gulp.task('styles', function() {
+  return gulp.src('src/styles/main.scss')
+    .pipe(sass({ style: 'expanded' }))
+    .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
+    .pipe(gulp.dest('dist/assets/css'))
+    .pipe(rename({suffix: '.min'}))
+    .pipe(minifycss())
+    .pipe(gulp.dest('dist/assets/css'))
+    .pipe(notify({ message: '样式任务完成' }));
+});
+</code></pre>
+
+<blockquote>
+<p>sass({ style: &lsquo;expanded&rsquo; }：编译后保留原格式</p>
+</blockquote>
+
+<pre><code class="language-javascript">gulp.task('styles', function() { ... )};
+</code></pre>
+
+<p><code>gulp.task</code>API是用来创建任务的。然后通过命令<code>gulp styles</code>运行这个任务。</p>
+
+<pre><code class="language-javascript">return gulp.src('src/styles/main.scss')
+</code></pre>
+
+<p><code>gulp.src</code>API用来配置输入的源文件。也可以用模式匹配，如<code>/**/*.scss</code>匹配所有文件夹下面后缀为<code>.scss</code>的文件作为输入。通过返回流使得它是异步的，确保在提醒任务完成的时候任务是完成了的。</p>
+
+<pre><code class="language-javascript">.pipe(sass({ style: 'expanded' }))
+</code></pre>
+
+<p>通过<code>.pipe()</code>把源文件流入一个插件的管道中。然后我们可以去插件的官网看看这个插件的详细用法。</p>
+
+<pre><code class="language-javascript">.pipe(gulp.dest('dist/assets/css'));
+</code></pre>
+
+<p><code>gulp.dest</code>API是用来告知输出文件的路径的。一个任务可以有多个输出，如一个用来输出原来的版本（即源文件），一个输出处理后的版本（即输出文件）。你可以在上面的<code>styles</code>任务中看到。</p>
+
+<p>建议去看<a href="https://github.com/gulpjs/gulp/blob/master/docs/API.md">gulp api文档</a>，这样会更加清楚。</p>
+
+<p><strong>js语法检查、合并和压缩任务</strong></p>
+
+<pre><code class="language-javascript">gulp.task('scripts', function() {
+  return gulp.src('src/scripts/**/*.js')
+    .pipe(jshint('.jshintrc'))
+    .pipe(jshint.reporter('default'))
+    .pipe(concat('main.js'))
+    .pipe(gulp.dest('dist/assets/js'))
+    .pipe(rename({suffix: '.min'}))
+    .pipe(uglify())
+    .pipe(gulp.dest('dist/assets/js'))
+    .pipe(notify({ message: 'Scripts task complete' }));
+});
+</code></pre>
+
+<p>这里用的<code>JSHin</code>t插件，我们使用了默认的<code>JSHint Reporter</code>，可能适用于大多数人，想了解更多可以去<a href="http://www.jshint.com/docs/reporters/">jshint官网</a>看</p>
+
+<p><strong>图片压缩任务</strong></p>
+
+<pre><code class="language-javascript">gulp.task('images', function() {
+  return gulp.src('src/images/**/*')
+    .pipe(imagemin({ optimizationLevel: 3, progressive: true, interlaced: true }))
+    .pipe(gulp.dest('dist/assets/img'))
+    .pipe(notify({ message: 'Images task complete' }));
+});
+</code></pre>
+
+<p>这里我们只用了<code>imagemin</code>插件，但是可以做的更好，我们可以缓存修改过的图片，或者只对修改过的图片进行再次的压缩操作，因此我们可以使用<a href="https://github.com/jgable/gulp-cache">gulp-cahce</a>插件，因此我们需要将这行代码：</p>
+
+<pre><code class="language-javascript">.pipe(imagemin({ optimizationLevel: 3, progressive: true, interlaced: true }))
+</code></pre>
+
+<p>改成：</p>
+
+<pre><code class="language-javascript">.pipe(cache(imagemin({ optimizationLevel: 5, progressive: true, interlaced: true })))
+</code></pre>
+
+<p>此时，只有新的图片或者改变过的图片才会被压缩。</p>
+
+<p><strong>文件清理</strong></p>
+
+<p>在再次发布之前，我们最好把目标文件的文件先清理掉，然后重新构建：</p>
+
+<pre><code class="language-javascript">gulp.task('clean', function(cb) {
+	    del(['dist/assets/css', 'dist/assets/js', 'dist/assets/img'], cb)
+	});
+</code></pre>
+
+<p><strong>默认任务</strong></p>
+
+<p>我们可以通过<code>$ gulp</code>启动默认任务，然后在默认任务中调用其他任务：</p>
+
+<pre><code class="language-javascript">gulp.task('default', ['clean'], function() {
+	gulp.start('styles', 'scripts', 'images');
+});
+</code></pre>
+
+<p>看到<code>gulp.task</code>里面的数组了吧？这里定义了任务的依赖，也就是说<code>default</code>任务依赖<code>clean</code>任务。在这个例子中，执行<code>gulp.start</code>之前会先运行<code>clean</code>任务。Gulp里面的任务同时进行，没有明确的顺序哪个先完成，所以我们要确保<code>clean</code>任务执行完之后再执行<code>gulp.start</code>里面的任务。</p>
+
+<blockquote>
+<p>虽然不建议在执行依赖任务数组的时候使用<code>gulp.start</code>，但是在这里我们没有办法确保<code>clean</code>任务执行完毕后再执行其它任务，因此这里使用<code>gulp.start</code>貌似是最好的选择。</p>
+</blockquote>
+
+<p><strong>Watch任务</strong></p>
+
+<p>当文件发生变化的时候，我们可能需要重新执行任务，因此我们需要配置一个监听文件变化的任务：</p>
+
+<pre><code class="language-javascript">gulp.task('watch', function() {
+
+  // Watch .scss files
+  gulp.watch('src/styles/**/*.scss', ['styles']);
+
+  // Watch .js files
+  gulp.watch('src/scripts/**/*.js', ['scripts']);
+
+  // Watch image files
+  gulp.watch('src/images/**/*', ['images']);
+
+});
+</code></pre>
+
+<p>我们通过<code>gulp.watch</code>API来监听文件的变化，然后执行相关的依赖任务。现在我们可以执行<code>$ gulp watch</code>命令来执行我们的<code>watch</code>任务，监听<code>.scss</code>、<code>.js</code>或者图片文件的变化执行相应的任务。</p>
+
+<p><strong>LiveReload任务</strong></p>
+
+<p>当我们代码修改的时候，Gulp也可以主动帮我们刷新页面，此时我们需要配置<code>LiveReload</code>服务，并修改我们的<code>watch</code>任务：</p>
+
+<pre><code class="language-javascript">gulp.task('watch', function() {
+
+  // Create LiveReload server
+  livereload.listen();
+
+  // Watch any files in dist/, reload on change
+  gulp.watch(['dist/**']).on('change', livereload.changed);
+
+});
+</code></pre>
+
+<p>要让这个任务生效，我们还需要安装并开启浏览器LiveReload插件，我们也可以<a href="http://feedback.livereload.com/knowledgebase/articles/86180-how-do-i-add-the-script-tag-manually-">手动添加代码片段</a>。</p>
+
+<p><strong>整合这些任务</strong></p>
+
+<p>把上面的这些任务综合起来，就构成了一个完整的<code>gulpfile</code>:</p>
+
+<pre><code class="language-javascript">// gulpfile.js
+// Load plugins
+var gulp = require('gulp'),
+    sass = require('gulp-ruby-sass'),
+    autoprefixer = require('gulp-autoprefixer'),
+    minifycss = require('gulp-minify-css'),
+    jshint = require('gulp-jshint'),
+    uglify = require('gulp-uglify'),
+    imagemin = require('gulp-imagemin'),
+    rename = require('gulp-rename'),
+    concat = require('gulp-concat'),
+    notify = require('gulp-notify'),
+    cache = require('gulp-cache'),
+    livereload = require('gulp-livereload'),
+    del = require('del');
+ 
+// Styles
+gulp.task('styles', function() {
+  return gulp.src('src/styles/main.scss')
+    .pipe(sass({ style: 'expanded', }))
+    .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
+    .pipe(gulp.dest('dist/styles'))
+    .pipe(rename({ suffix: '.min' }))
+    .pipe(minifycss())
+    .pipe(gulp.dest('dist/styles'))
+    .pipe(notify({ message: 'Styles task complete' }));
+});
+ 
+// Scripts
+gulp.task('scripts', function() {
+  return gulp.src('src/scripts/**/*.js')
+    .pipe(jshint('.jshintrc'))
+    .pipe(jshint.reporter('default'))
+    .pipe(concat('main.js'))
+    .pipe(gulp.dest('dist/scripts'))
+    .pipe(rename({ suffix: '.min' }))
+    .pipe(uglify())
+    .pipe(gulp.dest('dist/scripts'))
+    .pipe(notify({ message: 'Scripts task complete' }));
+});
+ 
+// Images
+gulp.task('images', function() {
+  return gulp.src('src/images/**/*')
+    .pipe(cache(imagemin({ optimizationLevel: 3, progressive: true, interlaced: true })))
+    .pipe(gulp.dest('dist/images'))
+    .pipe(notify({ message: 'Images task complete' }));
+});
+ 
+// Clean
+gulp.task('clean', function(cb) {
+    del(['dist/assets/css', 'dist/assets/js', 'dist/assets/img'], cb)
+});
+ 
+// Default task
+gulp.task('default', ['clean'], function() {
+    gulp.start('styles', 'scripts', 'images');
+});
+ 
+// Watch
+gulp.task('watch', function() {
+ 
+  // Watch .scss files
+  gulp.watch('src/styles/**/*.scss', ['styles']);
+ 
+  // Watch .js files
+  gulp.watch('src/scripts/**/*.js', ['scripts']);
+ 
+  // Watch image files
+  gulp.watch('src/images/**/*', ['images']);
+ 
+  // Create LiveReload server
+  livereload.listen();
+ 
+  // Watch any files in dist/, reload on change
+  gulp.watch(['dist/**']).on('change', livereload.changed);
+ 
+});
+</code></pre>
+</article>
+            <section class="author">
+                
+                <div class="avatar" style="background-image: url(https://inews.gtimg.com/newsapp_ls/0/12470321024/0);"></div>
+                <a class="name" href="javascript:;">江矿先森.</a>
+                <div class="intro">前(台)端(菜), 喜欢瞎折腾新技术、数码产品.</div>
+            </section>
+            <section class="social">
+                <a href="https://github.com/joname1" target="_blank">
+                    <i class="iconfont i-github"></i>
+                </a>
+                <a href="javascript:alert('你电脑中了不知名的病毒, 并抛出了警告 atob(“d3hJZDogam9uYW1lLmxpYW5ndGFu”)')" target="_blank">
+                    <i class="iconfont i-wechat"></i>
+                </a>
+                <a href="https://www.zhihu.com/people/joname-liangtan" target="_blank">
+                    <i class="iconfont i-zhihu"></i>
+                </a>
+                <a href="javascript:alert('对方不想跟你讲话, 并向你扔来一段乱码 atob(“am9uYW1lLmxpYW5ndGFuQGdtYWlsLmNvbQ”)')" target="_blank">
+                    <i class="iconfont i-email"></i>
+                </a>
+            </section>
+
+            <div class="reward">
+                <div class="reward-button">赏
+                    <span class="reward-code">
+                        <span class="alipay-code">
+                            <img class="alipay-img wdp-appear" src="https://inews.gtimg.com/newsapp_ls/0/12470324395/0"><b>支付宝扫码</b>
+                        </span>
+                    <span class="wechat-code">
+                            <img class="wechat-img wdp-appear" src="https://inews.gtimg.com/newsapp_ls/0/12470322844/0"><b>微信扫码</b>
+                        </span>
+                    </span>
+                </div>
+                
+                <p class="reward-notice">如果文章对你有帮助, 扫上方二维码请我喝杯奶茶吧 :p</p>
+            </div>
+
+            <div id="comment"></div>
+            
+        </article>
+    </article>
+    <footer class="footer clearfix">
+    <span class="copyright">
+        <script>
+            document.write(new Date().getFullYear());
+        </script> <i class="fa fa-copyright"></i> Made with <i class="fa fa-heart"></i> using &ltjoname /&gt
+        <span id="runtime_span"></span>
+    </span>
+</footer>
+    <script src="/bundle/index.min.js"></script>
+    <script src="https://cdn.staticfile.org/prism/1.16.0/prism.min.js"></script>
+    <script>
+        new Valine({el: '#comment',appId: 'jnCxgrLfxzf5aeWnhldmpset-gzGzoHsz',appKey: 'gEclatgmn0rmGbgoFi1OuA00',placeholder: 'ヾﾉ≧∀≦)o来啊, 快活啊, 反正有大把时光!!',path: window.location.pathname,avatar: 'retro',pageSize: 10,guest_info: ['nick', 'mail'],lang: 'en'});
+    </script>
+</body>
+
+</html>

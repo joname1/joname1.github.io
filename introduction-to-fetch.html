@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=1, minimum-scale=1, maximum-scale=1">
+<meta name="referrer" content="never">
+<meta name="robots" content="index,follow">
+<link rel="shortcut icon" href="/favicon.png?v=198964">
+<link rel="apple-itouch-icon" href="/favicon.png?v=198964">
+<link href="/bundle/index.min.css" rel="stylesheet">
+<link href="https://fonts.loli.net/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" rel="stylesheet">
+<link href="https://cdn.staticfile.org/prism/1.16.0/themes/prism.min.css" rel="stylesheet">
+<link href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<script>
+    function ensureDate(e){return"object"!=typeof e&&(e=new Date(e)),e}function dateFormat(e,t){void 0===t&&(t=e,e=ensureDate());let n={M:(e=ensureDate(e)).getMonth()+1,d:e.getDate(),h:e.getHours(),m:e.getMinutes(),s:e.getSeconds(),q:Math.floor((e.getMonth()+3)/3),S:e.getMilliseconds()},r=new RegExp("([yMdhmsqS])+","g");return t=t.replace(r,function(t,r){let u=n[r];if(void 0!==u)return t.length>1&&(u=(u="0"+u).substring(u.length-2)),u;if("y"===r){return(e.getFullYear()+"").substring(4-t.length)}return t})}
+</script>
+    <meta name="keywords" content="浅谈fetch及跨域,fetch,ES6,">
+    <meta name="description" content="浅谈fetch及跨域,fetch,ES6,">
+    <meta name="author" content="江矿先森.">
+    <title>浅谈fetch及跨域</title>
+    <link href="/bundle/iconfont.css" rel="stylesheet">
+    <link href="/bundle/reward.css" rel="stylesheet">
+    <script src='/bundle/av.min.js'></script>
+    <script src='/bundle/valine.min.js'></script>
+</head>
+
+<body>
+    <article class="container">
+        <header class="header-wrap asset">
+    <nav class="main-nav">
+        <ul class="menu vertical naive">
+            <li class="menu-item"><a href="/">Home</a></li>
+            <li class="menu-item"><a href="/archive.html">Archive</a></li>
+            <li class="menu-item"><a href="/tag.html">Tag</a></li>
+            
+            <li class="menu-item"><a href="/atom.xml">RSS</a></li>
+        </ul>
+    </nav>
+    <div class="bgs" style="background-image: url(https://inews.gtimg.com/newsapp_ls/0/12470316442/0);"></div>
+    <div class="vertical">
+        <div class="header-wrap-content inner">
+            <h3 class="title">Stay before every beautiful thoughts.</h3>
+            <h3 class="subtitle">Just be nice, always think twice!</h3>
+        </div>
+    </div>
+</header>
+        <article class="main article">
+            <h1 class="title">浅谈fetch及跨域</h1>
+            <section class="info">
+                <span class="avatar" style="background-image: url(https://inews.gtimg.com/newsapp_ls/0/12470321024/0);"></span> <a class="name" href="javascript:;">江矿先森.</a> 
+                <span class="date"><script>document.write(dateFormat( 1515378234 *1000, 'yyyy-MM-dd'))</script></span> 
+                <span class="tags"><a class="tages" href="/tag/fetch/index.html">fetch</a><a class="tages" href="/tag/ES6/index.html">ES6</a></span>
+            </section>
+            <article class="content"><p>由于 FetchAPI 是基于 Promise 设计，有必要先学习一下 Promise</p>
+
+<h2>语法说明</h2>
+
+<pre><code class="language-js">fetch(url, options).then((res) =&gt; {
+    // handle HTTP response
+}).catch((err) =&gt; {
+	// handle network error
+})
+</code></pre>
+
+<h2>参数说明</h2>
+
+<h3>url</h3>
+
+<p>定义要获取的资源。这可能是：</p>
+
+<ul>
+<li>一个 USVString 字符串，包含要获取资源的 URL。</li>
+<li>一个 Request 对象。</li>
+</ul>
+
+<h3>options（可选）</h3>
+
+<p>一个配置项对象，包括所有对请求的设置。可选的参数有：</p>
+
+<ul>
+<li>method: 请求使用的方法，如 GET、POST。</li>
+<li>headers: 请求的头信息，形式为 Headers 对象或 ByteString。</li>
+<li>body: 请求的 body 信息：可能是一个 Blob、BufferSource、FormData、URLSearchParams 或者 USVString 对象。注意 GET 或 HEAD 方法的请求不能包含 body 信息。</li>
+<li>mode: 请求的模式，如 cors、 no-cors 或者 same-origin。</li>
+<li>credentials: 请求的 credentials，如 omit、same-origin 或者 include。</li>
+<li>cache: 请求的 cache 模式: default, no-store, reload, no-cache, force-cache, 或者 only-if-cached。</li>
+</ul>
+
+<h3>response</h3>
+
+<p>一个 Promise，resolve 时回传 Response 对象：</p>
+
+<ul>
+<li>属性：</li>
+</ul>
+
+<ol>
+<li>status (number) - HTTP请求结果参数，在100–599 范围</li>
+<li>statusText (String) - 服务器返回的状态报告</li>
+<li>ok (boolean) - 如果返回200表示请求成功则为true</li>
+<li>headers (Headers) - 返回头部信息，下面详细介绍</li>
+<li>url (String) - 请求的地址</li>
+</ol>
+
+<ul>
+<li>方法：</li>
+</ul>
+
+<ol>
+<li>text() - 以string的形式生成请求text</li>
+<li>json() - 生成JSON.parse(responseText)的结果</li>
+<li>blob() - 生成一个Blob</li>
+<li>arrayBuffer() - 生成一个ArrayBuffer</li>
+<li>formData() - 生成格式化的数据，可用于其他的请求</li>
+</ol>
+
+<ul>
+<li>其他方法：</li>
+</ul>
+
+<ol>
+<li>clone()</li>
+<li>Response.error()</li>
+<li>Response.redirect()</li>
+</ol>
+
+<h3>response.headers</h3>
+
+<ul>
+<li>has(name) (boolean) - 判断是否存在该信息头</li>
+<li>get(name) (String) - 获取信息头的数据</li>
+<li>getAll(name) (Array) - 获取所有头部数据</li>
+<li>set(name, value) - 设置信息头的参数</li>
+<li>append(name, value) - 添加header的内容</li>
+<li>delete(name) - 删除header的信息</li>
+<li>forEach(function(value, name){ &hellip; }, [thisContext]) - 循环读取header的信息</li>
+</ul>
+
+<h2>使用案例</h2>
+
+<ul>
+<li>GET</li>
+</ul>
+
+<pre><code class="language-js">fetch('/user').then((res) =&gt; {
+    return res.text()
+  }).then((res) =&gt; {
+    console.log(res)
+  })
+</code></pre>
+
+<ul>
+<li>POST</li>
+</ul>
+
+<pre><code class="language-js">fetch('/users', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    name: 'robot',
+    code: '198964',
+  })
+}).then((res) =&gt; {
+	console.log(res)
+})
+</code></pre>
+
+<h2>封装fetch</h2>
+
+<pre><code class="language-js">/**
+ * 将对象转成 a=1&amp;b=2的形式
+ * @param obj 对象
+ */
+function obj2String(obj, arr = [], idx = 0) {
+  for (let item in obj) {
+    arr[idx++] = [item, obj[item]]
+  }
+  return new URLSearchParams(arr).toString()
+}
+
+/**
+ * 真正的请求
+ * @param url 请求地址
+ * @param options 请求参数
+ * @param method 请求方式
+ */
+function commonFetcdh(url, options, method = 'GET') {
+  const searchStr = obj2String(options)
+  let initObj = {}
+  if (method === 'GET') { // 如果是GET请求，拼接url
+    url += '?' + searchStr
+    initObj = {
+      method: method,
+      credentials: 'include'
+    }
+  } else {
+    initObj = {
+      method: method,
+      credentials: 'include',
+      headers: new Headers({
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }),
+      body: searchStr
+    }
+  }
+  fetch(url, initObj).then((res) =&gt; {
+    return res.json()
+  }).then((res) =&gt; {
+    return res
+  })
+}
+
+/**
+ * GET请求
+ * @param url 请求地址
+ * @param options 请求参数
+ */
+function GET(url, options) {
+  return commonFetcdh(url, options, 'GET')
+}
+
+/**
+ * POST请求
+ * @param url 请求地址
+ * @param options 请求参数
+ */
+function POST(url, options) {
+  return commonFetcdh(url, options, 'POST')
+}
+</code></pre>
+
+<pre><code class="language-http">GET('https://www.xxxxxx.com/search/error.html', {a:1,b:2})
+POST('https://www.xxxxxx.com/search/error.html', {a:1,b:2})
+</code></pre>
+
+<h2>CORS跨域</h2>
+
+<p>如果服务器支持 CORS, 则在客户端设置相应的  <code>Access-Control-Allow-Origin</code>  即可得到数据。</p>
+
+<pre><code class="language-js">let myHeaders = new Headers({
+    'Access-Control-Allow-Origin': '*',
+    'Content-Type': 'text/plain'
+});
+fetch(url, {
+    method: 'GET',
+    headers: myHeaders,
+    mode: 'cors'
+}).then((res) =&gt; {
+    // TODO 
+})
+</code></pre>
+</article>
+            <section class="author">
+                
+                <div class="avatar" style="background-image: url(https://inews.gtimg.com/newsapp_ls/0/12470321024/0);"></div>
+                <a class="name" href="javascript:;">江矿先森.</a>
+                <div class="intro">前(台)端(菜), 喜欢瞎折腾新技术、数码产品.</div>
+            </section>
+            <section class="social">
+                <a href="https://github.com/joname1" target="_blank">
+                    <i class="iconfont i-github"></i>
+                </a>
+                <a href="javascript:alert('你电脑中了不知名的病毒, 并抛出了警告 atob(“d3hJZDogam9uYW1lLmxpYW5ndGFu”)')" target="_blank">
+                    <i class="iconfont i-wechat"></i>
+                </a>
+                <a href="https://www.zhihu.com/people/joname-liangtan" target="_blank">
+                    <i class="iconfont i-zhihu"></i>
+                </a>
+                <a href="javascript:alert('对方不想跟你讲话, 并向你扔来一段乱码 atob(“am9uYW1lLmxpYW5ndGFuQGdtYWlsLmNvbQ”)')" target="_blank">
+                    <i class="iconfont i-email"></i>
+                </a>
+            </section>
+
+            <div class="reward">
+                <div class="reward-button">赏
+                    <span class="reward-code">
+                        <span class="alipay-code">
+                            <img class="alipay-img wdp-appear" src="https://inews.gtimg.com/newsapp_ls/0/12470324395/0"><b>支付宝扫码</b>
+                        </span>
+                    <span class="wechat-code">
+                            <img class="wechat-img wdp-appear" src="https://inews.gtimg.com/newsapp_ls/0/12470322844/0"><b>微信扫码</b>
+                        </span>
+                    </span>
+                </div>
+                
+                <p class="reward-notice">如果文章对你有帮助, 扫上方二维码请我喝杯奶茶吧 :p</p>
+            </div>
+
+            <div id="comment"></div>
+            
+        </article>
+    </article>
+    <footer class="footer clearfix">
+    <span class="copyright">
+        <script>
+            document.write(new Date().getFullYear());
+        </script> <i class="fa fa-copyright"></i> Made with <i class="fa fa-heart"></i> using &ltjoname /&gt
+        <span id="runtime_span"></span>
+    </span>
+</footer>
+    <script src="/bundle/index.min.js"></script>
+    <script src="https://cdn.staticfile.org/prism/1.16.0/prism.min.js"></script>
+    <script>
+        new Valine({el: '#comment',appId: 'jnCxgrLfxzf5aeWnhldmpset-gzGzoHsz',appKey: 'gEclatgmn0rmGbgoFi1OuA00',placeholder: 'ヾﾉ≧∀≦)o来啊, 快活啊, 反正有大把时光!!',path: window.location.pathname,avatar: 'retro',pageSize: 10,guest_info: ['nick', 'mail'],lang: 'en'});
+    </script>
+</body>
+
+</html>
