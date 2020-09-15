@@ -8,20 +8,20 @@ copy:
 # I18n Support
 lang:
     bg1:
-        en: "https://bigshowcdn.cmcm.com/upload/image/20200306/oTZH1GUi464842.jpeg"
-        zh: "https://bigshowcdn.cmcm.com/upload/image/20200306/oTZH1GUi464842.jpeg"
-        ru: "https://bigshowcdn.cmcm.com/upload/image/20200306/oTZH1GUi464842.jpeg"
-        ja: "https://bigshowcdn.cmcm.com/upload/image/20200306/oTZH1GUi464842.jpeg"
+        en: "https://inews.gtimg.com/newsapp_ls/0/12470316442/0"
+        zh: "https://inews.gtimg.com/newsapp_ls/0/12470316442/0"
+        ru: "https://inews.gtimg.com/newsapp_ls/0/12470316442/0"
+        ja: "https://inews.gtimg.com/newsapp_ls/0/12470316442/0"
     bg2:
-        en: "https://bigshowcdn.cmcm.com/upload/image/20200306/q70NH87V464864.jpeg"
-        zh: "https://bigshowcdn.cmcm.com/upload/image/20200306/q70NH87V464864.jpeg"
-        ru: "https://bigshowcdn.cmcm.com/upload/image/20200306/q70NH87V464864.jpeg"
-        ja: "https://bigshowcdn.cmcm.com/upload/image/20200306/q70NH87V464864.jpeg"
+        en: "https://inews.gtimg.com/newsapp_ls/0/12470373728/0"
+        zh: "https://inews.gtimg.com/newsapp_ls/0/12470373728/0"
+        ru: "https://inews.gtimg.com/newsapp_ls/0/12470373728/0"
+        ja: "https://inews.gtimg.com/newsapp_ls/0/12470373728/0"
     bg3:
-        en: "https://bigshowcdn.cmcm.com/upload/image/20200306/xmvAeVxu464864.jpeg"
-        zh: "https://bigshowcdn.cmcm.com/upload/image/20200306/xmvAeVxu464864.jpeg"
-        ru: "https://bigshowcdn.cmcm.com/upload/image/20200306/xmvAeVxu464864.jpeg"
-        ja: "https://bigshowcdn.cmcm.com/upload/image/20200306/xmvAeVxu464864.jpeg"
+        en: "https://inews.gtimg.com/newsapp_ls/0/12470381246/0"
+        zh: "https://inews.gtimg.com/newsapp_ls/0/12470381246/0"
+        ru: "https://inews.gtimg.com/newsapp_ls/0/12470381246/0"
+        ja: "https://inews.gtimg.com/newsapp_ls/0/12470381246/0"
     
     archive:
         en: Archive
