@@ -13,8 +13,8 @@ site:
 authors:
     me:
         name: "江矿先森."
-        intro: "前(台)端(菜), 喜欢瞎折腾新技术、数码产品."
-        avatar: "https://inews.gtimg.com/newsapp_ls/0/12470321024/0"
+        intro: "前(台)端(菜), 喜欢瞎折腾新技术. 乜野都识少少, 先可以扮代表."
+        avatar: "https://pic1.58cdn.com.cn/nowater/webim/big/n_v2a9773b605e754c8493cf53ca8f5c0d7e.jpg"
 
 build:
     output: "docs"
