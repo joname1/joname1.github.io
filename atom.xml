@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><feed xmlns="http://www.w3.org/2005/Atom">
   <title>江矿先森的博客.</title>
   <id>https://jk.js.org</id>
-  <updated>2020-09-15T07:46:50Z</updated>
+  <updated>2022-02-24T20:20:36+08:00</updated>
   <subtitle>Just be nice, always think twice!</subtitle>
   <link href="https://jk.js.org"></link>
   <author>
@@ -11,8 +11,8 @@
     <title>React setState 数组、对象多种方式</title>
     <updated>2020-01-25T19:00:00+08:00</updated>
     <id>tag:jk.js.org,2020-01-25:/react-setstate.html</id>
-    <link href="https://jk.js.org/react-setstate.html" rel="alternate"></link>
-    <summary type="html">&lt;p&gt;State用来设置会变换的数据。State相当重要，所有的UI界面变化都离不开State。&lt;/p&gt;&#xA;</summary>
+    <content type="html">&lt;p&gt;State用来设置会变换的数据。State相当重要，所有的UI界面变化都离不开State。&lt;/p&gt;&#xA;</content>
+    <link href="https://jk.js.org/react-setstate.html"></link>
     <author>
       <name>江矿先森.</name>
     </author>
@@ -21,8 +21,8 @@
     <title>taro奥特曼变身前指北</title>
     <updated>2018-09-11T14:00:00+08:00</updated>
     <id>tag:jk.js.org,2018-09-11:/taro-tips.html</id>
-    <link href="https://jk.js.org/taro-tips.html" rel="alternate"></link>
-    <summary type="html">&lt;p&gt;成功安装 Taro 后，进行开发前，我们有必要了解一下 Taro 的一些注意事项避免踩坑。&lt;/p&gt;&#xA;</summary>
+    <content type="html">&lt;p&gt;成功安装 Taro 后，进行开发前，我们有必要了解一下 Taro 的一些注意事项避免踩坑。&lt;/p&gt;&#xA;</content>
+    <link href="https://jk.js.org/taro-tips.html"></link>
     <author>
       <name>江矿先森.</name>
     </author>
@@ -31,8 +31,8 @@
     <title>微信小程序商品详情页的底部弹出框</title>
     <updated>2018-06-21T14:00:00+08:00</updated>
     <id>tag:jk.js.org,2018-06-21:/weapp-modal.html</id>
-    <link href="https://jk.js.org/weapp-modal.html" rel="alternate"></link>
-    <summary type="html">&lt;p&gt;电商项目中商品详情页，加入购物车或者下单时可以选择商品属性的弹出框，通过设置view的平移动画，达到从底部弹出的样式。&lt;/p&gt;&#xA;</summary>
+    <content type="html">&lt;p&gt;电商项目中商品详情页，加入购物车或者下单时可以选择商品属性的弹出框，通过设置view的平移动画，达到从底部弹出的样式。&lt;/p&gt;&#xA;</content>
+    <link href="https://jk.js.org/weapp-modal.html"></link>
     <author>
       <name>江矿先森.</name>
     </author>
@@ -41,8 +41,8 @@
     <title>axios token验证拦截器</title>
     <updated>2018-05-20T14:00:00+08:00</updated>
     <id>tag:jk.js.org,2018-05-20:/axios-intercterps.html</id>
-    <link href="https://jk.js.org/axios-intercterps.html" rel="alternate"></link>
-    <summary type="html">&lt;p&gt;因项目每次都要带token进行操作, 这时候可以用axios的http拦截, 每次路由跳转, 都先让后台验证一下token是否有效, 在http头添加token,&lt;/p&gt;&#xA;</summary>
+    <content type="html">&lt;p&gt;因项目每次都要带token进行操作, 这时候可以用axios的http拦截, 每次路由跳转, 都先让后台验证一下token是否有效, 在http头添加token,&lt;/p&gt;&#xA;</content>
+    <link href="https://jk.js.org/axios-intercterps.html"></link>
     <author>
       <name>江矿先森.</name>
     </author>
@@ -51,8 +51,8 @@
     <title>node+koa获取微信授权拿到openid</title>
     <updated>2018-05-10T19:00:00+08:00</updated>
     <id>tag:jk.js.org,2018-05-10:/node-koa-openid.html</id>
-    <link href="https://jk.js.org/node-koa-openid.html" rel="alternate"></link>
-    <summary type="html">&lt;p&gt;因项目是node+koa, 然后需要获取openid, 没办法, 只能搞事情了.&lt;/p&gt;&#xA;</summary>
+    <content type="html">&lt;p&gt;因项目是node+koa, 然后需要获取openid, 没办法, 只能搞事情了.&lt;/p&gt;&#xA;</content>
+    <link href="https://jk.js.org/node-koa-openid.html"></link>
     <author>
       <name>江矿先森.</name>
     </author>

@@ -39,7 +39,7 @@
             <li class="menu-item"><a href="/atom.xml">RSS</a></li>
         </ul>
     </nav>
-    <div class="bgs" style="background-image: url(https://inews.gtimg.com/newsapp_ls/0/12470316442/0);"></div>
+    <div class="bgs" style="background-image: url(https://pic6.58cdn.com.cn/nowater/webim/big/n_v212fe49b1d6d5492cb1def84eeff4b142.jpg);"></div>
     <div class="vertical">
         <div class="header-wrap-content inner">
             <h3 class="title">Stay before every beautiful thoughts.</h3>
@@ -50,7 +50,7 @@
         <article class="main article">
             <h1 class="title">webpack&#43;vue项目中常用ES6语法总结</h1>
             <section class="info">
-                <span class="avatar" style="background-image: url(https://inews.gtimg.com/newsapp_ls/0/12470321024/0);"></span> <a class="name" href="javascript:;">江矿先森.</a> 
+                <span class="avatar" style="background-image: url(https://pic1.58cdn.com.cn/nowater/webim/big/n_v2a9773b605e754c8493cf53ca8f5c0d7e.jpg);"></span> <a class="name" href="javascript:;">江矿先森.</a> 
                 <span class="date"><script>document.write(dateFormat( 1496373834 *1000, 'yyyy-MM-dd'))</script></span> 
                 <span class="tags"><a class="tages" href="/tag/Webpack/index.html">Webpack</a><a class="tages" href="/tag/ES6/index.html">ES6</a><a class="tages" href="/tag/Vue/index.html">Vue</a></span>
             </section>
@@ -59,17 +59,17 @@
 <p>ES6标准虽然已经发布了，但是很多浏览器环境都还不支持，webpack是通过Babel这个转码器将ES6代码转为ES5，从而在现有环境执行。babel是在webpack的配置文件webpack.config.js的module参数中的loaders中配置，如下：</p>
 
 <pre><code class="language-js">module.exports = {
-	...
-	module: {
-		loaders: [
-		{
-			test: /\.js$/,
-			loader: 'babel',
-			exclude: /node_modules/
-		},
-		...
-		]
-	}
+    ...
+    module: {
+        loaders: [
+        {
+            test: /\.js$/,
+            loader: 'babel',
+            exclude: /node_modules/
+        },
+        ...
+        ]
+    }
 }
 </code></pre>
 
@@ -107,7 +107,7 @@ const作用域和let命令相同，只在声明所在的块级作用域中有效
 <p>在ES6之前不能直接为函数的参数指定默认值，只能采用变通的方法。ES6允许为函数参数设置默认值，直接写在参数定义的后面。</p>
 
 <pre><code class="language-js">function log(x, y='World') {
-	console.log(x, y);
+    console.log(x, y);
 }
 log('Hello')
 </code></pre>
@@ -130,7 +130,7 @@ log('Hello')
 <p>上述函数等同于：</p>
 
 <pre><code class="language-js">var f = function(v) {
-	return v;
+    return v;
 };
 </code></pre>
 
@@ -139,14 +139,14 @@ log('Hello')
 <pre><code class="language-js">var f = () =&gt; 5;
 // 等同于
 var f = function() {
-	return 5;
+    return 5;
 }
 </code></pre>
 
 <pre><code class="language-js">var sum = (num1, num2) =&gt; num1 + num2;
 // 等同于
 var sum = function(num1, num2) {
-	return num1 + num2;
+    return num1 + num2;
 }
 </code></pre>
 
@@ -209,9 +209,9 @@ export {
 </article>
             <section class="author">
                 
-                <div class="avatar" style="background-image: url(https://inews.gtimg.com/newsapp_ls/0/12470321024/0);"></div>
+                <div class="avatar" style="background-image: url(https://pic1.58cdn.com.cn/nowater/webim/big/n_v2a9773b605e754c8493cf53ca8f5c0d7e.jpg);"></div>
                 <a class="name" href="javascript:;">江矿先森.</a>
-                <div class="intro">前(台)端(菜), 喜欢瞎折腾新技术、数码产品.</div>
+                <div class="intro">前(台)端(菜), 喜欢瞎折腾新技术. 乜野都识少少, 先可以扮代表.</div>
             </section>
             <section class="social">
                 <a href="https://github.com/joname1" target="_blank">
@@ -232,10 +232,10 @@ export {
                 <div class="reward-button">赏
                     <span class="reward-code">
                         <span class="alipay-code">
-                            <img class="alipay-img wdp-appear" src="https://inews.gtimg.com/newsapp_ls/0/12470324395/0"><b>支付宝扫码</b>
+                            <img class="alipay-img wdp-appear" src="https://pic1.58cdn.com.cn/nowater/webim/big/n_v24d5eae197a764eb194b61e366ff263ba.jpg"><b>支付宝扫码</b>
                         </span>
                     <span class="wechat-code">
-                            <img class="wechat-img wdp-appear" src="https://inews.gtimg.com/newsapp_ls/0/12470322844/0"><b>微信扫码</b>
+                            <img class="wechat-img wdp-appear" src="https://pic1.58cdn.com.cn/nowater/webim/big/n_v20ec7ae162f6a4219b8d0b429a2dbc9b3.jpg"><b>微信扫码</b>
                         </span>
                     </span>
                 </div>
@@ -258,7 +258,7 @@ export {
     <script src="/bundle/index.min.js"></script>
     <script src="https://cdn.staticfile.org/prism/1.16.0/prism.min.js"></script>
     <script>
-        new Valine({el: '#comment',appId: 'jnCxgrLfxzf5aeWnhldmpset-gzGzoHsz',appKey: 'gEclatgmn0rmGbgoFi1OuA00',placeholder: 'ヾﾉ≧∀≦)o来啊, 快活啊, 反正有大把时光!!',path: window.location.pathname,avatar: 'retro',pageSize: 10,guest_info: ['nick', 'mail'],lang: 'en'});
+        new Valine({el: '#comment',appId: 'PieJ3iHvVTJ9C5yBudK6sxaT-MdYXbMMI',appKey: 'Yt25unM4vc9wzBvC2lL20Frc',placeholder: 'ヾﾉ≧∀≦)o来啊, 快活啊, 反正有大把时光!!',path: window.location.pathname,avatar: 'retro',pageSize: 10,guest_info: ['nick', 'mail'],lang: 'en'});
     </script>
 </body>
 
