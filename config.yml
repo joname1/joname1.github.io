@@ -1,4 +1,4 @@
-site:
+﻿site:
     title: "江矿先森的博客."
     subtitle: "Just be nice, always think twice!"
     limit: 5
@@ -14,7 +14,7 @@ authors:
     me:
         name: "江矿先森."
         intro: "前(台)端(菜), 喜欢瞎折腾新技术. 乜野都识少少, 先可以扮代表:p"
-        avatar: "https://cdn.u1.huluxia.com/g4/M02/93/FA/rBAAdmIXgnWAQHRvAAEAHEzNWVc015.jpg"
+        avatar: "https://s11.ax1x.com/2024/02/04/pFlmVit.jpg"
 
 build:
     output: "docs"

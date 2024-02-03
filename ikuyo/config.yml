@@ -1,4 +1,4 @@
-# Copied files to public folder when build
+﻿# Copied files to public folder when build
 copy:
     - bundle
     - favicon.png
@@ -8,19 +8,19 @@ copy:
 # I18n Support
 lang:
     bg1:
-        en: "https://cdn.u1.huluxia.com/g4/M02/93/FA/rBAAdmIXgnOAXsbkAAJqMNDe9LI879.jpg"
-        zh: "https://pic6.58cdn.com.cn/nowater/webim/big/n_v212fe49b1d6d5492cb1def84eeff4b142.jpg"
+        en: "https://s11.ax1x.com/2024/02/04/pFlmAII.jpg"
+        zh: "https://i0.hdslb.com/bfs/album/6a18c9053f81c4a3316f1ae04452960a19561251.jpg"
         ru: "https://i0.hdslb.com/bfs/album/6a18c9053f81c4a3316f1ae04452960a19561251.jpg"
         ja: "https://i0.hdslb.com/bfs/album/6a18c9053f81c4a3316f1ae04452960a19561251.jpg"
     bg2:
-        en: "https://i0.hdslb.com/bfs/album/1e4ef3774544afc2d9f4f0bbdc34e067bb2e5522.jpg"
-        zh: "https://pic4.58cdn.com.cn/nowater/webim/big/n_v2095677bda82c4d5498520d6d164264eb.jpg"
-        ru: "https://cdn.u1.huluxia.com/g4/M03/93/EE/rBAAdmIXep-AXyl-AAEgEAtPkYI533.jpg"
+        en: "https://s11.ax1x.com/2024/02/04/pFlmkdA.jpg"
+        zh: "https://i0.hdslb.com/bfs/album/1e4ef3774544afc2d9f4f0bbdc34e067bb2e5522.jpg"
+        ru: "https://i0.hdslb.com/bfs/album/1e4ef3774544afc2d9f4f0bbdc34e067bb2e5522.jpg"
         ja: "https://inews.gtimg.com/newsapp_ls/0/12470373728/0"
     bg3:
-        en: "https://i0.hdslb.com/bfs/album/69a3bb1bc45d23f6342ed7b63bc831df0e2fd763.jpg"
-        zh: "https://pic4.58cdn.com.cn/nowater/webim/big/n_v29423ca287595467a9109489f851551e6.jpg"
-        ru: "https://cdn.u1.huluxia.com/g4/M03/93/EE/rBAAdmIXep-AAyWaAAEmufcuuEk301.jpg"
+        en: "https://s11.ax1x.com/2024/02/04/pFlmFZd.jpg"
+        zh: "https://i0.hdslb.com/bfs/album/69a3bb1bc45d23f6342ed7b63bc831df0e2fd763.jpg"
+        ru: "https://i0.hdslb.com/bfs/album/69a3bb1bc45d23f6342ed7b63bc831df0e2fd763.jpg"
         ja: "https://inews.gtimg.com/newsapp_ls/0/12470381246/0"
     
     archive:
